@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.5-master";
-var packageVersion = "0.0.5";
+var buildVersion = "v0.0.6-master";
+var packageVersion = "0.0.6";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -81893,6 +81893,7 @@ var CclTest = class _CclTest {
             name: "gbin_mpage_template:group1",
             run: "pre",
             id: "testScript",
+            reference: true,
             parameters: {}
           }
         ],
