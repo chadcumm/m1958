@@ -1,26 +1,20 @@
-# MPages Index
+# gbin-mpage-template
 
-This directory contains mpage subfolders. Each subfolder in the `mpages` directory represents a different mpage implementation.
+## Current Deployment
 
-## MPages
+**Environment:** M1958
+**Version:** v0.0.7
+**Branch:** master
+**Last Deployed:** 11/03/2025, 14:05:32
 
-*No mpages subfolders currently available.*
+## About
+
+This directory contains the deployed build artifacts for the gbin-mpage-template MPage application.
+
+## Deployment History
+
+- **v0.0.7** | Branch: `master` | Deployed: 11/03/2025, 14:05:32
 
 ---
 
-## Structure
-
-```
-m1958/
-├── README.md (this file)
-├── gbin-mpage-template/
-└── mpages/
-    └── [mpage-subfolder-1]/
-    └── [mpage-subfolder-2]/
-    └── ...
-```
-
-## Adding a New MPage
-
-When adding a new mpage subfolder, update this README to include it in the index above.
-
+*This README is automatically updated by the deployment script.*
