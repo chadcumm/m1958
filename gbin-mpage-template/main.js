@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.4-master";
-var packageVersion = "0.0.4";
+var buildVersion = "v0.0.5-master";
+var packageVersion = "0.0.5";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -81803,6 +81803,174 @@ var AppVersion = class _AppVersion {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppVersion, { className: "AppVersion", filePath: "src/app/app-version/app-version.ts", lineNumber: 15 });
 })();
 
+// src/app/ccl-test/ccl-test.ts
+function CclTest_Conditional_9_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span");
+    \u0275\u0275text(1, "Executing...");
+    \u0275\u0275domElementEnd();
+  }
+}
+function CclTest_Conditional_10_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "span");
+    \u0275\u0275text(1, "Execute CCL Script");
+    \u0275\u0275domElementEnd();
+  }
+}
+function CclTest_Conditional_11_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275domElementStart(0, "button", 8);
+    \u0275\u0275domListener("click", function CclTest_Conditional_11_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.clearResults());
+    });
+    \u0275\u0275text(1, " Clear Results ");
+    \u0275\u0275domElementEnd();
+  }
+}
+function CclTest_Conditional_12_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 5);
+    \u0275\u0275domElement(1, "div", 9);
+    \u0275\u0275domElementStart(2, "span");
+    \u0275\u0275text(3, "Executing CCL script...");
+    \u0275\u0275domElementEnd()();
+  }
+}
+function CclTest_Conditional_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 6)(1, "h3");
+    \u0275\u0275text(2, "Error");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "pre");
+    \u0275\u0275text(4);
+    \u0275\u0275domElementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ctx_r1.error());
+  }
+}
+function CclTest_Conditional_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275domElementStart(0, "div", 7)(1, "h3");
+    \u0275\u0275text(2, "Script Results");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(3, "div", 10)(4, "pre");
+    \u0275\u0275text(5);
+    \u0275\u0275pipe(6, "json");
+    \u0275\u0275domElementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(6, 1, ctx_r1.results()));
+  }
+}
+var CclTest = class _CclTest {
+  customService = inject2(CustomService);
+  // Signal to track loading state
+  loading = signal(false, ...ngDevMode ? [{ debugName: "loading" }] : []);
+  // Signal to hold the CCL script results
+  results = signal(null, ...ngDevMode ? [{ debugName: "results" }] : []);
+  // Signal to track error state
+  error = signal(null, ...ngDevMode ? [{ debugName: "error" }] : []);
+  /**
+   * Execute the CCL script gbin_mpage_template:group1
+   */
+  executeScript() {
+    this.loading.set(true);
+    this.error.set(null);
+    this.results.set(null);
+    this.customService.load({
+      customScript: {
+        script: [
+          {
+            name: "gbin_mpage_template:group1",
+            run: "pre",
+            id: "testScript",
+            parameters: {}
+          }
+        ],
+        clearPatientSource: true
+      }
+    }, [{ personId: 0, encntrId: 0 }], () => {
+      const response = this.customService.get("testScript");
+      if (response) {
+        if (response.error) {
+          this.error.set(response.error);
+        } else {
+          this.results.set(response);
+        }
+      } else {
+        this.error.set("No response from CCL script");
+      }
+      this.loading.set(false);
+    });
+  }
+  /**
+   * Clear the results
+   */
+  clearResults() {
+    this.results.set(null);
+    this.error.set(null);
+  }
+  static \u0275fac = function CclTest_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CclTest)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CclTest, selectors: [["app-ccl-test"]], decls: 15, vars: 6, consts: [[1, "ccl-test-container"], [1, "description"], [1, "button-group"], [1, "btn", "btn-primary", 3, "click", "disabled"], [1, "btn", "btn-secondary"], [1, "status-message", "loading"], [1, "status-message", "error"], [1, "results-container"], [1, "btn", "btn-secondary", 3, "click"], [1, "spinner"], [1, "results-content"]], template: function CclTest_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275domElementStart(0, "div", 0)(1, "h2");
+      \u0275\u0275text(2, "CCL Test Component");
+      \u0275\u0275domElementEnd();
+      \u0275\u0275domElementStart(3, "p", 1);
+      \u0275\u0275text(4, " Test the CustomService by executing ");
+      \u0275\u0275domElementStart(5, "code");
+      \u0275\u0275text(6, "gbin_mpage_template:group1");
+      \u0275\u0275domElementEnd()();
+      \u0275\u0275domElementStart(7, "div", 2)(8, "button", 3);
+      \u0275\u0275domListener("click", function CclTest_Template_button_click_8_listener() {
+        return ctx.executeScript();
+      });
+      \u0275\u0275conditionalCreate(9, CclTest_Conditional_9_Template, 2, 0, "span")(10, CclTest_Conditional_10_Template, 2, 0, "span");
+      \u0275\u0275domElementEnd();
+      \u0275\u0275conditionalCreate(11, CclTest_Conditional_11_Template, 2, 0, "button", 4);
+      \u0275\u0275domElementEnd();
+      \u0275\u0275conditionalCreate(12, CclTest_Conditional_12_Template, 4, 0, "div", 5);
+      \u0275\u0275conditionalCreate(13, CclTest_Conditional_13_Template, 5, 1, "div", 6);
+      \u0275\u0275conditionalCreate(14, CclTest_Conditional_14_Template, 7, 3, "div", 7);
+      \u0275\u0275domElementEnd();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(8);
+      \u0275\u0275domProperty("disabled", ctx.loading());
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.loading() ? 9 : 10);
+      \u0275\u0275advance(2);
+      \u0275\u0275conditional(ctx.results() || ctx.error() ? 11 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.loading() ? 12 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.error() ? 13 : -1);
+      \u0275\u0275advance();
+      \u0275\u0275conditional(ctx.results() ? 14 : -1);
+    }
+  }, dependencies: [JsonPipe], styles: ['\n\n.ccl-test-container[_ngcontent-%COMP%] {\n  padding: 20px;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.ccl-test-container[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  color: #333;\n  margin-bottom: 10px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .description[_ngcontent-%COMP%] {\n  color: #666;\n  margin-bottom: 20px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .description[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n  background-color: #f5f5f5;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family: monospace;\n  color: #d73a49;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .button-group[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 10px;\n  margin-bottom: 20px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%] {\n  padding: 10px 20px;\n  border: none;\n  border-radius: 4px;\n  font-size: 14px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn.btn-primary[_ngcontent-%COMP%] {\n  background-color: #0078d4;\n  color: white;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background-color: #005a9e;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn.btn-secondary[_ngcontent-%COMP%] {\n  background-color: #6c757d;\n  color: white;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .btn.btn-secondary[_ngcontent-%COMP%]:hover {\n  background-color: #5a6268;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message[_ngcontent-%COMP%] {\n  padding: 15px;\n  border-radius: 4px;\n  margin-bottom: 20px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message.loading[_ngcontent-%COMP%] {\n  background-color: #e7f3ff;\n  border: 1px solid #b3d9ff;\n  color: #0056b3;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message.loading[_ngcontent-%COMP%]   .spinner[_ngcontent-%COMP%] {\n  width: 20px;\n  height: 20px;\n  border: 3px solid #b3d9ff;\n  border-top-color: #0056b3;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message.error[_ngcontent-%COMP%] {\n  background-color: #f8d7da;\n  border: 1px solid #f5c6cb;\n  color: #721c24;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message.error[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-top: 0;\n  margin-bottom: 10px;\n  color: #721c24;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .status-message.error[_ngcontent-%COMP%]   pre[_ngcontent-%COMP%] {\n  margin: 0;\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .results-container[_ngcontent-%COMP%] {\n  background-color: #f8f9fa;\n  border: 1px solid #dee2e6;\n  border-radius: 4px;\n  padding: 15px;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .results-container[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin-top: 0;\n  margin-bottom: 15px;\n  color: #333;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .results-container[_ngcontent-%COMP%]   .results-content[_ngcontent-%COMP%] {\n  background-color: white;\n  border: 1px solid #dee2e6;\n  border-radius: 4px;\n  padding: 15px;\n  max-height: 500px;\n  overflow: auto;\n}\n.ccl-test-container[_ngcontent-%COMP%]   .results-container[_ngcontent-%COMP%]   .results-content[_ngcontent-%COMP%]   pre[_ngcontent-%COMP%] {\n  margin: 0;\n  font-family: "Courier New", monospace;\n  font-size: 12px;\n  line-height: 1.5;\n  white-space: pre-wrap;\n  word-wrap: break-word;\n  color: #333;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/*# sourceMappingURL=ccl-test.css.map */'], changeDetection: 0 });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CclTest, [{
+    type: Component,
+    args: [{ selector: "app-ccl-test", imports: [JsonPipe], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="ccl-test-container">\n  <h2>CCL Test Component</h2>\n  <p class="description">\n    Test the CustomService by executing <code>gbin_mpage_template:group1</code>\n  </p>\n\n  <div class="button-group">\n    <button\n      (click)="executeScript()"\n      [disabled]="loading()"\n      class="btn btn-primary">\n      @if (loading()) {\n        <span>Executing...</span>\n      } @else {\n        <span>Execute CCL Script</span>\n      }\n    </button>\n\n    @if (results() || error()) {\n      <button\n        (click)="clearResults()"\n        class="btn btn-secondary">\n        Clear Results\n      </button>\n    }\n  </div>\n\n  @if (loading()) {\n    <div class="status-message loading">\n      <div class="spinner"></div>\n      <span>Executing CCL script...</span>\n    </div>\n  }\n\n  @if (error()) {\n    <div class="status-message error">\n      <h3>Error</h3>\n      <pre>{{ error() }}</pre>\n    </div>\n  }\n\n  @if (results()) {\n    <div class="results-container">\n      <h3>Script Results</h3>\n      <div class="results-content">\n        <pre>{{ results() | json }}</pre>\n      </div>\n    </div>\n  }\n</div>\n', styles: ['/* src/app/ccl-test/ccl-test.scss */\n.ccl-test-container {\n  padding: 20px;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.ccl-test-container h2 {\n  color: #333;\n  margin-bottom: 10px;\n}\n.ccl-test-container .description {\n  color: #666;\n  margin-bottom: 20px;\n}\n.ccl-test-container .description code {\n  background-color: #f5f5f5;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family: monospace;\n  color: #d73a49;\n}\n.ccl-test-container .button-group {\n  display: flex;\n  gap: 10px;\n  margin-bottom: 20px;\n}\n.ccl-test-container .btn {\n  padding: 10px 20px;\n  border: none;\n  border-radius: 4px;\n  font-size: 14px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.ccl-test-container .btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.ccl-test-container .btn.btn-primary {\n  background-color: #0078d4;\n  color: white;\n}\n.ccl-test-container .btn.btn-primary:hover:not(:disabled) {\n  background-color: #005a9e;\n}\n.ccl-test-container .btn.btn-secondary {\n  background-color: #6c757d;\n  color: white;\n}\n.ccl-test-container .btn.btn-secondary:hover {\n  background-color: #5a6268;\n}\n.ccl-test-container .status-message {\n  padding: 15px;\n  border-radius: 4px;\n  margin-bottom: 20px;\n}\n.ccl-test-container .status-message.loading {\n  background-color: #e7f3ff;\n  border: 1px solid #b3d9ff;\n  color: #0056b3;\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.ccl-test-container .status-message.loading .spinner {\n  width: 20px;\n  height: 20px;\n  border: 3px solid #b3d9ff;\n  border-top-color: #0056b3;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n.ccl-test-container .status-message.error {\n  background-color: #f8d7da;\n  border: 1px solid #f5c6cb;\n  color: #721c24;\n}\n.ccl-test-container .status-message.error h3 {\n  margin-top: 0;\n  margin-bottom: 10px;\n  color: #721c24;\n}\n.ccl-test-container .status-message.error pre {\n  margin: 0;\n  white-space: pre-wrap;\n  word-wrap: break-word;\n}\n.ccl-test-container .results-container {\n  background-color: #f8f9fa;\n  border: 1px solid #dee2e6;\n  border-radius: 4px;\n  padding: 15px;\n}\n.ccl-test-container .results-container h3 {\n  margin-top: 0;\n  margin-bottom: 15px;\n  color: #333;\n}\n.ccl-test-container .results-container .results-content {\n  background-color: white;\n  border: 1px solid #dee2e6;\n  border-radius: 4px;\n  padding: 15px;\n  max-height: 500px;\n  overflow: auto;\n}\n.ccl-test-container .results-container .results-content pre {\n  margin: 0;\n  font-family: "Courier New", monospace;\n  font-size: 12px;\n  line-height: 1.5;\n  white-space: pre-wrap;\n  word-wrap: break-word;\n  color: #333;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/*# sourceMappingURL=ccl-test.css.map */\n'] }]
+  }], null, null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CclTest, { className: "CclTest", filePath: "src/app/ccl-test/ccl-test.ts", lineNumber: 16 });
+})();
+
 // src/app/app.ts
 var App = class _App {
   MPage = inject2(MPageService);
@@ -81813,24 +81981,24 @@ var App = class _App {
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 4, vars: 0, consts: [[2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 5, vars: 0, consts: [[2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275text(0, "gbin-mpage-template template ");
-      \u0275\u0275element(1, "mpage-log-component");
-      \u0275\u0275elementStart(2, "footer", 0);
-      \u0275\u0275element(3, "app-app-version");
+      \u0275\u0275element(1, "app-ccl-test")(2, "mpage-log-component");
+      \u0275\u0275elementStart(3, "footer", 0);
+      \u0275\u0275element(4, "app-app-version");
       \u0275\u0275elementEnd();
     }
-  }, dependencies: [MpageLogComponent, AppVersion], encapsulation: 2 });
+  }, dependencies: [MpageLogComponent, AppVersion, CclTest], encapsulation: 2 });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
     type: Component,
-    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion], standalone: true, template: 'gbin-mpage-template template\n\n<mpage-log-component />\n\n<footer style="position: fixed; bottom: 10px; right: 10px;">\n  <app-app-version />\n</footer>\n' }]
+    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, CclTest], standalone: true, template: 'gbin-mpage-template template\n\n<app-ccl-test />\n\n<mpage-log-component />\n\n<footer style="position: fixed; bottom: 10px; right: 10px;">\n  <app-app-version />\n</footer>\n' }]
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 15 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 16 });
 })();
 
 // src/main.ts
