@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.2-master";
-var packageVersion = "0.0.2";
+var buildVersion = "v0.0.3-master";
+var packageVersion = "0.0.3";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
