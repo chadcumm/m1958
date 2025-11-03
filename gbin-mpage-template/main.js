@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.1-master";
-var packageVersion = "0.0.1";
+var buildVersion = "v0.0.2-master";
+var packageVersion = "0.0.2";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -81807,7 +81807,7 @@ var AppVersion = class _AppVersion {
 var App = class _App {
   MPage = inject2(MPageService);
   ngOnInit() {
-    this.MPage.setMaxInstances(2, true, "CHART", false);
+    this.MPage.setMaxInstances(2, true, "ORG", false);
     this.MPage.defaultDateFormats = CUSTOM_DATE_FORMATS;
   }
   static \u0275fac = function App_Factory(__ngFactoryType__) {
