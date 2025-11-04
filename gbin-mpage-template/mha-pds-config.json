@@ -1,0 +1,155 @@
+{
+  "$schema": "./mha-pds-config-schema.json",
+  "version": "1.2",
+  "lastUpdated": "2025-01-11T00:00:00Z",
+  "mirth_connect": {
+    "url": "https://mirth.gbrh.example.com:8443/api",
+    "username": "mha_pds_user",
+    "password": "",
+    "timeout_seconds": 30,
+    "retry_attempts": 3,
+    "enabled": true
+  },
+  "submission": {
+    "batch_size": 100,
+    "schedule_frequency": "DAILY",
+    "max_retries": 3,
+    "retry_delay_minutes": 15,
+    "enable_auto_submission": false
+  },
+  "functional_centre_mappings": {
+    "1.725407845": {
+      "code": "AWS",
+      "description": "Addictions Withdrawal Services",
+      "fund_type": "2",
+      "program_name": "Acute Withdrawal Management Services",
+      "enabled": true
+    },
+    "1.7254077811": {
+      "code": "ATS",
+      "description": "Addictions Treatment Services",
+      "fund_type": "2",
+      "program_name": "Addiction Treatment Services",
+      "enabled": true
+    },
+    "1.725407835": {
+      "code": "STS",
+      "description": "Supportive Treatment Services",
+      "fund_type": "2",
+      "program_name": "Supportive Treatment Services",
+      "enabled": true
+    },
+    "1.7237020": {
+      "code": "OAT",
+      "description": "Opioid Agonist Therapy",
+      "fund_type": "2",
+      "program_name": "Outpatient Addiction Treatment Services",
+      "enabled": true
+    },
+    "1.725107820": {
+      "code": "RAAM",
+      "description": "Rapid Access Addiction Medicine",
+      "fund_type": "2",
+      "program_name": "Rapid Access Addiction Medicine (RAAM)",
+      "enabled": true
+    },
+    "1.7237060": {
+      "code": "ACTT",
+      "description": "Assertive Community Treatment Team",
+      "fund_type": "2",
+      "program_name": "Assertive Community Treatment Team (ACTT)",
+      "enabled": true
+    },
+    "1.7237040": {
+      "code": "CM",
+      "description": "Case Management",
+      "fund_type": "1",
+      "program_name": "Case Management- Owen Sound; Case Management - Hanover and Case Management - Geriatric",
+      "enabled": true
+    },
+    "1.713508001": {
+      "code": "AFTERCARE",
+      "description": "Aftercare Services",
+      "fund_type": "1",
+      "program_name": "Aftercare Program",
+      "enabled": true
+    },
+    "1.713508002": {
+      "code": "CTO",
+      "description": "Community Treatment Order",
+      "fund_type": "1",
+      "program_name": "Community Treatment Order Program",
+      "enabled": true
+    },
+    "1.725407660": {
+      "code": "ECT",
+      "description": "Electroconvulsive Therapy",
+      "fund_type": "1",
+      "program_name": "ECT Services",
+      "enabled": true
+    },
+    "1.7134080": {
+      "code": "BRIEF",
+      "description": "Brief Counselling",
+      "fund_type": "1",
+      "program_name": "Brief Counselling",
+      "enabled": true
+    },
+    "1.7151540": {
+      "code": "BRIEF_NB",
+      "description": "Brief Counselling - North Bruce",
+      "fund_type": "2",
+      "program_name": "North Bruce Team",
+      "enabled": true
+    },
+    "1.713501087": {
+      "code": "SAPACC",
+      "description": "Sexual Assault and Partner Abuse Care Centre",
+      "fund_type": "1",
+      "program_name": "Sexual Assault and Partner Abuse Care Centre (SAPACC)",
+      "enabled": true
+    }
+  },
+  "data_element_defaults": {
+    "DE02_vendor_issuing_id": "BHS-Cerner",
+    "DE04_enable_sdoh_collection": true,
+    "DE01_005_dob_estimated_flag": false,
+    "enable_v2_only_fields": false
+  },
+  "processing": {
+    "enable_dummy_mode": false,
+    "enable_detailed_logging": true,
+    "enable_error_notifications": true,
+    "log_level": "INFO",
+    "enable_performance_tracking": true
+  },
+  "validation": {
+    "require_hcn": false,
+    "require_postal_code": false,
+    "allow_estimated_dob": false,
+    "validate_functional_centres": true
+  },
+  "database": {
+    "table_names": {
+      "episode": "CUST_GBIN_MHA_PDS_EPISODE",
+      "service": "CUST_GBIN_MHA_PDS_SERVICE"
+    },
+    "dm_info": {
+      "domain": "MHA_PDS",
+      "name": "MHA_PDS_CONFIGURATION"
+    }
+  },
+  "scheduling": {
+    "manager_script": {
+      "enabled": true,
+      "frequency": "HOURLY",
+      "last_run": null
+    },
+    "data_transmission_script": {
+      "enabled": true,
+      "frequency": "DAILY",
+      "last_run": null,
+      "run_time": "02:00:00"
+    }
+  }
+}
