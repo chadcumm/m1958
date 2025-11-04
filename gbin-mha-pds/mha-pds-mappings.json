@@ -1,0 +1,236 @@
+{
+  "$schema": "./mha-pds-mappings-schema.json",
+  "version": "1.2",
+  "lastUpdated": "2025-01-11T00:00:00Z",
+  "eoc_status": [
+    {
+      "code": "Planned",
+      "definition": "The episode of care has a 'Referral date' (and possibly 'First contact date' or 'Initial assessment date' if available) but no 'Eligibility decision date.' The client's service is being planned.",
+      "available_for_submission": true,
+      "mapping_notes": "The number of individuals waiting for service from a specific functional centre. These individuals are eligible for service but have not yet had their first service and thus are still waiting for service.",
+      "query_logic": "Query clinical_event WHERE event_cd = 537654177 (MHA Outcome of Referral) AND (result_val IS NULL OR result_val NOT IN ('Accepted*', 'Declined*')). Referral form exists but triage not completed.",
+      "reference_script": "bhs_mh_referrals.prg, bhs_mh_init_asses_wl.prg"
+    },
+    {
+      "code": "Waitlist",
+      "definition": "The episode of care has an 'Eligibility decision date'. The client was deemed eligible for service, but the provider does not currently have capacity to directly enroll the client into service.",
+      "available_for_submission": true,
+      "mapping_notes": "Current reporting=The number of individuals referred to the organization and currently waiting for screening to determine service eligibility.",
+      "query_logic": "Query WHERE event_cd = 537654177 AND result_val = 'Accepted*' AND triage completed AND (NO scheduled appointment OR appointment not attended). Check sch_appt with appt_type_cd IN (539586899, 539586957, 539593715).",
+      "reference_script": "bhs_mh_srv_init_wl.prg"
+    },
+    {
+      "code": "Cancelled",
+      "definition": "The episode of care was cancelled, or withdrawn from service, often selected during the planned stage as the patient may have gone elsewhere.",
+      "available_for_submission": true,
+      "mapping_notes": "Clients that have a referral but documentation would indicate the reason visit would be canceled.",
+      "query_logic": "Query WHERE (event_cd = 537654177 AND result_val = 'Declined*') OR (encounter.disch_dt_tm IS NOT NULL AND NOT EXISTS attended appointment).",
+      "reference_script": "bhs_mh_referrals.prg, bhs_mh_srv_init_wl.prg"
+    },
+    {
+      "code": "Active",
+      "definition": "The client has been removed from the waitlist and is enrolled in the service, or the client has initiated service. The episode of care has either a 'Service enrollment date' or 'Service initiation date.'",
+      "available_for_submission": true,
+      "mapping_notes": "Active encounters associated to an appropriate functional center. CRITICAL: Must have workload entries.",
+      "query_logic": "Query WHERE result_val = 'Accepted*' AND encounter.disch_dt_tm IS NULL AND sch_appt.sch_state_cd = 3580 (Checked-in) AND EXISTS workload entries with wl_code IN ('3267', '3266').",
+      "reference_script": "bhs_mh_first_srv.prg, bhs_mh_srv_provision.prg, gbin_mha_pds_utils.prg"
+    },
+    {
+      "code": "Finished",
+      "definition": "This episode of care is finished and the organization is not expecting to be providing further care to the patient. Can also be known as 'closed', 'completed' or 'discharged.'",
+      "available_for_submission": true,
+      "mapping_notes": "Clients are discharged from a service delivery functional centre when the need for that service has ended or as per discharge criteria.",
+      "query_logic": "Query WHERE encounter.disch_dt_tm IS NOT NULL AND encounter.disch_dt_tm < SYSDATE AND EXISTS discharge event (event_cd = 537631773) AND clinicians_involved = 'No'.",
+      "reference_script": "bhs_mh_service_dsch.prg, gbin_mha_pds_utils.prg"
+    },
+    {
+      "code": "Entered in Error",
+      "definition": "This instance should not have been part of this patient's medical record.",
+      "available_for_submission": false,
+      "mapping_notes": "Canceled encounter or error status. Standard Cerner error handling.",
+      "query_logic": "Query WHERE encounter.active_ind = 0 OR result_status_cd NOT IN AUTH/MODIFIED codes.",
+      "reference_script": "Standard Cerner error handling"
+    }
+  ],
+  "service_modality": [
+    {
+      "pds_code": "7*5 09 76",
+      "service_type": "Community",
+      "description": "Mental health case management",
+      "fund_type": "1",
+      "program_name": "Case Management- Owen Sound; Case Management - Hanover and Case Management - Geriatric",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 09 76",
+      "service_type": "Community",
+      "description": "Mental health case management",
+      "fund_type": "2",
+      "program_name": "Case Management-Concurrent Disorders, Prevention and Early Intervention for Psychosis (PEPP), Injection Clinic, Case Management - Nurse Practitioner",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 10 76 20",
+      "service_type": "Community",
+      "description": "Assertive Community Treatment (ACT) Teams",
+      "fund_type": "2",
+      "program_name": "Assertive Community Treatment Team (ACTT)",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 10 76 12",
+      "service_type": "Community",
+      "description": "Counselling and Treatment",
+      "fund_type": "1",
+      "program_name": "Brief Counselling",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 10 76 12",
+      "service_type": "Community",
+      "description": "Counselling and Treatment",
+      "fund_type": "2",
+      "program_name": "North Bruce Team",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 10 78 20",
+      "service_type": "Community",
+      "description": "Addictions Withdrawal Management",
+      "fund_type": "2",
+      "program_name": "Rapid Access Addiction Medicine (RAAM)",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 40 76 60",
+      "service_type": "Community",
+      "description": "Short Term Crisis Support Beds",
+      "fund_type": "2",
+      "program_name": "Crisis Support Program (CSP)",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 40 78 11",
+      "service_type": "Community",
+      "description": "Treatment Services (substance use)",
+      "fund_type": "2",
+      "program_name": "Addiction Treatment Services",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 40 78 30",
+      "service_type": "Community",
+      "description": "Supportive Treatment (substance use)",
+      "fund_type": "2",
+      "program_name": "Supportive Treatment Services",
+      "mapping_notes": "",
+      "enabled": true
+    },
+    {
+      "pds_code": "7*5 40 78 45",
+      "service_type": "Community",
+      "description": "Withdrawal management centres",
+      "fund_type": "2",
+      "program_name": "Acute Withdrawal Management Services",
+      "mapping_notes": "",
+      "enabled": true
+    }
+  ],
+  "hcn_issuing_authority": [
+    {"code": "ON", "description": "Ontario", "enabled": true},
+    {"code": "AB", "description": "Alberta", "enabled": true},
+    {"code": "BC", "description": "British Columbia", "enabled": true},
+    {"code": "MB", "description": "Manitoba", "enabled": true},
+    {"code": "NB", "description": "New Brunswick", "enabled": true},
+    {"code": "NL", "description": "Newfoundland and Labrador", "enabled": true},
+    {"code": "NT", "description": "Northwest Territories", "enabled": true},
+    {"code": "NS", "description": "Nova Scotia", "enabled": true},
+    {"code": "NU", "description": "Nunavut", "enabled": true},
+    {"code": "PE", "description": "Prince Edward Island", "enabled": true},
+    {"code": "QC", "description": "Quebec", "enabled": true},
+    {"code": "SK", "description": "Saskatchewan", "enabled": true},
+    {"code": "YT", "description": "Yukon", "enabled": true}
+  ],
+  "province": [
+    {"code": "ON", "description": "Ontario", "enabled": true},
+    {"code": "AB", "description": "Alberta", "enabled": true},
+    {"code": "BC", "description": "British Columbia", "enabled": true},
+    {"code": "MB", "description": "Manitoba", "enabled": true},
+    {"code": "NB", "description": "New Brunswick", "enabled": true},
+    {"code": "NL", "description": "Newfoundland and Labrador", "enabled": true},
+    {"code": "NT", "description": "Northwest Territories", "enabled": true},
+    {"code": "NS", "description": "Nova Scotia", "enabled": true},
+    {"code": "NU", "description": "Nunavut", "enabled": true},
+    {"code": "PE", "description": "Prince Edward Island", "enabled": true},
+    {"code": "QC", "description": "Quebec", "enabled": true},
+    {"code": "SK", "description": "Saskatchewan", "enabled": true},
+    {"code": "YT", "description": "Yukon", "enabled": true}
+  ],
+  "referral_source": [
+    {"code": "SELF", "description": "Self-referral", "enabled": true},
+    {"code": "FAMILY", "description": "Family/Friend", "enabled": true},
+    {"code": "GP", "description": "General Practitioner", "enabled": true},
+    {"code": "PSYCHIATRIST", "description": "Psychiatrist", "enabled": true},
+    {"code": "HOSPITAL", "description": "Hospital", "enabled": true},
+    {"code": "COMMUNITY", "description": "Community Agency", "enabled": true},
+    {"code": "LEGAL", "description": "Legal System", "enabled": true},
+    {"code": "OTHER", "description": "Other", "enabled": true}
+  ],
+  "discharge_reason": [
+    {"code": "SERVICE_COMPLETE", "description": "Service Plan Complete", "enabled": true},
+    {"code": "AGE_LIMIT", "description": "Age Limit Reached", "enabled": true},
+    {"code": "DEATH_IN_CARE", "description": "Death (in care)", "enabled": true},
+    {"code": "DEATH_HOSPITAL", "description": "Death (in hospital)", "enabled": true},
+    {"code": "TRANSFER_LTC", "description": "Transfer/LTC Admission", "enabled": true},
+    {"code": "HOSPITALIZED", "description": "Hospitalized >14 days", "enabled": true},
+    {"code": "CLIENT_PREFERENCE", "description": "Client Preferences", "enabled": true},
+    {"code": "COMMUNITY_SERVICE", "description": "Community Service", "enabled": true},
+    {"code": "VACATION", "description": "Vacation >30 days", "enabled": true},
+    {"code": "OTHER", "description": "Other", "enabled": true}
+  ],
+  "service_termination": [
+    {"code": "GOALS_MET", "description": "Treatment goals met", "enabled": true},
+    {"code": "MUTUAL_AGREEMENT", "description": "Mutual agreement to end service", "enabled": true},
+    {"code": "CLIENT_REQUEST", "description": "Client requested discharge", "enabled": true},
+    {"code": "NON_COMPLIANCE", "description": "Non-compliance with treatment", "enabled": true},
+    {"code": "MOVED", "description": "Client moved out of area", "enabled": true},
+    {"code": "TRANSFERRED", "description": "Transferred to another provider", "enabled": true},
+    {"code": "DECEASED", "description": "Client deceased", "enabled": true},
+    {"code": "LOST_CONTACT", "description": "Lost contact with client", "enabled": true},
+    {"code": "OTHER", "description": "Other reason", "enabled": true}
+  ],
+  "sdoh": [
+    {"category": "language_of_comfort", "code": "ENGLISH", "description": "English", "enabled": true},
+    {"category": "language_of_comfort", "code": "FRENCH", "description": "French", "enabled": true},
+    {"category": "language_of_comfort", "code": "OTHER", "description": "Other", "enabled": true},
+    {"category": "official_language", "code": "ENGLISH", "description": "English", "enabled": true},
+    {"category": "official_language", "code": "FRENCH", "description": "French", "enabled": true},
+    {"category": "gender_identity", "code": "MALE", "description": "Male", "enabled": true},
+    {"category": "gender_identity", "code": "FEMALE", "description": "Female", "enabled": true},
+    {"category": "gender_identity", "code": "NON_BINARY", "description": "Non-binary", "enabled": true},
+    {"category": "gender_identity", "code": "TWO_SPIRIT", "description": "Two-Spirit", "enabled": true},
+    {"category": "gender_identity", "code": "OTHER", "description": "Other", "enabled": true},
+    {"category": "sexual_orientation", "code": "HETEROSEXUAL", "description": "Heterosexual", "enabled": true},
+    {"category": "sexual_orientation", "code": "HOMOSEXUAL", "description": "Homosexual", "enabled": true},
+    {"category": "sexual_orientation", "code": "BISEXUAL", "description": "Bisexual", "enabled": true},
+    {"category": "sexual_orientation", "code": "PANSEXUAL", "description": "Pansexual", "enabled": true},
+    {"category": "sexual_orientation", "code": "TWO_SPIRIT", "description": "Two-Spirit", "enabled": true},
+    {"category": "sexual_orientation", "code": "OTHER", "description": "Other", "enabled": true}
+  ],
+  "reschedule_reason": [
+    {"code": "CLIENT_REQUEST", "description": "Client requested reschedule", "enabled": true},
+    {"code": "CLIENT_NO_SHOW", "description": "Client did not attend", "enabled": true},
+    {"code": "PROVIDER_UNAVAILABLE", "description": "Provider unavailable", "enabled": true},
+    {"code": "FACILITY_ISSUE", "description": "Facility issue", "enabled": true},
+    {"code": "WEATHER", "description": "Weather conditions", "enabled": true},
+    {"code": "OTHER", "description": "Other reason", "enabled": true}
+  ]
+}
