@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.14-master";
-var packageVersion = "0.0.14";
+var buildVersion = "v0.0.15-master";
+var packageVersion = "0.0.15";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -82032,7 +82032,7 @@ var CclTest = class _CclTest {
         clearPatientSource: true
       }
     }, [{ personId: 0, encntrId: 0 }], () => {
-      const response = this.customService.get("mhaPdsService");
+      const response = this.customService.get("getMHAPDSConfiguration");
       if (response) {
         if (response.error) {
           this.mhaPdsError.set(response.error);
