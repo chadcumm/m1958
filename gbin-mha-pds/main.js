@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.12-master";
-var packageVersion = "0.0.12";
+var buildVersion = "v0.0.13-master";
+var packageVersion = "0.0.13";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -82014,7 +82014,9 @@ var CclTest = class _CclTest {
             id: "getMHAPDSConfiguration",
             reference: true,
             parameters: {
-              JSON: JSON.stringify(jsonInput)
+              requestType: "getMHAPDSConfiguration",
+              requestId: 0,
+              requestData: ""
             }
           }
         ],
