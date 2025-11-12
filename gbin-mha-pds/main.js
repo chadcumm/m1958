@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.13-master";
-var packageVersion = "0.0.13";
+var buildVersion = "v0.0.14-master";
+var packageVersion = "0.0.14";
 var gitBranch = "master";
 
 // src/app/app-version/app-version.ts
@@ -81802,6 +81802,15 @@ var AppVersion = class _AppVersion {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppVersion, { className: "AppVersion", filePath: "src/app/app-version/app-version.ts", lineNumber: 15 });
 })();
+
+// src/app/models/mha-pds-configuration.model.ts
+function isMhaPdsConfiguration(value) {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  const config2 = value;
+  return typeof config2.UPDT_DT_TM === "string" && typeof config2.MIRTH_CONNECT === "object" && typeof config2.SUBMISSION === "object" && typeof config2.PROCESSING === "object" && typeof config2.MAPPING_CNT === "number" && Array.isArray(config2.MAPPINGS);
+}
 
 // src/app/ccl-test/ccl-test.ts
 function CclTest_Conditional_9_Template(rf, ctx) {
@@ -82028,7 +82037,17 @@ var CclTest = class _CclTest {
         if (response.error) {
           this.mhaPdsError.set(response.error);
         } else {
-          this.mhaPdsResults.set(response);
+          if (isMhaPdsConfiguration(response)) {
+            this.mhaPdsResults.set(response);
+          } else {
+            const config2 = response?.mha_pds_configuration || response;
+            if (isMhaPdsConfiguration(config2)) {
+              this.mhaPdsResults.set(config2);
+            } else {
+              this.mhaPdsError.set("Invalid response format from MHA PDS service");
+              console.error("Invalid response:", response);
+            }
+          }
         }
       } else {
         this.mhaPdsError.set("No response from MHA PDS service");
@@ -82126,7 +82145,7 @@ var CclTest = class _CclTest {
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CclTest, { className: "CclTest", filePath: "src/app/ccl-test/ccl-test.ts", lineNumber: 16 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CclTest, { className: "CclTest", filePath: "src/app/ccl-test/ccl-test.ts", lineNumber: 17 });
 })();
 
 // src/app/app.ts
