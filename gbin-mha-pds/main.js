@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.17-feature/ccl-test-updates";
-var packageVersion = "0.0.17";
+var buildVersion = "v0.0.18-feature/ccl-test-updates";
+var packageVersion = "0.0.18";
 var gitBranch = "feature/ccl-test-updates";
 
 // src/app/services/app-status.service.ts
@@ -81784,7 +81784,7 @@ var AppStatusService = class _AppStatusService {
     console.log(`[AppStatus] setOfflineMode(${offline}) called. Current value: ${previousValue}, Changed: ${changed}`);
     this._offlineMode.set(offline);
     if (changed) {
-      console.log(offline ? "[AppStatus] \u{1F534} MODE CHANGED TO OFFLINE - Using mock data" : "[AppStatus] \u{1F7E2} MODE CHANGED TO ONLINE - Using live CCL services");
+      console.log(offline ? "[AppStatus] MODE CHANGED TO OFFLINE - Using mock data" : "[AppStatus] MODE CHANGED TO ONLINE - Using live CCL services");
     }
   }
   /**
@@ -81819,14 +81819,14 @@ var AppStatusService = class _AppStatusService {
 function AppVersion_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "span", 3);
-    \u0275\u0275text(1, " \u{1F534} Offline ");
+    \u0275\u0275text(1, " [OFFLINE] ");
     \u0275\u0275domElementEnd();
   }
 }
 function AppVersion_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275domElementStart(0, "span", 4);
-    \u0275\u0275text(1, " \u{1F7E2} Online ");
+    \u0275\u0275text(1, " [ONLINE] ");
     \u0275\u0275domElementEnd();
   }
 }
@@ -81871,7 +81871,7 @@ var AppVersion = class _AppVersion {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AppVersion, [{
     type: Component,
-    args: [{ selector: "app-app-version", imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="app-version">\n  <div class="version-info">\n    <span class="version-text">{{ buildVersion }}</span>\n    @if (isOfflineMode()) {\n      <span class="mode-badge offline" title="Application is running in offline mode using mock data">\n        \u{1F534} Offline\n      </span>\n    } @else {\n      <span class="mode-badge online" title="Application is connected to live CCL services">\n        \u{1F7E2} Online\n      </span>\n    }\n  </div>\n</div>\n', styles: ['/* src/app/app-version/app-version.scss */\n.app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version .version-info {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version .version-text {\n  font-weight: 500;\n}\n.app-version .mode-badge {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version .mode-badge.online {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version .mode-badge.offline {\n  background-color: #fff3e0;\n  color: #e65100;\n}\n/*# sourceMappingURL=app-version.css.map */\n'] }]
+    args: [{ selector: "app-app-version", imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="app-version">\n  <div class="version-info">\n    <span class="version-text">{{ buildVersion }}</span>\n    @if (isOfflineMode()) {\n      <span class="mode-badge offline" title="Application is running in offline mode using mock data">\n        [OFFLINE]\n      </span>\n    } @else {\n      <span class="mode-badge online" title="Application is connected to live CCL services">\n        [ONLINE]\n      </span>\n    }\n  </div>\n</div>\n', styles: ['/* src/app/app-version/app-version.scss */\n.app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version .version-info {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version .version-text {\n  font-weight: 500;\n}\n.app-version .mode-badge {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version .mode-badge.online {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version .mode-badge.offline {\n  background-color: #fff3e0;\n  color: #e65100;\n}\n/*# sourceMappingURL=app-version.css.map */\n'] }]
   }], null, null);
 })();
 (() => {
@@ -82362,7 +82362,7 @@ var MockCclService = class _MockCclService {
       const requestId = script.id;
       const requestType = script.parameters?.requestType;
       const scriptName = script.name?.split(":")[0];
-      console.log("\u{1F4E6} Mock CCL Request:", {
+      console.log("[MockCclService] Mock CCL Request:", {
         requestId,
         requestType,
         scriptName,
@@ -82371,9 +82371,9 @@ var MockCclService = class _MockCclService {
       const mockResponse = this.findMockResponse(requestType, scriptName);
       this.mockResponses.set(requestId, mockResponse);
       if (mockResponse.error) {
-        console.warn("\u26A0\uFE0F Mock response:", mockResponse.error);
+        console.warn("[MockCclService] WARNING: Mock response:", mockResponse.error);
       } else {
-        console.log("\u2713 Mock response loaded for:", requestType);
+        console.log("[MockCclService] SUCCESS: Mock response loaded for:", requestType);
       }
       setTimeout(() => {
         callback();
@@ -82415,20 +82415,20 @@ var MockCclService = class _MockCclService {
    */
   findMockResponse(requestType, scriptName) {
     if (requestType && MOCK_REGISTRY[requestType]) {
-      console.log("\u2713 Found mock in registry:", requestType);
+      console.log("[MockCclService] Found mock in registry:", requestType);
       return MOCK_REGISTRY[requestType];
     }
     if (scriptName && requestType) {
       const combinedKey = `${scriptName}-${requestType}`;
       if (MOCK_REGISTRY[combinedKey]) {
-        console.log("\u2713 Found mock in registry:", combinedKey);
+        console.log("[MockCclService] Found mock in registry:", combinedKey);
         return MOCK_REGISTRY[combinedKey];
       }
     }
     const errorMessage = `No mock found for requestType: "${requestType}"${scriptName ? ` (script: ${scriptName})` : ""}`;
-    console.warn("\u26A0\uFE0F " + errorMessage);
-    console.log("Available mocks:", Object.keys(MOCK_REGISTRY));
-    console.log("To add a mock, create a fixture in src/app/mocks/ and register it in src/app/mocks/index.ts");
+    console.warn("[MockCclService] WARNING: " + errorMessage);
+    console.log("[MockCclService] Available mocks:", Object.keys(MOCK_REGISTRY));
+    console.log("[MockCclService] To add a mock, create a fixture in src/app/mocks/ and register it in src/app/mocks/index.ts");
     return {
       error: errorMessage,
       statusData: {
@@ -82480,14 +82480,14 @@ var CclServiceWrapperService = class _CclServiceWrapperService {
   load(config2, patientSource, callback) {
     const isOffline = this.appStatus.isOffline();
     if (isOffline) {
-      console.log("\u{1F534} Routing to mock CCL service (offline mode)");
+      console.log("[CclServiceWrapper] Routing to mock CCL service (offline mode)");
       this.mockService.load(config2, patientSource, callback);
     } else {
-      console.log("\u{1F7E2} Routing to live CCL service (online mode)");
+      console.log("[CclServiceWrapper] Routing to live CCL service (online mode)");
       try {
         this.customService.load(config2, patientSource, callback);
       } catch (error) {
-        console.error("Error in live CCL service, attempting mock fallback:", error);
+        console.error("[CclServiceWrapper] Error in live CCL service, attempting mock fallback:", error);
         this.mockService.load(config2, patientSource, callback);
       }
     }
@@ -82507,7 +82507,7 @@ var CclServiceWrapperService = class _CclServiceWrapperService {
       try {
         return this.customService.get(requestId);
       } catch (error) {
-        console.error("Error getting response from live service:", error);
+        console.error("[CclServiceWrapper] Error getting response from live service:", error);
         return this.mockService.get(requestId);
       }
     }
@@ -82550,14 +82550,14 @@ var _forTrack5 = ($index, $item) => $item.id;
 function CclTest_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 9);
-    \u0275\u0275text(1, "\u{1F534} Offline Mode (Mock Data)");
+    \u0275\u0275text(1, "Offline Mode (Mock Data)");
     \u0275\u0275elementEnd();
   }
 }
 function CclTest_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span", 10);
-    \u0275\u0275text(1, "\u{1F7E2} Online Mode (Live CCL)");
+    \u0275\u0275text(1, "Online Mode (Live CCL)");
     \u0275\u0275elementEnd();
   }
 }
@@ -83592,7 +83592,7 @@ var CclTest = class _CclTest {
     const newValue = !currentValue;
     console.log(`[CclTest] toggleOfflineMode() - Current: ${currentValue}, New: ${newValue}`);
     this.useOfflineMode.set(newValue);
-    console.log(newValue ? "[CclTest] \u{1F534} Manual offline mode enabled - Will use CclServiceWrapperService" : "[CclTest] \u{1F7E2} Manual offline mode disabled - Will use live CustomService");
+    console.log(newValue ? "[CclTest] Manual offline mode enabled - Will use CclServiceWrapperService" : "[CclTest] Manual offline mode disabled - Will use live CustomService");
     console.log(`[CclTest] App-level offline mode status (read-only): ${this.isOfflineMode()}`);
   }
   static \u0275fac = function CclTest_Factory(__ngFactoryType__) {
@@ -83724,9 +83724,9 @@ var CclTest = class _CclTest {
           <span class="toggle-slider"></span>
           <span class="toggle-text">
             @if (useOfflineMode()) {
-              <span class="mode-indicator offline">\u{1F534} Offline Mode (Mock Data)</span>
+              <span class="mode-indicator offline">Offline Mode (Mock Data)</span>
             } @else {
-              <span class="mode-indicator online">\u{1F7E2} Online Mode (Live CCL)</span>
+              <span class="mode-indicator online">Online Mode (Live CCL)</span>
             }
           </span>
         </label>
@@ -84119,12 +84119,12 @@ var App = class _App {
       console.log("[App] Initializing MPage service...");
       try {
         this.MPage.setMaxInstances(2, true, "ORGANIZER", false);
-        console.log("[App] \u2713 setMaxInstances called (will ping CCL internally)");
+        console.log("[App] SUCCESS: setMaxInstances called (will ping CCL internally)");
       } catch (error) {
-        console.error("[App] \u2717 setMaxInstances failed:", error);
+        console.error("[App] ERROR: setMaxInstances failed:", error);
       }
       this.MPage.defaultDateFormats = CUSTOM_DATE_FORMATS;
-      console.log("[App] \u2713 Date formats set");
+      console.log("[App] SUCCESS: Date formats set");
       this.detectNetworkAndInitialize();
     }, 0);
   }
@@ -84144,21 +84144,20 @@ var App = class _App {
       console.log(`[App] Waiting for serviceReady... attempt ${attempts} (${elapsed2}ms elapsed)`);
       await new Promise((resolve) => setTimeout(resolve, 100));
       if (elapsed2 >= TIMEOUT_MS) {
-        console.warn(`[App] \u26A0\uFE0F Timeout reached (${TIMEOUT_MS}ms) - serviceReady did not become true`);
+        console.warn(`[App] WARNING: Timeout reached (${TIMEOUT_MS}ms) - serviceReady did not become true`);
         break;
       }
     }
     const elapsed = Date.now() - startTime;
     const isOnline = this.MPage.serviceReady;
     if (isOnline) {
-      console.log(`[App] \u2713 serviceReady became true after ${elapsed}ms - CCL ping succeeded`);
+      console.log(`[App] SUCCESS: serviceReady became true after ${elapsed}ms - CCL ping succeeded`);
     } else {
-      console.log(`[App] \u2717 serviceReady still false after ${elapsed}ms - CCL ping failed/timeout`);
+      console.log(`[App] ERROR: serviceReady still false after ${elapsed}ms - CCL ping failed/timeout`);
     }
     this.appStatus.setOfflineMode(!isOnline);
     const finalStatus = this.appStatus.offlineMode() ? "OFFLINE" : "ONLINE";
-    const emoji = this.appStatus.offlineMode() ? "\u{1F534}" : "\u{1F7E2}";
-    console.log(`[App] ${emoji} Final app status: ${finalStatus} MODE`);
+    console.log(`[App] Final app status: ${finalStatus} MODE`);
   }
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
