@@ -1,0 +1,58 @@
+{
+  "configuration": {
+    "enabledFeatures": [
+      "DE01",
+      "DE02",
+      "DE03",
+      "DE04",
+      "DE05",
+      "DE06",
+      "DE07",
+      "DE08",
+      "DE09",
+      "DE10"
+    ],
+    "mirthServerUrl": "https://mock-mirth-server.gbrh.local/api/mha-pds",
+    "batchSize": 100,
+    "functionalCentreMappings": [
+      {
+        "code": "MHAC",
+        "description": "Mental Health Adult Community",
+        "mhaPdsCode": "1001"
+      },
+      {
+        "code": "MHIP",
+        "description": "Mental Health Inpatient",
+        "mhaPdsCode": "1002"
+      },
+      {
+        "code": "MHCR",
+        "description": "Mental Health Crisis Response",
+        "mhaPdsCode": "1003"
+      },
+      {
+        "code": "MHYC",
+        "description": "Mental Health Youth Community",
+        "mhaPdsCode": "1004"
+      }
+    ],
+    "dataElementSettings": {
+      "DE01": {
+        "required": true,
+        "validateFormat": true
+      },
+      "DE06": {
+        "trackStatusChanges": true,
+        "allowedStatuses": ["active", "completed", "cancelled"]
+      },
+      "DE10": {
+        "maxEventsPerEpisode": 1000,
+        "requireEventCode": true
+      }
+    }
+  },
+  "runDtTm": "2025-11-17T10:30:00.000Z",
+  "statusData": {
+    "status": "S"
+  }
+}

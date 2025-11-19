@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/app-version/app-version.scss"],
-  "sourcesContent": [".app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n\n  .version-text {\n    font-weight: 500;\n  }\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,WAAA,IAAA;AACA,aAAA;AACA,SAAA;AACA,oBAAA;AACA,iBAAA;AACA,eAAA;;AAEA,CATF,YASE,CAAA;AACE,eAAA;;",
+  "sourcesContent": [".app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n\n  .version-info {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n  }\n\n  .version-text {\n    font-weight: 500;\n  }\n\n  .mode-badge {\n    display: inline-flex;\n    align-items: center;\n    font-size: 0.7rem;\n    padding: 2px 6px;\n    border-radius: 3px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n    cursor: help;\n\n    &.online {\n      background-color: #e8f5e9;\n      color: #2e7d32;\n    }\n\n    &.offline {\n      background-color: #fff3e0;\n      color: #e65100;\n    }\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,WAAA,IAAA;AACA,aAAA;AACA,SAAA;AACA,oBAAA;AACA,iBAAA;AACA,eAAA;;AAEA,CATF,YASE,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;;AAGF,CAfF,YAeE,CAAA;AACE,eAAA;;AAGF,CAnBF,YAmBE,CAAA;AACE,WAAA;AACA,eAAA;AACA,aAAA;AACA,WAAA,IAAA;AACA,iBAAA;AACA;IAAA,aAAA;IAAA,kBAAA;IAAA,UAAA;IAAA,MAAA;IAAA;AACA,UAAA;;AAEA,CA5BJ,YA4BI,CATF,UASE,CAAA;AACE,oBAAA;AACA,SAAA;;AAGF,CAjCJ,YAiCI,CAdF,UAcE,CAAA;AACE,oBAAA;AACA,SAAA;;",
   "names": []
 }

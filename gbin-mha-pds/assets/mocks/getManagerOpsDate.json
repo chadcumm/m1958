@@ -1,0 +1,28 @@
+{
+  "lastRunDtTm": "2025-11-17T09:30:00.000Z",
+  "status": "S",
+  "episodesProcessed": 45,
+  "servicesProcessed": 234,
+  "nextScheduledRun": "2025-11-17T11:30:00.000Z",
+  "statusData": {
+    "status": "S",
+    "subeventstatus": [
+      {
+        "targetobjectname": "episodes_added",
+        "targetobjectvalue": "12"
+      },
+      {
+        "targetobjectname": "episodes_updated",
+        "targetobjectvalue": "33"
+      },
+      {
+        "targetobjectname": "services_added",
+        "targetobjectvalue": "156"
+      },
+      {
+        "targetobjectname": "services_updated",
+        "targetobjectvalue": "78"
+      }
+    ]
+  }
+}
