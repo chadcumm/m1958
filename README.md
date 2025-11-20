@@ -3,9 +3,9 @@
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.19
+**Version:** v0.0.20
 **Branch:** develop
-**Last Deployed:** 11/20/2025, 00:53:02
+**Last Deployed:** 11/20/2025, 01:25:19
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 
 ## Deployment History
 
+- **v0.0.20** | Branch: `develop` | Deployed: 11/20/2025, 01:25:19
 - **v0.0.19** | Branch: `develop` | Deployed: 11/20/2025, 00:53:02
 - **v0.0.18** | Branch: `feature/ccl-test-updates` | Deployed: 11/19/2025, 14:59:13
 - **v0.0.17** | Branch: `feature/ccl-test-updates` | Deployed: 11/19/2025, 14:39:28
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 - **v0.0.13** | Branch: `master` | Deployed: 11/11/2025, 22:25:36
 - **v0.0.12** | Branch: `master` | Deployed: 11/11/2025, 22:18:43
 - **v0.0.11** | Branch: `master` | Deployed: 11/11/2025, 22:09:38
-- **v0.0.10** | Branch: `master` | Deployed: 11/11/2025, 22:05:11
 
 ---
 

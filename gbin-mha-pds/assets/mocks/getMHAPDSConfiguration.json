@@ -1,58 +1,1740 @@
 {
-  "configuration": {
-    "enabledFeatures": [
-      "DE01",
-      "DE02",
-      "DE03",
-      "DE04",
-      "DE05",
-      "DE06",
-      "DE07",
-      "DE08",
-      "DE09",
-      "DE10"
-    ],
-    "mirthServerUrl": "https://mock-mirth-server.gbrh.local/api/mha-pds",
-    "batchSize": 100,
-    "functionalCentreMappings": [
-      {
-        "code": "MHAC",
-        "description": "Mental Health Adult Community",
-        "mhaPdsCode": "1001"
-      },
-      {
-        "code": "MHIP",
-        "description": "Mental Health Inpatient",
-        "mhaPdsCode": "1002"
-      },
-      {
-        "code": "MHCR",
-        "description": "Mental Health Crisis Response",
-        "mhaPdsCode": "1003"
-      },
-      {
-        "code": "MHYC",
-        "description": "Mental Health Youth Community",
-        "mhaPdsCode": "1004"
-      }
-    ],
-    "dataElementSettings": {
-      "DE01": {
-        "required": true,
-        "validateFormat": true
-      },
-      "DE06": {
-        "trackStatusChanges": true,
-        "allowedStatuses": ["active", "completed", "cancelled"]
-      },
-      "DE10": {
-        "maxEventsPerEpisode": 1000,
-        "requireEventCode": true
-      }
-    }
-  },
-  "runDtTm": "2025-11-17T10:30:00.000Z",
-  "statusData": {
-    "status": "S"
-  }
+    "UPDT_DT_TM": "2025-11-19T20:57:31.000+00:00",
+    "MIRTH_CONNECT": {
+        "URL": "https://mirth.example.com:8443/api",
+        "USERNAME": "mha_pds_user",
+        "PASSWORD": "",
+        "TIMEOUT_SECONDS": 30,
+        "RETRY_ATTEMPTS": 3
+    },
+    "SUBMISSION": {
+        "BATCH_SIZE": 100,
+        "SCHEDULE_FREQUENCY": "DAILY",
+        "MAX_RETRIES": 3,
+        "RETRY_DELAY_MINUTES": 15
+    },
+    "PROCESSING": {
+        "ENABLE_DUMMY_MODE": 0,
+        "ENABLE_DETAILED_LOGGING": 1,
+        "ENABLE_ERROR_NOTIFICATIONS": 1
+    },
+    "MAPPING_CNT": 48,
+    "MAPPINGS": [
+        {
+            "MHA_PDS_FIELD_NAME": "DE01.001",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Client First Name",
+            "FUNCTION": "sGetClientProfile_ByPersonID",
+            "NOTES": "Client First Name",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON",
+                    "FIELD_NAME": "NAME_FIRST",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE01.002",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Client Middle Name",
+            "FUNCTION": "sGetClientProfile_ByPersonID",
+            "NOTES": "Client Middle Name",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON",
+                    "FIELD_NAME": "NAME_MIDDLE",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE01.003",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Client Last Name or Single Name",
+            "FUNCTION": "sGetClientProfile_ByPersonID",
+            "NOTES": "Client Last Name or Single Name",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON",
+                    "FIELD_NAME": "NAME_LAST",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE01.004",
+            "MHA_PDS_FIELD_TYPE": "date_time",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Date of Birth",
+            "FUNCTION": "sGetClientProfile_ByPersonID",
+            "NOTES": "Date of Birth",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON",
+                    "FIELD_NAME": "BIRTH_DT_TM",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE01.005",
+            "MHA_PDS_FIELD_TYPE": "boolean",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Estimated DOB Flag",
+            "FUNCTION": "sGetClientProfile_ByPersonID",
+            "NOTES": "Estimated DOB Flag",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 1,
+            "PAIRS": [
+                {
+                    "TYPE": "DATE_TIME_BIRTH_ESTIMATED_FLAG",
+                    "KEY_REF": "",
+                    "KEY_REF_TYPE": "",
+                    "PDS_VALUE": "FALSE",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "False",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE02.001",
+            "MHA_PDS_FIELD_TYPE": "number",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Client ID - MRN",
+            "FUNCTION": "sGetClientIdentifiers_ByPersonID",
+            "NOTES": "Client ID - MRN",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON_ALIAS",
+                    "FIELD_NAME": "ALIAS",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE02.002",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Vendor Issuing ID",
+            "FUNCTION": "sGetClientIdentifiers_ByPersonID",
+            "NOTES": "Vendor Issuing ID",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 1,
+            "PAIRS": [
+                {
+                    "TYPE": "VENDOR_ISSUING_ID",
+                    "KEY_REF": "",
+                    "KEY_REF_TYPE": "",
+                    "PDS_VALUE": "BHS-Cerner",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "BHS-Cerner",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE02.003",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Health Card Number",
+            "FUNCTION": "sGetClientIdentifiers_ByPersonID",
+            "NOTES": "Health Card Number",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON_ALIAS",
+                    "FIELD_NAME": "ALIAS",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE02.005",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "HCN Issuing Authority",
+            "FUNCTION": "sGetClientIdentifiers_ByPersonID",
+            "NOTES": "HCN Issuing Authority",
+            "CODE_SETS": [
+                {
+                    "CODE_SET": 263,
+                    "PRIORITY": 0
+                }
+            ],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "PERSON_ALIAS",
+                    "FIELD_NAME": "ALIAS_POOL_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Alberta",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Alberta Health and Wellness",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Alberta Health and Wellness",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card British Columbia",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Ministry of Health British Columbia",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Health Card British Columbia",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Manitoba",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Manitoba Health, Healthy Living and Seniors",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "Manitoba Health, Healthy Living and Seniors",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card New Brunswick",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "New Brunswick Department of Health",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "New Brunswick Department of Health",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Newfoundland",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Newfoundland Department of Health and Community Services",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Newfoundland Department of Health and Community Services",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Nova Scotia",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Nova Scotia Department of Health and Wellness",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Nova Scotia Department of Health and Wellness",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Northwest Territories",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Northwest Territories Department of Health and Social Services",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Northwest Territories Department of Health and Social Services",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Nunuvut",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Nunavut Department of Health and Social Services",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Nunavut Department of Health and Social Services",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Ontario",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Ontario Ministry of Health and Long-Term Care",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Ontario Ministry of Health and Long-Term Care",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Prince Edward Island",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Prince Edward Island Department of Health and Wellness",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prince Edward Island Department of Health and Wellness",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Quebec",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "MinistÃ¨re de la SantÃ© et des Services sociaux du QuÃ©bec",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "MinistÃ¨re de la SantÃ© et des Services sociaux du QuÃ©bec",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Saskatchewan",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Ministry of Health Saskatchewan",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Ministry of Health Saskatchewan",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
+                    "KEY_REF": "Health Card Yukon",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Yukon Department of Health and Social Services",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Yukon Department of Health and Social Services",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE03.002",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "City",
+            "FUNCTION": "sGetClientAddress_ByPersonID",
+            "NOTES": "City",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "ADDRESS",
+                    "FIELD_NAME": "CITY",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE03.003",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Province/State",
+            "FUNCTION": "sGetClientAddress_ByPersonID",
+            "NOTES": "Province/State",
+            "CODE_SETS": [
+                {
+                    "CODE_SET": 62,
+                    "PRIORITY": 0
+                }
+            ],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "ADDRESS",
+                    "FIELD_NAME": "STATE_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Alberta",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Alberta",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Alberta",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "British Columbia",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "British Columbia",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "British Columbia",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Manitoba",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Manitoba",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Manitoba",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "New Brunswick",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "New Brunswick",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "New Brunswick",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Newfoundland",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Newfoundland and Labrador",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Newfoundland and Labrador",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Nova Scotia",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Nova Scotia",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Nova Scotia",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "North West Territories",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Northwest Territories",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Northwest Territories",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Nunuvut (Territory)",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Nunavut",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Nunavut",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Ontario",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Ontario",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Ontario",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Prince Edward Island",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Prince Edward Island",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prince Edward Island",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Quebec",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Quebec",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Quebec",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Saskatchewan",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Saskatchewan",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Saskatchewan",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                },
+                {
+                    "TYPE": "PROVINCE_CODE",
+                    "KEY_REF": "Yukon Territory",
+                    "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+                    "PDS_VALUE": "Yukon",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Yukon",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE03.004",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Postal Code",
+            "FUNCTION": "sGetClientAddress_ByPersonID",
+            "NOTES": "Postal Code",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "ADDRESS",
+                    "FIELD_NAME": "ZIPCODE",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.001",
+            "MHA_PDS_FIELD_TYPE": "date_time",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "SDOH Effective Date",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "SDOH Effective Date",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "PERFORMED_DT_TM",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.005",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Language of Comfort",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Language of Comfort",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "Language of Comfort",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 1,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+                    "KEY_REF": "English",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "English",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "English",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.006",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": ""
+                }
+            ],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "Official Language",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 1,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "OFFICIAL_LANGUAGE_CODE",
+                    "KEY_REF": "English",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "English",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "English",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.007",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Gender Identity",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Gender Identity",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "Gender Identity",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 1,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Asexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Asexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Asexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Bisexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Bisexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Bisexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Demisexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Demisexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Demisexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Gay",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Gay",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Gay",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Lesbian",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Lesbian",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Lesbian",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Pansexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Pansexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Pansexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Queer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Queer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Queer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Questioning or unsure",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Questioning or unsure",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Questioning or unsure",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Same-gender loving",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Same-gender loving",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Same-gender loving",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Straight/heterosexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Straight/heterosexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Straight/heterosexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Two-Spirit",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Two-Spirit",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Two-Spirit",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Another sexual orientation (please specify)",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Another sexual orientation (please specify)",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Another sexual orientation (please specify)",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Do not know",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Do not know",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Do not know",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "GENDER_IDENTITY_CODE",
+                    "KEY_REF": "Prefer not to answer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Prefer not to answer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prefer not to answer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.008",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Sexual Orientation",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Sexual Orientation",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "MHA Sexual Orientation",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 1,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Asexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Asexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Asexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Bisexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Bisexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Bisexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Demisexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Demisexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Gay",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Gay",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Gay",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Lesbian",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Lesbian",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Lesbian",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Pansexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Pansexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Queer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Identifiers as Queer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Queer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Questioning or unsure",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Questioning or unsure",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Same-gender loving",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Same-gender loving",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Straight/heterosexual",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Heterosexual",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Straight/heterosexual",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Two-Spirit",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Two-Spirit",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Another sexual orientation (please specify)",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Other",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Another sexual orientation (please specify)",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Do not know",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Do not know",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Do not know",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "SEXUAL_ORIENTATION_CODE",
+                    "KEY_REF": "Prefer not to answer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Prefer not to answer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prefer not to answer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.009",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Year Arrived in Canada",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Year Arrived in Canada",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "Year Arrived in Canada",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.010",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Born in Canada",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Born in Canada",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "Born in Canada",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "BORN_IN_CANADA_CODE",
+                    "KEY_REF": "Yes",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Yes",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Yes",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "BORN_IN_CANADA_CODE",
+                    "KEY_REF": "No",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "No",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "No",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "BORN_IN_CANADA_CODE",
+                    "KEY_REF": "Do not know",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Do not know",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Do not know",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "BORN_IN_CANADA_CODE",
+                    "KEY_REF": "Prefer not to answer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Prefer not to answer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prefer not to answer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.018",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Income Amount",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Income Amount",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "MHA Income Amount",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$0 to $19,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$0 to $19,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$0 to $19,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$20,000 to $39,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$20,000 to $39,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$20,000 to $39,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$40,000 to $59,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$40,000 to $59,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$40,000 to $59,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$60,000 to $79,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$60,000 to $79,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$60,000 to $79,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$80,000 to $119,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$80,000 to $119,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$80,000 to $119,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$120,000 to $149,999",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$120,000 to $149,999",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$120,000 to $149,999",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "$150,000 or more",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "$150,000 or more",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "$150,000 or more",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "Do not know",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Do not know",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Do not know",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_AMOUNT_CODE",
+                    "KEY_REF": "Prefer not to answer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Prefer not to answer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prefer not to answer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE04.019",
+            "MHA_PDS_FIELD_TYPE": "mapping",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "Income Supporting",
+            "FUNCTION": "sGetClientSDOH_ByPersonID",
+            "NOTES": "Income Supporting",
+            "CODE_SETS": [],
+            "DTAS": [
+                {
+                    "DTA": "MHA Income Supporting",
+                    "PRIORITY": 1
+                }
+            ],
+            "TABLES": [
+                {
+                    "TABLE": "CLINICAL_EVENT",
+                    "FIELD_NAME": "EVENT_CD",
+                    "PRIORITY": 1
+                }
+            ],
+            "ALPHA_RESONSE_IND": 1,
+            "CONSTANT_IND": 0,
+            "PAIRS": [
+                {
+                    "TYPE": "INCOME_SUPPORTING_CODE",
+                    "KEY_REF": "Number of persons (please specify)",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Number of Persons",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Number of Persons",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_SUPPORTING_CODE",
+                    "KEY_REF": "Do not know",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Do not know",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Do not know",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                },
+                {
+                    "TYPE": "INCOME_SUPPORTING_CODE",
+                    "KEY_REF": "Prefer not to answer",
+                    "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+                    "PDS_VALUE": "Prefer not to answer",
+                    "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+                    "DISPLAY": "Prefer not to answer",
+                    "ACTIVE_IND": 0,
+                    "PRIORITY": 0
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE07.001",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "HSP Organization Number",
+            "FUNCTION": "temp_hard_coded_need_update",
+            "NOTES": "HSP Organization Number",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 1,
+            "PAIRS": [
+                {
+                    "TYPE": "HSP_ORGANIZATION_NUMBER_CODE",
+                    "KEY_REF": "",
+                    "KEY_REF_TYPE": "",
+                    "PDS_VALUE": "10022",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "10022",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE07.002",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "MOH Organization ID",
+            "FUNCTION": "temp_hard_coded_need_update",
+            "NOTES": "MOH Organization ID",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 1,
+            "PAIRS": [
+                {
+                    "TYPE": "MOH_ORGANIZATION_ID_CODE",
+                    "KEY_REF": "",
+                    "KEY_REF_TYPE": "",
+                    "PDS_VALUE": "955",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "955",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "DE07.003",
+            "MHA_PDS_FIELD_TYPE": "freetext",
+            "MHA_PDS_VERSIONS": [
+                {
+                    "VERSION": "1"
+                }
+            ],
+            "DESCRIPTION": "HSP Organization Name",
+            "FUNCTION": "temp_hard_coded_need_update",
+            "NOTES": "HSP Organization Name",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 1,
+            "PAIRS": [
+                {
+                    "TYPE": "HSP_ORGANIZATION_NAME_CODE",
+                    "KEY_REF": "",
+                    "KEY_REF_TYPE": "",
+                    "PDS_VALUE": "Brightshores Health System",
+                    "PDS_VALUE_TYPE": "MHA_PDS_VALUES",
+                    "DISPLAY": "Brightshores Health System",
+                    "ACTIVE_IND": 1,
+                    "PRIORITY": 1
+                }
+            ]
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        },
+        {
+            "MHA_PDS_FIELD_NAME": "",
+            "MHA_PDS_FIELD_TYPE": "",
+            "MHA_PDS_VERSIONS": [],
+            "DESCRIPTION": "",
+            "FUNCTION": "",
+            "NOTES": "",
+            "CODE_SETS": [],
+            "DTAS": [],
+            "TABLES": [],
+            "ALPHA_RESONSE_IND": 0,
+            "CONSTANT_IND": 0,
+            "PAIRS": []
+        }
+    ]
 }

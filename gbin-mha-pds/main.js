@@ -81759,8 +81759,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.19-develop";
-var packageVersion = "0.0.19";
+var buildVersion = "v0.0.20-develop";
+var packageVersion = "0.0.20";
 var gitBranch = "develop";
 
 // src/app/services/app-status.service.ts
@@ -82326,14 +82326,14 @@ var EPISODE_DATA_EMPTY_MOCK = {
 // src/app/mocks/index.ts
 var MOCK_REGISTRY = {
   // Primary mocks (by requestType)
-  "getMHAPDSConfiguration": MHA_PDS_CONFIGURATION_MOCK,
+  //'getMHAPDSConfiguration': MHA_PDS_CONFIGURATION_MOCK, //pull from file
   "getManagerOpsDate": MANAGER_OPS_DATE_MOCK,
   "getEpisodeData": EPISODE_DATA_MOCK,
   // Variant mocks (error scenarios)
   "getMHAPDSConfiguration-error": MHA_PDS_CONFIGURATION_ERROR_MOCK,
   "getEpisodeData-empty": EPISODE_DATA_EMPTY_MOCK,
   // Script-specific mocks (if needed for different scripts)
-  "gbin_mha_pds_service-getMHAPDSConfiguration": MHA_PDS_CONFIGURATION_MOCK,
+  //'gbin_mha_pds_service-getMHAPDSConfiguration': MHA_PDS_CONFIGURATION_MOCK, //pull from file
   "gbin_mha_pds_service-getManagerOpsDate": MANAGER_OPS_DATE_MOCK
 };
 
@@ -83327,6 +83327,7 @@ var CclTest = class _CclTest {
    * When false, uses live CustomService regardless of app-level offline mode
    */
   useOfflineMode = signal(false, ...ngDevMode ? [{ debugName: "useOfflineMode" }] : []);
+  manualOverrideActive = signal(false, ...ngDevMode ? [{ debugName: "manualOverrideActive" }] : []);
   /**
    * Read-only signal for current offline mode status (app-level auto-detection)
    */
@@ -83381,9 +83382,16 @@ var CclTest = class _CclTest {
         this.historyService.saveHistory(history);
       }
     });
-    const initialAppOfflineMode = this.appStatus.offlineMode();
-    this.useOfflineMode.set(initialAppOfflineMode);
-    console.log(`[CclTest] Initialized manual toggle to match app-level mode: ${initialAppOfflineMode}`);
+    effect(() => {
+      const appOffline = this.appStatus.offlineMode();
+      const manualOverride = this.manualOverrideActive();
+      if (manualOverride) {
+        console.log("[CclTest] Manual override active - keeping developer-selected mode:", this.useOfflineMode());
+        return;
+      }
+      this.useOfflineMode.set(appOffline);
+      console.log(`[CclTest] Synced manual toggle with app-level offline mode: ${appOffline}`);
+    });
   }
   /**
    * Handle request type selection change
@@ -83638,6 +83646,10 @@ var CclTest = class _CclTest {
     const newValue = !currentValue;
     console.log(`[CclTest] toggleOfflineMode() - Current: ${currentValue}, New: ${newValue}`);
     this.useOfflineMode.set(newValue);
+    const appOffline = this.appStatus.offlineMode();
+    const overrideActive = newValue !== appOffline;
+    this.manualOverrideActive.set(overrideActive);
+    console.log(overrideActive ? "[CclTest] Manual offline override enabled - diverging from app-level status" : "[CclTest] Manual offline override cleared - re-syncing with app-level status");
     console.log(newValue ? "[CclTest] Manual offline mode enabled - Will use MockCclService directly" : "[CclTest] Manual offline mode disabled - Will use live CustomService directly");
     console.log(`[CclTest] App-level offline mode status (read-only, not affecting manual toggle): ${this.isOfflineMode()}`);
   }
