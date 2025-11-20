@@ -81759,9 +81759,9 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.18-feature/ccl-test-updates";
-var packageVersion = "0.0.18";
-var gitBranch = "feature/ccl-test-updates";
+var buildVersion = "v0.0.19-develop";
+var packageVersion = "0.0.19";
+var gitBranch = "develop";
 
 // src/app/services/app-status.service.ts
 var AppStatusService = class _AppStatusService {
@@ -82339,10 +82339,15 @@ var MOCK_REGISTRY = {
 
 // src/app/services/mock-ccl.service.ts
 var MockCclService = class _MockCclService {
+  http = inject2(HttpClient);
   /**
    * Storage for mock responses keyed by request ID
    */
   mockResponses = /* @__PURE__ */ new Map();
+  /**
+   * Cache for loaded JSON mocks to avoid repeated HTTP requests
+   */
+  jsonMockCache = /* @__PURE__ */ new Map();
   /**
    * Load a mock CCL request
    * Mimics CustomService.load() interface
@@ -82355,7 +82360,7 @@ var MockCclService = class _MockCclService {
     try {
       const script = config2?.customScript?.script?.[0];
       if (!script) {
-        console.error("Invalid mock request configuration");
+        console.error("[MockCclService] Invalid mock request configuration");
         callback();
         return;
       }
@@ -82368,18 +82373,26 @@ var MockCclService = class _MockCclService {
         scriptName,
         requestData: script.parameters?.requestData
       });
-      const mockResponse = this.findMockResponse(requestType, scriptName);
-      this.mockResponses.set(requestId, mockResponse);
-      if (mockResponse.error) {
-        console.warn("[MockCclService] WARNING: Mock response:", mockResponse.error);
-      } else {
-        console.log("[MockCclService] SUCCESS: Mock response loaded for:", requestType);
-      }
-      setTimeout(() => {
+      this.findMockResponse(requestType, scriptName).then((mockResponse) => {
+        this.mockResponses.set(requestId, mockResponse);
+        if (mockResponse.error) {
+          console.warn("[MockCclService] WARNING: Mock response:", mockResponse.error);
+        } else {
+          console.log("[MockCclService] SUCCESS: Mock response loaded for:", requestType);
+        }
+        setTimeout(() => {
+          callback();
+        }, 0);
+      }).catch((error) => {
+        console.error("[MockCclService] Error loading mock:", error);
+        this.mockResponses.set(requestId, {
+          error: "Failed to load mock response",
+          statusData: { status: "F" }
+        });
         callback();
-      }, 0);
+      });
     } catch (error) {
-      console.error("Error in mock CCL load:", error);
+      console.error("[MockCclService] Error in mock CCL load:", error);
       callback();
     }
   }
@@ -82404,31 +82417,41 @@ var MockCclService = class _MockCclService {
    * Lookup order:
    * 1. TypeScript fixture by requestType (e.g., "getMHAPDSConfiguration")
    * 2. TypeScript fixture by scriptName-requestType (e.g., "gbin_mha_pds_service-getMHAPDSConfiguration")
-   * 3. Return error if no mock found
-   *
-   * Note: JSON file lookup would require HTTP requests, so we only support TypeScript fixtures for now
-   * JSON files can be added later if needed using HttpClient
+   * 3. JSON file from public/assets/mocks/{requestType}.json
+   * 4. Return error if no mock found
    *
    * @param requestType - The request type parameter
    * @param scriptName - The CCL script name (without :group suffix)
-   * @returns Mock response object
+   * @returns Promise<Mock response object>
    */
-  findMockResponse(requestType, scriptName) {
+  async findMockResponse(requestType, scriptName) {
     if (requestType && MOCK_REGISTRY[requestType]) {
-      console.log("[MockCclService] Found mock in registry:", requestType);
+      console.log("[MockCclService] Found TypeScript mock in registry:", requestType);
       return MOCK_REGISTRY[requestType];
     }
     if (scriptName && requestType) {
       const combinedKey = `${scriptName}-${requestType}`;
       if (MOCK_REGISTRY[combinedKey]) {
-        console.log("[MockCclService] Found mock in registry:", combinedKey);
+        console.log("[MockCclService] Found TypeScript mock in registry:", combinedKey);
         return MOCK_REGISTRY[combinedKey];
+      }
+    }
+    if (requestType) {
+      try {
+        const jsonMock = await this.loadJsonMock(requestType);
+        if (jsonMock) {
+          console.log("[MockCclService] Loaded JSON mock from file:", requestType);
+          return jsonMock;
+        }
+      } catch (error) {
+        console.log("[MockCclService] No JSON mock file found for:", requestType);
       }
     }
     const errorMessage = `No mock found for requestType: "${requestType}"${scriptName ? ` (script: ${scriptName})` : ""}`;
     console.warn("[MockCclService] WARNING: " + errorMessage);
-    console.log("[MockCclService] Available mocks:", Object.keys(MOCK_REGISTRY));
-    console.log("[MockCclService] To add a mock, create a fixture in src/app/mocks/ and register it in src/app/mocks/index.ts");
+    console.log("[MockCclService] Available TypeScript mocks:", Object.keys(MOCK_REGISTRY));
+    console.log("[MockCclService] To add a TypeScript mock: Create fixture in src/app/mocks/ and register in src/app/mocks/index.ts");
+    console.log("[MockCclService] To add a JSON mock: Create file at public/assets/mocks/" + requestType + ".json");
     return {
       error: errorMessage,
       statusData: {
@@ -82443,12 +82466,34 @@ var MockCclService = class _MockCclService {
     };
   }
   /**
-   * Clear all stored mock responses
+   * Load mock response from JSON file
+   * Caches loaded JSON to avoid repeated HTTP requests
+   *
+   * @param requestType - The request type to load
+   * @returns Promise<Mock response or null if not found>
+   */
+  async loadJsonMock(requestType) {
+    if (this.jsonMockCache.has(requestType)) {
+      console.log("[MockCclService] Using cached JSON mock:", requestType);
+      return this.jsonMockCache.get(requestType);
+    }
+    const jsonPath = `assets/mocks/${requestType}.json`;
+    try {
+      const mockData = await this.http.get(jsonPath).toPromise();
+      this.jsonMockCache.set(requestType, mockData);
+      return mockData;
+    } catch (error) {
+      return null;
+    }
+  }
+  /**
+   * Clear all stored mock responses and JSON cache
    * Useful for testing or memory cleanup
    */
   clear() {
     this.mockResponses.clear();
-    console.log("Mock responses cleared");
+    this.jsonMockCache.clear();
+    console.log("[MockCclService] Mock responses and JSON cache cleared");
   }
   static \u0275fac = function MockCclService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MockCclService)();
@@ -83271,24 +83316,29 @@ function CclTest_Conditional_51_Template(rf, ctx) {
 }
 var CclTest = class _CclTest {
   realService = inject2(CustomService);
+  mockService = inject2(MockCclService);
   wrapperService = inject2(CclServiceWrapperService);
   historyService = inject2(RequestHistoryService);
   appStatus = inject2(AppStatusService);
   /**
    * Manual toggle for offline mode testing
    * UI toggle allows developers to test both modes without restarting the app
+   * When true, forces use of MockCclService regardless of app-level offline mode
+   * When false, uses live CustomService regardless of app-level offline mode
    */
   useOfflineMode = signal(false, ...ngDevMode ? [{ debugName: "useOfflineMode" }] : []);
   /**
-   * Read-only signal for current offline mode status
+   * Read-only signal for current offline mode status (app-level auto-detection)
    */
   isOfflineMode = computed(() => this.appStatus.offlineMode(), ...ngDevMode ? [{ debugName: "isOfflineMode" }] : []);
   /**
    * Active service based on manual toggle
-   * Returns wrapper service (which respects appStatus) if toggled, otherwise real service
+   * When toggle is ON: Uses MockCclService directly (bypasses wrapper and app-level detection)
+   * When toggle is OFF: Uses CustomService directly (bypasses wrapper and app-level detection)
+   * This ensures the manual toggle provides a true override of automatic detection
    */
   get activeService() {
-    return this.useOfflineMode() ? this.wrapperService : this.realService;
+    return this.useOfflineMode() ? this.mockService : this.realService;
   }
   // Available request configurations
   REQUEST_CONFIGS = REQUEST_CONFIGS;
@@ -83331,14 +83381,9 @@ var CclTest = class _CclTest {
         this.historyService.saveHistory(history);
       }
     });
-    effect(() => {
-      const appOfflineMode = this.appStatus.offlineMode();
-      const currentToggle = this.useOfflineMode();
-      if (appOfflineMode !== currentToggle) {
-        console.log(`[CclTest] Syncing toggle with app offline mode: ${appOfflineMode}`);
-        this.useOfflineMode.set(appOfflineMode);
-      }
-    });
+    const initialAppOfflineMode = this.appStatus.offlineMode();
+    this.useOfflineMode.set(initialAppOfflineMode);
+    console.log(`[CclTest] Initialized manual toggle to match app-level mode: ${initialAppOfflineMode}`);
   }
   /**
    * Handle request type selection change
@@ -83586,14 +83631,15 @@ var CclTest = class _CclTest {
   }
   /**
    * Toggle offline mode for testing
+   * This provides a manual override that bypasses app-level automatic detection
    */
   toggleOfflineMode() {
     const currentValue = this.useOfflineMode();
     const newValue = !currentValue;
     console.log(`[CclTest] toggleOfflineMode() - Current: ${currentValue}, New: ${newValue}`);
     this.useOfflineMode.set(newValue);
-    console.log(newValue ? "[CclTest] Manual offline mode enabled - Will use CclServiceWrapperService" : "[CclTest] Manual offline mode disabled - Will use live CustomService");
-    console.log(`[CclTest] App-level offline mode status (read-only): ${this.isOfflineMode()}`);
+    console.log(newValue ? "[CclTest] Manual offline mode enabled - Will use MockCclService directly" : "[CclTest] Manual offline mode disabled - Will use live CustomService directly");
+    console.log(`[CclTest] App-level offline mode status (read-only, not affecting manual toggle): ${this.isOfflineMode()}`);
   }
   static \u0275fac = function CclTest_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _CclTest)();
@@ -84106,7 +84152,7 @@ var CclTest = class _CclTest {
   }], () => [], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CclTest, { className: "CclTest", filePath: "src/app/ccl-test/ccl-test.ts", lineNumber: 34 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CclTest, { className: "CclTest", filePath: "src/app/ccl-test/ccl-test.ts", lineNumber: 35 });
 })();
 
 // src/app/app.ts
@@ -84118,7 +84164,7 @@ var App = class _App {
     setTimeout(() => {
       console.log("[App] Initializing MPage service...");
       try {
-        this.MPage.setMaxInstances(2, true, "ORGANIZER", false);
+        this.MPage.setMaxInstances(2, true, "ORGANIZER", true);
         console.log("[App] SUCCESS: setMaxInstances called (will ping CCL internally)");
       } catch (error) {
         console.error("[App] ERROR: setMaxInstances failed:", error);
@@ -84140,9 +84186,9 @@ var App = class _App {
     let attempts = 0;
     while (!this.MPage.serviceReady) {
       attempts++;
+      await new Promise((resolve) => setTimeout(resolve, 100));
       const elapsed2 = Date.now() - startTime;
       console.log(`[App] Waiting for serviceReady... attempt ${attempts} (${elapsed2}ms elapsed)`);
-      await new Promise((resolve) => setTimeout(resolve, 100));
       if (elapsed2 >= TIMEOUT_MS) {
         console.warn(`[App] WARNING: Timeout reached (${TIMEOUT_MS}ms) - serviceReady did not become true`);
         break;
