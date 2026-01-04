@@ -1,0 +1,2507 @@
+{
+    "MHA_PDS_SUBMISSION": {
+        "CNT": 5,
+        "SUBMISSION_METADATA": {
+            "SUBMIT_FIELDS_CNT": 68,
+            "SUBMIT_FIELDS": [
+                "DE01_001",
+                "DE01_002",
+                "DE01_003",
+                "DE01_004",
+                "DE01_005",
+                "DE01_006",
+                "DE02_001",
+                "DE02_002",
+                "DE02_003",
+                "DE02_004",
+                "DE02_005",
+                "DE03_001",
+                "DE03_002",
+                "DE03_003",
+                "DE03_004",
+                "DE04_001",
+                "DE04_002",
+                "DE04_003",
+                "DE04_004",
+                "DE04_005",
+                "DE04_006",
+                "DE04_007",
+                "DE04_008",
+                "DE04_009",
+                "DE04_010",
+                "DE04_012",
+                "DE04_013",
+                "DE04_014",
+                "DE04_015",
+                "DE04_016",
+                "DE04_017",
+                "DE04_018",
+                "DE04_019",
+                "DE04_020",
+                "DE04_021",
+                "DE05_001",
+                "DE05_002",
+                "DE05_003",
+                "DE05_004",
+                "DE05_005",
+                "DE06_001",
+                "DE06_002",
+                "DE06_003",
+                "DE06_004",
+                "DE06_005",
+                "DE06_006",
+                "DE06_007",
+                "DE06_008",
+                "DE06_009",
+                "DE06_010",
+                "DE06_011",
+                "DE07_001",
+                "DE07_002",
+                "DE07_003",
+                "DE07_004",
+                "DE08_001",
+                "DE08_002",
+                "DE09_001",
+                "DE09_002",
+                "DE09_003",
+                "DE10_001",
+                "DE10_002",
+                "DE10_003",
+                "DE10_004",
+                "DE10_005",
+                "DE10_006",
+                "DE10_007",
+                "DE10_008"
+            ]
+        },
+        "QUAL": [
+            {
+                "SUBMIT_BUNDLE_CNT": 1,
+                "SUBMIT_BUNDLE": [
+                    {
+                        "TYPE": "SERVICE_REQUEST_EOC",
+                        "SEQUENCE": 1,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 6,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "ServiceRequest",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "EpisodeOfCare",
+                                "SEQUENCE": 5
+                            },
+                            {
+                                "TYPE": "HealthcareService",
+                                "SEQUENCE": 6
+                            }
+                        ]
+                    }
+                ],
+                "EPISODE_IDENTIFIER": "DUMMY-EPISODE-001",
+                "SUBMISSION_DATE": "2025-12-18 19:27:09",
+                "CLIENT": {
+                    "DE01_001_FIRST_NAME": "TEST1",
+                    "DE01_002_MIDDLE_NAME": "T",
+                    "DE01_003_LAST_NAME": "PATIENT",
+                    "DE01_004_DATE_OF_BIRTH": "1980-01-01",
+                    "DE01_005_ESTIMATED_DOB_FLAG": {
+                        "CODE": "false",
+                        "LABEL": "False",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/extension-estimated-date-of-birth-flag",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/extension-estimated-date-of-birth-flag"
+                    },
+                    "DE01_006_ACTIVE_STATUS": {
+                        "CODE": "true",
+                        "LABEL": "Client Active",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+                        "CODE_SYSTEM": "",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE02_001_CLIENT_IDENTIFIER_MRN": "MRN123451",
+                    "DE02_002_VENDOR_ISSUING_ID": "BHS-Cerner",
+                    "DE02_003_HEALTH_CARD_NUMBER": "1234-567-891",
+                    "DE02_004_IDENTIFIER_TYPE": {
+                        "CODE": "MR",
+                        "LABEL": "Medical Record Number",
+                        "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+                        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ClientIdentifierTypeCode"
+                    },
+                    "DE02_005_HCN_ISSUING_AUTHORITY": {
+                        "CODE": "ON",
+                        "LABEL": "Ontario Ministry of Health and Long-Term Care",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority"
+                    },
+                    "ADDRESS": {
+                        "DE03_001_ADDRESS_USE": {
+                            "CODE": "home",
+                            "LABEL": "Home",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/address-use"
+                        },
+                        "DE03_002_CITY": "OWEN SOUND",
+                        "DE03_003_PROVINCE": {
+                            "CODE": "ON",
+                            "LABEL": "Ontario",
+                            "CODE_VALUE_SOURCE": "Canada Infoway",
+                            "CODE_SYSTEM": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction",
+                            "VALUE_SET_URL": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction"
+                        },
+                        "DE03_004_POSTAL_CODE": "N4K 1A1"
+                    },
+                    "SOCIO_DEMOGRAPHICS": {
+                        "DE04_001_SDOH_EFFECTIVE_DATE": "2024-01-01",
+                        "OBSERVATION_STATUS": "final",
+                        "OBSERVATION_CATEGORY": {
+                            "CODE": "social-history",
+                            "LABEL": "Social History",
+                            "CODE_VALUE_SOURCE": "HL7 FHIR",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/observation-category"
+                        },
+                        "DE04_002_ETHNICITY_CNT": 1,
+                        "DE04_002_ETHNICITY": [
+                            {
+                                "CODE": "prefer-not-answer",
+                                "LABEL": "Prefer not to answer",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/ethnicity",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-Ethnicity"
+                            }
+                        ],
+                        "DE04_003_RELIGION_SPIRITUAL": {
+                            "CODE": "1007",
+                            "LABEL": "Atheism",
+                            "CODE_VALUE_SOURCE": "HL7 v3 ReligiousAffiliation",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ReligiousAffiliation"
+                        },
+                        "DE04_004_FIRST_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage"
+                        },
+                        "DE04_007_GENDER_IDENTITY": {
+                            "CODE": "446151000124109",
+                            "LABEL": "Identifies as male gender",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-GenderIdentity",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76691-5",
+                                "LABEL": "Gender identity",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_008_SEXUAL_ORIENTATION": {
+                            "CODE": "38628009",
+                            "LABEL": "Heterosexual",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-SexualOrientation",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76690-7",
+                                "LABEL": "Sexual orientation",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_009_YEAR_ARRIVED_CANADA": "2015",
+                        "DE04_010_BORN_IN_CANADA": {
+                            "CODE": "N",
+                            "LABEL": "No",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/born-in-canada",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-BornInCanadaResponse"
+                        },
+                        "DE04_012_CITIZENSHIP_STATUS": {
+                            "CODE": "canadian-citizen",
+                            "LABEL": "Canadian Citizen",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/mha-citizenshipStatus",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-CitizenshipStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780176911000087103",
+                                "LABEL": "Citizenship Status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_013_HIGHEST_EDUCATION": {
+                            "CODE": "high-school",
+                            "LABEL": "High School",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/highest-education",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HighestLevelOfEducationAttained",
+                            "OBSERVATION_CODE": {
+                                "CODE": "82589-3",
+                                "LABEL": "Highest level of education",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_014_EMPLOYMENT_STATUS": {
+                            "CODE": "employed-full-time",
+                            "LABEL": "Employed Full Time",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/employment-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-EmploymentStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "74165-2",
+                                "LABEL": "Employment status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_015_INCOME_SOURCE": {
+                            "CODE": "employment",
+                            "LABEL": "Employment",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/income-source",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PersonalIncomeSource",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780186711000087106",
+                                "LABEL": "Personal income source",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_016_MARITAL_STATUS": {
+                            "CODE": "S",
+                            "LABEL": "Never Married",
+                            "CODE_VALUE_SOURCE": "HL7 v3 MaritalStatus",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-MaritalStatus"
+                        },
+                        "DE04_017_HOUSING_STATUS": {
+                            "CODE": "stable",
+                            "LABEL": "Stable Housing",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/housing-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HousingStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "71802-3",
+                                "LABEL": "Housing status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_018_HOUSEHOLD_INCOME": {
+                            "CODE": "60000-79999",
+                            "LABEL": "$60,000 to $79,999",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/total-household-income",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-TotalHouseholdIncome",
+                            "OBSERVATION_CODE": {
+                                "CODE": "77244-2",
+                                "LABEL": "Total household income",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                            "VALUE": 1,
+                            "OBSERVATION_CODE": {
+                                "CODE": "63586-2",
+                                "LABEL": "Number of people income supports",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_020_LEGAL_STATUS": {
+                            "CODE": "informal-voluntary",
+                            "LABEL": "Informal - Voluntary",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/legal-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-LegalStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780196611000087109",
+                                "LABEL": "Legal status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_021_PRE_EXISTING_CONDITIONS": {
+                            "CODE": "none",
+                            "LABEL": "None",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/pre-existing-conditions",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreExistingConditions"
+                        }
+                    }
+                },
+                "REFERRAL": {
+                    "DE05_001_REFERRAL_ID": {
+                        "CODE": "REF-001",
+                        "LABEL": "REF-001",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-ServiceRequest-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE05_002_REFERRAL_RECEIVED_DATE": "2024-02-01",
+                    "DE05_003_REFERRAL_SOURCE": "SELF",
+                    "DE05_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-status"
+                    },
+                    "DE05_INTENT": {
+                        "CODE": "order",
+                        "LABEL": "Order",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-intent"
+                    },
+                    "DE05_004_REFERRAL_TYPE": {
+                        "CODE": "external",
+                        "LABEL": "External Referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType"
+                    },
+                    "DE05_005_REFERRAL_SOURCE_TYPE": {
+                        "CODE": "self",
+                        "LABEL": "Self-referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType"
+                    }
+                },
+                "EPISODE_OF_CARE": {
+                    "DE06_001_EPISODE_OF_CARE_ID": {
+                        "CODE": "EOC-001",
+                        "LABEL": "EOC-001",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-EpisodeOfCare-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE06_002_EPISODE_OF_CARE_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/valueset-episode-of-care-status"
+                    },
+                    "DE06_003_FIRST_CONTACT_DATE": "2024-02-05",
+                    "DE06_004_ELIGIBILITY_SCREENING_DATE": "2024-02-10",
+                    "DE06_005_INITIAL_ASSESSMENT_DATE": "2024-02-15",
+                    "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20",
+                    "APPOINTMENT": {
+                        "APPOINTMENT_STATUS": {
+                            "CODE": "cancelled",
+                            "LABEL": "Cancelled",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/appointmentstatus"
+                        },
+                        "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20T09:00:00",
+                        "DE06_006_SCHEDULED_APPOINTMENT_END": "2024-02-20T10:00:00",
+                        "DE06_007_CANCELLATION_REASON": {
+                            "CODE": "Client Rescheduled",
+                            "LABEL": "Client Rescheduled",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-002",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/appointment-reschedule-reason",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/appointmentRescheduleReason"
+                        }
+                    },
+                    "DE06_008_SERVICE_INITIATION_DATE": "2024-03-01",
+                    "DE06_009_SERVICE_ENROLLMENT_DATE": "2024-03-05",
+                    "DE06_010_SERVICE_TERMINATION_DATE": "2024-06-15",
+                    "DE06_011_SERVICE_TERMINATION_REASON": {
+                        "CODE": "306562009",
+                        "LABEL": "Discharge from service",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-026",
+                        "CODE_SYSTEM": "http://snomed.info/sct",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/service-termination-reason"
+                    }
+                },
+                "HEALTH_PROGRAM": {
+                    "DE09_001_PROGRAM_NUMBER": {
+                        "CODE": "HP-001",
+                        "LABEL": "HP-001",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE09_002_PROGRAM_NAME": "MENTAL HEALTH PROGRAM",
+                    "DE09_003_FUNCTIONAL_CENTRE": {
+                        "CODE": "AWS",
+                        "LABEL": "Adult Withdrawal Services",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functionalCentreCode",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-FunctionalCentreCode"
+                    }
+                },
+                "SERVICES_CNT": 1,
+                "SERVICES": [
+                    {
+                        "HSP_ORGANIZATION": {
+                            "DE07_001_ORGANIZATION_NUMBER": {
+                                "CODE": "ORG-001",
+                                "LABEL": "ORG-001",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_002_MOH_ORGANIZATION_ID": {
+                                "CODE": "MOH-12345",
+                                "LABEL": "MOH-12345",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_003_ORGANIZATION_NAME": "Great Brightshores Health Network",
+                            "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                                "CODE": "true",
+                                "LABEL": "Organization Active",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                                "CODE_SYSTEM": "",
+                                "VALUE_SET_URL": ""
+                            }
+                        },
+                        "HSP_SITE": {
+                            "DE08_001_SITE_NUMBER": {
+                                "CODE": "SITE-001",
+                                "LABEL": "SITE-001",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE08_002_SITE_NAME": "Owen Sound Site"
+                        },
+                        "HEALTH_SERVICE_EVENT": {
+                            "DE10_001_EVENT_ID": {
+                                "CODE": "SVC-001",
+                                "LABEL": "SVC-001",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-Encounter-GBRH",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE10_CLASS": {
+                                "CODE": "AMB",
+                                "LABEL": "ambulatory",
+                                "CODE_VALUE_SOURCE": "HL7 v3 ActCode",
+                                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+                            },
+                            "DE10_002_ENCOUNTER_STATUS": {
+                                "CODE": "finished",
+                                "LABEL": "Finished",
+                                "CODE_VALUE_SOURCE": "FHIR R4",
+                                "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                                "VALUE_SET_URL": "http://hl7.org/fhir/valueset-encounter-status"
+                            },
+                            "DE10_003_SERVICE_MODALITY": {
+                                "CODE": "individual",
+                                "LABEL": "Individual",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModality"
+                            },
+                            "DE10_004_SERVICE_MODALITY_TYPE": {
+                                "CODE": "in-person-on-site",
+                                "LABEL": "In-person - on-site",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality-type",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModalityType"
+                            },
+                            "DE10_005_ENCOUNTER_DATE": "2024-03-10",
+                            "DE10_006_GROUP_SERVICE_ID": "GRP-2024-1",
+                            "DE10_007_DIRECT_MINUTES": 60,
+                            "DE10_008_INDIRECT_MINUTES": 15
+                        }
+                    }
+                ]
+            },
+            {
+                "SUBMIT_BUNDLE_CNT": 1,
+                "SUBMIT_BUNDLE": [
+                    {
+                        "TYPE": "CLIENT_SDOH",
+                        "SEQUENCE": 1,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 14,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "Condition",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "Observation-SexualOrientation",
+                                "SEQUENCE": 5
+                            },
+                            {
+                                "TYPE": "Observation-CitizenshipStatus",
+                                "SEQUENCE": 6
+                            },
+                            {
+                                "TYPE": "Observation-EmploymentStatus",
+                                "SEQUENCE": 7
+                            },
+                            {
+                                "TYPE": "Observation-LegalStatus",
+                                "SEQUENCE": 8
+                            },
+                            {
+                                "TYPE": "Observation-LevelOfEducation",
+                                "SEQUENCE": 9
+                            },
+                            {
+                                "TYPE": "Observation-NumberOfPeopleIncomeSupports",
+                                "SEQUENCE": 10
+                            },
+                            {
+                                "TYPE": "Observation-PersonalIncomeSource",
+                                "SEQUENCE": 11
+                            },
+                            {
+                                "TYPE": "Observation-HousingStatus",
+                                "SEQUENCE": 12
+                            },
+                            {
+                                "TYPE": "Observation-TotalHouseholdIncome",
+                                "SEQUENCE": 13
+                            },
+                            {
+                                "TYPE": "Observation-GenderIdentity",
+                                "SEQUENCE": 14
+                            }
+                        ]
+                    }
+                ],
+                "EPISODE_IDENTIFIER": "DUMMY-EPISODE-002",
+                "SUBMISSION_DATE": "2025-12-18 19:27:09",
+                "CLIENT": {
+                    "DE01_001_FIRST_NAME": "TEST2",
+                    "DE01_002_MIDDLE_NAME": "T",
+                    "DE01_003_LAST_NAME": "PATIENT",
+                    "DE01_004_DATE_OF_BIRTH": "1980-01-02",
+                    "DE01_005_ESTIMATED_DOB_FLAG": {
+                        "CODE": "false",
+                        "LABEL": "False",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/extension-estimated-date-of-birth-flag",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/extension-estimated-date-of-birth-flag"
+                    },
+                    "DE01_006_ACTIVE_STATUS": {
+                        "CODE": "true",
+                        "LABEL": "Client Active",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+                        "CODE_SYSTEM": "",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE02_001_CLIENT_IDENTIFIER_MRN": "MRN123452",
+                    "DE02_002_VENDOR_ISSUING_ID": "BHS-Cerner",
+                    "DE02_003_HEALTH_CARD_NUMBER": "1234-567-892",
+                    "DE02_004_IDENTIFIER_TYPE": {
+                        "CODE": "MR",
+                        "LABEL": "Medical Record Number",
+                        "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+                        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ClientIdentifierTypeCode"
+                    },
+                    "DE02_005_HCN_ISSUING_AUTHORITY": {
+                        "CODE": "ON",
+                        "LABEL": "Ontario Ministry of Health and Long-Term Care",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority"
+                    },
+                    "ADDRESS": {
+                        "DE03_001_ADDRESS_USE": {
+                            "CODE": "home",
+                            "LABEL": "Home",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/address-use"
+                        },
+                        "DE03_002_CITY": "OWEN SOUND",
+                        "DE03_003_PROVINCE": {
+                            "CODE": "ON",
+                            "LABEL": "Ontario",
+                            "CODE_VALUE_SOURCE": "Canada Infoway",
+                            "CODE_SYSTEM": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction",
+                            "VALUE_SET_URL": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction"
+                        },
+                        "DE03_004_POSTAL_CODE": "N4K 1A1"
+                    },
+                    "SOCIO_DEMOGRAPHICS": {
+                        "DE04_001_SDOH_EFFECTIVE_DATE": "2024-01-01",
+                        "OBSERVATION_STATUS": "final",
+                        "OBSERVATION_CATEGORY": {
+                            "CODE": "social-history",
+                            "LABEL": "Social History",
+                            "CODE_VALUE_SOURCE": "HL7 FHIR",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/observation-category"
+                        },
+                        "DE04_002_ETHNICITY_CNT": 1,
+                        "DE04_002_ETHNICITY": [
+                            {
+                                "CODE": "prefer-not-answer",
+                                "LABEL": "Prefer not to answer",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/ethnicity",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-Ethnicity"
+                            }
+                        ],
+                        "DE04_003_RELIGION_SPIRITUAL": {
+                            "CODE": "1007",
+                            "LABEL": "Atheism",
+                            "CODE_VALUE_SOURCE": "HL7 v3 ReligiousAffiliation",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ReligiousAffiliation"
+                        },
+                        "DE04_004_FIRST_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage"
+                        },
+                        "DE04_007_GENDER_IDENTITY": {
+                            "CODE": "446151000124109",
+                            "LABEL": "Identifies as male gender",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-GenderIdentity",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76691-5",
+                                "LABEL": "Gender identity",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_008_SEXUAL_ORIENTATION": {
+                            "CODE": "38628009",
+                            "LABEL": "Heterosexual",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-SexualOrientation",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76690-7",
+                                "LABEL": "Sexual orientation",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_009_YEAR_ARRIVED_CANADA": "2015",
+                        "DE04_010_BORN_IN_CANADA": {
+                            "CODE": "N",
+                            "LABEL": "No",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/born-in-canada",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-BornInCanadaResponse"
+                        },
+                        "DE04_012_CITIZENSHIP_STATUS": {
+                            "CODE": "canadian-citizen",
+                            "LABEL": "Canadian Citizen",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/mha-citizenshipStatus",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-CitizenshipStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780176911000087103",
+                                "LABEL": "Citizenship Status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_013_HIGHEST_EDUCATION": {
+                            "CODE": "high-school",
+                            "LABEL": "High School",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/highest-education",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HighestLevelOfEducationAttained",
+                            "OBSERVATION_CODE": {
+                                "CODE": "82589-3",
+                                "LABEL": "Highest level of education",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_014_EMPLOYMENT_STATUS": {
+                            "CODE": "employed-full-time",
+                            "LABEL": "Employed Full Time",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/employment-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-EmploymentStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "74165-2",
+                                "LABEL": "Employment status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_015_INCOME_SOURCE": {
+                            "CODE": "employment",
+                            "LABEL": "Employment",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/income-source",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PersonalIncomeSource",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780186711000087106",
+                                "LABEL": "Personal income source",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_016_MARITAL_STATUS": {
+                            "CODE": "S",
+                            "LABEL": "Never Married",
+                            "CODE_VALUE_SOURCE": "HL7 v3 MaritalStatus",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-MaritalStatus"
+                        },
+                        "DE04_017_HOUSING_STATUS": {
+                            "CODE": "stable",
+                            "LABEL": "Stable Housing",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/housing-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HousingStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "71802-3",
+                                "LABEL": "Housing status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_018_HOUSEHOLD_INCOME": {
+                            "CODE": "60000-79999",
+                            "LABEL": "$60,000 to $79,999",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/total-household-income",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-TotalHouseholdIncome",
+                            "OBSERVATION_CODE": {
+                                "CODE": "77244-2",
+                                "LABEL": "Total household income",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                            "VALUE": 1,
+                            "OBSERVATION_CODE": {
+                                "CODE": "63586-2",
+                                "LABEL": "Number of people income supports",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_020_LEGAL_STATUS": {
+                            "CODE": "informal-voluntary",
+                            "LABEL": "Informal - Voluntary",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/legal-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-LegalStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780196611000087109",
+                                "LABEL": "Legal status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_021_PRE_EXISTING_CONDITIONS": {
+                            "CODE": "none",
+                            "LABEL": "None",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/pre-existing-conditions",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreExistingConditions"
+                        }
+                    }
+                },
+                "REFERRAL": {
+                    "DE05_001_REFERRAL_ID": {
+                        "CODE": "REF-002",
+                        "LABEL": "REF-002",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-ServiceRequest-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE05_002_REFERRAL_RECEIVED_DATE": "2024-02-01",
+                    "DE05_003_REFERRAL_SOURCE": "SELF",
+                    "DE05_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-status"
+                    },
+                    "DE05_INTENT": {
+                        "CODE": "order",
+                        "LABEL": "Order",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-intent"
+                    },
+                    "DE05_004_REFERRAL_TYPE": {
+                        "CODE": "external",
+                        "LABEL": "External Referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType"
+                    },
+                    "DE05_005_REFERRAL_SOURCE_TYPE": {
+                        "CODE": "self",
+                        "LABEL": "Self-referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType"
+                    }
+                },
+                "EPISODE_OF_CARE": {
+                    "DE06_001_EPISODE_OF_CARE_ID": {
+                        "CODE": "EOC-002",
+                        "LABEL": "EOC-002",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-EpisodeOfCare-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE06_002_EPISODE_OF_CARE_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/valueset-episode-of-care-status"
+                    },
+                    "DE06_003_FIRST_CONTACT_DATE": "2024-02-05",
+                    "DE06_004_ELIGIBILITY_SCREENING_DATE": "2024-02-10",
+                    "DE06_005_INITIAL_ASSESSMENT_DATE": "2024-02-15",
+                    "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20",
+                    "APPOINTMENT": {
+                        "APPOINTMENT_STATUS": {
+                            "CODE": "cancelled",
+                            "LABEL": "Cancelled",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/appointmentstatus"
+                        },
+                        "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20T09:00:00",
+                        "DE06_006_SCHEDULED_APPOINTMENT_END": "2024-02-20T10:00:00",
+                        "DE06_007_CANCELLATION_REASON": {
+                            "CODE": "Client Rescheduled",
+                            "LABEL": "Client Rescheduled",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-002",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/appointment-reschedule-reason",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/appointmentRescheduleReason"
+                        }
+                    },
+                    "DE06_008_SERVICE_INITIATION_DATE": "2024-03-01",
+                    "DE06_009_SERVICE_ENROLLMENT_DATE": "2024-03-05",
+                    "DE06_010_SERVICE_TERMINATION_DATE": "2024-06-15",
+                    "DE06_011_SERVICE_TERMINATION_REASON": {
+                        "CODE": "306562009",
+                        "LABEL": "Discharge from service",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-026",
+                        "CODE_SYSTEM": "http://snomed.info/sct",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/service-termination-reason"
+                    }
+                },
+                "HEALTH_PROGRAM": {
+                    "DE09_001_PROGRAM_NUMBER": {
+                        "CODE": "HP-002",
+                        "LABEL": "HP-002",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE09_002_PROGRAM_NAME": "MENTAL HEALTH PROGRAM",
+                    "DE09_003_FUNCTIONAL_CENTRE": {
+                        "CODE": "AWS",
+                        "LABEL": "Adult Withdrawal Services",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functionalCentreCode",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-FunctionalCentreCode"
+                    }
+                },
+                "SERVICES_CNT": 1,
+                "SERVICES": [
+                    {
+                        "HSP_ORGANIZATION": {
+                            "DE07_001_ORGANIZATION_NUMBER": {
+                                "CODE": "ORG-002",
+                                "LABEL": "ORG-002",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_002_MOH_ORGANIZATION_ID": {
+                                "CODE": "MOH-12345",
+                                "LABEL": "MOH-12345",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_003_ORGANIZATION_NAME": "Great Brightshores Health Network",
+                            "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                                "CODE": "true",
+                                "LABEL": "Organization Active",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                                "CODE_SYSTEM": "",
+                                "VALUE_SET_URL": ""
+                            }
+                        },
+                        "HSP_SITE": {
+                            "DE08_001_SITE_NUMBER": {
+                                "CODE": "SITE-002",
+                                "LABEL": "SITE-002",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE08_002_SITE_NAME": "Owen Sound Site"
+                        },
+                        "HEALTH_SERVICE_EVENT": {
+                            "DE10_001_EVENT_ID": {
+                                "CODE": "SVC-002",
+                                "LABEL": "SVC-002",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-Encounter-GBRH",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE10_CLASS": {
+                                "CODE": "AMB",
+                                "LABEL": "ambulatory",
+                                "CODE_VALUE_SOURCE": "HL7 v3 ActCode",
+                                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+                            },
+                            "DE10_002_ENCOUNTER_STATUS": {
+                                "CODE": "finished",
+                                "LABEL": "Finished",
+                                "CODE_VALUE_SOURCE": "FHIR R4",
+                                "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                                "VALUE_SET_URL": "http://hl7.org/fhir/valueset-encounter-status"
+                            },
+                            "DE10_003_SERVICE_MODALITY": {
+                                "CODE": "individual",
+                                "LABEL": "Individual",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModality"
+                            },
+                            "DE10_004_SERVICE_MODALITY_TYPE": {
+                                "CODE": "in-person-on-site",
+                                "LABEL": "In-person - on-site",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality-type",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModalityType"
+                            },
+                            "DE10_005_ENCOUNTER_DATE": "2024-03-10",
+                            "DE10_006_GROUP_SERVICE_ID": "GRP-2024-2",
+                            "DE10_007_DIRECT_MINUTES": 60,
+                            "DE10_008_INDIRECT_MINUTES": 15
+                        }
+                    }
+                ]
+            },
+            {
+                "SUBMIT_BUNDLE_CNT": 1,
+                "SUBMIT_BUNDLE": [
+                    {
+                        "TYPE": "HEALTH_SERVICES",
+                        "SEQUENCE": 1,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 7,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "ServiceRequest",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "EpisodeOfCare",
+                                "SEQUENCE": 5
+                            },
+                            {
+                                "TYPE": "Encounter",
+                                "SEQUENCE": 6
+                            },
+                            {
+                                "TYPE": "HealthcareService",
+                                "SEQUENCE": 7
+                            }
+                        ]
+                    }
+                ],
+                "EPISODE_IDENTIFIER": "DUMMY-EPISODE-003",
+                "SUBMISSION_DATE": "2025-12-18 19:27:09",
+                "CLIENT": {
+                    "DE01_001_FIRST_NAME": "TEST3",
+                    "DE01_002_MIDDLE_NAME": "T",
+                    "DE01_003_LAST_NAME": "PATIENT",
+                    "DE01_004_DATE_OF_BIRTH": "1980-01-03",
+                    "DE01_005_ESTIMATED_DOB_FLAG": {
+                        "CODE": "false",
+                        "LABEL": "False",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/extension-estimated-date-of-birth-flag",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/extension-estimated-date-of-birth-flag"
+                    },
+                    "DE01_006_ACTIVE_STATUS": {
+                        "CODE": "true",
+                        "LABEL": "Client Active",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+                        "CODE_SYSTEM": "",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE02_001_CLIENT_IDENTIFIER_MRN": "MRN123453",
+                    "DE02_002_VENDOR_ISSUING_ID": "BHS-Cerner",
+                    "DE02_003_HEALTH_CARD_NUMBER": "1234-567-893",
+                    "DE02_004_IDENTIFIER_TYPE": {
+                        "CODE": "MR",
+                        "LABEL": "Medical Record Number",
+                        "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+                        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ClientIdentifierTypeCode"
+                    },
+                    "DE02_005_HCN_ISSUING_AUTHORITY": {
+                        "CODE": "ON",
+                        "LABEL": "Ontario Ministry of Health and Long-Term Care",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority"
+                    },
+                    "ADDRESS": {
+                        "DE03_001_ADDRESS_USE": {
+                            "CODE": "home",
+                            "LABEL": "Home",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/address-use"
+                        },
+                        "DE03_002_CITY": "OWEN SOUND",
+                        "DE03_003_PROVINCE": {
+                            "CODE": "ON",
+                            "LABEL": "Ontario",
+                            "CODE_VALUE_SOURCE": "Canada Infoway",
+                            "CODE_SYSTEM": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction",
+                            "VALUE_SET_URL": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction"
+                        },
+                        "DE03_004_POSTAL_CODE": "N4K 1A1"
+                    },
+                    "SOCIO_DEMOGRAPHICS": {
+                        "DE04_001_SDOH_EFFECTIVE_DATE": "2024-01-01",
+                        "OBSERVATION_STATUS": "final",
+                        "OBSERVATION_CATEGORY": {
+                            "CODE": "social-history",
+                            "LABEL": "Social History",
+                            "CODE_VALUE_SOURCE": "HL7 FHIR",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/observation-category"
+                        },
+                        "DE04_002_ETHNICITY_CNT": 1,
+                        "DE04_002_ETHNICITY": [
+                            {
+                                "CODE": "prefer-not-answer",
+                                "LABEL": "Prefer not to answer",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/ethnicity",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-Ethnicity"
+                            }
+                        ],
+                        "DE04_003_RELIGION_SPIRITUAL": {
+                            "CODE": "1007",
+                            "LABEL": "Atheism",
+                            "CODE_VALUE_SOURCE": "HL7 v3 ReligiousAffiliation",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ReligiousAffiliation"
+                        },
+                        "DE04_004_FIRST_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage"
+                        },
+                        "DE04_007_GENDER_IDENTITY": {
+                            "CODE": "446151000124109",
+                            "LABEL": "Identifies as male gender",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-GenderIdentity",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76691-5",
+                                "LABEL": "Gender identity",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_008_SEXUAL_ORIENTATION": {
+                            "CODE": "38628009",
+                            "LABEL": "Heterosexual",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-SexualOrientation",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76690-7",
+                                "LABEL": "Sexual orientation",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_009_YEAR_ARRIVED_CANADA": "2015",
+                        "DE04_010_BORN_IN_CANADA": {
+                            "CODE": "N",
+                            "LABEL": "No",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/born-in-canada",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-BornInCanadaResponse"
+                        },
+                        "DE04_012_CITIZENSHIP_STATUS": {
+                            "CODE": "canadian-citizen",
+                            "LABEL": "Canadian Citizen",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/mha-citizenshipStatus",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-CitizenshipStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780176911000087103",
+                                "LABEL": "Citizenship Status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_013_HIGHEST_EDUCATION": {
+                            "CODE": "high-school",
+                            "LABEL": "High School",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/highest-education",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HighestLevelOfEducationAttained",
+                            "OBSERVATION_CODE": {
+                                "CODE": "82589-3",
+                                "LABEL": "Highest level of education",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_014_EMPLOYMENT_STATUS": {
+                            "CODE": "employed-full-time",
+                            "LABEL": "Employed Full Time",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/employment-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-EmploymentStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "74165-2",
+                                "LABEL": "Employment status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_015_INCOME_SOURCE": {
+                            "CODE": "employment",
+                            "LABEL": "Employment",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/income-source",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PersonalIncomeSource",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780186711000087106",
+                                "LABEL": "Personal income source",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_016_MARITAL_STATUS": {
+                            "CODE": "S",
+                            "LABEL": "Never Married",
+                            "CODE_VALUE_SOURCE": "HL7 v3 MaritalStatus",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-MaritalStatus"
+                        },
+                        "DE04_017_HOUSING_STATUS": {
+                            "CODE": "stable",
+                            "LABEL": "Stable Housing",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/housing-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HousingStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "71802-3",
+                                "LABEL": "Housing status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_018_HOUSEHOLD_INCOME": {
+                            "CODE": "60000-79999",
+                            "LABEL": "$60,000 to $79,999",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/total-household-income",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-TotalHouseholdIncome",
+                            "OBSERVATION_CODE": {
+                                "CODE": "77244-2",
+                                "LABEL": "Total household income",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                            "VALUE": 1,
+                            "OBSERVATION_CODE": {
+                                "CODE": "63586-2",
+                                "LABEL": "Number of people income supports",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_020_LEGAL_STATUS": {
+                            "CODE": "informal-voluntary",
+                            "LABEL": "Informal - Voluntary",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/legal-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-LegalStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780196611000087109",
+                                "LABEL": "Legal status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_021_PRE_EXISTING_CONDITIONS": {
+                            "CODE": "none",
+                            "LABEL": "None",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/pre-existing-conditions",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreExistingConditions"
+                        }
+                    }
+                },
+                "REFERRAL": {
+                    "DE05_001_REFERRAL_ID": {
+                        "CODE": "REF-003",
+                        "LABEL": "REF-003",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-ServiceRequest-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE05_002_REFERRAL_RECEIVED_DATE": "2024-02-01",
+                    "DE05_003_REFERRAL_SOURCE": "SELF",
+                    "DE05_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-status"
+                    },
+                    "DE05_INTENT": {
+                        "CODE": "order",
+                        "LABEL": "Order",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-intent"
+                    },
+                    "DE05_004_REFERRAL_TYPE": {
+                        "CODE": "external",
+                        "LABEL": "External Referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType"
+                    },
+                    "DE05_005_REFERRAL_SOURCE_TYPE": {
+                        "CODE": "self",
+                        "LABEL": "Self-referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType"
+                    }
+                },
+                "EPISODE_OF_CARE": {
+                    "DE06_001_EPISODE_OF_CARE_ID": {
+                        "CODE": "EOC-003",
+                        "LABEL": "EOC-003",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-EpisodeOfCare-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE06_002_EPISODE_OF_CARE_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/valueset-episode-of-care-status"
+                    },
+                    "DE06_003_FIRST_CONTACT_DATE": "2024-02-05",
+                    "DE06_004_ELIGIBILITY_SCREENING_DATE": "2024-02-10",
+                    "DE06_005_INITIAL_ASSESSMENT_DATE": "2024-02-15",
+                    "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20",
+                    "APPOINTMENT": {
+                        "APPOINTMENT_STATUS": {
+                            "CODE": "cancelled",
+                            "LABEL": "Cancelled",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/appointmentstatus"
+                        },
+                        "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20T09:00:00",
+                        "DE06_006_SCHEDULED_APPOINTMENT_END": "2024-02-20T10:00:00",
+                        "DE06_007_CANCELLATION_REASON": {
+                            "CODE": "Client Rescheduled",
+                            "LABEL": "Client Rescheduled",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-002",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/appointment-reschedule-reason",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/appointmentRescheduleReason"
+                        }
+                    },
+                    "DE06_008_SERVICE_INITIATION_DATE": "2024-03-01",
+                    "DE06_009_SERVICE_ENROLLMENT_DATE": "2024-03-05",
+                    "DE06_010_SERVICE_TERMINATION_DATE": "2024-06-15",
+                    "DE06_011_SERVICE_TERMINATION_REASON": {
+                        "CODE": "306562009",
+                        "LABEL": "Discharge from service",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-026",
+                        "CODE_SYSTEM": "http://snomed.info/sct",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/service-termination-reason"
+                    }
+                },
+                "HEALTH_PROGRAM": {
+                    "DE09_001_PROGRAM_NUMBER": {
+                        "CODE": "HP-003",
+                        "LABEL": "HP-003",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE09_002_PROGRAM_NAME": "MENTAL HEALTH PROGRAM",
+                    "DE09_003_FUNCTIONAL_CENTRE": {
+                        "CODE": "AWS",
+                        "LABEL": "Adult Withdrawal Services",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functionalCentreCode",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-FunctionalCentreCode"
+                    }
+                },
+                "SERVICES_CNT": 1,
+                "SERVICES": [
+                    {
+                        "HSP_ORGANIZATION": {
+                            "DE07_001_ORGANIZATION_NUMBER": {
+                                "CODE": "ORG-003",
+                                "LABEL": "ORG-003",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_002_MOH_ORGANIZATION_ID": {
+                                "CODE": "MOH-12345",
+                                "LABEL": "MOH-12345",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_003_ORGANIZATION_NAME": "Great Brightshores Health Network",
+                            "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                                "CODE": "true",
+                                "LABEL": "Organization Active",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                                "CODE_SYSTEM": "",
+                                "VALUE_SET_URL": ""
+                            }
+                        },
+                        "HSP_SITE": {
+                            "DE08_001_SITE_NUMBER": {
+                                "CODE": "SITE-003",
+                                "LABEL": "SITE-003",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE08_002_SITE_NAME": "Owen Sound Site"
+                        },
+                        "HEALTH_SERVICE_EVENT": {
+                            "DE10_001_EVENT_ID": {
+                                "CODE": "SVC-003",
+                                "LABEL": "SVC-003",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-Encounter-GBRH",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE10_CLASS": {
+                                "CODE": "AMB",
+                                "LABEL": "ambulatory",
+                                "CODE_VALUE_SOURCE": "HL7 v3 ActCode",
+                                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+                            },
+                            "DE10_002_ENCOUNTER_STATUS": {
+                                "CODE": "finished",
+                                "LABEL": "Finished",
+                                "CODE_VALUE_SOURCE": "FHIR R4",
+                                "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                                "VALUE_SET_URL": "http://hl7.org/fhir/valueset-encounter-status"
+                            },
+                            "DE10_003_SERVICE_MODALITY": {
+                                "CODE": "individual",
+                                "LABEL": "Individual",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModality"
+                            },
+                            "DE10_004_SERVICE_MODALITY_TYPE": {
+                                "CODE": "in-person-on-site",
+                                "LABEL": "In-person - on-site",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality-type",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModalityType"
+                            },
+                            "DE10_005_ENCOUNTER_DATE": "2024-03-10",
+                            "DE10_006_GROUP_SERVICE_ID": "GRP-2024-3",
+                            "DE10_007_DIRECT_MINUTES": 60,
+                            "DE10_008_INDIRECT_MINUTES": 15
+                        }
+                    }
+                ]
+            },
+            {
+                "SUBMIT_BUNDLE_CNT": 1,
+                "SUBMIT_BUNDLE": [
+                    {
+                        "TYPE": "SCHEDULED_APPOINTMENT",
+                        "SEQUENCE": 1,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 5,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "EpisodeOfCare",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "Appointment",
+                                "SEQUENCE": 5
+                            }
+                        ]
+                    }
+                ],
+                "EPISODE_IDENTIFIER": "DUMMY-EPISODE-004",
+                "SUBMISSION_DATE": "2025-12-18 19:27:09",
+                "CLIENT": {
+                    "DE01_001_FIRST_NAME": "TEST4",
+                    "DE01_002_MIDDLE_NAME": "T",
+                    "DE01_003_LAST_NAME": "PATIENT",
+                    "DE01_004_DATE_OF_BIRTH": "1980-01-04",
+                    "DE01_005_ESTIMATED_DOB_FLAG": {
+                        "CODE": "false",
+                        "LABEL": "False",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/extension-estimated-date-of-birth-flag",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/extension-estimated-date-of-birth-flag"
+                    },
+                    "DE01_006_ACTIVE_STATUS": {
+                        "CODE": "true",
+                        "LABEL": "Client Active",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+                        "CODE_SYSTEM": "",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE02_001_CLIENT_IDENTIFIER_MRN": "MRN123454",
+                    "DE02_002_VENDOR_ISSUING_ID": "BHS-Cerner",
+                    "DE02_003_HEALTH_CARD_NUMBER": "1234-567-894",
+                    "DE02_004_IDENTIFIER_TYPE": {
+                        "CODE": "MR",
+                        "LABEL": "Medical Record Number",
+                        "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+                        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ClientIdentifierTypeCode"
+                    },
+                    "DE02_005_HCN_ISSUING_AUTHORITY": {
+                        "CODE": "ON",
+                        "LABEL": "Ontario Ministry of Health and Long-Term Care",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority"
+                    },
+                    "ADDRESS": {
+                        "DE03_001_ADDRESS_USE": {
+                            "CODE": "home",
+                            "LABEL": "Home",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/address-use"
+                        },
+                        "DE03_002_CITY": "OWEN SOUND",
+                        "DE03_003_PROVINCE": {
+                            "CODE": "ON",
+                            "LABEL": "Ontario",
+                            "CODE_VALUE_SOURCE": "Canada Infoway",
+                            "CODE_SYSTEM": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction",
+                            "VALUE_SET_URL": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction"
+                        },
+                        "DE03_004_POSTAL_CODE": "N4K 1A1"
+                    },
+                    "SOCIO_DEMOGRAPHICS": {
+                        "DE04_001_SDOH_EFFECTIVE_DATE": "2024-01-01",
+                        "OBSERVATION_STATUS": "final",
+                        "OBSERVATION_CATEGORY": {
+                            "CODE": "social-history",
+                            "LABEL": "Social History",
+                            "CODE_VALUE_SOURCE": "HL7 FHIR",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/observation-category"
+                        },
+                        "DE04_002_ETHNICITY_CNT": 1,
+                        "DE04_002_ETHNICITY": [
+                            {
+                                "CODE": "prefer-not-answer",
+                                "LABEL": "Prefer not to answer",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/ethnicity",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-Ethnicity"
+                            }
+                        ],
+                        "DE04_003_RELIGION_SPIRITUAL": {
+                            "CODE": "1007",
+                            "LABEL": "Atheism",
+                            "CODE_VALUE_SOURCE": "HL7 v3 ReligiousAffiliation",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ReligiousAffiliation"
+                        },
+                        "DE04_004_FIRST_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage"
+                        },
+                        "DE04_007_GENDER_IDENTITY": {
+                            "CODE": "446151000124109",
+                            "LABEL": "Identifies as male gender",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-GenderIdentity",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76691-5",
+                                "LABEL": "Gender identity",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_008_SEXUAL_ORIENTATION": {
+                            "CODE": "38628009",
+                            "LABEL": "Heterosexual",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-SexualOrientation",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76690-7",
+                                "LABEL": "Sexual orientation",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_009_YEAR_ARRIVED_CANADA": "2015",
+                        "DE04_010_BORN_IN_CANADA": {
+                            "CODE": "N",
+                            "LABEL": "No",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/born-in-canada",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-BornInCanadaResponse"
+                        },
+                        "DE04_012_CITIZENSHIP_STATUS": {
+                            "CODE": "canadian-citizen",
+                            "LABEL": "Canadian Citizen",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/mha-citizenshipStatus",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-CitizenshipStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780176911000087103",
+                                "LABEL": "Citizenship Status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_013_HIGHEST_EDUCATION": {
+                            "CODE": "high-school",
+                            "LABEL": "High School",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/highest-education",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HighestLevelOfEducationAttained",
+                            "OBSERVATION_CODE": {
+                                "CODE": "82589-3",
+                                "LABEL": "Highest level of education",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_014_EMPLOYMENT_STATUS": {
+                            "CODE": "employed-full-time",
+                            "LABEL": "Employed Full Time",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/employment-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-EmploymentStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "74165-2",
+                                "LABEL": "Employment status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_015_INCOME_SOURCE": {
+                            "CODE": "employment",
+                            "LABEL": "Employment",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/income-source",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PersonalIncomeSource",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780186711000087106",
+                                "LABEL": "Personal income source",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_016_MARITAL_STATUS": {
+                            "CODE": "S",
+                            "LABEL": "Never Married",
+                            "CODE_VALUE_SOURCE": "HL7 v3 MaritalStatus",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-MaritalStatus"
+                        },
+                        "DE04_017_HOUSING_STATUS": {
+                            "CODE": "stable",
+                            "LABEL": "Stable Housing",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/housing-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HousingStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "71802-3",
+                                "LABEL": "Housing status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_018_HOUSEHOLD_INCOME": {
+                            "CODE": "60000-79999",
+                            "LABEL": "$60,000 to $79,999",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/total-household-income",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-TotalHouseholdIncome",
+                            "OBSERVATION_CODE": {
+                                "CODE": "77244-2",
+                                "LABEL": "Total household income",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                            "VALUE": 1,
+                            "OBSERVATION_CODE": {
+                                "CODE": "63586-2",
+                                "LABEL": "Number of people income supports",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_020_LEGAL_STATUS": {
+                            "CODE": "informal-voluntary",
+                            "LABEL": "Informal - Voluntary",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/legal-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-LegalStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780196611000087109",
+                                "LABEL": "Legal status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_021_PRE_EXISTING_CONDITIONS": {
+                            "CODE": "none",
+                            "LABEL": "None",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/pre-existing-conditions",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreExistingConditions"
+                        }
+                    }
+                },
+                "REFERRAL": {
+                    "DE05_001_REFERRAL_ID": {
+                        "CODE": "REF-004",
+                        "LABEL": "REF-004",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-ServiceRequest-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE05_002_REFERRAL_RECEIVED_DATE": "2024-02-01",
+                    "DE05_003_REFERRAL_SOURCE": "SELF",
+                    "DE05_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-status"
+                    },
+                    "DE05_INTENT": {
+                        "CODE": "order",
+                        "LABEL": "Order",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-intent"
+                    },
+                    "DE05_004_REFERRAL_TYPE": {
+                        "CODE": "external",
+                        "LABEL": "External Referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType"
+                    },
+                    "DE05_005_REFERRAL_SOURCE_TYPE": {
+                        "CODE": "self",
+                        "LABEL": "Self-referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType"
+                    }
+                },
+                "EPISODE_OF_CARE": {
+                    "DE06_001_EPISODE_OF_CARE_ID": {
+                        "CODE": "EOC-004",
+                        "LABEL": "EOC-004",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-EpisodeOfCare-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE06_002_EPISODE_OF_CARE_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/valueset-episode-of-care-status"
+                    },
+                    "DE06_003_FIRST_CONTACT_DATE": "2024-02-05",
+                    "DE06_004_ELIGIBILITY_SCREENING_DATE": "2024-02-10",
+                    "DE06_005_INITIAL_ASSESSMENT_DATE": "2024-02-15",
+                    "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20",
+                    "APPOINTMENT": {
+                        "APPOINTMENT_STATUS": {
+                            "CODE": "cancelled",
+                            "LABEL": "Cancelled",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/appointmentstatus"
+                        },
+                        "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20T09:00:00",
+                        "DE06_006_SCHEDULED_APPOINTMENT_END": "2024-02-20T10:00:00",
+                        "DE06_007_CANCELLATION_REASON": {
+                            "CODE": "Client Rescheduled",
+                            "LABEL": "Client Rescheduled",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-002",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/appointment-reschedule-reason",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/appointmentRescheduleReason"
+                        }
+                    },
+                    "DE06_008_SERVICE_INITIATION_DATE": "2024-03-01",
+                    "DE06_009_SERVICE_ENROLLMENT_DATE": "2024-03-05",
+                    "DE06_010_SERVICE_TERMINATION_DATE": "2024-06-15",
+                    "DE06_011_SERVICE_TERMINATION_REASON": {
+                        "CODE": "306562009",
+                        "LABEL": "Discharge from service",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-026",
+                        "CODE_SYSTEM": "http://snomed.info/sct",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/service-termination-reason"
+                    }
+                },
+                "HEALTH_PROGRAM": {
+                    "DE09_001_PROGRAM_NUMBER": {
+                        "CODE": "HP-004",
+                        "LABEL": "HP-004",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE09_002_PROGRAM_NAME": "MENTAL HEALTH PROGRAM",
+                    "DE09_003_FUNCTIONAL_CENTRE": {
+                        "CODE": "AWS",
+                        "LABEL": "Adult Withdrawal Services",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functionalCentreCode",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-FunctionalCentreCode"
+                    }
+                },
+                "SERVICES_CNT": 1,
+                "SERVICES": [
+                    {
+                        "HSP_ORGANIZATION": {
+                            "DE07_001_ORGANIZATION_NUMBER": {
+                                "CODE": "ORG-004",
+                                "LABEL": "ORG-004",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_002_MOH_ORGANIZATION_ID": {
+                                "CODE": "MOH-12345",
+                                "LABEL": "MOH-12345",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_003_ORGANIZATION_NAME": "Great Brightshores Health Network",
+                            "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                                "CODE": "true",
+                                "LABEL": "Organization Active",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                                "CODE_SYSTEM": "",
+                                "VALUE_SET_URL": ""
+                            }
+                        },
+                        "HSP_SITE": {
+                            "DE08_001_SITE_NUMBER": {
+                                "CODE": "SITE-004",
+                                "LABEL": "SITE-004",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE08_002_SITE_NAME": "Owen Sound Site"
+                        },
+                        "HEALTH_SERVICE_EVENT": {
+                            "DE10_001_EVENT_ID": {
+                                "CODE": "SVC-004",
+                                "LABEL": "SVC-004",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-Encounter-GBRH",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE10_CLASS": {
+                                "CODE": "AMB",
+                                "LABEL": "ambulatory",
+                                "CODE_VALUE_SOURCE": "HL7 v3 ActCode",
+                                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+                            },
+                            "DE10_002_ENCOUNTER_STATUS": {
+                                "CODE": "finished",
+                                "LABEL": "Finished",
+                                "CODE_VALUE_SOURCE": "FHIR R4",
+                                "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                                "VALUE_SET_URL": "http://hl7.org/fhir/valueset-encounter-status"
+                            },
+                            "DE10_003_SERVICE_MODALITY": {
+                                "CODE": "individual",
+                                "LABEL": "Individual",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModality"
+                            },
+                            "DE10_004_SERVICE_MODALITY_TYPE": {
+                                "CODE": "in-person-on-site",
+                                "LABEL": "In-person - on-site",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality-type",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModalityType"
+                            },
+                            "DE10_005_ENCOUNTER_DATE": "2024-03-10",
+                            "DE10_006_GROUP_SERVICE_ID": "GRP-2024-4",
+                            "DE10_007_DIRECT_MINUTES": 60,
+                            "DE10_008_INDIRECT_MINUTES": 15
+                        }
+                    }
+                ]
+            },
+            {
+                "SUBMIT_BUNDLE_CNT": 2,
+                "SUBMIT_BUNDLE": [
+                    {
+                        "TYPE": "SERVICE_REQUEST_EOC",
+                        "SEQUENCE": 1,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 6,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "ServiceRequest",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "EpisodeOfCare",
+                                "SEQUENCE": 5
+                            },
+                            {
+                                "TYPE": "HealthcareService",
+                                "SEQUENCE": 6
+                            }
+                        ]
+                    },
+                    {
+                        "TYPE": "CLIENT_SDOH",
+                        "SEQUENCE": 2,
+                        "BUNDLE_ID": "",
+                        "STATUS": "",
+                        "PROFILE_CNT": 14,
+                        "PROFILE": [
+                            {
+                                "TYPE": "Patient",
+                                "SEQUENCE": 1
+                            },
+                            {
+                                "TYPE": "Organization",
+                                "SEQUENCE": 2
+                            },
+                            {
+                                "TYPE": "Location",
+                                "SEQUENCE": 3
+                            },
+                            {
+                                "TYPE": "Condition",
+                                "SEQUENCE": 4
+                            },
+                            {
+                                "TYPE": "Observation-SexualOrientation",
+                                "SEQUENCE": 5
+                            },
+                            {
+                                "TYPE": "Observation-CitizenshipStatus",
+                                "SEQUENCE": 6
+                            },
+                            {
+                                "TYPE": "Observation-EmploymentStatus",
+                                "SEQUENCE": 7
+                            },
+                            {
+                                "TYPE": "Observation-LegalStatus",
+                                "SEQUENCE": 8
+                            },
+                            {
+                                "TYPE": "Observation-LevelOfEducation",
+                                "SEQUENCE": 9
+                            },
+                            {
+                                "TYPE": "Observation-NumberOfPeopleIncomeSupports",
+                                "SEQUENCE": 10
+                            },
+                            {
+                                "TYPE": "Observation-PersonalIncomeSource",
+                                "SEQUENCE": 11
+                            },
+                            {
+                                "TYPE": "Observation-HousingStatus",
+                                "SEQUENCE": 12
+                            },
+                            {
+                                "TYPE": "Observation-TotalHouseholdIncome",
+                                "SEQUENCE": 13
+                            },
+                            {
+                                "TYPE": "Observation-GenderIdentity",
+                                "SEQUENCE": 14
+                            }
+                        ]
+                    }
+                ],
+                "EPISODE_IDENTIFIER": "DUMMY-EPISODE-005",
+                "SUBMISSION_DATE": "2025-12-18 19:27:09",
+                "CLIENT": {
+                    "DE01_001_FIRST_NAME": "TEST5",
+                    "DE01_002_MIDDLE_NAME": "T",
+                    "DE01_003_LAST_NAME": "PATIENT",
+                    "DE01_004_DATE_OF_BIRTH": "1980-01-05",
+                    "DE01_005_ESTIMATED_DOB_FLAG": {
+                        "CODE": "false",
+                        "LABEL": "False",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/extension-estimated-date-of-birth-flag",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/extension-estimated-date-of-birth-flag"
+                    },
+                    "DE01_006_ACTIVE_STATUS": {
+                        "CODE": "true",
+                        "LABEL": "Client Active",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+                        "CODE_SYSTEM": "",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE02_001_CLIENT_IDENTIFIER_MRN": "MRN123455",
+                    "DE02_002_VENDOR_ISSUING_ID": "BHS-Cerner",
+                    "DE02_003_HEALTH_CARD_NUMBER": "1234-567-895",
+                    "DE02_004_IDENTIFIER_TYPE": {
+                        "CODE": "MR",
+                        "LABEL": "Medical Record Number",
+                        "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+                        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ClientIdentifierTypeCode"
+                    },
+                    "DE02_005_HCN_ISSUING_AUTHORITY": {
+                        "CODE": "ON",
+                        "LABEL": "Ontario Ministry of Health and Long-Term Care",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority"
+                    },
+                    "ADDRESS": {
+                        "DE03_001_ADDRESS_USE": {
+                            "CODE": "home",
+                            "LABEL": "Home",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/address-use"
+                        },
+                        "DE03_002_CITY": "OWEN SOUND",
+                        "DE03_003_PROVINCE": {
+                            "CODE": "ON",
+                            "LABEL": "Ontario",
+                            "CODE_VALUE_SOURCE": "Canada Infoway",
+                            "CODE_SYSTEM": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction",
+                            "VALUE_SET_URL": "https://tgateway.infoway-inforoute.ca/vs/canadianjurisdiction"
+                        },
+                        "DE03_004_POSTAL_CODE": "N4K 1A1"
+                    },
+                    "SOCIO_DEMOGRAPHICS": {
+                        "DE04_001_SDOH_EFFECTIVE_DATE": "2024-01-01",
+                        "OBSERVATION_STATUS": "final",
+                        "OBSERVATION_CATEGORY": {
+                            "CODE": "social-history",
+                            "LABEL": "Social History",
+                            "CODE_VALUE_SOURCE": "HL7 FHIR",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/observation-category"
+                        },
+                        "DE04_002_ETHNICITY_CNT": 1,
+                        "DE04_002_ETHNICITY": [
+                            {
+                                "CODE": "prefer-not-answer",
+                                "LABEL": "Prefer not to answer",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/ethnicity",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-Ethnicity"
+                            }
+                        ],
+                        "DE04_003_RELIGION_SPIRITUAL": {
+                            "CODE": "1007",
+                            "LABEL": "Atheism",
+                            "CODE_VALUE_SOURCE": "HL7 v3 ReligiousAffiliation",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ReligiousAffiliation"
+                        },
+                        "DE04_004_FIRST_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language"
+                        },
+                        "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                            "CODE": "en",
+                            "LABEL": "English",
+                            "CODE_VALUE_SOURCE": "BCP 47",
+                            "CODE_SYSTEM": "urn:ietf:bcp:47",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage"
+                        },
+                        "DE04_007_GENDER_IDENTITY": {
+                            "CODE": "446151000124109",
+                            "LABEL": "Identifies as male gender",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-GenderIdentity",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76691-5",
+                                "LABEL": "Gender identity",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_008_SEXUAL_ORIENTATION": {
+                            "CODE": "38628009",
+                            "LABEL": "Heterosexual",
+                            "CODE_VALUE_SOURCE": "SNOMED CT",
+                            "CODE_SYSTEM": "http://snomed.info/sct",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-SexualOrientation",
+                            "OBSERVATION_CODE": {
+                                "CODE": "76690-7",
+                                "LABEL": "Sexual orientation",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_009_YEAR_ARRIVED_CANADA": "2015",
+                        "DE04_010_BORN_IN_CANADA": {
+                            "CODE": "N",
+                            "LABEL": "No",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/born-in-canada",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-BornInCanadaResponse"
+                        },
+                        "DE04_012_CITIZENSHIP_STATUS": {
+                            "CODE": "canadian-citizen",
+                            "LABEL": "Canadian Citizen",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/mha-citizenshipStatus",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-CitizenshipStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780176911000087103",
+                                "LABEL": "Citizenship Status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_013_HIGHEST_EDUCATION": {
+                            "CODE": "high-school",
+                            "LABEL": "High School",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/highest-education",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HighestLevelOfEducationAttained",
+                            "OBSERVATION_CODE": {
+                                "CODE": "82589-3",
+                                "LABEL": "Highest level of education",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_014_EMPLOYMENT_STATUS": {
+                            "CODE": "employed-full-time",
+                            "LABEL": "Employed Full Time",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/employment-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-EmploymentStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "74165-2",
+                                "LABEL": "Employment status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_015_INCOME_SOURCE": {
+                            "CODE": "employment",
+                            "LABEL": "Employment",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/income-source",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PersonalIncomeSource",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780186711000087106",
+                                "LABEL": "Personal income source",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_016_MARITAL_STATUS": {
+                            "CODE": "S",
+                            "LABEL": "Never Married",
+                            "CODE_VALUE_SOURCE": "HL7 v3 MaritalStatus",
+                            "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+                            "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-MaritalStatus"
+                        },
+                        "DE04_017_HOUSING_STATUS": {
+                            "CODE": "stable",
+                            "LABEL": "Stable Housing",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/housing-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HousingStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "71802-3",
+                                "LABEL": "Housing status",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_018_HOUSEHOLD_INCOME": {
+                            "CODE": "60000-79999",
+                            "LABEL": "$60,000 to $79,999",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/total-household-income",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-TotalHouseholdIncome",
+                            "OBSERVATION_CODE": {
+                                "CODE": "77244-2",
+                                "LABEL": "Total household income",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                            "VALUE": 1,
+                            "OBSERVATION_CODE": {
+                                "CODE": "63586-2",
+                                "LABEL": "Number of people income supports",
+                                "CODE_SYSTEM": "http://loinc.org"
+                            }
+                        },
+                        "DE04_020_LEGAL_STATUS": {
+                            "CODE": "informal-voluntary",
+                            "LABEL": "Informal - Voluntary",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/legal-status",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-LegalStatus",
+                            "OBSERVATION_CODE": {
+                                "CODE": "780196611000087109",
+                                "LABEL": "Legal status",
+                                "CODE_SYSTEM": "http://snomed.info/sct"
+                            }
+                        },
+                        "DE04_021_PRE_EXISTING_CONDITIONS": {
+                            "CODE": "none",
+                            "LABEL": "None",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/pre-existing-conditions",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreExistingConditions"
+                        }
+                    }
+                },
+                "REFERRAL": {
+                    "DE05_001_REFERRAL_ID": {
+                        "CODE": "REF-005",
+                        "LABEL": "REF-005",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-ServiceRequest-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE05_002_REFERRAL_RECEIVED_DATE": "2024-02-01",
+                    "DE05_003_REFERRAL_SOURCE": "SELF",
+                    "DE05_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-status"
+                    },
+                    "DE05_INTENT": {
+                        "CODE": "order",
+                        "LABEL": "Order",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/request-intent"
+                    },
+                    "DE05_004_REFERRAL_TYPE": {
+                        "CODE": "external",
+                        "LABEL": "External Referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType"
+                    },
+                    "DE05_005_REFERRAL_SOURCE_TYPE": {
+                        "CODE": "self",
+                        "LABEL": "Self-referral",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType"
+                    }
+                },
+                "EPISODE_OF_CARE": {
+                    "DE06_001_EPISODE_OF_CARE_ID": {
+                        "CODE": "EOC-005",
+                        "LABEL": "EOC-005",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-EpisodeOfCare-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE06_002_EPISODE_OF_CARE_STATUS": {
+                        "CODE": "active",
+                        "LABEL": "Active",
+                        "CODE_VALUE_SOURCE": "FHIR R4",
+                        "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+                        "VALUE_SET_URL": "http://hl7.org/fhir/valueset-episode-of-care-status"
+                    },
+                    "DE06_003_FIRST_CONTACT_DATE": "2024-02-05",
+                    "DE06_004_ELIGIBILITY_SCREENING_DATE": "2024-02-10",
+                    "DE06_005_INITIAL_ASSESSMENT_DATE": "2024-02-15",
+                    "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20",
+                    "APPOINTMENT": {
+                        "APPOINTMENT_STATUS": {
+                            "CODE": "cancelled",
+                            "LABEL": "Cancelled",
+                            "CODE_VALUE_SOURCE": "FHIR R4",
+                            "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                            "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/appointmentstatus"
+                        },
+                        "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2024-02-20T09:00:00",
+                        "DE06_006_SCHEDULED_APPOINTMENT_END": "2024-02-20T10:00:00",
+                        "DE06_007_CANCELLATION_REASON": {
+                            "CODE": "Client Rescheduled",
+                            "LABEL": "Client Rescheduled",
+                            "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-002",
+                            "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/appointment-reschedule-reason",
+                            "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/appointmentRescheduleReason"
+                        }
+                    },
+                    "DE06_008_SERVICE_INITIATION_DATE": "2024-03-01",
+                    "DE06_009_SERVICE_ENROLLMENT_DATE": "2024-03-05",
+                    "DE06_010_SERVICE_TERMINATION_DATE": "2024-06-15",
+                    "DE06_011_SERVICE_TERMINATION_REASON": {
+                        "CODE": "306562009",
+                        "LABEL": "Discharge from service",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-026",
+                        "CODE_SYSTEM": "http://snomed.info/sct",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/service-termination-reason"
+                    }
+                },
+                "HEALTH_PROGRAM": {
+                    "DE09_001_PROGRAM_NUMBER": {
+                        "CODE": "HP-005",
+                        "LABEL": "HP-005",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
+                        "VALUE_SET_URL": ""
+                    },
+                    "DE09_002_PROGRAM_NAME": "MENTAL HEALTH PROGRAM",
+                    "DE09_003_FUNCTIONAL_CENTRE": {
+                        "CODE": "AWS",
+                        "LABEL": "Adult Withdrawal Services",
+                        "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functionalCentreCode",
+                        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-FunctionalCentreCode"
+                    }
+                },
+                "SERVICES_CNT": 1,
+                "SERVICES": [
+                    {
+                        "HSP_ORGANIZATION": {
+                            "DE07_001_ORGANIZATION_NUMBER": {
+                                "CODE": "ORG-005",
+                                "LABEL": "ORG-005",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_002_MOH_ORGANIZATION_ID": {
+                                "CODE": "MOH-12345",
+                                "LABEL": "MOH-12345",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE07_003_ORGANIZATION_NAME": "Great Brightshores Health Network",
+                            "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                                "CODE": "true",
+                                "LABEL": "Organization Active",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                                "CODE_SYSTEM": "",
+                                "VALUE_SET_URL": ""
+                            }
+                        },
+                        "HSP_SITE": {
+                            "DE08_001_SITE_NUMBER": {
+                                "CODE": "SITE-005",
+                                "LABEL": "SITE-005",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE08_002_SITE_NAME": "Owen Sound Site"
+                        },
+                        "HEALTH_SERVICE_EVENT": {
+                            "DE10_001_EVENT_ID": {
+                                "CODE": "SVC-005",
+                                "LABEL": "SVC-005",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/NamingSystem/id-Encounter-GBRH",
+                                "VALUE_SET_URL": ""
+                            },
+                            "DE10_CLASS": {
+                                "CODE": "AMB",
+                                "LABEL": "ambulatory",
+                                "CODE_VALUE_SOURCE": "HL7 v3 ActCode",
+                                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                                "VALUE_SET_URL": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode"
+                            },
+                            "DE10_002_ENCOUNTER_STATUS": {
+                                "CODE": "finished",
+                                "LABEL": "Finished",
+                                "CODE_VALUE_SOURCE": "FHIR R4",
+                                "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                                "VALUE_SET_URL": "http://hl7.org/fhir/valueset-encounter-status"
+                            },
+                            "DE10_003_SERVICE_MODALITY": {
+                                "CODE": "individual",
+                                "LABEL": "Individual",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModality"
+                            },
+                            "DE10_004_SERVICE_MODALITY_TYPE": {
+                                "CODE": "in-person-on-site",
+                                "LABEL": "In-person - on-site",
+                                "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/service-modality-type",
+                                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ServiceModalityType"
+                            },
+                            "DE10_005_ENCOUNTER_DATE": "2024-03-10",
+                            "DE10_006_GROUP_SERVICE_ID": "GRP-2024-5",
+                            "DE10_007_DIRECT_MINUTES": 60,
+                            "DE10_008_INDIRECT_MINUTES": 15
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
