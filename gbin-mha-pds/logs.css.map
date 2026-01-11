@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/logs/logs.scss"],
+  "sourcesContent": [".logs-container {\n  padding: 1.5rem;\n  max-width: 1400px;\n  margin: 0 auto;\n}\n\n.logs-header {\n  margin-bottom: 1.5rem;\n\n  h2 {\n    margin: 0 0 0.25rem 0;\n    color: #1a365d;\n    font-size: 1.5rem;\n  }\n\n  p {\n    margin: 0;\n    color: #6c757d;\n    font-size: 0.875rem;\n  }\n}\n\n.logs-content {\n  background: white;\n  border: 1px solid #dee2e6;\n  border-radius: 8px;\n  padding: 1.5rem;\n  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);\n}\n\n// Responsive adjustments\n@media (max-width: 768px) {\n  .logs-container {\n    padding: 1rem;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,aAAA;AACA,UAAA,EAAA;;AAGF,CAAA;AACE,iBAAA;;AAEA,CAHF,YAGE;AACE,UAAA,EAAA,EAAA,QAAA;AACA,SAAA;AACA,aAAA;;AAGF,CATF,YASE;AACE,UAAA;AACA,SAAA;AACA,aAAA;;AAIJ,CAAA;AACE,cAAA;AACA,UAAA,IAAA,MAAA;AACA,iBAAA;AACA,WAAA;AACA,cAAA,EAAA,IAAA,IAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;;AAIF,OAAA,CAAA,SAAA,EAAA;AACE,GAhCF;AAiCI,aAAA;;;",
+  "names": []
+}
