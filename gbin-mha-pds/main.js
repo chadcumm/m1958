@@ -5970,7 +5970,7 @@ var VERSION = new Version("20.3.2");
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-4KQF3LRE.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-V65VODZE.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
@@ -6020,8 +6020,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.25-develop";
-var packageVersion = "0.0.25";
+var buildVersion = "v0.0.26-develop";
+var packageVersion = "0.0.26";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
