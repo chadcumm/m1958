@@ -93,8 +93,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.35-develop";
-var packageVersion = "0.0.35";
+var buildVersion = "v0.0.36-develop";
+var packageVersion = "0.0.36";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
