@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/patients/components/service-list.scss"],
+  "sourcesContent": [".service-list {\n  overflow-x: auto;\n}\n\n.service-table {\n  width: 100%;\n  border-collapse: collapse;\n  font-size: 0.8125rem;\n  background: #fafafa;\n\n  th, td {\n    padding: 8px 10px;\n    text-align: left;\n    border-bottom: 1px solid #e0e0e0;\n  }\n\n  th {\n    background: #f0f0f0;\n    font-weight: 600;\n    color: #495057;\n    white-space: nowrap;\n    font-size: 0.75rem;\n    text-transform: uppercase;\n  }\n\n  tbody tr {\n    &:nth-child(even) {\n      background: #f8f9fa;\n    }\n\n    &:hover {\n      background: #f0f0f0;\n    }\n  }\n\n  .duration {\n    font-family: monospace;\n    text-align: center;\n  }\n\n  .org {\n    max-width: 150px;\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n  }\n\n  .no-data {\n    text-align: center;\n    color: #6c757d;\n    font-style: italic;\n    padding: 16px !important;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,cAAA;;AAGF,CAAA;AACE,SAAA;AACA,mBAAA;AACA,aAAA;AACA,cAAA;;AAEA,CANF,cAME;AAAA,CANF,cAME;AACE,WAAA,IAAA;AACA,cAAA;AACA,iBAAA,IAAA,MAAA;;AAGF,CAZF,cAYE;AACE,cAAA;AACA,eAAA;AACA,SAAA;AACA,eAAA;AACA,aAAA;AACA,kBAAA;;AAIA,CAtBJ,cAsBI,MAAA,EAAA;AACE,cAAA;;AAGF,CA1BJ,cA0BI,MAAA,EAAA;AACE,cAAA;;AAIJ,CA/BF,cA+BE,CAAA;AACE,eAAA;AACA,cAAA;;AAGF,CApCF,cAoCE,CAAA;AACE,aAAA;AACA,eAAA;AACA,YAAA;AACA,iBAAA;;AAGF,CA3CF,cA2CE,CAAA;AACE,cAAA;AACA,SAAA;AACA,cAAA;AACA,WAAA;;",
+  "names": []
+}
