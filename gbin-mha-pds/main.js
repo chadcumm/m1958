@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-B27REHEC.js";
+} from "./chunk-K4JD4C6S.js";
 import {
   AppStatusService,
   ChangeDetectionStrategy,
@@ -37,28 +37,28 @@ import {
   ɵɵpureFunction0,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-EM4MDCSU.js";
+} from "./chunk-2RMUROPJ.js";
 
 // src/app/app.routes.ts
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-WYOQXKXJ.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-QXS7OQWS.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-RYREDO35.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-NG3JWBP6.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-EY5XTOQN.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-4SDFRLVN.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-XLWFK77R.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-TTYRIA5I.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   }
 ];
@@ -93,8 +93,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.41-develop";
-var packageVersion = "0.0.41";
+var buildVersion = "v0.0.42-develop";
+var packageVersion = "0.0.42";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
@@ -148,12 +148,12 @@ var AppVersion = class _AppVersion {
       \u0275\u0275advance();
       \u0275\u0275conditional(ctx.isOfflineMode() ? 4 : 5);
     }
-  }, styles: ['\n\n.app-version[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version[_ngcontent-%COMP%]   .version-info[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version[_ngcontent-%COMP%]   .version-text[_ngcontent-%COMP%] {\n  font-weight: 500;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge.online[_ngcontent-%COMP%] {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge.offline[_ngcontent-%COMP%] {\n  background-color: #fff3e0;\n  color: #e65100;\n}\n/*# sourceMappingURL=app-version.css.map */'], changeDetection: 0 });
+  }, styles: ['\n\n.app-version[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version[_ngcontent-%COMP%]   .version-info[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version[_ngcontent-%COMP%]   .version-text[_ngcontent-%COMP%] {\n  font-weight: 500;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge.online[_ngcontent-%COMP%] {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version[_ngcontent-%COMP%]   .mode-badge.offline[_ngcontent-%COMP%] {\n  background-color: #fff3e0;\n  color: #e65100;\n}'], changeDetection: 0 });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AppVersion, [{
     type: Component,
-    args: [{ selector: "app-app-version", imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="app-version">\n  <div class="version-info">\n    <span class="version-text">{{ buildVersion }}</span>\n    @if (isOfflineMode()) {\n      <span class="mode-badge offline" title="Application is running in offline mode using mock data">\n        [OFFLINE]\n      </span>\n    } @else {\n      <span class="mode-badge online" title="Application is connected to live CCL services">\n        [ONLINE]\n      </span>\n    }\n  </div>\n</div>\n', styles: ['/* src/app/app-version/app-version.scss */\n.app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version .version-info {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version .version-text {\n  font-weight: 500;\n}\n.app-version .mode-badge {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version .mode-badge.online {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version .mode-badge.offline {\n  background-color: #fff3e0;\n  color: #e65100;\n}\n/*# sourceMappingURL=app-version.css.map */\n'] }]
+    args: [{ selector: "app-app-version", imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="app-version">\n  <div class="version-info">\n    <span class="version-text">{{ buildVersion }}</span>\n    @if (isOfflineMode()) {\n      <span class="mode-badge offline" title="Application is running in offline mode using mock data">\n        [OFFLINE]\n      </span>\n    } @else {\n      <span class="mode-badge online" title="Application is connected to live CCL services">\n        [ONLINE]\n      </span>\n    }\n  </div>\n</div>\n', styles: ['/* src/app/app-version/app-version.scss */\n.app-version {\n  display: inline-block;\n  padding: 4px 8px;\n  font-size: 0.75rem;\n  color: #666;\n  background-color: #f5f5f5;\n  border-radius: 4px;\n  font-family: monospace;\n}\n.app-version .version-info {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n}\n.app-version .version-text {\n  font-weight: 500;\n}\n.app-version .mode-badge {\n  display: inline-flex;\n  align-items: center;\n  font-size: 0.7rem;\n  padding: 2px 6px;\n  border-radius: 3px;\n  font-family:\n    -apple-system,\n    BlinkMacSystemFont,\n    "Segoe UI",\n    Roboto,\n    sans-serif;\n  cursor: help;\n}\n.app-version .mode-badge.online {\n  background-color: #e8f5e9;\n  color: #2e7d32;\n}\n.app-version .mode-badge.offline {\n  background-color: #fff3e0;\n  color: #e65100;\n}\n'] }]
   }], null, null);
 })();
 (() => {
@@ -243,7 +243,7 @@ var App = class _App {
       \u0275\u0275advance(5);
       \u0275\u0275property("routerLinkActiveOptions", \u0275\u0275pureFunction0(1, _c0));
     }
-  }, dependencies: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], styles: ["\n\n.app-container[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n}\n.app-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 12px 20px;\n  background-color: #1a365d;\n  color: white;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  padding-right: 20px;\n  border-right: 1px solid rgba(255, 255, 255, 0.2);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 8px 16px;\n  color: rgba(255, 255, 255, 0.85);\n  text-decoration: none;\n  border-radius: 4px;\n  font-size: 14px;\n  transition: all 0.2s;\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n  color: white;\n}\n.nav-link.active[_ngcontent-%COMP%] {\n  background-color: rgba(255, 255, 255, 0.15);\n  color: white;\n}\n.app-main[_ngcontent-%COMP%] {\n  flex: 1;\n  background-color: #f5f5f5;\n}\n/*# sourceMappingURL=app.css.map */"] });
+  }, dependencies: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], styles: ["\n\n.app-container[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n}\n.app-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 12px 20px;\n  background-color: #1a365d;\n  color: white;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  padding-right: 20px;\n  border-right: 1px solid rgba(255, 255, 255, 0.2);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 8px 16px;\n  color: rgba(255, 255, 255, 0.85);\n  text-decoration: none;\n  border-radius: 4px;\n  font-size: 14px;\n  transition: all 0.2s;\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n  color: white;\n}\n.nav-link.active[_ngcontent-%COMP%] {\n  background-color: rgba(255, 255, 255, 0.15);\n  color: white;\n}\n.app-main[_ngcontent-%COMP%] {\n  flex: 1;\n  background-color: #f5f5f5;\n}"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
@@ -257,4 +257,3 @@ var App = class _App {
 
 // src/main.ts
 bootstrapApplication(App, appConfig).catch((err) => console.error(err));
-//# sourceMappingURL=main.js.map
