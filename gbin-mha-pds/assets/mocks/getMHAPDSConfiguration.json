@@ -8982,5 +8982,32 @@
             "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/episode-of-care-status",
             "IS_DEFAULT": 0
         }
+    ],
+    "MHA_LOCATIONS_CNT": 4,
+    "MHA_LOCATIONS": [
+        {
+            "LOCATION_NAME": "BriefCounsel-OS",
+            "FACILITY_CD": 11449,
+            "NURSE_UNIT_CD": 12901,
+            "ACTIVE_IND": 1
+        },
+        {
+            "LOCATION_NAME": "Dual Diagnosis - OS",
+            "FACILITY_CD": 11449,
+            "NURSE_UNIT_CD": 38738719,
+            "ACTIVE_IND": 1
+        },
+        {
+            "LOCATION_NAME": "Injection Clinic",
+            "FACILITY_CD": 11449,
+            "NURSE_UNIT_CD": 537738245,
+            "ACTIVE_IND": 1
+        },
+        {
+            "LOCATION_NAME": "Acute Withdrawal Services",
+            "FACILITY_CD": 11449,
+            "NURSE_UNIT_CD": 537643767,
+            "ACTIVE_IND": 1
+        }
     ]
 }
