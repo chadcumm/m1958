@@ -58,7 +58,7 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-O2JYWJKG.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-7QVAYQ2K.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   }
 ];
@@ -93,8 +93,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.52-develop";
-var packageVersion = "0.0.52";
+var buildVersion = "v0.0.53-develop";
+var packageVersion = "0.0.53";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
