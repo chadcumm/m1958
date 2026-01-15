@@ -14007,8 +14007,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.8-main";
-var packageVersion = "0.0.8";
+var buildVersion = "v0.0.9-main";
+var packageVersion = "0.0.9";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51961,7 +51961,12 @@ function FileBrowserComponent_Conditional_14_Template(rf, ctx) {
 }
 function isCernerEnvironment() {
   try {
-    return typeof window.external?.DiscernObjectFactory !== "undefined";
+    const win = window;
+    const ext = win.external;
+    if (ext && typeof ext.DiscernObjectFactory !== "undefined") {
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
@@ -52198,7 +52203,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   }], null, { validateFiles: [{ type: Output, args: ["validateFiles"] }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 45 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 52 });
 })();
 
 // src/app/components/results-summary/results-summary.component.ts
