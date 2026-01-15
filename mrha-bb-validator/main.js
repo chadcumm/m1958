@@ -14007,8 +14007,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.5-main";
-var packageVersion = "0.0.5";
+var buildVersion = "v0.0.6-main";
+var packageVersion = "0.0.6";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51421,7 +51421,15 @@ var TabbedMenuComponent = class _TabbedMenuComponent {
 
 // src/app/services/file-browser.service.ts
 var FileBrowserService = class _FileBrowserService {
-  customService = inject(CustomService);
+  injector = inject(Injector);
+  _customService = null;
+  /** Lazy getter for CustomService - only injected when needed in online mode */
+  get customService() {
+    if (!this._customService) {
+      this._customService = this.injector.get(CustomService);
+    }
+    return this._customService;
+  }
   // Reactive state using signals
   _files = signal([], ...ngDevMode ? [{ debugName: "_files" }] : []);
   _loading = signal(false, ...ngDevMode ? [{ debugName: "_loading" }] : []);
@@ -51923,7 +51931,15 @@ function FileBrowserComponent_Conditional_15_Template(rf, ctx) {
 }
 var FileBrowserComponent = class _FileBrowserComponent {
   fileBrowserService = inject(FileBrowserService);
-  mPage = inject(MPageService);
+  injector = inject(Injector);
+  _mPage = null;
+  /** Lazy getter for MPageService - only injected when needed */
+  get mPage() {
+    if (!this._mPage) {
+      this._mPage = this.injector.get(MPageService);
+    }
+    return this._mPage;
+  }
   // Output events for parent components
   validateFiles = output();
   // Internal state for file selection
@@ -51947,11 +51963,15 @@ var FileBrowserComponent = class _FileBrowserComponent {
    * Load files - detect Cerner environment and use appropriate mode
    */
   loadFiles() {
-    if (this.mPage.serviceReady) {
-      this.fileBrowserService.enableOnlineMode();
-      this.fileBrowserService.listFiles("cclscratch:");
-      this.watchForCclError();
-    } else {
+    try {
+      if (this.mPage.serviceReady) {
+        this.fileBrowserService.enableOnlineMode();
+        this.fileBrowserService.listFiles("cclscratch:");
+        this.watchForCclError();
+      } else {
+        this.enableOfflineMode();
+      }
+    } catch {
       this.enableOfflineMode();
     }
     this.syncFilesFromService();
@@ -52151,7 +52171,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   }], null, { validateFiles: [{ type: Output, args: ["validateFiles"] }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 33 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 34 });
 })();
 
 // src/app/components/results-summary/results-summary.component.ts
