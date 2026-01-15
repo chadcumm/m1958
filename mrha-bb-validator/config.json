@@ -1,0 +1,13 @@
+{
+  "contextRoot": "http://m1958.gbrh_cd.cerncd.com/discern/domain/mpages/reports",
+  "domain": [
+    "b1958",
+    "m1958",
+    "p1958"
+  ],
+  "loginURL": "cclproxy/2_loginAuthenticate",
+  "logoutURL": "cclproxy/2_logoutAuthenticate",
+  "customURL": "cclproxy/2_callCustomScript",
+  "getValueURL": "cclproxy/2_getValue",
+  "setValueURL": "cclproxy/2_setValue"
+}
