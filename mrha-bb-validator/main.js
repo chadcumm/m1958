@@ -14007,8 +14007,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.11-main";
-var packageVersion = "0.0.11";
+var buildVersion = "v0.0.12-main";
+var packageVersion = "0.0.12";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51642,53 +51642,59 @@ var FileBrowserService = class _FileBrowserService {
 })();
 
 // src/app/components/file-browser/file-browser.component.ts
-function FileBrowserComponent_Conditional_5_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 9);
-    \u0275\u0275text(1, "Local Files");
+    \u0275\u0275domElementStart(0, "span", 3);
+    \u0275\u0275text(1, "[B-offline]");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(2, "span", 10);
-    \u0275\u0275text(3, "Offline Mode");
+    \u0275\u0275domElementStart(2, "span", 11);
+    \u0275\u0275text(3, "Local Files");
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(4, "span", 12);
+    \u0275\u0275text(5, "Offline Mode");
     \u0275\u0275domElementEnd();
   }
 }
-function FileBrowserComponent_Conditional_6_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 11);
-    \u0275\u0275text(1);
+    \u0275\u0275domElementStart(0, "span", 3);
+    \u0275\u0275text(1, "[C-online]");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(2, "span", 12);
-    \u0275\u0275text(3, "Online Mode");
+    \u0275\u0275domElementStart(2, "span", 13);
+    \u0275\u0275text(3);
+    \u0275\u0275domElementEnd();
+    \u0275\u0275domElementStart(4, "span", 14);
+    \u0275\u0275text(5, "Online Mode");
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275advance();
+    \u0275\u0275advance(3);
     \u0275\u0275textInterpolate(ctx_r0.directory());
   }
 }
-function FileBrowserComponent_Conditional_7_Conditional_1_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_13_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElement(0, "span", 14);
+    \u0275\u0275domElement(0, "span", 16);
   }
 }
-function FileBrowserComponent_Conditional_7_Conditional_2_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_13_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 15);
+    \u0275\u0275domElementStart(0, "span", 17);
     \u0275\u0275text(1, "\u21BB");
     \u0275\u0275domElementEnd();
   }
 }
-function FileBrowserComponent_Conditional_7_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "button", 13);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_7_Template_button_click_0_listener() {
+    \u0275\u0275domElementStart(0, "button", 15);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_13_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.refresh());
     });
-    \u0275\u0275conditionalCreate(1, FileBrowserComponent_Conditional_7_Conditional_1_Template, 1, 0, "span", 14)(2, FileBrowserComponent_Conditional_7_Conditional_2_Template, 2, 0, "span", 15);
+    \u0275\u0275conditionalCreate(1, FileBrowserComponent_Conditional_13_Conditional_1_Template, 1, 0, "span", 16)(2, FileBrowserComponent_Conditional_13_Conditional_2_Template, 2, 0, "span", 17);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
@@ -51698,29 +51704,29 @@ function FileBrowserComponent_Conditional_7_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r0.loading() ? 1 : 2);
   }
 }
-function FileBrowserComponent_Conditional_8_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 4)(1, "input", 16);
-    \u0275\u0275domListener("change", function FileBrowserComponent_Conditional_8_Template_input_change_1_listener($event) {
+    \u0275\u0275domElementStart(0, "div", 6)(1, "input", 18);
+    \u0275\u0275domListener("change", function FileBrowserComponent_Conditional_16_Template_input_change_1_listener($event) {
       \u0275\u0275restoreView(_r3);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.onLocalFilesSelected($event));
     });
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(2, "label", 17)(3, "span", 18);
+    \u0275\u0275domElementStart(2, "label", 19)(3, "span", 20);
     \u0275\u0275text(4, "\u{1F4C1}");
     \u0275\u0275domElementEnd();
     \u0275\u0275text(5, " Browse for Extract Files ");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(6, "span", 19);
+    \u0275\u0275domElementStart(6, "span", 21);
     \u0275\u0275text(7, "Select .txt extract files (PTNT, UNIT, SPEC_ATTR, etc.)");
     \u0275\u0275domElementEnd()();
   }
 }
-function FileBrowserComponent_Conditional_9_Conditional_7_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_17_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "span", 23);
+    \u0275\u0275domElementStart(0, "span", 25);
     \u0275\u0275text(1);
     \u0275\u0275domElementEnd();
   }
@@ -51730,30 +51736,30 @@ function FileBrowserComponent_Conditional_9_Conditional_7_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("", ctx_r0.selectedCount(), " selected");
   }
 }
-function FileBrowserComponent_Conditional_9_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 5)(1, "div", 20)(2, "button", 21);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_9_Template_button_click_2_listener() {
+    \u0275\u0275domElementStart(0, "div", 7)(1, "div", 22)(2, "button", 23);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_17_Template_button_click_2_listener() {
       \u0275\u0275restoreView(_r4);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.selectAll());
     });
     \u0275\u0275text(3, " Select All ");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(4, "button", 21);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_9_Template_button_click_4_listener() {
+    \u0275\u0275domElementStart(4, "button", 23);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_17_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r4);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.deselectAll());
     });
     \u0275\u0275text(5, " Deselect All ");
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(6, "div", 22);
-    \u0275\u0275conditionalCreate(7, FileBrowserComponent_Conditional_9_Conditional_7_Template, 2, 1, "span", 23);
+    \u0275\u0275domElementStart(6, "div", 24);
+    \u0275\u0275conditionalCreate(7, FileBrowserComponent_Conditional_17_Conditional_7_Template, 2, 1, "span", 25);
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(8, "button", 24);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_9_Template_button_click_8_listener() {
+    \u0275\u0275domElementStart(8, "button", 26);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_17_Template_button_click_8_listener() {
       \u0275\u0275restoreView(_r4);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.onValidateSelected());
@@ -51773,19 +51779,19 @@ function FileBrowserComponent_Conditional_9_Template(rf, ctx) {
     \u0275\u0275domProperty("disabled", ctx_r0.loading() || !ctx_r0.hasSelectedFiles());
   }
 }
-function FileBrowserComponent_Conditional_10_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 6);
-    \u0275\u0275domElement(1, "div", 25);
+    \u0275\u0275domElementStart(0, "div", 8);
+    \u0275\u0275domElement(1, "div", 27);
     \u0275\u0275domElementStart(2, "p")(3, "strong");
     \u0275\u0275text(4, "Loading files from CCL...");
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(5, "p", 26);
+    \u0275\u0275domElementStart(5, "p", 28);
     \u0275\u0275text(6, "If this takes too long, CCL scripts may not be available.");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(7, "button", 27);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_10_Template_button_click_7_listener() {
+    \u0275\u0275domElementStart(7, "button", 29);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_18_Template_button_click_7_listener() {
       \u0275\u0275restoreView(_r5);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.switchToOfflineMode());
@@ -51794,20 +51800,20 @@ function FileBrowserComponent_Conditional_10_Template(rf, ctx) {
     \u0275\u0275domElementEnd()();
   }
 }
-function FileBrowserComponent_Conditional_11_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_19_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 7)(1, "div", 28);
+    \u0275\u0275domElementStart(0, "div", 9)(1, "div", 30);
     \u0275\u0275text(2, "!");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 29)(4, "strong");
+    \u0275\u0275domElementStart(3, "div", 31)(4, "strong");
     \u0275\u0275text(5, "Error loading files");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(6, "p");
     \u0275\u0275text(7);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(8, "button", 30);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_11_Template_button_click_8_listener() {
+    \u0275\u0275domElementStart(8, "button", 32);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_19_Template_button_click_8_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.refresh());
@@ -51821,16 +51827,16 @@ function FileBrowserComponent_Conditional_11_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r0.error());
   }
 }
-function FileBrowserComponent_Conditional_12_Conditional_12_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_20_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElement(0, "th", 38);
+    \u0275\u0275domElement(0, "th", 40);
   }
 }
-function FileBrowserComponent_Conditional_12_For_15_Conditional_12_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_20_For_15_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "td", 38)(1, "button", 47);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_12_For_15_Conditional_12_Template_button_click_1_listener($event) {
+    \u0275\u0275domElementStart(0, "td", 40)(1, "button", 49);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_20_For_15_Conditional_12_Template_button_click_1_listener($event) {
       \u0275\u0275restoreView(_r10);
       const file_r11 = \u0275\u0275nextContext().$implicit;
       const ctx_r0 = \u0275\u0275nextContext(2);
@@ -51840,35 +51846,35 @@ function FileBrowserComponent_Conditional_12_For_15_Conditional_12_Template(rf, 
     \u0275\u0275domElementEnd()();
   }
 }
-function FileBrowserComponent_Conditional_12_For_15_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_20_For_15_Template(rf, ctx) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "tr", 42);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_12_For_15_Template_tr_click_0_listener() {
+    \u0275\u0275domElementStart(0, "tr", 44);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_20_For_15_Template_tr_click_0_listener() {
       const $index_r9 = \u0275\u0275restoreView(_r8).$index;
       const ctx_r0 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r0.toggleFileSelection($index_r9));
     });
-    \u0275\u0275domElementStart(1, "td", 33)(2, "input", 43);
-    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_12_For_15_Template_input_click_2_listener($event) {
+    \u0275\u0275domElementStart(1, "td", 35)(2, "input", 45);
+    \u0275\u0275domListener("click", function FileBrowserComponent_Conditional_20_For_15_Template_input_click_2_listener($event) {
       \u0275\u0275restoreView(_r8);
       return \u0275\u0275resetView($event.stopPropagation());
-    })("change", function FileBrowserComponent_Conditional_12_For_15_Template_input_change_2_listener() {
+    })("change", function FileBrowserComponent_Conditional_20_For_15_Template_input_change_2_listener() {
       const $index_r9 = \u0275\u0275restoreView(_r8).$index;
       const ctx_r0 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r0.toggleFileSelection($index_r9));
     });
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(3, "td", 35)(4, "span", 44);
+    \u0275\u0275domElementStart(3, "td", 37)(4, "span", 46);
     \u0275\u0275text(5);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(6, "td", 36)(7, "span", 45);
+    \u0275\u0275domElementStart(6, "td", 38)(7, "span", 47);
     \u0275\u0275text(8);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(9, "td", 37)(10, "span", 46);
+    \u0275\u0275domElementStart(9, "td", 39)(10, "span", 48);
     \u0275\u0275text(11);
     \u0275\u0275domElementEnd()();
-    \u0275\u0275conditionalCreate(12, FileBrowserComponent_Conditional_12_For_15_Conditional_12_Template, 3, 0, "td", 38);
+    \u0275\u0275conditionalCreate(12, FileBrowserComponent_Conditional_20_For_15_Conditional_12_Template, 3, 0, "td", 40);
     \u0275\u0275domElementEnd();
   }
   if (rf & 2) {
@@ -51889,31 +51895,31 @@ function FileBrowserComponent_Conditional_12_For_15_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r0.offlineMode() ? 12 : -1);
   }
 }
-function FileBrowserComponent_Conditional_12_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275domElementStart(0, "div", 31)(1, "table", 32)(2, "thead")(3, "tr")(4, "th", 33)(5, "input", 34);
-    \u0275\u0275domListener("change", function FileBrowserComponent_Conditional_12_Template_input_change_5_listener() {
+    \u0275\u0275domElementStart(0, "div", 33)(1, "table", 34)(2, "thead")(3, "tr")(4, "th", 35)(5, "input", 36);
+    \u0275\u0275domListener("change", function FileBrowserComponent_Conditional_20_Template_input_change_5_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r0 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r0.allSelected() ? ctx_r0.deselectAll() : ctx_r0.selectAll());
     });
     \u0275\u0275domElementEnd()();
-    \u0275\u0275domElementStart(6, "th", 35);
+    \u0275\u0275domElementStart(6, "th", 37);
     \u0275\u0275text(7, "Filename");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(8, "th", 36);
+    \u0275\u0275domElementStart(8, "th", 38);
     \u0275\u0275text(9, "Size");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(10, "th", 37);
+    \u0275\u0275domElementStart(10, "th", 39);
     \u0275\u0275text(11, "Type");
     \u0275\u0275domElementEnd();
-    \u0275\u0275conditionalCreate(12, FileBrowserComponent_Conditional_12_Conditional_12_Template, 1, 0, "th", 38);
+    \u0275\u0275conditionalCreate(12, FileBrowserComponent_Conditional_20_Conditional_12_Template, 1, 0, "th", 40);
     \u0275\u0275domElementEnd()();
     \u0275\u0275domElementStart(13, "tbody");
-    \u0275\u0275repeaterCreate(14, FileBrowserComponent_Conditional_12_For_15_Template, 13, 9, "tr", 39, \u0275\u0275componentInstance().trackByFilename, true);
+    \u0275\u0275repeaterCreate(14, FileBrowserComponent_Conditional_20_For_15_Template, 13, 9, "tr", 41, \u0275\u0275componentInstance().trackByFilename, true);
     \u0275\u0275domElementEnd()()();
-    \u0275\u0275domElementStart(16, "div", 40)(17, "span", 41);
+    \u0275\u0275domElementStart(16, "div", 42)(17, "span", 43);
     \u0275\u0275text(18);
     \u0275\u0275domElementEnd()();
   }
@@ -51929,12 +51935,12 @@ function FileBrowserComponent_Conditional_12_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("", ctx_r0.fileCount(), " file(s)");
   }
 }
-function FileBrowserComponent_Conditional_13_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_21_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 8)(1, "div", 48);
+    \u0275\u0275domElementStart(0, "div", 10)(1, "div", 50);
     \u0275\u0275text(2, "\u{1F4C1}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 49)(4, "strong");
+    \u0275\u0275domElementStart(3, "div", 51)(4, "strong");
     \u0275\u0275text(5, "No extract files found");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(6, "p");
@@ -51947,12 +51953,12 @@ function FileBrowserComponent_Conditional_13_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("No .txt files found in ", ctx_r0.directory());
   }
 }
-function FileBrowserComponent_Conditional_14_Template(rf, ctx) {
+function FileBrowserComponent_Conditional_22_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275domElementStart(0, "div", 8)(1, "div", 48);
+    \u0275\u0275domElementStart(0, "div", 10)(1, "div", 50);
     \u0275\u0275text(2, "\u{1F4C1}");
     \u0275\u0275domElementEnd();
-    \u0275\u0275domElementStart(3, "div", 49)(4, "strong");
+    \u0275\u0275domElementStart(3, "div", 51)(4, "strong");
     \u0275\u0275text(5, "No files selected");
     \u0275\u0275domElementEnd();
     \u0275\u0275domElementStart(6, "p");
@@ -52157,50 +52163,63 @@ var FileBrowserComponent = class _FileBrowserComponent {
   static \u0275fac = function FileBrowserComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _FileBrowserComponent)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FileBrowserComponent, selectors: [["app-file-browser"]], outputs: { validateFiles: "validateFiles" }, decls: 15, vars: 9, consts: [[1, "file-browser"], [1, "file-browser-header"], [1, "header-title"], ["title", "Refresh file list", 1, "btn", "btn-icon", 3, "disabled"], [1, "offline-picker"], [1, "file-browser-actions"], [1, "loading-container"], [1, "error-container"], [1, "empty-container"], [1, "badge-local"], [1, "offline-badge"], [1, "directory-badge"], [1, "online-badge"], ["title", "Refresh file list", 1, "btn", "btn-icon", 3, "click", "disabled"], [1, "spinner-icon"], [1, "refresh-icon"], ["type", "file", "id", "fileInput", "multiple", "", "accept", ".txt", 2, "display", "none", 3, "change"], ["for", "fileInput", 1, "btn", "btn-primary"], [1, "folder-icon"], [1, "picker-hint"], [1, "selection-buttons"], [1, "btn", "btn-secondary", "btn-sm", 3, "click", "disabled"], [1, "selection-info"], [1, "selection-count"], [1, "btn", "btn-primary", 3, "click", "disabled"], [1, "spinner"], [1, "loading-hint"], [1, "btn", "btn-secondary", 3, "click"], [1, "error-icon"], [1, "error-message"], [1, "btn", "btn-secondary", "btn-sm", 3, "click"], [1, "file-table-container"], [1, "file-table"], [1, "col-checkbox"], ["type", "checkbox", "title", "Toggle all", 3, "change", "checked", "indeterminate"], [1, "col-filename"], [1, "col-size"], [1, "col-type"], [1, "col-actions"], [3, "selected"], [1, "file-table-footer"], [1, "file-count"], [3, "click"], ["type", "checkbox", 3, "click", "change", "checked"], [1, "filename"], [1, "filesize"], [1, "badge"], ["title", "Remove file", 1, "btn", "btn-icon", "btn-danger", "btn-sm", 3, "click"], [1, "empty-icon"], [1, "empty-message"]], template: function FileBrowserComponent_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FileBrowserComponent, selectors: [["app-file-browser"]], outputs: { validateFiles: "validateFiles" }, decls: 23, vars: 12, consts: [[1, "file-browser"], [1, "file-browser-header"], [1, "header-title"], [2, "color", "red", "font-size", "10px"], ["title", "Refresh file list", 1, "btn", "btn-icon", 3, "disabled"], [2, "color", "red", "font-size", "10px", "padding", "4px"], [1, "offline-picker"], [1, "file-browser-actions"], [1, "loading-container"], [1, "error-container"], [1, "empty-container"], [1, "badge-local"], [1, "offline-badge"], [1, "directory-badge"], [1, "online-badge"], ["title", "Refresh file list", 1, "btn", "btn-icon", 3, "click", "disabled"], [1, "spinner-icon"], [1, "refresh-icon"], ["type", "file", "id", "fileInput", "multiple", "", "accept", ".txt", 2, "display", "none", 3, "change"], ["for", "fileInput", 1, "btn", "btn-primary"], [1, "folder-icon"], [1, "picker-hint"], [1, "selection-buttons"], [1, "btn", "btn-secondary", "btn-sm", 3, "click", "disabled"], [1, "selection-info"], [1, "selection-count"], [1, "btn", "btn-primary", 3, "click", "disabled"], [1, "spinner"], [1, "loading-hint"], [1, "btn", "btn-secondary", 3, "click"], [1, "error-icon"], [1, "error-message"], [1, "btn", "btn-secondary", "btn-sm", 3, "click"], [1, "file-table-container"], [1, "file-table"], [1, "col-checkbox"], ["type", "checkbox", "title", "Toggle all", 3, "change", "checked", "indeterminate"], [1, "col-filename"], [1, "col-size"], [1, "col-type"], [1, "col-actions"], [3, "selected"], [1, "file-table-footer"], [1, "file-count"], [3, "click"], ["type", "checkbox", 3, "click", "change", "checked"], [1, "filename"], [1, "filesize"], [1, "badge"], ["title", "Remove file", 1, "btn", "btn-icon", "btn-danger", "btn-sm", 3, "click"], [1, "empty-icon"], [1, "empty-message"]], template: function FileBrowserComponent_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275domElementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "h3");
       \u0275\u0275text(4, "Extract Files");
       \u0275\u0275domElementEnd();
-      \u0275\u0275conditionalCreate(5, FileBrowserComponent_Conditional_5_Template, 4, 0)(6, FileBrowserComponent_Conditional_6_Template, 4, 1);
+      \u0275\u0275domElementStart(5, "span", 3);
+      \u0275\u0275text(6, "[A]");
       \u0275\u0275domElementEnd();
-      \u0275\u0275conditionalCreate(7, FileBrowserComponent_Conditional_7_Template, 3, 2, "button", 3);
+      \u0275\u0275conditionalCreate(7, FileBrowserComponent_Conditional_7_Template, 6, 0)(8, FileBrowserComponent_Conditional_8_Template, 6, 1);
+      \u0275\u0275domElementStart(9, "span", 3);
+      \u0275\u0275text(10, "[D]");
+      \u0275\u0275domElementEnd()();
+      \u0275\u0275domElementStart(11, "span", 3);
+      \u0275\u0275text(12, "[E]");
       \u0275\u0275domElementEnd();
-      \u0275\u0275conditionalCreate(8, FileBrowserComponent_Conditional_8_Template, 8, 0, "div", 4);
-      \u0275\u0275conditionalCreate(9, FileBrowserComponent_Conditional_9_Template, 10, 4, "div", 5);
-      \u0275\u0275conditionalCreate(10, FileBrowserComponent_Conditional_10_Template, 9, 0, "div", 6);
-      \u0275\u0275conditionalCreate(11, FileBrowserComponent_Conditional_11_Template, 10, 1, "div", 7);
-      \u0275\u0275conditionalCreate(12, FileBrowserComponent_Conditional_12_Template, 19, 4);
-      \u0275\u0275conditionalCreate(13, FileBrowserComponent_Conditional_13_Template, 8, 1, "div", 8);
-      \u0275\u0275conditionalCreate(14, FileBrowserComponent_Conditional_14_Template, 8, 0, "div", 8);
+      \u0275\u0275conditionalCreate(13, FileBrowserComponent_Conditional_13_Template, 3, 2, "button", 4);
+      \u0275\u0275domElementEnd();
+      \u0275\u0275domElementStart(14, "div", 5);
+      \u0275\u0275text(15);
+      \u0275\u0275domElementEnd();
+      \u0275\u0275conditionalCreate(16, FileBrowserComponent_Conditional_16_Template, 8, 0, "div", 6);
+      \u0275\u0275conditionalCreate(17, FileBrowserComponent_Conditional_17_Template, 10, 4, "div", 7);
+      \u0275\u0275conditionalCreate(18, FileBrowserComponent_Conditional_18_Template, 9, 0, "div", 8);
+      \u0275\u0275conditionalCreate(19, FileBrowserComponent_Conditional_19_Template, 10, 1, "div", 9);
+      \u0275\u0275conditionalCreate(20, FileBrowserComponent_Conditional_20_Template, 19, 4);
+      \u0275\u0275conditionalCreate(21, FileBrowserComponent_Conditional_21_Template, 8, 1, "div", 10);
+      \u0275\u0275conditionalCreate(22, FileBrowserComponent_Conditional_22_Template, 8, 0, "div", 10);
       \u0275\u0275domElementEnd();
     }
     if (rf & 2) {
-      \u0275\u0275advance(5);
-      \u0275\u0275conditional(ctx.offlineMode() ? 5 : 6);
+      \u0275\u0275advance(7);
+      \u0275\u0275conditional(ctx.offlineMode() ? 7 : 8);
+      \u0275\u0275advance(6);
+      \u0275\u0275conditional(!ctx.offlineMode() ? 13 : -1);
       \u0275\u0275advance(2);
-      \u0275\u0275conditional(!ctx.offlineMode() ? 7 : -1);
+      \u0275\u0275textInterpolate3("[F] loading=", ctx.loading(), " offline=", ctx.offlineMode(), " fileCount=", ctx.fileCount());
       \u0275\u0275advance();
-      \u0275\u0275conditional(ctx.offlineMode() ? 8 : -1);
+      \u0275\u0275conditional(ctx.offlineMode() ? 16 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(ctx.fileCount() > 0 ? 9 : -1);
+      \u0275\u0275conditional(ctx.fileCount() > 0 ? 17 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(ctx.loading() ? 10 : -1);
+      \u0275\u0275conditional(ctx.loading() ? 18 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(ctx.error() && !ctx.offlineMode() ? 11 : -1);
+      \u0275\u0275conditional(ctx.error() && !ctx.offlineMode() ? 19 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() > 0 ? 12 : -1);
+      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() > 0 ? 20 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() === 0 && !ctx.offlineMode() ? 13 : -1);
+      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() === 0 && !ctx.offlineMode() ? 21 : -1);
       \u0275\u0275advance();
-      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() === 0 && ctx.offlineMode() ? 14 : -1);
+      \u0275\u0275conditional(!ctx.loading() && ctx.fileCount() === 0 && ctx.offlineMode() ? 22 : -1);
     }
   }, styles: ["\n\n.file-browser[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  border: 1px solid #e0e0e0;\n  border-radius: 8px;\n  background: #fff;\n  overflow: hidden;\n}\n.file-browser-header[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%]   .directory-badge[_ngcontent-%COMP%] {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #e3f2fd;\n  color: #1565c0;\n  border-radius: 4px;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%]   .offline-badge[_ngcontent-%COMP%] {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%]   .online-badge[_ngcontent-%COMP%] {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #e8f5e9;\n  color: #2e7d32;\n  border-radius: 4px;\n}\n.file-browser-header[_ngcontent-%COMP%]   .header-title[_ngcontent-%COMP%]   .badge-local[_ngcontent-%COMP%] {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.offline-picker[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  padding: 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.offline-picker[_ngcontent-%COMP%]   label.btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.offline-picker[_ngcontent-%COMP%]   label.btn[_ngcontent-%COMP%]   .folder-icon[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.offline-picker[_ngcontent-%COMP%]   .picker-hint[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n}\n.file-browser-actions[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  border-bottom: 1px solid #e0e0e0;\n  background: #fafafa;\n}\n.file-browser-actions[_ngcontent-%COMP%]   .selection-buttons[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n}\n.file-browser-actions[_ngcontent-%COMP%]   .selection-info[_ngcontent-%COMP%] {\n  flex: 1;\n  text-align: center;\n}\n.file-browser-actions[_ngcontent-%COMP%]   .selection-info[_ngcontent-%COMP%]   .selection-count[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n}\n.btn[_ngcontent-%COMP%] {\n  padding: 8px 16px;\n  font-size: 14px;\n  font-weight: 500;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  transition: background-color 0.2s, opacity 0.2s;\n}\n.btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.btn.btn-primary[_ngcontent-%COMP%] {\n  background: #1976d2;\n  color: #fff;\n}\n.btn.btn-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #1565c0;\n}\n.btn.btn-secondary[_ngcontent-%COMP%] {\n  background: #e0e0e0;\n  color: #333;\n}\n.btn.btn-secondary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #d0d0d0;\n}\n.btn.btn-sm[_ngcontent-%COMP%] {\n  padding: 6px 12px;\n  font-size: 13px;\n}\n.btn.btn-icon[_ngcontent-%COMP%] {\n  padding: 8px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: transparent;\n  border: 1px solid #e0e0e0;\n  border-radius: 4px;\n}\n.btn.btn-icon[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #e0e0e0;\n}\n.btn.btn-icon.btn-sm[_ngcontent-%COMP%] {\n  width: 24px;\n  height: 24px;\n  padding: 4px;\n  font-size: 14px;\n}\n.btn.btn-danger[_ngcontent-%COMP%] {\n  background: #ffebee;\n  color: #d32f2f;\n  border-color: #ffcdd2;\n}\n.btn.btn-danger[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #ffcdd2;\n}\n.loading-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n  color: #333;\n  background: #f9f9f9;\n}\n.loading-container[_ngcontent-%COMP%]   .spinner[_ngcontent-%COMP%] {\n  width: 32px;\n  height: 32px;\n  border: 3px solid #e0e0e0;\n  border-top-color: #1976d2;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.loading-container[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  text-align: center;\n}\n.loading-container[_ngcontent-%COMP%]   .loading-hint[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n}\n.spinner-icon[_ngcontent-%COMP%] {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  border: 2px solid #e0e0e0;\n  border-top-color: #666;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n.refresh-icon[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #666;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.error-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.error-container[_ngcontent-%COMP%]   .error-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 24px;\n  font-weight: bold;\n  color: #d32f2f;\n  background: #ffebee;\n  border-radius: 50%;\n}\n.error-container[_ngcontent-%COMP%]   .error-message[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.error-container[_ngcontent-%COMP%]   .error-message[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  display: block;\n  color: #d32f2f;\n  margin-bottom: 4px;\n}\n.error-container[_ngcontent-%COMP%]   .error-message[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #666;\n  font-size: 14px;\n}\n.file-table-container[_ngcontent-%COMP%] {\n  overflow-x: auto;\n}\n.file-table[_ngcontent-%COMP%] {\n  width: 100%;\n  border-collapse: collapse;\n}\n.file-table[_ngcontent-%COMP%]   th[_ngcontent-%COMP%], \n.file-table[_ngcontent-%COMP%]   td[_ngcontent-%COMP%] {\n  padding: 10px 12px;\n  text-align: left;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%] {\n  background: #fafafa;\n}\n.file-table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\n  font-size: 13px;\n  font-weight: 600;\n  color: #666;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.file-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%] {\n  cursor: pointer;\n  transition: background-color 0.15s;\n}\n.file-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:hover {\n  background: #f5f5f5;\n}\n.file-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr.selected[_ngcontent-%COMP%] {\n  background: #e3f2fd;\n}\n.file-table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   tr.selected[_ngcontent-%COMP%]:hover {\n  background: #bbdefb;\n}\n.file-table[_ngcontent-%COMP%]   .col-checkbox[_ngcontent-%COMP%] {\n  width: 40px;\n  text-align: center;\n}\n.file-table[_ngcontent-%COMP%]   .col-checkbox[_ngcontent-%COMP%]   input[type=checkbox][_ngcontent-%COMP%] {\n  width: 16px;\n  height: 16px;\n  cursor: pointer;\n}\n.file-table[_ngcontent-%COMP%]   .col-filename[_ngcontent-%COMP%] {\n  min-width: 200px;\n}\n.file-table[_ngcontent-%COMP%]   .col-filename[_ngcontent-%COMP%]   .filename[_ngcontent-%COMP%] {\n  font-family: monospace;\n  font-size: 13px;\n  color: #333;\n}\n.file-table[_ngcontent-%COMP%]   .col-size[_ngcontent-%COMP%] {\n  width: 80px;\n}\n.file-table[_ngcontent-%COMP%]   .col-size[_ngcontent-%COMP%]   .filesize[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n}\n.file-table[_ngcontent-%COMP%]   .col-type[_ngcontent-%COMP%] {\n  width: 120px;\n}\n.file-table[_ngcontent-%COMP%]   .col-actions[_ngcontent-%COMP%] {\n  width: 40px;\n  text-align: center;\n}\n.badge[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: 3px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  text-transform: uppercase;\n  border-radius: 3px;\n}\n.badge.badge-patient[_ngcontent-%COMP%] {\n  background: #e8f5e9;\n  color: #2e7d32;\n}\n.badge.badge-patient-comment[_ngcontent-%COMP%] {\n  background: #f1f8e9;\n  color: #558b2f;\n}\n.badge.badge-patient-instruction[_ngcontent-%COMP%] {\n  background: #e0f2f1;\n  color: #00695c;\n}\n.badge.badge-unit[_ngcontent-%COMP%] {\n  background: #e3f2fd;\n  color: #1565c0;\n}\n.badge.badge-unit-comment[_ngcontent-%COMP%] {\n  background: #e8eaf6;\n  color: #3949ab;\n}\n.badge.badge-spec-attr[_ngcontent-%COMP%] {\n  background: #fce4ec;\n  color: #c2185b;\n}\n.badge.badge-other[_ngcontent-%COMP%] {\n  background: #f5f5f5;\n  color: #666;\n}\n.file-table-footer[_ngcontent-%COMP%] {\n  padding: 8px 16px;\n  background: #fafafa;\n  border-top: 1px solid #e0e0e0;\n}\n.file-table-footer[_ngcontent-%COMP%]   .file-count[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n}\n.empty-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.empty-container[_ngcontent-%COMP%]   .empty-icon[_ngcontent-%COMP%] {\n  font-size: 48px;\n  opacity: 0.5;\n}\n.empty-container[_ngcontent-%COMP%]   .empty-message[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.empty-container[_ngcontent-%COMP%]   .empty-message[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  display: block;\n  color: #666;\n  margin-bottom: 4px;\n}\n.empty-container[_ngcontent-%COMP%]   .empty-message[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #999;\n  font-size: 14px;\n}\n/*# sourceMappingURL=file-browser.component.css.map */"], changeDetection: 0 });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FileBrowserComponent, [{
     type: Component,
-    args: [{ selector: "app-file-browser", standalone: true, imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="file-browser">\r\n  <!-- Header -->\r\n  <div class="file-browser-header">\r\n    <div class="header-title">\r\n      <h3>Extract Files</h3>\r\n      @if (offlineMode()) {\r\n        <span class="badge-local">Local Files</span>\r\n        <span class="offline-badge">Offline Mode</span>\r\n      } @else {\r\n        <span class="directory-badge">{{ directory() }}</span>\r\n        <span class="online-badge">Online Mode</span>\r\n      }\r\n    </div>\r\n    @if (!offlineMode()) {\r\n      <button\r\n        class="btn btn-icon"\r\n        (click)="refresh()"\r\n        [disabled]="loading()"\r\n        title="Refresh file list">\r\n        @if (loading()) {\r\n          <span class="spinner-icon"></span>\r\n        } @else {\r\n          <span class="refresh-icon">&#8635;</span>\r\n        }\r\n      </button>\r\n    }\r\n  </div>\r\n\r\n  <!-- Offline Mode File Picker -->\r\n  @if (offlineMode()) {\r\n    <div class="offline-picker">\r\n      <input\r\n        type="file"\r\n        id="fileInput"\r\n        multiple\r\n        accept=".txt"\r\n        (change)="onLocalFilesSelected($event)"\r\n        style="display: none;">\r\n      <label for="fileInput" class="btn btn-primary">\r\n        <span class="folder-icon">&#128193;</span>\r\n        Browse for Extract Files\r\n      </label>\r\n      <span class="picker-hint">Select .txt extract files (PTNT, UNIT, SPEC_ATTR, etc.)</span>\r\n    </div>\r\n  }\r\n\r\n  <!-- Action Bar -->\r\n  @if (fileCount() > 0) {\r\n    <div class="file-browser-actions">\r\n      <div class="selection-buttons">\r\n        <button\r\n          class="btn btn-secondary btn-sm"\r\n          (click)="selectAll()"\r\n          [disabled]="loading() || fileCount() === 0 || allSelected()">\r\n          Select All\r\n        </button>\r\n        <button\r\n          class="btn btn-secondary btn-sm"\r\n          (click)="deselectAll()"\r\n          [disabled]="loading() || fileCount() === 0 || noneSelected()">\r\n          Deselect All\r\n        </button>\r\n      </div>\r\n      <div class="selection-info">\r\n        @if (selectedCount() > 0) {\r\n          <span class="selection-count">{{ selectedCount() }} selected</span>\r\n        }\r\n      </div>\r\n      <button\r\n        class="btn btn-primary"\r\n        (click)="onValidateSelected()"\r\n        [disabled]="loading() || !hasSelectedFiles()">\r\n        Validate Selected\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- Loading State -->\r\n  @if (loading()) {\r\n    <div class="loading-container">\r\n      <div class="spinner"></div>\r\n      <p><strong>Loading files from CCL...</strong></p>\r\n      <p class="loading-hint">If this takes too long, CCL scripts may not be available.</p>\r\n      <button class="btn btn-secondary" (click)="switchToOfflineMode()">\r\n        Switch to Offline Mode\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- Error State (only show in online mode) -->\r\n  @if (error() && !offlineMode()) {\r\n    <div class="error-container">\r\n      <div class="error-icon">!</div>\r\n      <div class="error-message">\r\n        <strong>Error loading files</strong>\r\n        <p>{{ error() }}</p>\r\n      </div>\r\n      <button class="btn btn-secondary btn-sm" (click)="refresh()">\r\n        Retry\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- File Table -->\r\n  @if (!loading() && fileCount() > 0) {\r\n    <div class="file-table-container">\r\n      <table class="file-table">\r\n        <thead>\r\n          <tr>\r\n            <th class="col-checkbox">\r\n              <input\r\n                type="checkbox"\r\n                [checked]="allSelected()"\r\n                [indeterminate]="hasSelectedFiles() && !allSelected()"\r\n                (change)="allSelected() ? deselectAll() : selectAll()"\r\n                title="Toggle all">\r\n            </th>\r\n            <th class="col-filename">Filename</th>\r\n            <th class="col-size">Size</th>\r\n            <th class="col-type">Type</th>\r\n            @if (offlineMode()) {\r\n              <th class="col-actions"></th>\r\n            }\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          @for (file of selectableFiles(); track trackByFilename($index, file)) {\r\n            <tr\r\n              [class.selected]="file.selected"\r\n              (click)="toggleFileSelection($index)">\r\n              <td class="col-checkbox">\r\n                <input\r\n                  type="checkbox"\r\n                  [checked]="file.selected"\r\n                  (click)="$event.stopPropagation()"\r\n                  (change)="toggleFileSelection($index)">\r\n              </td>\r\n              <td class="col-filename">\r\n                <span class="filename">{{ file.filename }}</span>\r\n              </td>\r\n              <td class="col-size">\r\n                <span class="filesize">{{ formatFileSize(file.filesize) }}</span>\r\n              </td>\r\n              <td class="col-type">\r\n                <span class="badge" [class]="getFileTypeBadgeClass(file.filetype)">\r\n                  {{ file.filetype }}\r\n                </span>\r\n              </td>\r\n              @if (offlineMode()) {\r\n                <td class="col-actions">\r\n                  <button\r\n                    class="btn btn-icon btn-danger btn-sm"\r\n                    (click)="removeFile(file.filename, $event)"\r\n                    title="Remove file">\r\n                    &times;\r\n                  </button>\r\n                </td>\r\n              }\r\n            </tr>\r\n          }\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n    <div class="file-table-footer">\r\n      <span class="file-count">{{ fileCount() }} file(s)</span>\r\n    </div>\r\n  }\r\n\r\n  <!-- Empty State -->\r\n  @if (!loading() && fileCount() === 0 && !offlineMode()) {\r\n    <div class="empty-container">\r\n      <div class="empty-icon">&#128193;</div>\r\n      <div class="empty-message">\r\n        <strong>No extract files found</strong>\r\n        <p>No .txt files found in {{ directory() }}</p>\r\n      </div>\r\n    </div>\r\n  }\r\n\r\n  <!-- Offline Empty State -->\r\n  @if (!loading() && fileCount() === 0 && offlineMode()) {\r\n    <div class="empty-container">\r\n      <div class="empty-icon">&#128193;</div>\r\n      <div class="empty-message">\r\n        <strong>No files selected</strong>\r\n        <p>Click "Browse for Extract Files" above to select files for validation.</p>\r\n      </div>\r\n    </div>\r\n  }\r\n</div>\r\n', styles: ["/* src/app/components/file-browser/file-browser.component.scss */\n.file-browser {\n  display: flex;\n  flex-direction: column;\n  border: 1px solid #e0e0e0;\n  border-radius: 8px;\n  background: #fff;\n  overflow: hidden;\n}\n.file-browser-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-browser-header .header-title {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.file-browser-header .header-title h3 {\n  margin: 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.file-browser-header .header-title .directory-badge {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #e3f2fd;\n  color: #1565c0;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .offline-badge {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .online-badge {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #e8f5e9;\n  color: #2e7d32;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .badge-local {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.offline-picker {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  padding: 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.offline-picker label.btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.offline-picker label.btn .folder-icon {\n  font-size: 16px;\n}\n.offline-picker .picker-hint {\n  font-size: 13px;\n  color: #666;\n}\n.file-browser-actions {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  border-bottom: 1px solid #e0e0e0;\n  background: #fafafa;\n}\n.file-browser-actions .selection-buttons {\n  display: flex;\n  gap: 8px;\n}\n.file-browser-actions .selection-info {\n  flex: 1;\n  text-align: center;\n}\n.file-browser-actions .selection-info .selection-count {\n  font-size: 13px;\n  color: #666;\n}\n.btn {\n  padding: 8px 16px;\n  font-size: 14px;\n  font-weight: 500;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  transition: background-color 0.2s, opacity 0.2s;\n}\n.btn:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.btn.btn-primary {\n  background: #1976d2;\n  color: #fff;\n}\n.btn.btn-primary:hover:not(:disabled) {\n  background: #1565c0;\n}\n.btn.btn-secondary {\n  background: #e0e0e0;\n  color: #333;\n}\n.btn.btn-secondary:hover:not(:disabled) {\n  background: #d0d0d0;\n}\n.btn.btn-sm {\n  padding: 6px 12px;\n  font-size: 13px;\n}\n.btn.btn-icon {\n  padding: 8px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: transparent;\n  border: 1px solid #e0e0e0;\n  border-radius: 4px;\n}\n.btn.btn-icon:hover:not(:disabled) {\n  background: #e0e0e0;\n}\n.btn.btn-icon.btn-sm {\n  width: 24px;\n  height: 24px;\n  padding: 4px;\n  font-size: 14px;\n}\n.btn.btn-danger {\n  background: #ffebee;\n  color: #d32f2f;\n  border-color: #ffcdd2;\n}\n.btn.btn-danger:hover:not(:disabled) {\n  background: #ffcdd2;\n}\n.loading-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n  color: #333;\n  background: #f9f9f9;\n}\n.loading-container .spinner {\n  width: 32px;\n  height: 32px;\n  border: 3px solid #e0e0e0;\n  border-top-color: #1976d2;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n.loading-container p {\n  margin: 0;\n  text-align: center;\n}\n.loading-container .loading-hint {\n  font-size: 13px;\n  color: #666;\n}\n.spinner-icon {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  border: 2px solid #e0e0e0;\n  border-top-color: #666;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n.refresh-icon {\n  font-size: 18px;\n  color: #666;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.error-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.error-container .error-icon {\n  width: 48px;\n  height: 48px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 24px;\n  font-weight: bold;\n  color: #d32f2f;\n  background: #ffebee;\n  border-radius: 50%;\n}\n.error-container .error-message {\n  text-align: center;\n}\n.error-container .error-message strong {\n  display: block;\n  color: #d32f2f;\n  margin-bottom: 4px;\n}\n.error-container .error-message p {\n  margin: 0;\n  color: #666;\n  font-size: 14px;\n}\n.file-table-container {\n  overflow-x: auto;\n}\n.file-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n.file-table th,\n.file-table td {\n  padding: 10px 12px;\n  text-align: left;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-table thead {\n  background: #fafafa;\n}\n.file-table thead th {\n  font-size: 13px;\n  font-weight: 600;\n  color: #666;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.file-table tbody tr {\n  cursor: pointer;\n  transition: background-color 0.15s;\n}\n.file-table tbody tr:hover {\n  background: #f5f5f5;\n}\n.file-table tbody tr.selected {\n  background: #e3f2fd;\n}\n.file-table tbody tr.selected:hover {\n  background: #bbdefb;\n}\n.file-table .col-checkbox {\n  width: 40px;\n  text-align: center;\n}\n.file-table .col-checkbox input[type=checkbox] {\n  width: 16px;\n  height: 16px;\n  cursor: pointer;\n}\n.file-table .col-filename {\n  min-width: 200px;\n}\n.file-table .col-filename .filename {\n  font-family: monospace;\n  font-size: 13px;\n  color: #333;\n}\n.file-table .col-size {\n  width: 80px;\n}\n.file-table .col-size .filesize {\n  font-size: 13px;\n  color: #666;\n}\n.file-table .col-type {\n  width: 120px;\n}\n.file-table .col-actions {\n  width: 40px;\n  text-align: center;\n}\n.badge {\n  display: inline-block;\n  padding: 3px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  text-transform: uppercase;\n  border-radius: 3px;\n}\n.badge.badge-patient {\n  background: #e8f5e9;\n  color: #2e7d32;\n}\n.badge.badge-patient-comment {\n  background: #f1f8e9;\n  color: #558b2f;\n}\n.badge.badge-patient-instruction {\n  background: #e0f2f1;\n  color: #00695c;\n}\n.badge.badge-unit {\n  background: #e3f2fd;\n  color: #1565c0;\n}\n.badge.badge-unit-comment {\n  background: #e8eaf6;\n  color: #3949ab;\n}\n.badge.badge-spec-attr {\n  background: #fce4ec;\n  color: #c2185b;\n}\n.badge.badge-other {\n  background: #f5f5f5;\n  color: #666;\n}\n.file-table-footer {\n  padding: 8px 16px;\n  background: #fafafa;\n  border-top: 1px solid #e0e0e0;\n}\n.file-table-footer .file-count {\n  font-size: 13px;\n  color: #666;\n}\n.empty-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.empty-container .empty-icon {\n  font-size: 48px;\n  opacity: 0.5;\n}\n.empty-container .empty-message {\n  text-align: center;\n}\n.empty-container .empty-message strong {\n  display: block;\n  color: #666;\n  margin-bottom: 4px;\n}\n.empty-container .empty-message p {\n  margin: 0;\n  color: #999;\n  font-size: 14px;\n}\n/*# sourceMappingURL=file-browser.component.css.map */\n"] }]
+    args: [{ selector: "app-file-browser", standalone: true, imports: [], changeDetection: ChangeDetectionStrategy.OnPush, template: '<div class="file-browser">\r\n  <!-- Header -->\r\n  <div class="file-browser-header">\r\n    <div class="header-title">\r\n      <h3>Extract Files</h3>\r\n      <!-- DEBUG: marker A (before @if) -->\r\n      <span style="color: red; font-size: 10px;">[A]</span>\r\n      @if (offlineMode()) {\r\n        <!-- DEBUG: marker B (inside offline) -->\r\n        <span style="color: red; font-size: 10px;">[B-offline]</span>\r\n        <span class="badge-local">Local Files</span>\r\n        <span class="offline-badge">Offline Mode</span>\r\n      } @else {\r\n        <!-- DEBUG: marker C (inside online) -->\r\n        <span style="color: red; font-size: 10px;">[C-online]</span>\r\n        <span class="directory-badge">{{ directory() }}</span>\r\n        <span class="online-badge">Online Mode</span>\r\n      }\r\n      <!-- DEBUG: marker D (after @if) -->\r\n      <span style="color: red; font-size: 10px;">[D]</span>\r\n    </div>\r\n    <!-- DEBUG: marker E (after header-title div) -->\r\n    <span style="color: red; font-size: 10px;">[E]</span>\r\n    @if (!offlineMode()) {\r\n      <button\r\n        class="btn btn-icon"\r\n        (click)="refresh()"\r\n        [disabled]="loading()"\r\n        title="Refresh file list">\r\n        @if (loading()) {\r\n          <span class="spinner-icon"></span>\r\n        } @else {\r\n          <span class="refresh-icon">&#8635;</span>\r\n        }\r\n      </button>\r\n    }\r\n  </div>\r\n  <!-- DEBUG: marker F (after file-browser-header) -->\r\n  <div style="color: red; font-size: 10px; padding: 4px;">[F] loading={{ loading() }} offline={{ offlineMode() }} fileCount={{ fileCount() }}</div>\r\n\r\n  <!-- Offline Mode File Picker -->\r\n  @if (offlineMode()) {\r\n    <div class="offline-picker">\r\n      <input\r\n        type="file"\r\n        id="fileInput"\r\n        multiple\r\n        accept=".txt"\r\n        (change)="onLocalFilesSelected($event)"\r\n        style="display: none;">\r\n      <label for="fileInput" class="btn btn-primary">\r\n        <span class="folder-icon">&#128193;</span>\r\n        Browse for Extract Files\r\n      </label>\r\n      <span class="picker-hint">Select .txt extract files (PTNT, UNIT, SPEC_ATTR, etc.)</span>\r\n    </div>\r\n  }\r\n\r\n  <!-- Action Bar -->\r\n  @if (fileCount() > 0) {\r\n    <div class="file-browser-actions">\r\n      <div class="selection-buttons">\r\n        <button\r\n          class="btn btn-secondary btn-sm"\r\n          (click)="selectAll()"\r\n          [disabled]="loading() || fileCount() === 0 || allSelected()">\r\n          Select All\r\n        </button>\r\n        <button\r\n          class="btn btn-secondary btn-sm"\r\n          (click)="deselectAll()"\r\n          [disabled]="loading() || fileCount() === 0 || noneSelected()">\r\n          Deselect All\r\n        </button>\r\n      </div>\r\n      <div class="selection-info">\r\n        @if (selectedCount() > 0) {\r\n          <span class="selection-count">{{ selectedCount() }} selected</span>\r\n        }\r\n      </div>\r\n      <button\r\n        class="btn btn-primary"\r\n        (click)="onValidateSelected()"\r\n        [disabled]="loading() || !hasSelectedFiles()">\r\n        Validate Selected\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- Loading State -->\r\n  @if (loading()) {\r\n    <div class="loading-container">\r\n      <div class="spinner"></div>\r\n      <p><strong>Loading files from CCL...</strong></p>\r\n      <p class="loading-hint">If this takes too long, CCL scripts may not be available.</p>\r\n      <button class="btn btn-secondary" (click)="switchToOfflineMode()">\r\n        Switch to Offline Mode\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- Error State (only show in online mode) -->\r\n  @if (error() && !offlineMode()) {\r\n    <div class="error-container">\r\n      <div class="error-icon">!</div>\r\n      <div class="error-message">\r\n        <strong>Error loading files</strong>\r\n        <p>{{ error() }}</p>\r\n      </div>\r\n      <button class="btn btn-secondary btn-sm" (click)="refresh()">\r\n        Retry\r\n      </button>\r\n    </div>\r\n  }\r\n\r\n  <!-- File Table -->\r\n  @if (!loading() && fileCount() > 0) {\r\n    <div class="file-table-container">\r\n      <table class="file-table">\r\n        <thead>\r\n          <tr>\r\n            <th class="col-checkbox">\r\n              <input\r\n                type="checkbox"\r\n                [checked]="allSelected()"\r\n                [indeterminate]="hasSelectedFiles() && !allSelected()"\r\n                (change)="allSelected() ? deselectAll() : selectAll()"\r\n                title="Toggle all">\r\n            </th>\r\n            <th class="col-filename">Filename</th>\r\n            <th class="col-size">Size</th>\r\n            <th class="col-type">Type</th>\r\n            @if (offlineMode()) {\r\n              <th class="col-actions"></th>\r\n            }\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          @for (file of selectableFiles(); track trackByFilename($index, file)) {\r\n            <tr\r\n              [class.selected]="file.selected"\r\n              (click)="toggleFileSelection($index)">\r\n              <td class="col-checkbox">\r\n                <input\r\n                  type="checkbox"\r\n                  [checked]="file.selected"\r\n                  (click)="$event.stopPropagation()"\r\n                  (change)="toggleFileSelection($index)">\r\n              </td>\r\n              <td class="col-filename">\r\n                <span class="filename">{{ file.filename }}</span>\r\n              </td>\r\n              <td class="col-size">\r\n                <span class="filesize">{{ formatFileSize(file.filesize) }}</span>\r\n              </td>\r\n              <td class="col-type">\r\n                <span class="badge" [class]="getFileTypeBadgeClass(file.filetype)">\r\n                  {{ file.filetype }}\r\n                </span>\r\n              </td>\r\n              @if (offlineMode()) {\r\n                <td class="col-actions">\r\n                  <button\r\n                    class="btn btn-icon btn-danger btn-sm"\r\n                    (click)="removeFile(file.filename, $event)"\r\n                    title="Remove file">\r\n                    &times;\r\n                  </button>\r\n                </td>\r\n              }\r\n            </tr>\r\n          }\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n    <div class="file-table-footer">\r\n      <span class="file-count">{{ fileCount() }} file(s)</span>\r\n    </div>\r\n  }\r\n\r\n  <!-- Empty State -->\r\n  @if (!loading() && fileCount() === 0 && !offlineMode()) {\r\n    <div class="empty-container">\r\n      <div class="empty-icon">&#128193;</div>\r\n      <div class="empty-message">\r\n        <strong>No extract files found</strong>\r\n        <p>No .txt files found in {{ directory() }}</p>\r\n      </div>\r\n    </div>\r\n  }\r\n\r\n  <!-- Offline Empty State -->\r\n  @if (!loading() && fileCount() === 0 && offlineMode()) {\r\n    <div class="empty-container">\r\n      <div class="empty-icon">&#128193;</div>\r\n      <div class="empty-message">\r\n        <strong>No files selected</strong>\r\n        <p>Click "Browse for Extract Files" above to select files for validation.</p>\r\n      </div>\r\n    </div>\r\n  }\r\n</div>\r\n', styles: ["/* src/app/components/file-browser/file-browser.component.scss */\n.file-browser {\n  display: flex;\n  flex-direction: column;\n  border: 1px solid #e0e0e0;\n  border-radius: 8px;\n  background: #fff;\n  overflow: hidden;\n}\n.file-browser-header {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-browser-header .header-title {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.file-browser-header .header-title h3 {\n  margin: 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.file-browser-header .header-title .directory-badge {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #e3f2fd;\n  color: #1565c0;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .offline-badge {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .online-badge {\n  padding: 4px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  background: #e8f5e9;\n  color: #2e7d32;\n  border-radius: 4px;\n}\n.file-browser-header .header-title .badge-local {\n  padding: 4px 8px;\n  font-size: 12px;\n  font-family: monospace;\n  background: #fff3e0;\n  color: #e65100;\n  border-radius: 4px;\n}\n.offline-picker {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  padding: 16px;\n  background: #f5f5f5;\n  border-bottom: 1px solid #e0e0e0;\n}\n.offline-picker label.btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  cursor: pointer;\n}\n.offline-picker label.btn .folder-icon {\n  font-size: 16px;\n}\n.offline-picker .picker-hint {\n  font-size: 13px;\n  color: #666;\n}\n.file-browser-actions {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 12px 16px;\n  border-bottom: 1px solid #e0e0e0;\n  background: #fafafa;\n}\n.file-browser-actions .selection-buttons {\n  display: flex;\n  gap: 8px;\n}\n.file-browser-actions .selection-info {\n  flex: 1;\n  text-align: center;\n}\n.file-browser-actions .selection-info .selection-count {\n  font-size: 13px;\n  color: #666;\n}\n.btn {\n  padding: 8px 16px;\n  font-size: 14px;\n  font-weight: 500;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  transition: background-color 0.2s, opacity 0.2s;\n}\n.btn:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.btn.btn-primary {\n  background: #1976d2;\n  color: #fff;\n}\n.btn.btn-primary:hover:not(:disabled) {\n  background: #1565c0;\n}\n.btn.btn-secondary {\n  background: #e0e0e0;\n  color: #333;\n}\n.btn.btn-secondary:hover:not(:disabled) {\n  background: #d0d0d0;\n}\n.btn.btn-sm {\n  padding: 6px 12px;\n  font-size: 13px;\n}\n.btn.btn-icon {\n  padding: 8px;\n  width: 36px;\n  height: 36px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background: transparent;\n  border: 1px solid #e0e0e0;\n  border-radius: 4px;\n}\n.btn.btn-icon:hover:not(:disabled) {\n  background: #e0e0e0;\n}\n.btn.btn-icon.btn-sm {\n  width: 24px;\n  height: 24px;\n  padding: 4px;\n  font-size: 14px;\n}\n.btn.btn-danger {\n  background: #ffebee;\n  color: #d32f2f;\n  border-color: #ffcdd2;\n}\n.btn.btn-danger:hover:not(:disabled) {\n  background: #ffcdd2;\n}\n.loading-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n  color: #333;\n  background: #f9f9f9;\n}\n.loading-container .spinner {\n  width: 32px;\n  height: 32px;\n  border: 3px solid #e0e0e0;\n  border-top-color: #1976d2;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n.loading-container p {\n  margin: 0;\n  text-align: center;\n}\n.loading-container .loading-hint {\n  font-size: 13px;\n  color: #666;\n}\n.spinner-icon {\n  display: inline-block;\n  width: 16px;\n  height: 16px;\n  border: 2px solid #e0e0e0;\n  border-top-color: #666;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n.refresh-icon {\n  font-size: 18px;\n  color: #666;\n}\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n.error-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.error-container .error-icon {\n  width: 48px;\n  height: 48px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 24px;\n  font-weight: bold;\n  color: #d32f2f;\n  background: #ffebee;\n  border-radius: 50%;\n}\n.error-container .error-message {\n  text-align: center;\n}\n.error-container .error-message strong {\n  display: block;\n  color: #d32f2f;\n  margin-bottom: 4px;\n}\n.error-container .error-message p {\n  margin: 0;\n  color: #666;\n  font-size: 14px;\n}\n.file-table-container {\n  overflow-x: auto;\n}\n.file-table {\n  width: 100%;\n  border-collapse: collapse;\n}\n.file-table th,\n.file-table td {\n  padding: 10px 12px;\n  text-align: left;\n  border-bottom: 1px solid #e0e0e0;\n}\n.file-table thead {\n  background: #fafafa;\n}\n.file-table thead th {\n  font-size: 13px;\n  font-weight: 600;\n  color: #666;\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n}\n.file-table tbody tr {\n  cursor: pointer;\n  transition: background-color 0.15s;\n}\n.file-table tbody tr:hover {\n  background: #f5f5f5;\n}\n.file-table tbody tr.selected {\n  background: #e3f2fd;\n}\n.file-table tbody tr.selected:hover {\n  background: #bbdefb;\n}\n.file-table .col-checkbox {\n  width: 40px;\n  text-align: center;\n}\n.file-table .col-checkbox input[type=checkbox] {\n  width: 16px;\n  height: 16px;\n  cursor: pointer;\n}\n.file-table .col-filename {\n  min-width: 200px;\n}\n.file-table .col-filename .filename {\n  font-family: monospace;\n  font-size: 13px;\n  color: #333;\n}\n.file-table .col-size {\n  width: 80px;\n}\n.file-table .col-size .filesize {\n  font-size: 13px;\n  color: #666;\n}\n.file-table .col-type {\n  width: 120px;\n}\n.file-table .col-actions {\n  width: 40px;\n  text-align: center;\n}\n.badge {\n  display: inline-block;\n  padding: 3px 8px;\n  font-size: 11px;\n  font-weight: 600;\n  text-transform: uppercase;\n  border-radius: 3px;\n}\n.badge.badge-patient {\n  background: #e8f5e9;\n  color: #2e7d32;\n}\n.badge.badge-patient-comment {\n  background: #f1f8e9;\n  color: #558b2f;\n}\n.badge.badge-patient-instruction {\n  background: #e0f2f1;\n  color: #00695c;\n}\n.badge.badge-unit {\n  background: #e3f2fd;\n  color: #1565c0;\n}\n.badge.badge-unit-comment {\n  background: #e8eaf6;\n  color: #3949ab;\n}\n.badge.badge-spec-attr {\n  background: #fce4ec;\n  color: #c2185b;\n}\n.badge.badge-other {\n  background: #f5f5f5;\n  color: #666;\n}\n.file-table-footer {\n  padding: 8px 16px;\n  background: #fafafa;\n  border-top: 1px solid #e0e0e0;\n}\n.file-table-footer .file-count {\n  font-size: 13px;\n  color: #666;\n}\n.empty-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 48px;\n  gap: 12px;\n}\n.empty-container .empty-icon {\n  font-size: 48px;\n  opacity: 0.5;\n}\n.empty-container .empty-message {\n  text-align: center;\n}\n.empty-container .empty-message strong {\n  display: block;\n  color: #666;\n  margin-bottom: 4px;\n}\n.empty-container .empty-message p {\n  margin: 0;\n  color: #999;\n  font-size: 14px;\n}\n/*# sourceMappingURL=file-browser.component.css.map */\n"] }]
   }], null, { validateFiles: [{ type: Output, args: ["validateFiles"] }] });
 })();
 (() => {
