@@ -5,7 +5,7 @@
 **Environment:** M1958
 **Version:** v0.0.18
 **Branch:** main
-**Last Deployed:** 01/15/2026, 17:59:22
+**Last Deployed:** 01/15/2026, 17:59:23
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the mrha-bb-validator M
 
 ## Deployment History
 
+- **v0.0.18** | Branch: `main` | Deployed: 01/15/2026, 17:59:23
 - **v0.0.18** | Branch: `main` | Deployed: 01/15/2026, 17:59:22
 - **v0.0.55** | Branch: `develop` | Deployed: 01/14/2026, 11:09:51
 - **v0.0.54** | Branch: `develop` | Deployed: 01/14/2026, 10:58:15
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the mrha-bb-validator M
 - **v0.0.49** | Branch: `develop` | Deployed: 01/13/2026, 15:46:08
 - **v0.0.48** | Branch: `develop` | Deployed: 01/13/2026, 15:38:35
 - **v0.0.47** | Branch: `develop` | Deployed: 01/13/2026, 15:28:12
-- **v0.0.46** | Branch: `develop` | Deployed: 01/13/2026, 15:00:26
 
 ---
 
