@@ -14007,8 +14007,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.9-main";
-var packageVersion = "0.0.9";
+var buildVersion = "v0.0.10-main";
+var packageVersion = "0.0.10";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51489,7 +51489,8 @@ var FileBrowserService = class _FileBrowserService {
       }
     }, [], () => {
       const response = this.customService.get("listDir");
-      if (response?.statusData?.status === "S" && response.files) {
+      const isSuccess = response && response.statusData && response.statusData.status === "S" && response.files;
+      if (isSuccess) {
         this._files.set(response.files.map((f) => ({
           filename: f.filename,
           filesize: f.filesize,
@@ -51498,7 +51499,7 @@ var FileBrowserService = class _FileBrowserService {
         })));
         this._error.set(null);
       } else {
-        const errorMsg = response?.error || "Failed to list directory";
+        const errorMsg = response && response.error ? response.error : "Failed to list directory";
         this._error.set(errorMsg);
         this._files.set([]);
       }
@@ -51514,7 +51515,7 @@ var FileBrowserService = class _FileBrowserService {
   readFile(directory, filename, callback) {
     if (this._offlineMode()) {
       const file = this._files().find((f) => f.filename === filename);
-      if (file?.content) {
+      if (file && file.content) {
         callback(file.content, null);
       } else {
         callback(null, "File content not available - use local file picker");
@@ -51536,10 +51537,11 @@ var FileBrowserService = class _FileBrowserService {
       }
     }, [], () => {
       const response = this.customService.get("readFile");
-      if (response?.statusData?.status === "S" && response.content !== void 0) {
+      const isSuccess = response && response.statusData && response.statusData.status === "S" && response.content !== void 0;
+      if (isSuccess) {
         callback(response.content, null);
       } else {
-        const errorMsg = response?.error || `Failed to read file: ${filename}`;
+        const errorMsg = response && response.error ? response.error : "Failed to read file: " + filename;
         callback(null, errorMsg);
       }
     });
@@ -51592,8 +51594,7 @@ var FileBrowserService = class _FileBrowserService {
           filetype: this.deriveFileType(file.name),
           content
         });
-      } catch (err) {
-        console.error(`Error reading file ${file.name}:`, err);
+      } catch {
       }
     }
     const existingNames = new Set(this._files().map((f) => f.filename));
@@ -51618,7 +51619,7 @@ var FileBrowserService = class _FileBrowserService {
    */
   getLocalFileContent(filename) {
     const file = this._files().find((f) => f.filename === filename);
-    return file?.content || null;
+    return file && file.content ? file.content : null;
   }
   /**
    * Remove a file from the list (offline mode only)
