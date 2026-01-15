@@ -14006,8 +14006,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.15-main";
-var packageVersion = "0.0.15";
+var buildVersion = "v0.0.18-main";
+var packageVersion = "0.0.18";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51946,10 +51946,60 @@ var FileBrowserComponent = class _FileBrowserComponent {
   allSelected = computed(() => this._selectableFiles().length > 0 && this._selectableFiles().every((f) => f.selected), ...ngDevMode ? [{ debugName: "allSelected" }] : []);
   noneSelected = computed(() => this._selectableFiles().every((f) => !f.selected), ...ngDevMode ? [{ debugName: "noneSelected" }] : []);
   ngOnInit() {
-    this.inCerner = this.inCernerEnvironment;
-    this.loadFiles();
-    setTimeout(() => this.updateDOMDirectly(), 50);
-    setInterval(() => this.updateDOMDirectly(), 200);
+    this.safeUpdateDebugStatus("v0.0.16 ngOnInit started | cerner:" + this.inCernerEnvironment);
+    try {
+      this.inCerner = this.inCernerEnvironment;
+      this.safeLoadFiles();
+      setTimeout(() => this.updateDOMDirectly(), 100);
+      setInterval(() => this.updateDOMDirectly(), 500);
+      this.safeUpdateDebugStatus("v0.0.16 ngOnInit complete | cerner:" + this.inCerner + " | offline:" + this.isOfflineMode);
+    } catch (e) {
+      this.safeUpdateDebugStatus("v0.0.16 ERROR in ngOnInit: " + (e instanceof Error ? e.message : String(e)));
+    }
+  }
+  /**
+   * Safely update debug status element
+   */
+  safeUpdateDebugStatus(message) {
+    try {
+      const el = document.getElementById("debug-status");
+      if (el) {
+        el.textContent = message;
+      }
+    } catch {
+    }
+  }
+  /**
+   * Safe version of loadFiles that catches all errors
+   */
+  safeLoadFiles() {
+    try {
+      if (this.inCernerEnvironment) {
+        this.safeUpdateDebugStatus("v0.0.16 Cerner detected, trying online mode...");
+        try {
+          this.fileBrowserService.enableOnlineMode();
+          this.safeUpdateDebugStatus("v0.0.16 enableOnlineMode OK");
+        } catch (e) {
+          this.safeUpdateDebugStatus("v0.0.16 enableOnlineMode FAILED: " + (e instanceof Error ? e.message : String(e)));
+          this.isOfflineMode = true;
+          return;
+        }
+        try {
+          this.fileBrowserService.listFiles("cclscratch:");
+          this.safeUpdateDebugStatus("v0.0.16 listFiles called");
+        } catch (e) {
+          this.safeUpdateDebugStatus("v0.0.16 listFiles FAILED: " + (e instanceof Error ? e.message : String(e)));
+        }
+        this.watchForCclError();
+      } else {
+        this.safeUpdateDebugStatus("v0.0.16 Not in Cerner, using offline mode");
+        this.enableOfflineMode();
+      }
+      this.syncFilesFromService();
+    } catch (e) {
+      this.safeUpdateDebugStatus("v0.0.16 safeLoadFiles ERROR: " + (e instanceof Error ? e.message : String(e)));
+      this.isOfflineMode = true;
+    }
   }
   /**
    * Update DOM elements directly without Angular template binding
