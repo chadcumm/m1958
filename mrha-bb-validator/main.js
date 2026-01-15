@@ -14007,8 +14007,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.6-main";
-var packageVersion = "0.0.6";
+var buildVersion = "v0.0.7-main";
+var packageVersion = "0.0.7";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51929,17 +51929,17 @@ function FileBrowserComponent_Conditional_15_Template(rf, ctx) {
     \u0275\u0275domElementEnd()()();
   }
 }
+function isCernerEnvironment() {
+  try {
+    return typeof window.external?.DiscernObjectFactory !== "undefined";
+  } catch {
+    return false;
+  }
+}
 var FileBrowserComponent = class _FileBrowserComponent {
   fileBrowserService = inject(FileBrowserService);
-  injector = inject(Injector);
-  _mPage = null;
-  /** Lazy getter for MPageService - only injected when needed */
-  get mPage() {
-    if (!this._mPage) {
-      this._mPage = this.injector.get(MPageService);
-    }
-    return this._mPage;
-  }
+  /** Flag to track if we're in Cerner environment - checked once at startup */
+  inCernerEnvironment = isCernerEnvironment();
   // Output events for parent components
   validateFiles = output();
   // Internal state for file selection
@@ -51963,15 +51963,11 @@ var FileBrowserComponent = class _FileBrowserComponent {
    * Load files - detect Cerner environment and use appropriate mode
    */
   loadFiles() {
-    try {
-      if (this.mPage.serviceReady) {
-        this.fileBrowserService.enableOnlineMode();
-        this.fileBrowserService.listFiles("cclscratch:");
-        this.watchForCclError();
-      } else {
-        this.enableOfflineMode();
-      }
-    } catch {
+    if (this.inCernerEnvironment) {
+      this.fileBrowserService.enableOnlineMode();
+      this.fileBrowserService.listFiles("cclscratch:");
+      this.watchForCclError();
+    } else {
       this.enableOfflineMode();
     }
     this.syncFilesFromService();
@@ -52171,7 +52167,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   }], null, { validateFiles: [{ type: Output, args: ["validateFiles"] }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 34 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 45 });
 })();
 
 // src/app/components/results-summary/results-summary.component.ts
