@@ -1,18 +1,19 @@
-# gbin-mpage-template
+# mrha-bb-validator
 
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.8
-**Branch:** master
-**Last Deployed:** 01/15/2026, 20:37:32
+**Version:** v0.0.33
+**Branch:** feature/template-rebuild
+**Last Deployed:** 01/15/2026, 20:48:10
 
 ## About
 
-This directory contains the deployed build artifacts for the gbin-mpage-template MPage application.
+This directory contains the deployed build artifacts for the mrha-bb-validator MPage application.
 
 ## Deployment History
 
+- **v0.0.33** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:48:10
 - **v0.0.8** | Branch: `master` | Deployed: 01/15/2026, 20:37:32
 - **v0.0.32** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:36:43
 - **v0.0.31** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:33:58
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the gbin-mpage-template
 - **v0.0.23** | Branch: `main` | Deployed: 01/15/2026, 19:10:15
 - **v0.0.23** | Branch: `main` | Deployed: 01/15/2026, 19:10:14
 - **v0.0.21** | Branch: `main` | Deployed: 01/15/2026, 18:46:35
-- **v0.0.21** | Branch: `main` | Deployed: 01/15/2026, 18:46:33
 
 ---
 
