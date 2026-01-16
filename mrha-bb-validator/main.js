@@ -13953,8 +13953,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.23-main";
-var packageVersion = "0.0.23";
+var buildVersion = "v0.0.24-main";
+var packageVersion = "0.0.24";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -14001,7 +14001,7 @@ var AppVersion = class _AppVersion {
 var FileBrowserService = class _FileBrowserService {
   /**
    * Execute CCL script using native Cerner API
-   * @param scriptName - CCL script name (e.g., 'mrha_bb_val_list_dir:group1')
+   * @param scriptName - CCL script name (e.g., 'mrha_bb_val_list_dir:dba')
    * @param params - Parameters to pass to script
    * @param callback - Callback with JSON response
    */
@@ -14090,7 +14090,7 @@ var FileBrowserService = class _FileBrowserService {
     this._loading.set(true);
     this._error.set(null);
     this._directory.set(directory);
-    this.executeCcl("mrha_bb_val_list_dir:group1", { directory }, function(rawResponse) {
+    this.executeCcl("mrha_bb_val_list_dir:dba", { directory }, function(rawResponse) {
       const response = rawResponse;
       const isSuccess = response && response.statusData && response.statusData.status === "S" && response.files;
       if (isSuccess) {
@@ -14129,7 +14129,7 @@ var FileBrowserService = class _FileBrowserService {
       }
       return;
     }
-    this.executeCcl("mrha_bb_val_read_file:group1", { directory, filename }, function(rawResponse) {
+    this.executeCcl("mrha_bb_val_read_file:dba", { directory, filename }, function(rawResponse) {
       const response = rawResponse;
       const isSuccess = response && response.statusData && response.statusData.status === "S" && response.content !== void 0;
       if (isSuccess) {
@@ -14693,7 +14693,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       const testPayload = {
         customScript: {
           script: [{
-            name: "mrha_bb_val_list_dir:group1",
+            name: "mrha_bb_val_list_dir:dba",
             run: "pre",
             id: "test",
             parameters: { directory: "cclscratch:" }
