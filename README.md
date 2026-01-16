@@ -3,9 +3,9 @@
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.32
+**Version:** v0.0.33
 **Branch:** main
-**Last Deployed:** 01/15/2026, 22:22:58
+**Last Deployed:** 01/15/2026, 22:32:39
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the mrha-bb-validator M
 
 ## Deployment History
 
+- **v0.0.33** | Branch: `main` | Deployed: 01/15/2026, 22:32:39
 - **v0.0.32** | Branch: `main` | Deployed: 01/15/2026, 22:22:58
 - **v0.0.31** | Branch: `main` | Deployed: 01/15/2026, 22:22:26
 - **v0.0.30** | Branch: `main` | Deployed: 01/15/2026, 22:16:34
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the mrha-bb-validator M
 - **v0.0.8** | Branch: `master` | Deployed: 01/15/2026, 20:37:32
 - **v0.0.32** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:36:43
 - **v0.0.31** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:33:58
-- **v0.0.30** | Branch: `feature/template-rebuild` | Deployed: 01/15/2026, 20:19:27
 
 ---
 

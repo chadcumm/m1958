@@ -50679,8 +50679,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.32-main";
-var packageVersion = "0.0.32";
+var buildVersion = "v0.0.33-main";
+var packageVersion = "0.0.33";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -50886,12 +50886,15 @@ var FileBrowserService = class _FileBrowserService {
    * @param fileList - FileList from HTML file input
    */
   async addLocalFiles(fileList) {
+    console.log("[FileBrowserService] addLocalFiles called with", fileList.length, "files");
     this._loading.set(true);
     this._error.set(null);
     const newFiles = [];
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
+      console.log("[FileBrowserService] Processing file:", file.name);
       if (!file.name.toLowerCase().endsWith(".txt")) {
+        console.log("[FileBrowserService] Skipping non-.txt file:", file.name);
         continue;
       }
       try {
@@ -50903,13 +50906,17 @@ var FileBrowserService = class _FileBrowserService {
           filetype: this.deriveFileType(file.name),
           content
         });
-      } catch {
+        console.log("[FileBrowserService] Added file:", file.name, "size:", file.size);
+      } catch (err) {
+        console.log("[FileBrowserService] Error reading file:", file.name, err);
       }
     }
     const existingNames = new Set(this._files().map((f) => f.filename));
     const uniqueNewFiles = newFiles.filter((f) => !existingNames.has(f.filename));
+    console.log("[FileBrowserService] Adding", uniqueNewFiles.length, "unique files to list");
     this._files.update((files) => [...files, ...uniqueNewFiles]);
     this._loading.set(false);
+    console.log("[FileBrowserService] Total files now:", this._files().length);
   }
   /**
    * Read a local file using FileReader API
@@ -51531,12 +51538,16 @@ var FileBrowserComponent = class _FileBrowserComponent {
       }
       const pickerEl = document.getElementById("file-picker-container");
       if (pickerEl) {
-        if (this.isOfflineMode) {
-          pickerEl.innerHTML = '<div class="offline-picker" style="display:flex;align-items:center;gap:16px;padding:16px;background:#f5f5f5;border-bottom:1px solid #e0e0e0;"><input type="file" id="fileInput" multiple accept=".txt" style="display:none;"><label for="fileInput" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#1976d2;color:#fff;border:none;border-radius:4px;cursor:pointer;"><span>&#128193;</span> Browse for Extract Files</label><span style="font-size:13px;color:#666;">Select .txt extract files (PTNT, UNIT, SPEC_ATTR, etc.)</span></div>';
-          const input2 = document.getElementById("fileInput");
-          if (input2) {
-            input2.onchange = (e) => this.onLocalFilesSelected(e);
+        if (this.isOfflineMode && this.totalFileCount === 0) {
+          if (!pickerEl.querySelector("#fileInput")) {
+            pickerEl.innerHTML = '<div class="offline-picker" style="display:flex;align-items:center;gap:16px;padding:16px;background:#f5f5f5;border-bottom:1px solid #e0e0e0;"><input type="file" id="fileInput" multiple accept=".txt" style="display:none;"><label for="fileInput" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#1976d2;color:#fff;border:none;border-radius:4px;cursor:pointer;"><span>&#128193;</span> Browse for Extract Files</label><span style="font-size:13px;color:#666;">Select .txt extract files (PTNT, UNIT, SPEC_ATTR, etc.)</span></div>';
+            const input2 = document.getElementById("fileInput");
+            if (input2) {
+              input2.onchange = (e) => this.onLocalFilesSelected(e);
+            }
           }
+        } else if (this.isOfflineMode && this.totalFileCount > 0) {
+          pickerEl.innerHTML = "";
         } else if (this.isLoading) {
           pickerEl.innerHTML = '<div class="loading-container" style="display:flex;flex-direction:column;align-items:center;padding:48px;gap:12px;"><div class="spinner" style="width:32px;height:32px;border:3px solid #e0e0e0;border-top-color:#1976d2;border-radius:50%;animation:spin 1s linear infinite;"></div><p><strong>Loading files from CCL...</strong></p><p style="font-size:13px;color:#666;">If this takes too long, CCL scripts may not be available.</p><button id="switchOfflineBtn" class="btn btn-secondary" style="padding:8px 16px;background:#e0e0e0;border:none;border-radius:4px;cursor:pointer;">Switch to Offline Mode</button></div>';
           const btn = document.getElementById("switchOfflineBtn");
@@ -51636,20 +51647,33 @@ var FileBrowserComponent = class _FileBrowserComponent {
    * Sync files from service to local selectable files state
    */
   syncFilesFromService() {
+    console.log("[FileBrowser] syncFilesFromService started");
+    let syncAttempts = 0;
     const checkInterval = setInterval(() => {
+      syncAttempts++;
       const serviceFiles = this.fileBrowserService.files();
       const currentFiles = this._selectableFiles();
+      if (syncAttempts <= 5 || syncAttempts % 10 === 0) {
+        console.log("[FileBrowser] Sync check #" + syncAttempts + " - service:" + serviceFiles.length + " component:" + currentFiles.length);
+      }
       if (serviceFiles.length > 0 && (currentFiles.length === 0 || serviceFiles.length !== currentFiles.length)) {
+        console.log("[FileBrowser] Syncing " + serviceFiles.length + " files to component");
         this._selectableFiles.set(serviceFiles.map((file) => __spreadProps(__spreadValues({}, file), {
           selected: false
         })));
+        this.updatePropertiesFromSignals();
+        console.log("[FileBrowser] After sync - totalFileCount:" + this.totalFileCount);
         clearInterval(checkInterval);
       }
-      if (!this.fileBrowserService.loading() && serviceFiles.length === 0) {
+      if (!this.fileBrowserService.loading() && serviceFiles.length === 0 && syncAttempts > 30) {
+        console.log("[FileBrowser] Stopping sync - no files after " + syncAttempts + " attempts");
         clearInterval(checkInterval);
       }
     }, 100);
-    setTimeout(() => clearInterval(checkInterval), 1e4);
+    setTimeout(() => {
+      clearInterval(checkInterval);
+      console.log("[FileBrowser] Sync timeout after 10 seconds");
+    }, 1e4);
   }
   /**
    * Toggle selection for a specific file
@@ -51725,11 +51749,17 @@ var FileBrowserComponent = class _FileBrowserComponent {
    * Handle local file selection (offline mode)
    */
   async onLocalFilesSelected(event) {
+    console.log("[FileBrowser] onLocalFilesSelected triggered");
     const input2 = event.target;
     if (input2.files && input2.files.length > 0) {
+      console.log("[FileBrowser] Processing", input2.files.length, "files");
       await this.fileBrowserService.addLocalFiles(input2.files);
+      console.log("[FileBrowser] addLocalFiles complete, syncing...");
       this.syncFilesFromService();
       input2.value = "";
+      console.log("[FileBrowser] File selection complete");
+    } else {
+      console.log("[FileBrowser] No files selected or input.files is null");
     }
   }
   /**
