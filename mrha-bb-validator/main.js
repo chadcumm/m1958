@@ -13953,8 +13953,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.24-main";
-var packageVersion = "0.0.24";
+var buildVersion = "v0.0.25-main";
+var packageVersion = "0.0.25";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -14000,8 +14000,8 @@ var AppVersion = class _AppVersion {
 // src/app/services/file-browser.service.ts
 var FileBrowserService = class _FileBrowserService {
   /**
-   * Execute CCL script using native Cerner API
-   * @param scriptName - CCL script name (e.g., 'mrha_bb_val_list_dir:dba')
+   * Execute CCL script using native Cerner API via Clinical Office
+   * @param scriptName - CCL script name (e.g., 'mrha_bb_val_list_dir:group1')
    * @param params - Parameters to pass to script
    * @param callback - Callback with JSON response
    */
@@ -14090,7 +14090,7 @@ var FileBrowserService = class _FileBrowserService {
     this._loading.set(true);
     this._error.set(null);
     this._directory.set(directory);
-    this.executeCcl("mrha_bb_val_list_dir:dba", { directory }, function(rawResponse) {
+    this.executeCcl("mrha_bb_val_list_dir:group1", { directory }, function(rawResponse) {
       const response = rawResponse;
       const isSuccess = response && response.statusData && response.statusData.status === "S" && response.files;
       if (isSuccess) {
@@ -14129,7 +14129,7 @@ var FileBrowserService = class _FileBrowserService {
       }
       return;
     }
-    this.executeCcl("mrha_bb_val_read_file:dba", { directory, filename }, function(rawResponse) {
+    this.executeCcl("mrha_bb_val_read_file:group1", { directory, filename }, function(rawResponse) {
       const response = rawResponse;
       const isSuccess = response && response.statusData && response.statusData.status === "S" && response.content !== void 0;
       if (isSuccess) {
@@ -14543,15 +14543,15 @@ var FileBrowserComponent = class _FileBrowserComponent {
   allSelected = computed(() => this._selectableFiles().length > 0 && this._selectableFiles().every((f) => f.selected), ...ngDevMode ? [{ debugName: "allSelected" }] : []);
   noneSelected = computed(() => this._selectableFiles().every((f) => !f.selected), ...ngDevMode ? [{ debugName: "noneSelected" }] : []);
   ngOnInit() {
-    this.safeUpdateDebugStatus("v0.0.16 ngOnInit started | cerner:" + this.inCernerEnvironment);
+    this.safeUpdateDebugStatus("v0.0.19 ngOnInit started | cerner:" + this.inCernerEnvironment);
     try {
       this.inCerner = this.inCernerEnvironment;
       this.safeLoadFiles();
       setTimeout(() => this.updateDOMDirectly(), 100);
       setInterval(() => this.updateDOMDirectly(), 500);
-      this.safeUpdateDebugStatus("v0.0.16 ngOnInit complete | cerner:" + this.inCerner + " | offline:" + this.isOfflineMode);
+      this.safeUpdateDebugStatus("v0.0.19 ngOnInit complete | cerner:" + this.inCerner + " | offline:" + this.isOfflineMode);
     } catch (e) {
-      this.safeUpdateDebugStatus("v0.0.16 ERROR in ngOnInit: " + (e instanceof Error ? e.message : String(e)));
+      this.safeUpdateDebugStatus("v0.0.19 ERROR in ngOnInit: " + (e instanceof Error ? e.message : String(e)));
     }
   }
   /**
@@ -14693,7 +14693,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       const testPayload = {
         customScript: {
           script: [{
-            name: "mrha_bb_val_list_dir:dba",
+            name: "mrha_bb_val_list_dir:group1",
             run: "pre",
             id: "test",
             parameters: { directory: "cclscratch:" }
@@ -14836,7 +14836,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       this.updatePropertiesFromSignals();
       const debugEl = document.getElementById("debug-status");
       if (debugEl) {
-        debugEl.textContent = "v0.0.15 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
+        debugEl.textContent = "v0.0.19 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
       }
       const badgesEl = document.getElementById("mode-badges");
       if (badgesEl) {
