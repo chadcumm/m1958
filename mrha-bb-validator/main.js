@@ -5696,8 +5696,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.33-feature/template-rebuild";
-var packageVersion = "0.0.33";
+var buildVersion = "v0.0.34-feature/template-rebuild";
+var packageVersion = "0.0.34";
 var gitBranch = "feature/template-rebuild";
 
 // src/app/app-version/app-version.ts
@@ -6627,6 +6627,8 @@ var FileBrowserComponent = class _FileBrowserComponent {
   }
   /**
    * Watch for CCL errors and switch to offline mode if CCL fails
+   * Note: 0 files is NOT an error - it just means the directory is empty
+   * Only switch to offline if there's an actual CCL error
    */
   watchForCclError() {
     const self = this;
@@ -6643,13 +6645,11 @@ var FileBrowserComponent = class _FileBrowserComponent {
           self.addDebugLog("Files found: " + fileCount);
           if (hasError) {
             self.addDebugLog("CCL error detected: " + hasError);
+            self.addDebugLog("Switching to offline mode due to error");
             self.enableOfflineMode();
-          } else if (fileCount > 0) {
-            self.addDebugLog("CCL succeeded with " + fileCount + " files");
-            self.isOfflineMode = false;
           } else {
-            self.addDebugLog("CCL returned 0 files, switching to offline");
-            self.enableOfflineMode();
+            self.addDebugLog("CCL succeeded - staying in online mode");
+            self.isOfflineMode = false;
           }
         }
       } catch (e) {
