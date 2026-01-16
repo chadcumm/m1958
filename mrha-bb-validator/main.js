@@ -5696,8 +5696,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.34-feature/template-rebuild";
-var packageVersion = "0.0.34";
+var buildVersion = "v0.0.35-feature/template-rebuild";
+var packageVersion = "0.0.35";
 var gitBranch = "feature/template-rebuild";
 
 // src/app/app-version/app-version.ts
