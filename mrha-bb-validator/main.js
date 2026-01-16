@@ -74494,13 +74494,25 @@ var appConfig = {
       const configService = inject2(ConfigService);
       return configService.loadConfig();
     }),
-    { provide: ErrorHandler, useClass: ErrorHandlerService }
+    { provide: ErrorHandler, useClass: ErrorHandlerService },
+    // Provide Renderer2 at application level for Clinical Office Dialog service
+    // The Dialog service incorrectly injects Renderer2 at root level
+    {
+      provide: Renderer2,
+      useFactory: (rendererFactory) => rendererFactory.createRenderer(null, null),
+      deps: [RendererFactory2]
+    },
+    // Provide ElementRef at application level for Clinical Office Dialog service
+    {
+      provide: ElementRef,
+      useFactory: () => new ElementRef(document.body)
+    }
   ]
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.31-feature/template-rebuild";
-var packageVersion = "0.0.31";
+var buildVersion = "v0.0.32-feature/template-rebuild";
+var packageVersion = "0.0.32";
 var gitBranch = "feature/template-rebuild";
 
 // src/app/app-version/app-version.ts
