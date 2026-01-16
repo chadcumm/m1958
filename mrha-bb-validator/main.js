@@ -51393,9 +51393,9 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.29-main";
-var packageVersion = "0.0.29";
-var gitBranch = "main";
+var buildVersion = "v0.0.30-feature/template-rebuild";
+var packageVersion = "0.0.30";
+var gitBranch = "feature/template-rebuild";
 
 // src/app/app-version/app-version.ts
 var AppVersion = class _AppVersion {
@@ -51439,6 +51439,7 @@ var AppVersion = class _AppVersion {
 
 // src/app/services/file-browser.service.ts
 var FileBrowserService = class _FileBrowserService {
+  // Clinical Office CustomService for CCL calls
   customService = inject(CustomService);
   // Reactive state using signals
   _files = signal([], ...ngDevMode ? [{ debugName: "_files" }] : []);
@@ -51464,7 +51465,6 @@ var FileBrowserService = class _FileBrowserService {
     this._offlineMode.set(false);
     this._directory.set("cclscratch:");
     this._error.set(null);
-    console.log("[FileBrowserService] Online mode enabled");
   }
   /**
    * Enable offline mode for local file browsing
@@ -51474,21 +51474,22 @@ var FileBrowserService = class _FileBrowserService {
     this._offlineMode.set(true);
     this._directory.set("Local Files");
     this._error.set(null);
-    console.log("[FileBrowserService] Offline mode enabled");
   }
   /**
    * List files in directory via CCL (online mode) or return empty (offline mode)
-   * @param directory - Directory path for CCL listing (default: cclscratch:)
+   *
+   * Uses Clinical Office CustomService pattern:
+   * - Script name with :group1 suffix
+   * - Parameters in customScript.script[].parameters object
+   * - Response via customService.get(requestId)
    */
   listFiles(directory = "cclscratch:") {
     if (this._offlineMode()) {
-      console.log("[FileBrowserService] Offline mode - skipping CCL list");
       return;
     }
     this._loading.set(true);
     this._error.set(null);
     this._directory.set(directory);
-    console.log("[FileBrowserService] Calling mrha_bb_val_list_dir:group1...");
     const self = this;
     this.customService.load({
       customScript: {
@@ -51504,7 +51505,6 @@ var FileBrowserService = class _FileBrowserService {
       }
     }, [{ personId: 0, encntrId: 0 }], function() {
       const response = self.customService.get("listDir");
-      console.log("[FileBrowserService] listDir response:", response);
       if (response && response.statusData && response.statusData.status === "S" && response.files) {
         self._files.set(response.files.map(function(f) {
           return {
@@ -51515,21 +51515,18 @@ var FileBrowserService = class _FileBrowserService {
           };
         }));
         self._error.set(null);
-        console.log("[FileBrowserService] Listed " + self._files().length + " files");
       } else {
         const errorMsg = response && response.error ? response.error : "Failed to list directory";
         self._error.set(errorMsg);
         self._files.set([]);
-        console.log("[FileBrowserService] Error: " + errorMsg);
       }
       self._loading.set(false);
     });
   }
   /**
    * Read file content via CCL (online mode) or return local content (offline mode)
-   * @param directory - Directory path for CCL read
-   * @param filename - Name of file to read
-   * @param callback - Callback with content or error
+   *
+   * Uses Clinical Office CustomService pattern for CCL calls.
    */
   readFile(directory, filename, callback) {
     if (this._offlineMode()) {
@@ -51543,7 +51540,6 @@ var FileBrowserService = class _FileBrowserService {
       }
       return;
     }
-    console.log("[FileBrowserService] Calling mrha_bb_val_read_file:group1 for " + filename);
     const self = this;
     this.customService.load({
       customScript: {
@@ -51560,7 +51556,6 @@ var FileBrowserService = class _FileBrowserService {
       }
     }, [{ personId: 0, encntrId: 0 }], function() {
       const response = self.customService.get("readFile");
-      console.log("[FileBrowserService] readFile response:", response);
       if (response && response.statusData && response.statusData.status === "S" && response.content !== void 0) {
         callback(response.content, null);
       } else {
@@ -51577,7 +51572,7 @@ var FileBrowserService = class _FileBrowserService {
     this._error.set(null);
   }
   /**
-   * Derive file type from filename pattern (same logic as CCL script)
+   * Derive file type from filename pattern
    */
   deriveFileType(filename) {
     const lowerName = filename.toLowerCase();
@@ -51597,7 +51592,6 @@ var FileBrowserService = class _FileBrowserService {
   }
   /**
    * Add files from local file picker (offline mode)
-   * @param fileList - FileList from HTML file input
    */
   async addLocalFiles(fileList) {
     this._loading.set(true);
@@ -51638,7 +51632,6 @@ var FileBrowserService = class _FileBrowserService {
   }
   /**
    * Get file content (for offline mode, content is already loaded)
-   * @param filename - Name of file to get content for
    */
   getLocalFileContent(filename) {
     const file = this._files().find((f) => f.filename === filename);
@@ -54102,14 +54095,14 @@ function App_Conditional_16_Template(rf, ctx) {
   }
 }
 var App = class _App {
-  // Clinical Office services
+  // Clinical Office MPage service - MUST be injected and initialized
   MPage = inject(MPageService);
   // Application services
   fileBrowserService = inject(FileBrowserService);
   validationService = inject(ValidationService);
-  // Version displayed in header subtitle for easy verification
+  // Version displayed in header subtitle
   appVersion = buildVersion;
-  // Reactive state
+  // Reactive state using Angular signals
   _isValidating = signal(false, ...ngDevMode ? [{ debugName: "_isValidating" }] : []);
   _validationResults = signal(null, ...ngDevMode ? [{ debugName: "_validationResults" }] : []);
   _validationError = signal(null, ...ngDevMode ? [{ debugName: "_validationError" }] : []);
@@ -54136,53 +54129,30 @@ var App = class _App {
     return results.crossFile.filter((r) => r.severity === "error");
   }, ...ngDevMode ? [{ debugName: "crossFileErrors" }] : []);
   ngOnInit() {
-    console.log("[App] ngOnInit - Starting application initialization");
-    setTimeout(() => {
-      console.log("[App] Initializing MPage service...");
-      try {
-        this.MPage.setMaxInstances(2, true, "ORGANIZER", true);
-        console.log("[App] SUCCESS: setMaxInstances called");
-      } catch (error) {
-        console.error("[App] ERROR: setMaxInstances failed:", error);
-      }
-      this.MPage.defaultDateFormats = CUSTOM_DATE_FORMATS;
-      console.log("[App] SUCCESS: Date formats set");
-      this.detectNetworkAndInitialize();
-    }, 0);
+    this.MPage.setMaxInstances(2, true, "ORGANIZER", false);
+    this.MPage.defaultDateFormats = CUSTOM_DATE_FORMATS;
+    this.detectNetworkAndInitialize();
   }
   /**
-   * Detect network availability by waiting for serviceReady with 3-second timeout
-   * setMaxInstances() internally calls ping(), so serviceReady becoming true means we're online
+   * Detect network availability by waiting for serviceReady with 3-second timeout.
+   * setMaxInstances() internally calls ping(), so serviceReady becoming true
+   * means we have a working CCL connection.
    */
   async detectNetworkAndInitialize() {
-    console.log("[App] Starting network detection (waiting for serviceReady)...");
-    console.log("[App] Initial MPage.serviceReady =", this.MPage.serviceReady);
     const startTime = Date.now();
     const TIMEOUT_MS = 3e3;
-    let attempts = 0;
     while (!this.MPage.serviceReady) {
-      attempts++;
       await new Promise((resolve) => setTimeout(resolve, 100));
-      const elapsed2 = Date.now() - startTime;
-      console.log(`[App] Waiting for serviceReady... attempt ${attempts} (${elapsed2}ms elapsed)`);
-      if (elapsed2 >= TIMEOUT_MS) {
-        console.warn(`[App] WARNING: Timeout reached (${TIMEOUT_MS}ms) - serviceReady did not become true`);
+      if (Date.now() - startTime >= TIMEOUT_MS) {
         break;
       }
     }
-    const elapsed = Date.now() - startTime;
     const isOnline = this.MPage.serviceReady;
     if (isOnline) {
-      console.log(`[App] SUCCESS: serviceReady became true after ${elapsed}ms - CCL ping succeeded`);
       this.fileBrowserService.enableOnlineMode();
-      console.log("[App] File browser set to ONLINE mode");
     } else {
-      console.log(`[App] ERROR: serviceReady still false after ${elapsed}ms - CCL ping failed/timeout`);
       this.fileBrowserService.enableOfflineMode();
-      console.log("[App] File browser set to OFFLINE mode");
     }
-    const finalStatus = isOnline ? "ONLINE" : "OFFLINE";
-    console.log(`[App] Final app status: ${finalStatus} MODE`);
   }
   /**
    * Handle file validation request from file browser component
@@ -54192,7 +54162,6 @@ var App = class _App {
     this._validationResults.set(null);
     this._validationError.set(null);
     this._selectedFilenames.set(/* @__PURE__ */ new Map());
-    console.log(`App: Starting validation of ${selectedFiles.length} file(s)`);
     try {
       const parsedFiles = /* @__PURE__ */ new Map();
       const filenameMap = /* @__PURE__ */ new Map();
@@ -54200,7 +54169,6 @@ var App = class _App {
       for (const file of selectedFiles) {
         const fileType = this.validationService.matchFileToSpec(file.filename);
         if (!fileType) {
-          console.log(`App: Skipping unrecognized file: ${file.filename}`);
           continue;
         }
         let content;
@@ -54210,14 +54178,12 @@ var App = class _App {
           content = await this.readFileAsync(directory, file.filename);
         }
         if (content === null) {
-          console.log(`App: Failed to read file: ${file.filename}`);
           continue;
         }
         const parsedFile = this.validationService.createParsedFile(file.filename, content);
         if (parsedFile) {
           parsedFiles.set(fileType, parsedFile);
           filenameMap.set(fileType, file.filename);
-          console.log(`App: Loaded ${fileType}: ${file.filename} (${parsedFile.records.length} records)`);
         }
       }
       if (parsedFiles.size === 0) {
@@ -54228,17 +54194,14 @@ var App = class _App {
       const results = this.validationService.validateAll(parsedFiles);
       this._validationResults.set(results);
       this._selectedFilenames.set(filenameMap);
-      console.log(`App: Validation complete - ${results.overallStatus} (${results.totalRecords} records, ${results.criticalIssues.length} critical, ${results.warnings.length} warnings)`);
     } catch (error) {
       const errorMsg = error instanceof Error ? error.message : "Unknown error during validation";
       this._validationError.set(errorMsg);
-      console.log(`App: Validation error: ${errorMsg}`);
     }
     this._isValidating.set(false);
   }
   /**
-   * Read file content asynchronously
-   * Wraps the callback-based service in a Promise
+   * Read file content asynchronously via CCL or mock
    */
   readFileAsync(directory, filename) {
     return new Promise((resolve) => {
@@ -54247,7 +54210,6 @@ var App = class _App {
       } else {
         this.fileBrowserService.readFile(directory, filename, (content, error) => {
           if (error) {
-            console.log(`App: File read error for ${filename}: ${error}`);
             resolve(null);
           } else {
             resolve(content);
@@ -54257,8 +54219,7 @@ var App = class _App {
     });
   }
   /**
-   * Get mock file content for local development
-   * Returns sample data that matches WellSky DCU 4.0 format
+   * Get mock file content for local development/demo
    */
   getMockFileContent(filename) {
     const name = filename.toLowerCase();
@@ -54325,7 +54286,6 @@ var App = class _App {
     this._validationResults.set(null);
     this._validationError.set(null);
     this._selectedFilenames.set(/* @__PURE__ */ new Map());
-    console.log("App: Results cleared");
   }
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
@@ -54396,7 +54356,7 @@ var App = class _App {
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 43 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 40 });
 })();
 
 // src/main.ts
