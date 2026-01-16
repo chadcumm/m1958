@@ -50679,8 +50679,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.33-main";
-var packageVersion = "0.0.33";
+var buildVersion = "v0.0.34-main";
+var packageVersion = "0.0.34";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51163,6 +51163,7 @@ function isCernerEnvironment() {
 }
 var FileBrowserComponent = class _FileBrowserComponent {
   fileBrowserService = inject(FileBrowserService);
+  cdr = inject(ChangeDetectorRef);
   /** Flag to track if we're in Cerner environment - checked once at startup */
   inCernerEnvironment = isCernerEnvironment();
   // Output events for parent components
@@ -51524,6 +51525,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   updateDOMDirectly() {
     try {
       this.updatePropertiesFromSignals();
+      this.cdr.markForCheck();
       const debugEl = document.getElementById("debug-status");
       if (debugEl) {
         debugEl.textContent = "v0.0.21 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
@@ -51662,6 +51664,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
           selected: false
         })));
         this.updatePropertiesFromSignals();
+        this.cdr.markForCheck();
         console.log("[FileBrowser] After sync - totalFileCount:" + this.totalFileCount);
         clearInterval(checkInterval);
       }
@@ -51757,6 +51760,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       console.log("[FileBrowser] addLocalFiles complete, syncing...");
       this.syncFilesFromService();
       input2.value = "";
+      this.cdr.markForCheck();
       console.log("[FileBrowser] File selection complete");
     } else {
       console.log("[FileBrowser] No files selected or input.files is null");
@@ -51839,7 +51843,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   }], null, { validateFiles: [{ type: Output, args: ["validateFiles"] }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 52 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FileBrowserComponent, { className: "FileBrowserComponent", filePath: "src/app/components/file-browser/file-browser.component.ts", lineNumber: 53 });
 })();
 
 // src/app/components/results-summary/results-summary.component.ts
