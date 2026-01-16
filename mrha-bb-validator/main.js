@@ -50679,8 +50679,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.34-main";
-var packageVersion = "0.0.34";
+var buildVersion = "v0.0.35-main";
+var packageVersion = "0.0.35";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -51525,7 +51525,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
   updateDOMDirectly() {
     try {
       this.updatePropertiesFromSignals();
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
       const debugEl = document.getElementById("debug-status");
       if (debugEl) {
         debugEl.textContent = "v0.0.21 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
@@ -51664,7 +51664,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
           selected: false
         })));
         this.updatePropertiesFromSignals();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
         console.log("[FileBrowser] After sync - totalFileCount:" + this.totalFileCount);
         clearInterval(checkInterval);
       }
@@ -51760,7 +51760,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       console.log("[FileBrowser] addLocalFiles complete, syncing...");
       this.syncFilesFromService();
       input2.value = "";
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
       console.log("[FileBrowser] File selection complete");
     } else {
       console.log("[FileBrowser] No files selected or input.files is null");
