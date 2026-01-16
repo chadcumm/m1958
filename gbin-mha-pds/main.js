@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-K4JD4C6S.js";
+} from "./chunk-FXSGVO6P.js";
 import {
   AppStatusService,
   ChangeDetectionStrategy,
@@ -37,29 +37,34 @@ import {
   ɵɵpureFunction0,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-2RMUROPJ.js";
+} from "./chunk-PLBSHY54.js";
 
 // src/app/app.routes.ts
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-25WIGGUO.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-GW76IFLQ.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-KL7OPNIQ.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-6ETO5TOC.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-4SDFRLVN.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-TOMWXTBK.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-7QVAYQ2K.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-I43KXP3N.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
+  },
+  {
+    path: "operations",
+    loadComponent: () => import("./chunk-XYNB22UJ.js").then((m) => m.OperationsComponent),
+    title: "MHA PDS Operations"
   }
 ];
 
@@ -93,8 +98,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.55-develop";
-var packageVersion = "0.0.55";
+var buildVersion = "v0.0.56-develop";
+var packageVersion = "0.0.56";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
@@ -214,7 +219,7 @@ var App = class _App {
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 18, vars: 2, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 1, "nav-link", 3, "routerLinkActiveOptions"], ["routerLink", "/config", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/logs", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/patients", "routerLinkActive", "active", 1, "nav-link"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 20, vars: 2, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 1, "nav-link", 3, "routerLinkActiveOptions"], ["routerLink", "/config", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/logs", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/patients", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/operations", "routerLinkActive", "active", 1, "nav-link"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "nav", 1)(2, "div", 2);
       \u0275\u0275text(3, "MHA PDS");
@@ -230,13 +235,16 @@ var App = class _App {
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(11, "a", 7);
       \u0275\u0275text(12, "Patients");
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(13, "main", 8);
-      \u0275\u0275element(14, "router-outlet");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(15, "mpage-log-component");
-      \u0275\u0275elementStart(16, "footer", 9);
-      \u0275\u0275element(17, "app-app-version");
+      \u0275\u0275elementStart(13, "a", 8);
+      \u0275\u0275text(14, "Operations");
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(15, "main", 9);
+      \u0275\u0275element(16, "router-outlet");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(17, "mpage-log-component");
+      \u0275\u0275elementStart(18, "footer", 10);
+      \u0275\u0275element(19, "app-app-version");
       \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
@@ -248,7 +256,7 @@ var App = class _App {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
     type: Component,
-    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: '<div class="app-container">\n  <!-- Navigation -->\n  <nav class="app-nav">\n    <div class="nav-brand">MHA PDS</div>\n    <div class="nav-links">\n      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">CCL Test</a>\n      <a routerLink="/config" routerLinkActive="active" class="nav-link">Configuration</a>\n      <a routerLink="/logs" routerLinkActive="active" class="nav-link">Logs</a>\n      <a routerLink="/patients" routerLinkActive="active" class="nav-link">Patients</a>\n    </div>\n  </nav>\n\n  <!-- Main Content -->\n  <main class="app-main">\n    <router-outlet />\n  </main>\n\n  <mpage-log-component />\n\n  <footer style="position: fixed; bottom: 10px; right: 10px;">\n    <app-app-version />\n  </footer>\n</div>\n\n<style>\n  .app-container {\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .app-nav {\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    padding: 12px 20px;\n    background-color: #1a365d;\n    color: white;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n\n  .nav-brand {\n    font-size: 18px;\n    font-weight: 600;\n    padding-right: 20px;\n    border-right: 1px solid rgba(255, 255, 255, 0.2);\n  }\n\n  .nav-links {\n    display: flex;\n    gap: 8px;\n  }\n\n  .nav-link {\n    padding: 8px 16px;\n    color: rgba(255, 255, 255, 0.85);\n    text-decoration: none;\n    border-radius: 4px;\n    font-size: 14px;\n    transition: all 0.2s;\n  }\n\n  .nav-link:hover {\n    background-color: rgba(255, 255, 255, 0.1);\n    color: white;\n  }\n\n  .nav-link.active {\n    background-color: rgba(255, 255, 255, 0.15);\n    color: white;\n  }\n\n  .app-main {\n    flex: 1;\n    background-color: #f5f5f5;\n  }\n</style>\n' }]
+    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: '<div class="app-container">\n  <!-- Navigation -->\n  <nav class="app-nav">\n    <div class="nav-brand">MHA PDS</div>\n    <div class="nav-links">\n      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">CCL Test</a>\n      <a routerLink="/config" routerLinkActive="active" class="nav-link">Configuration</a>\n      <a routerLink="/logs" routerLinkActive="active" class="nav-link">Logs</a>\n      <a routerLink="/patients" routerLinkActive="active" class="nav-link">Patients</a>\n      <a routerLink="/operations" routerLinkActive="active" class="nav-link">Operations</a>\n    </div>\n  </nav>\n\n  <!-- Main Content -->\n  <main class="app-main">\n    <router-outlet />\n  </main>\n\n  <mpage-log-component />\n\n  <footer style="position: fixed; bottom: 10px; right: 10px;">\n    <app-app-version />\n  </footer>\n</div>\n\n<style>\n  .app-container {\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .app-nav {\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    padding: 12px 20px;\n    background-color: #1a365d;\n    color: white;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n\n  .nav-brand {\n    font-size: 18px;\n    font-weight: 600;\n    padding-right: 20px;\n    border-right: 1px solid rgba(255, 255, 255, 0.2);\n  }\n\n  .nav-links {\n    display: flex;\n    gap: 8px;\n  }\n\n  .nav-link {\n    padding: 8px 16px;\n    color: rgba(255, 255, 255, 0.85);\n    text-decoration: none;\n    border-radius: 4px;\n    font-size: 14px;\n    transition: all 0.2s;\n  }\n\n  .nav-link:hover {\n    background-color: rgba(255, 255, 255, 0.1);\n    color: white;\n  }\n\n  .nav-link.active {\n    background-color: rgba(255, 255, 255, 0.15);\n    color: white;\n  }\n\n  .app-main {\n    flex: 1;\n    background-color: #f5f5f5;\n  }\n</style>\n' }]
   }], null, null);
 })();
 (() => {
