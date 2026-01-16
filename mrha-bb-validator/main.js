@@ -13953,8 +13953,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.21-main";
-var packageVersion = "0.0.21";
+var buildVersion = "v0.0.23-main";
+var packageVersion = "0.0.23";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -14685,7 +14685,11 @@ var FileBrowserComponent = class _FileBrowserComponent {
         return;
       }
       this.addDebugLog("XMLCCLREQUEST created successfully");
-      this.addDebugLog("Methods available: open=" + typeof xmlReq.open + ", send=" + typeof xmlReq.send);
+      const props = [];
+      for (const key in xmlReq) {
+        props.push(key + "=" + typeof xmlReq[key]);
+      }
+      this.addDebugLog("Available props: " + props.join(", "));
       const testPayload = {
         customScript: {
           script: [{
@@ -14698,17 +14702,32 @@ var FileBrowserComponent = class _FileBrowserComponent {
         }
       };
       this.addDebugLog("Test payload: " + JSON.stringify(testPayload).substring(0, 100) + "...");
-      this.addDebugLog("Calling xmlReq.open()...");
+      if ("onreadystatechange" in xmlReq) {
+        this.addDebugLog("Setting onreadystatechange callback...");
+        const self2 = this;
+        xmlReq["onreadystatechange"] = function() {
+          self2.addDebugLog("onreadystatechange fired!");
+          try {
+            const resp = xmlReq["responseText"];
+            if (resp) {
+              self2.addDebugLog("Response: " + String(resp).substring(0, 200));
+            }
+          } catch (e) {
+            self2.addDebugLog("Error reading response: " + String(e));
+          }
+        };
+      }
+      this.addDebugLog("Calling open(GET, mp_exec_custom_script, true)...");
       try {
-        xmlReq.open("GET", "mp_exec_custom_script", true);
+        xmlReq["open"].call(xmlReq, "GET", "mp_exec_custom_script", true);
         this.addDebugLog("open() succeeded");
       } catch (e) {
         this.addDebugLog("open() FAILED: " + (e instanceof Error ? e.message : String(e)));
         return;
       }
-      this.addDebugLog("Calling xmlReq.send()...");
+      this.addDebugLog("Calling send()...");
       try {
-        xmlReq.send(JSON.stringify(testPayload));
+        xmlReq["send"].call(xmlReq, JSON.stringify(testPayload));
         this.addDebugLog("send() succeeded");
       } catch (e) {
         this.addDebugLog("send() FAILED: " + (e instanceof Error ? e.message : String(e)));
@@ -14720,29 +14739,44 @@ var FileBrowserComponent = class _FileBrowserComponent {
       const checkResponse = function() {
         checkCount++;
         try {
-          const responseText = xmlReq.responseText;
+          let responseText = "";
+          const respProp = xmlReq["responseText"];
+          if (typeof respProp === "string") {
+            responseText = respProp;
+          } else if (typeof respProp === "function") {
+            responseText = respProp.call(xmlReq);
+          }
           if (responseText && responseText.length > 0) {
-            self.addDebugLog("Response received after " + checkCount + " checks (" + checkCount * 100 + "ms)");
-            self.addDebugLog("Response length: " + responseText.length + " chars");
-            self.addDebugLog("Response preview: " + responseText.substring(0, 200));
+            self.addDebugLog("Response after " + checkCount + " checks (" + checkCount * 100 + "ms)");
+            self.addDebugLog("Length: " + responseText.length + " chars");
+            self.addDebugLog("Preview: " + responseText.substring(0, 300));
             try {
               const parsed = JSON.parse(responseText);
-              self.addDebugLog("JSON parse succeeded");
+              self.addDebugLog("JSON parse OK");
+              self.addDebugLog("Keys: " + Object.keys(parsed).join(", "));
               if (parsed.customScript) {
-                self.addDebugLog("customScript present in response");
-              }
-              if (parsed.error) {
-                self.addDebugLog("ERROR in response: " + parsed.error);
+                self.addDebugLog("customScript found in response");
+                if (parsed.customScript.test) {
+                  self.addDebugLog("Script response: " + JSON.stringify(parsed.customScript.test).substring(0, 200));
+                }
               }
             } catch (parseErr) {
-              self.addDebugLog("JSON parse failed: " + (parseErr instanceof Error ? parseErr.message : String(parseErr)));
+              self.addDebugLog("JSON parse failed: " + String(parseErr));
             }
           } else if (checkCount < maxChecks) {
             setTimeout(checkResponse, 100);
           } else {
-            self.addDebugLog("TIMEOUT: No response after " + maxChecks * 100 + "ms");
-            self.addDebugLog("readyState: " + xmlReq.readyState);
-            self.addDebugLog("status: " + xmlReq.status);
+            self.addDebugLog("TIMEOUT after " + maxChecks * 100 + "ms");
+            try {
+              const rsProp = xmlReq["readyState"];
+              const stProp = xmlReq["status"];
+              const rs = typeof rsProp === "function" ? rsProp.call(xmlReq) : rsProp;
+              const st = typeof stProp === "function" ? stProp.call(xmlReq) : stProp;
+              self.addDebugLog("Final readyState: " + rs);
+              self.addDebugLog("Final status: " + st);
+            } catch (e) {
+              self.addDebugLog("Could not read state: " + String(e));
+            }
           }
         } catch (e) {
           self.addDebugLog("Check error: " + (e instanceof Error ? e.message : String(e)));
