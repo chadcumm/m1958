@@ -13953,8 +13953,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.25-main";
-var packageVersion = "0.0.25";
+var buildVersion = "v0.0.26-main";
+var packageVersion = "0.0.26";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -14543,15 +14543,15 @@ var FileBrowserComponent = class _FileBrowserComponent {
   allSelected = computed(() => this._selectableFiles().length > 0 && this._selectableFiles().every((f) => f.selected), ...ngDevMode ? [{ debugName: "allSelected" }] : []);
   noneSelected = computed(() => this._selectableFiles().every((f) => !f.selected), ...ngDevMode ? [{ debugName: "noneSelected" }] : []);
   ngOnInit() {
-    this.safeUpdateDebugStatus("v0.0.19 ngOnInit started | cerner:" + this.inCernerEnvironment);
+    this.safeUpdateDebugStatus("v0.0.20 ngOnInit started | cerner:" + this.inCernerEnvironment);
     try {
       this.inCerner = this.inCernerEnvironment;
       this.safeLoadFiles();
       setTimeout(() => this.updateDOMDirectly(), 100);
       setInterval(() => this.updateDOMDirectly(), 500);
-      this.safeUpdateDebugStatus("v0.0.19 ngOnInit complete | cerner:" + this.inCerner + " | offline:" + this.isOfflineMode);
+      this.safeUpdateDebugStatus("v0.0.20 ngOnInit complete | cerner:" + this.inCerner + " | offline:" + this.isOfflineMode);
     } catch (e) {
-      this.safeUpdateDebugStatus("v0.0.19 ERROR in ngOnInit: " + (e instanceof Error ? e.message : String(e)));
+      this.safeUpdateDebugStatus("v0.0.20 ERROR in ngOnInit: " + (e instanceof Error ? e.message : String(e)));
     }
   }
   /**
@@ -14658,133 +14658,153 @@ var FileBrowserComponent = class _FileBrowserComponent {
     }
   }
   /**
-   * Test CCL connectivity using a simple echo test
+   * Test CCL connectivity with multiple test scenarios
    */
   testCclConnection() {
-    this.addDebugLog("=== CCL CONNECTION TEST ===");
+    this.addDebugLog("=== CCL CONNECTION TEST v0.0.20 ===");
     if (!this.inCernerEnvironment) {
       this.addDebugLog("Not in Cerner environment - cannot test CCL");
       return;
     }
+    const self = this;
     try {
       const win = window;
-      this.addDebugLog("Checking window.external...");
-      if (!win.external) {
-        this.addDebugLog("ERROR: window.external is undefined");
+      if (!win.external || typeof win.external.DiscernObjectFactory !== "function") {
+        this.addDebugLog("ERROR: Cerner API not available");
         return;
       }
-      this.addDebugLog("Checking DiscernObjectFactory...");
-      if (typeof win.external.DiscernObjectFactory !== "function") {
-        this.addDebugLog("ERROR: DiscernObjectFactory is not a function");
-        return;
-      }
-      this.addDebugLog("Creating XMLCCLREQUEST object...");
+      this.addDebugLog("--- TEST 1: Echo script (echo) ---");
+      this.testCclScript("echo", "", function(success, response) {
+        self.addDebugLog("Echo test: " + (success ? "SUCCESS" : "FAILED"));
+        if (response) {
+          self.addDebugLog("Echo response: " + response.substring(0, 200));
+        }
+        self.addDebugLog("--- TEST 2: Clinical Office entry (1co_mp_get_person:group1) ---");
+        self.testClinicalOfficeScript("1co_mp_get_person:group1", {}, function(success2, response2) {
+          self.addDebugLog("CO entry test: " + (success2 ? "SUCCESS" : "FAILED"));
+          if (response2) {
+            self.addDebugLog("CO response: " + response2.substring(0, 200));
+          }
+          self.addDebugLog("--- TEST 3: Our script (mrha_bb_val_list_dir:group1) ---");
+          self.testClinicalOfficeScript("mrha_bb_val_list_dir:group1", { directory: "cclscratch:" }, function(success3, response3) {
+            self.addDebugLog("Custom script test: " + (success3 ? "SUCCESS" : "FAILED"));
+            if (response3) {
+              self.addDebugLog("Custom response: " + response3.substring(0, 300));
+            }
+            self.addDebugLog("--- TEST 4: Standalone script (mrha_bb_val_list_dir:dba) ---");
+            self.testCclScript("mrha_bb_val_list_dir:dba", '"MINE","cclscratch:","*.txt"', function(success4, response4) {
+              self.addDebugLog("DBA script test: " + (success4 ? "SUCCESS" : "FAILED"));
+              if (response4) {
+                self.addDebugLog("DBA response: " + response4.substring(0, 300));
+              }
+              self.addDebugLog("=== ALL TESTS COMPLETE ===");
+            });
+          });
+        });
+      });
+    } catch (e) {
+      this.addDebugLog("Test FAILED: " + (e instanceof Error ? e.message : String(e)));
+    }
+  }
+  /**
+   * Test a CCL script directly (not via Clinical Office)
+   */
+  testCclScript(scriptName, params, callback) {
+    const self = this;
+    try {
+      const win = window;
       const xmlReq = win.external.DiscernObjectFactory("XMLCCLREQUEST");
       if (!xmlReq) {
-        this.addDebugLog("ERROR: Failed to create XMLCCLREQUEST");
+        callback(false, null);
         return;
       }
-      this.addDebugLog("XMLCCLREQUEST created successfully");
-      const props = [];
-      for (const key in xmlReq) {
-        props.push(key + "=" + typeof xmlReq[key]);
-      }
-      this.addDebugLog("Available props: " + props.join(", "));
-      const testPayload = {
-        customScript: {
-          script: [{
-            name: "mrha_bb_val_list_dir:group1",
-            run: "pre",
-            id: "test",
-            parameters: { directory: "cclscratch:" }
-          }],
-          clearPatientSource: true
-        }
-      };
-      this.addDebugLog("Test payload: " + JSON.stringify(testPayload).substring(0, 100) + "...");
-      if ("onreadystatechange" in xmlReq) {
-        this.addDebugLog("Setting onreadystatechange callback...");
-        const self2 = this;
-        xmlReq["onreadystatechange"] = function() {
-          self2.addDebugLog("onreadystatechange fired!");
-          try {
-            const resp = xmlReq["responseText"];
-            if (resp) {
-              self2.addDebugLog("Response: " + String(resp).substring(0, 200));
-            }
-          } catch (e) {
-            self2.addDebugLog("Error reading response: " + String(e));
-          }
-        };
-      }
-      this.addDebugLog("Calling open(GET, mp_exec_custom_script, true)...");
-      try {
-        xmlReq["open"].call(xmlReq, "GET", "mp_exec_custom_script", true);
-        this.addDebugLog("open() succeeded");
-      } catch (e) {
-        this.addDebugLog("open() FAILED: " + (e instanceof Error ? e.message : String(e)));
-        return;
-      }
-      this.addDebugLog("Calling send()...");
-      try {
-        xmlReq["send"].call(xmlReq, JSON.stringify(testPayload));
-        this.addDebugLog("send() succeeded");
-      } catch (e) {
-        this.addDebugLog("send() FAILED: " + (e instanceof Error ? e.message : String(e)));
-        return;
-      }
-      const self = this;
+      const openFn = xmlReq["open"];
+      const sendFn = xmlReq["send"];
+      openFn.call(xmlReq, "GET", scriptName, true);
+      sendFn.call(xmlReq, params);
       let checkCount = 0;
-      const maxChecks = 50;
+      const maxChecks = 30;
       const checkResponse = function() {
         checkCount++;
         try {
-          let responseText = "";
           const respProp = xmlReq["responseText"];
+          let responseText = "";
           if (typeof respProp === "string") {
             responseText = respProp;
           } else if (typeof respProp === "function") {
             responseText = respProp.call(xmlReq);
           }
           if (responseText && responseText.length > 0) {
-            self.addDebugLog("Response after " + checkCount + " checks (" + checkCount * 100 + "ms)");
-            self.addDebugLog("Length: " + responseText.length + " chars");
-            self.addDebugLog("Preview: " + responseText.substring(0, 300));
-            try {
-              const parsed = JSON.parse(responseText);
-              self.addDebugLog("JSON parse OK");
-              self.addDebugLog("Keys: " + Object.keys(parsed).join(", "));
-              if (parsed.customScript) {
-                self.addDebugLog("customScript found in response");
-                if (parsed.customScript.test) {
-                  self.addDebugLog("Script response: " + JSON.stringify(parsed.customScript.test).substring(0, 200));
-                }
-              }
-            } catch (parseErr) {
-              self.addDebugLog("JSON parse failed: " + String(parseErr));
-            }
+            callback(true, responseText);
           } else if (checkCount < maxChecks) {
             setTimeout(checkResponse, 100);
           } else {
-            self.addDebugLog("TIMEOUT after " + maxChecks * 100 + "ms");
-            try {
-              const rsProp = xmlReq["readyState"];
-              const stProp = xmlReq["status"];
-              const rs = typeof rsProp === "function" ? rsProp.call(xmlReq) : rsProp;
-              const st = typeof stProp === "function" ? stProp.call(xmlReq) : stProp;
-              self.addDebugLog("Final readyState: " + rs);
-              self.addDebugLog("Final status: " + st);
-            } catch (e) {
-              self.addDebugLog("Could not read state: " + String(e));
-            }
+            self.addDebugLog("Script " + scriptName + " timeout after 3s");
+            callback(false, null);
           }
         } catch (e) {
-          self.addDebugLog("Check error: " + (e instanceof Error ? e.message : String(e)));
+          callback(false, "Error: " + String(e));
         }
       };
       setTimeout(checkResponse, 100);
     } catch (e) {
-      this.addDebugLog("Test FAILED: " + (e instanceof Error ? e.message : String(e)));
+      callback(false, "Exception: " + String(e));
+    }
+  }
+  /**
+   * Test a CCL script via Clinical Office mp_exec_custom_script endpoint
+   */
+  testClinicalOfficeScript(scriptName, parameters, callback) {
+    const self = this;
+    try {
+      const win = window;
+      const xmlReq = win.external.DiscernObjectFactory("XMLCCLREQUEST");
+      if (!xmlReq) {
+        callback(false, null);
+        return;
+      }
+      const payload = {
+        customScript: {
+          script: [{
+            name: scriptName,
+            run: "pre",
+            id: "test",
+            parameters
+          }],
+          clearPatientSource: true
+        }
+      };
+      const openFn = xmlReq["open"];
+      const sendFn = xmlReq["send"];
+      openFn.call(xmlReq, "GET", "mp_exec_custom_script", true);
+      sendFn.call(xmlReq, JSON.stringify(payload));
+      let checkCount = 0;
+      const maxChecks = 30;
+      const checkResponse = function() {
+        checkCount++;
+        try {
+          const respProp = xmlReq["responseText"];
+          let responseText = "";
+          if (typeof respProp === "string") {
+            responseText = respProp;
+          } else if (typeof respProp === "function") {
+            responseText = respProp.call(xmlReq);
+          }
+          if (responseText && responseText.length > 0) {
+            callback(true, responseText);
+          } else if (checkCount < maxChecks) {
+            setTimeout(checkResponse, 100);
+          } else {
+            self.addDebugLog("CO script " + scriptName + " timeout after 3s");
+            callback(false, null);
+          }
+        } catch (e) {
+          callback(false, "Error: " + String(e));
+        }
+      };
+      setTimeout(checkResponse, 100);
+    } catch (e) {
+      callback(false, "Exception: " + String(e));
     }
   }
   /**
@@ -14836,7 +14856,7 @@ var FileBrowserComponent = class _FileBrowserComponent {
       this.updatePropertiesFromSignals();
       const debugEl = document.getElementById("debug-status");
       if (debugEl) {
-        debugEl.textContent = "v0.0.19 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
+        debugEl.textContent = "v0.0.20 | offline:" + this.isOfflineMode + " | cerner:" + this.inCerner + " | load:" + this.isLoading + " | files:" + this.totalFileCount;
       }
       const badgesEl = document.getElementById("mode-badges");
       if (badgesEl) {
