@@ -51363,6 +51363,67 @@ var TabbedMenuComponent = class _TabbedMenuComponent {
 })();
 
 // src/app/app.config.ts
+var FixedDialog = class _FixedDialog {
+  appRef = inject(ApplicationRef);
+  injector = inject(EnvironmentInjector);
+  compInjector = inject(Injector);
+  open(componentType, config, modal = true, closeTimer = 0) {
+    const dialogElement = document.createElement("dialog");
+    dialogElement.setAttribute("class", config?.containerClass ?? (modal ? "co-modal-dialog-container" : "co-dialog-container"));
+    document.body.appendChild(dialogElement);
+    const componentRef = createComponent(componentType, {
+      environmentInjector: this.injector,
+      elementInjector: this.compInjector
+    });
+    componentRef.location.nativeElement.classList.add(config?.class ?? "co-dialog");
+    componentRef.location.nativeElement.style.minWidth = config?.minWidth ?? "unset";
+    componentRef.location.nativeElement.style.maxWidth = config?.maxWidth ?? "unset";
+    componentRef.location.nativeElement.style.width = config?.width ?? "unset";
+    componentRef.location.nativeElement.style.minHeight = config?.minHeight ?? "unset";
+    componentRef.location.nativeElement.style.maxHeight = config?.maxHeight ?? "unset";
+    componentRef.location.nativeElement.style.height = config?.height ?? "unset";
+    if (!modal && config) {
+      componentRef.location.nativeElement.style.position = "fixed";
+      if (config.position === "top")
+        componentRef.location.nativeElement.style.top = "0";
+      if (config.position === "bottom")
+        componentRef.location.nativeElement.style.bottom = "0";
+    }
+    dialogElement.addEventListener("close", () => {
+      this.appRef.detachView(componentRef.hostView);
+      componentRef.destroy();
+      document.body.removeChild(dialogElement);
+    });
+    if (config) {
+      componentRef.setInput("dialogRef", dialogElement);
+      componentRef.setInput("data", config.data);
+    }
+    this.appRef.attachView(componentRef.hostView);
+    componentRef.changeDetectorRef.detectChanges();
+    dialogElement.appendChild(componentRef.location.nativeElement);
+    if (typeof dialogElement.showModal === "function") {
+      if (modal) {
+        dialogElement.showModal();
+      } else {
+        if (closeTimer > 0) {
+          setTimeout(() => dialogElement.close(), closeTimer);
+        }
+        dialogElement.show();
+      }
+    }
+    return dialogElement;
+  }
+  static \u0275fac = function FixedDialog_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FixedDialog)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _FixedDialog, factory: _FixedDialog.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FixedDialog, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], null, null);
+})();
 var CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: ["dd-MMM-yyyy"]
@@ -51384,6 +51445,8 @@ var appConfig = {
     provideAnimationsAsync(),
     provideRouter(routes, withHashLocation()),
     provideHttpClient(withFetch()),
+    // Override the broken Dialog service with our fixed version
+    { provide: Dialog, useClass: FixedDialog },
     // Load config.json before app initializes - required for Clinical Office CCL proxy
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
@@ -51393,8 +51456,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.37-main";
-var packageVersion = "0.0.37";
+var buildVersion = "v0.0.38-main";
+var packageVersion = "0.0.38";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -53693,7 +53756,7 @@ var ValidationService = class _ValidationService {
         const value = r.fields[field.position - 1];
         if (!value || value.trim() === "")
           return false;
-        return !validSet.has(value);
+        return !validSet.has(value.trim());
       });
       if (invalidRecords.length > 0) {
         issues.push({
@@ -54412,7 +54475,8 @@ var App = class _App {
 })();
 
 // src/main.ts
-bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+console.log("[main.ts] Starting bootstrap...");
+bootstrapApplication(App, appConfig).then(() => console.log("[main.ts] Bootstrap complete!")).catch((err) => console.error("[main.ts] Bootstrap error:", err));
 /*! Bundled license information:
 
 @angular/common/fesm2022/_platform_location-chunk.mjs:
