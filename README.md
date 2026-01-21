@@ -3,9 +3,9 @@
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.59
+**Version:** v0.0.61
 **Branch:** develop
-**Last Deployed:** 01/21/2026, 13:48:31
+**Last Deployed:** 01/21/2026, 15:52:19
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 
 ## Deployment History
 
+- **v0.0.61** | Branch: `develop` | Deployed: 01/21/2026, 15:52:19
 - **v0.0.59** | Branch: `develop` | Deployed: 01/21/2026, 13:48:31
 - **v0.0.58** | Branch: `develop` | Deployed: 01/21/2026, 11:29:33
 - **v0.0.58** | Branch: `develop` | Deployed: 01/21/2026, 11:29:32
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 - **v0.0.56** | Branch: `develop` | Deployed: 01/16/2026, 00:12:13
 - **v0.0.35** | Branch: `main` | Deployed: 01/15/2026, 22:40:07
 - **v0.0.34** | Branch: `main` | Deployed: 01/15/2026, 22:35:22
-- **v0.0.33** | Branch: `main` | Deployed: 01/15/2026, 22:32:39
 
 ---
 
