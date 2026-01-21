@@ -44,27 +44,27 @@ import "./chunk-I7D2VZMI.js";
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-5IEQL7KZ.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-CO4CDW63.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-BN2SGMWD.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-BPR6JLFR.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-KT3D5NZV.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-T4T6JAOY.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-5ZE5VT4F.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-7HJSK23C.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-HRGWWWCL.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-ZB23E7BJ.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
   }
 ];
@@ -99,8 +99,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.61-develop";
-var packageVersion = "0.0.61";
+var buildVersion = "v0.0.62-develop";
+var packageVersion = "0.0.62";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
