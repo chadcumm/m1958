@@ -51,7 +51,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-IPKT74YP.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-XSRCG4X3.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
@@ -106,9 +106,9 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.71-feature/17-config-value-mapping";
-var packageVersion = "0.0.71";
-var gitBranch = "feature/17-config-value-mapping";
+var buildVersion = "v0.0.72-17-config-value-mapping";
+var packageVersion = "0.0.72";
+var gitBranch = "17-config-value-mapping";
 
 // src/app/app-version/app-version.ts
 function AppVersion_Conditional_4_Template(rf, ctx) {
