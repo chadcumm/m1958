@@ -4,25 +4,27 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-VOAYF5GB.js";
+} from "./chunk-FSK4RQW2.js";
 import {
   AppStatusService,
-  ChangeDetectionStrategy,
-  Component,
   ConfigService,
-  ErrorHandler,
   ErrorHandlerService,
   MPageService,
   MpageLogComponent,
   bootstrapApplication,
+  provideHttpClient,
+  withFetch
+} from "./chunk-QDEHJEDS.js";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ErrorHandler,
   computed,
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideHttpClient,
   provideZonelessChangeDetection,
   setClassMetadata,
-  withFetch,
   ɵsetClassDebugInfo,
   ɵɵadvance,
   ɵɵconditional,
@@ -37,35 +39,40 @@ import {
   ɵɵpureFunction0,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-QRLYRNBZ.js";
+} from "./chunk-UUZPJP4Q.js";
 import "./chunk-I7D2VZMI.js";
 
 // src/app/app.routes.ts
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-CO4CDW63.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-7HMQKZ4E.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-BPR6JLFR.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-4VLAWITD.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-T4T6JAOY.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-4Q7TORNS.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-VUZ4OCRM.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-6J5HLEUD.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-HFHSG2X4.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-DDAOSRAW.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
+  },
+  {
+    path: "reference",
+    loadComponent: () => import("./chunk-WQTSYSKR.js").then((m) => m.ReferenceComponent),
+    title: "MHA PDS Reference"
   }
 ];
 
@@ -99,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.67-develop";
-var packageVersion = "0.0.67";
+var buildVersion = "v0.0.68-develop";
+var packageVersion = "0.0.68";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
@@ -220,7 +227,7 @@ var App = class _App {
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 20, vars: 2, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 1, "nav-link", 3, "routerLinkActiveOptions"], ["routerLink", "/config", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/logs", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/patients", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/operations", "routerLinkActive", "active", 1, "nav-link"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 22, vars: 2, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 1, "nav-link", 3, "routerLinkActiveOptions"], ["routerLink", "/config", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/logs", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/patients", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/operations", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/reference", "routerLinkActive", "active", 1, "nav-link"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "nav", 1)(2, "div", 2);
       \u0275\u0275text(3, "MHA PDS");
@@ -239,13 +246,16 @@ var App = class _App {
       \u0275\u0275elementEnd();
       \u0275\u0275elementStart(13, "a", 8);
       \u0275\u0275text(14, "Operations");
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(15, "main", 9);
-      \u0275\u0275element(16, "router-outlet");
       \u0275\u0275elementEnd();
-      \u0275\u0275element(17, "mpage-log-component");
-      \u0275\u0275elementStart(18, "footer", 10);
-      \u0275\u0275element(19, "app-app-version");
+      \u0275\u0275elementStart(15, "a", 9);
+      \u0275\u0275text(16, "Reference");
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(17, "main", 10);
+      \u0275\u0275element(18, "router-outlet");
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(19, "mpage-log-component");
+      \u0275\u0275elementStart(20, "footer", 11);
+      \u0275\u0275element(21, "app-app-version");
       \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
@@ -257,7 +267,7 @@ var App = class _App {
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
     type: Component,
-    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: '<div class="app-container">\n  <!-- Navigation -->\n  <nav class="app-nav">\n    <div class="nav-brand">MHA PDS</div>\n    <div class="nav-links">\n      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">CCL Test</a>\n      <a routerLink="/config" routerLinkActive="active" class="nav-link">Configuration</a>\n      <a routerLink="/logs" routerLinkActive="active" class="nav-link">Logs</a>\n      <a routerLink="/patients" routerLinkActive="active" class="nav-link">Patients</a>\n      <a routerLink="/operations" routerLinkActive="active" class="nav-link">Operations</a>\n    </div>\n  </nav>\n\n  <!-- Main Content -->\n  <main class="app-main">\n    <router-outlet />\n  </main>\n\n  <mpage-log-component />\n\n  <footer style="position: fixed; bottom: 10px; right: 10px;">\n    <app-app-version />\n  </footer>\n</div>\n\n<style>\n  .app-container {\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .app-nav {\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    padding: 12px 20px;\n    background-color: #1a365d;\n    color: white;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n\n  .nav-brand {\n    font-size: 18px;\n    font-weight: 600;\n    padding-right: 20px;\n    border-right: 1px solid rgba(255, 255, 255, 0.2);\n  }\n\n  .nav-links {\n    display: flex;\n    gap: 8px;\n  }\n\n  .nav-link {\n    padding: 8px 16px;\n    color: rgba(255, 255, 255, 0.85);\n    text-decoration: none;\n    border-radius: 4px;\n    font-size: 14px;\n    transition: all 0.2s;\n  }\n\n  .nav-link:hover {\n    background-color: rgba(255, 255, 255, 0.1);\n    color: white;\n  }\n\n  .nav-link.active {\n    background-color: rgba(255, 255, 255, 0.15);\n    color: white;\n  }\n\n  .app-main {\n    flex: 1;\n    background-color: #f5f5f5;\n  }\n</style>\n' }]
+    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: '<div class="app-container">\n  <!-- Navigation -->\n  <nav class="app-nav">\n    <div class="nav-brand">MHA PDS</div>\n    <div class="nav-links">\n      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">CCL Test</a>\n      <a routerLink="/config" routerLinkActive="active" class="nav-link">Configuration</a>\n      <a routerLink="/logs" routerLinkActive="active" class="nav-link">Logs</a>\n      <a routerLink="/patients" routerLinkActive="active" class="nav-link">Patients</a>\n      <a routerLink="/operations" routerLinkActive="active" class="nav-link">Operations</a>\n      <a routerLink="/reference" routerLinkActive="active" class="nav-link">Reference</a>\n    </div>\n  </nav>\n\n  <!-- Main Content -->\n  <main class="app-main">\n    <router-outlet />\n  </main>\n\n  <mpage-log-component />\n\n  <footer style="position: fixed; bottom: 10px; right: 10px;">\n    <app-app-version />\n  </footer>\n</div>\n\n<style>\n  .app-container {\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .app-nav {\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    padding: 12px 20px;\n    background-color: #1a365d;\n    color: white;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n\n  .nav-brand {\n    font-size: 18px;\n    font-weight: 600;\n    padding-right: 20px;\n    border-right: 1px solid rgba(255, 255, 255, 0.2);\n  }\n\n  .nav-links {\n    display: flex;\n    gap: 8px;\n  }\n\n  .nav-link {\n    padding: 8px 16px;\n    color: rgba(255, 255, 255, 0.85);\n    text-decoration: none;\n    border-radius: 4px;\n    font-size: 14px;\n    transition: all 0.2s;\n  }\n\n  .nav-link:hover {\n    background-color: rgba(255, 255, 255, 0.1);\n    color: white;\n  }\n\n  .nav-link.active {\n    background-color: rgba(255, 255, 255, 0.15);\n    color: white;\n  }\n\n  .app-main {\n    flex: 1;\n    background-color: #f5f5f5;\n  }\n</style>\n' }]
   }], null, null);
 })();
 (() => {
