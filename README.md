@@ -3,9 +3,9 @@
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.73
+**Version:** v0.0.74
 **Branch:** 17-config-value-mapping
-**Last Deployed:** 01/22/2026, 16:13:02
+**Last Deployed:** 01/22/2026, 17:21:26
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 
 ## Deployment History
 
+- **v0.0.74** | Branch: `17-config-value-mapping` | Deployed: 01/22/2026, 17:21:26
 - **v0.0.73** | Branch: `17-config-value-mapping` | Deployed: 01/22/2026, 16:13:02
 - **v0.0.72** | Branch: `17-config-value-mapping` | Deployed: 01/22/2026, 15:56:08
 - **v0.0.71** | Branch: `feature/17-config-value-mapping` | Deployed: 01/22/2026, 13:54:32
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 - **v0.0.67** | Branch: `develop` | Deployed: 01/21/2026, 19:33:50
 - **v0.0.66** | Branch: `develop` | Deployed: 01/21/2026, 16:28:36
 - **v0.0.65** | Branch: `develop` | Deployed: 01/21/2026, 16:21:03
-- **v0.0.64** | Branch: `develop` | Deployed: 01/21/2026, 16:14:56
 
 ---
 
