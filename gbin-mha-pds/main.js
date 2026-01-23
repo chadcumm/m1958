@@ -56,7 +56,7 @@ var routes = [
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-N5E3DIOW.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-HMFWFMHE.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
@@ -66,7 +66,7 @@ var routes = [
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-B7UUX25G.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-ANW6LCW3.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
   },
   {
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.75-17-config-value-mapping";
-var packageVersion = "0.0.75";
+var buildVersion = "v0.0.76-17-config-value-mapping";
+var packageVersion = "0.0.76";
 var gitBranch = "17-config-value-mapping";
 
 // src/app/app-version/app-version.ts
