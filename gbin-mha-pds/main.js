@@ -71,7 +71,7 @@ var routes = [
   },
   {
     path: "reference",
-    loadComponent: () => import("./chunk-WHYZEEYC.js").then((m) => m.ReferenceComponent),
+    loadComponent: () => import("./chunk-SPEMHKKA.js").then((m) => m.ReferenceComponent),
     title: "MHA PDS Reference"
   }
 ];
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.88-develop";
-var packageVersion = "0.0.88";
+var buildVersion = "v0.0.89-develop";
+var packageVersion = "0.0.89";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts

@@ -9254,7 +9254,7 @@
       ],
       "OBSERVATION_CODE": {
         "CODE": "76690-7",
-        "LABEL": "Sexual orientation",
+        "LABEL": "Sexual Orientation",
         "CODE_SYSTEM": "http://loinc.org"
       },
       "IDENTIFIER_SYSTEM": {
@@ -9523,8 +9523,8 @@
         }
       ],
       "OBSERVATION_CODE": {
-        "CODE": "63058-7",
-        "LABEL": "Annual household income [USCDI]",
+        "CODE": "77244-2",
+        "LABEL": "Total Household Income",
         "CODE_SYSTEM": "http://loinc.org"
       },
       "IDENTIFIER_SYSTEM": {
