@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.83-config-ui-update";
-var packageVersion = "0.0.83";
+var buildVersion = "v0.0.84-config-ui-update";
+var packageVersion = "0.0.84";
 var gitBranch = "config-ui-update";
 
 // src/app/app-version/app-version.ts
