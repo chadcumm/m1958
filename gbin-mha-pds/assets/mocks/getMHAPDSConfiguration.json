@@ -1,5 +1,5 @@
 {
-  "UPDT_DT_TM": "2026-01-23T03:34:57.000+00:00",
+  "UPDT_DT_TM": "2026-01-23T17:22:22.000+00:00",
   "MIRTH_CONNECT": {
     "URL": "https://mirth.example.com:8443/api",
     "USERNAME": "mha_pds_user",
@@ -314,7 +314,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "348",
-      "LABEL": "A348 â€“ Brief Services",
+      "LABEL": "A348 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Brief Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -324,7 +324,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "349",
-      "LABEL": "A349 â€“ Counselling/Therapy Services",
+      "LABEL": "A349 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Counselling/Therapy Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -334,7 +334,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "350",
-      "LABEL": "A350 â€“ Crisis Support Services",
+      "LABEL": "A350 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Crisis Support Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -344,7 +344,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "351",
-      "LABEL": "A351 â€“Family Capacity Building and Support",
+      "LABEL": "A351 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153Family Capacity Building and Support",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -364,7 +364,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "353",
-      "LABEL": "A353 â€“ Intensive Treatment Services",
+      "LABEL": "A353 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Intensive Treatment Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -404,7 +404,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "356",
-      "LABEL": "A356 â€“ Targeted Prevention",
+      "LABEL": "A356 \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Targeted Prevention",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1004,7 +1004,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725097810",
-      "LABEL": "Case Mgmt/ Supportive Counselling & Services â€“ Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
+      "LABEL": "Case Mgmt/ Supportive Counselling & Services \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "DATIS-MDS, OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1264,7 +1264,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "72530750",
-      "LABEL": "MH- Home Care â€“ Child/Adolescent",
+      "LABEL": "MH- Home Care \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Child/Adolescent",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1284,7 +1284,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307625",
-      "LABEL": "MH- Home Care -Psychiatric â€“ Acute",
+      "LABEL": "MH- Home Care -Psychiatric \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Acute",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1294,7 +1294,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307655",
-      "LABEL": "MH- Home Care â€“ Forensic Psychiatry",
+      "LABEL": "MH- Home Care \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Forensic Psychiatry",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1314,7 +1314,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307690",
-      "LABEL": "MH - Home Care â€“ Psychiatric Crisis",
+      "LABEL": "MH - Home Care \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Psychiatric Crisis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -2414,7 +2414,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186039002",
-      "LABEL": "New Zealand MÄori",
+      "LABEL": "New Zealand M\u00c3\u201e\u00c2\u0081ori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2424,7 +2424,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186040000",
-      "LABEL": "Cook Island MÄori",
+      "LABEL": "Cook Island M\u00c3\u201e\u00c2\u0081ori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2624,7 +2624,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "243284401000087108",
-      "LABEL": "MÃ©tis",
+      "LABEL": "M\u00c3\u0192\u00c2\u00a9tis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -3864,7 +3864,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "73736004",
-      "LABEL": "MÄori",
+      "LABEL": "M\u00c3\u201e\u00c2\u0081ori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4194,7 +4194,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "87323008",
-      "LABEL": "Nez PercÃ©",
+      "LABEL": "Nez Perc\u00c3\u0192\u00c2\u00a9",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4444,7 +4444,7 @@
     {
       "CODE_TABLE_ID": "CT-012",
       "CODE": "189542671000087101",
-      "LABEL": "MinistÃ¨re de la SantÃ© et des Services sociaux du QuÃ©bec",
+      "LABEL": "Minist\u00c3\u0192\u00c2\u00a8re de la Sant\u00c3\u0192\u00c2\u00a9 et des Services sociaux du Qu\u00c3\u0192\u00c2\u00a9bec",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -6234,7 +6234,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPA",
-      "LABEL": "Health Promotion/Education â€“ Awareness",
+      "LABEL": "Health Promotion/Education \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Awareness",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -6244,7 +6244,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPW",
-      "LABEL": "Health Promotion/Education â€“ Women's Health (MH)",
+      "LABEL": "Health Promotion/Education \u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153 Women's Health (MH)",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -8477,9 +8477,9 @@
           "TYPE": "MCH_ISSUING_AUTHORITY_CODE",
           "KEY_REF": "Health Card Quebec",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "MinistÃ¨re de la SantÃ© et des Services sociaux du QuÃ©bec",
+          "PDS_VALUE": "Minist\u00c3\u0192\u00c2\u00a8re de la Sant\u00c3\u0192\u00c2\u00a9 et des Services sociaux du Qu\u00c3\u0192\u00c2\u00a9bec",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "MinistÃ¨re de la SantÃ© et des Services sociaux du QuÃ©bec",
+          "DISPLAY": "Minist\u00c3\u0192\u00c2\u00a8re de la Sant\u00c3\u0192\u00c2\u00a9 et des Services sociaux du Qu\u00c3\u0192\u00c2\u00a9bec",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -8595,7 +8595,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Alberta",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Alberta",
+          "PDS_VALUE": "AB",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Alberta",
           "ACTIVE_IND": 1,
@@ -8605,7 +8605,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "British Columbia",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "British Columbia",
+          "PDS_VALUE": "BC",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "British Columbia",
           "ACTIVE_IND": 1,
@@ -8615,7 +8615,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Manitoba",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Manitoba",
+          "PDS_VALUE": "MB",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Manitoba",
           "ACTIVE_IND": 1,
@@ -8625,7 +8625,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "New Brunswick",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "New Brunswick",
+          "PDS_VALUE": "NB",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "New Brunswick",
           "ACTIVE_IND": 1,
@@ -8635,7 +8635,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Newfoundland",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Newfoundland and Labrador",
+          "PDS_VALUE": "NL",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Newfoundland and Labrador",
           "ACTIVE_IND": 1,
@@ -8645,7 +8645,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Nova Scotia",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Nova Scotia",
+          "PDS_VALUE": "NS",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Nova Scotia",
           "ACTIVE_IND": 1,
@@ -8655,7 +8655,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "North West Territories",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Northwest Territories",
+          "PDS_VALUE": "NT",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Northwest Territories",
           "ACTIVE_IND": 1,
@@ -8665,7 +8665,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Nunuvut (Territory)",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Nunavut",
+          "PDS_VALUE": "NU",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Nunavut",
           "ACTIVE_IND": 1,
@@ -8675,7 +8675,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Ontario",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Ontario",
+          "PDS_VALUE": "ON",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Ontario",
           "ACTIVE_IND": 1,
@@ -8685,7 +8685,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Prince Edward Island",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Prince Edward Island",
+          "PDS_VALUE": "PE",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Prince Edward Island",
           "ACTIVE_IND": 1,
@@ -8695,7 +8695,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Quebec",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Quebec",
+          "PDS_VALUE": "QC",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Quebec",
           "ACTIVE_IND": 1,
@@ -8705,7 +8705,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Saskatchewan",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Saskatchewan",
+          "PDS_VALUE": "SK",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Saskatchewan",
           "ACTIVE_IND": 1,
@@ -8715,7 +8715,7 @@
           "TYPE": "PROVINCE_CODE",
           "KEY_REF": "Yukon Territory",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Yukon",
+          "PDS_VALUE": "YT",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Yukon",
           "ACTIVE_IND": 1,
@@ -10239,9 +10239,10 @@
         "ORGANIZATION_CODE": ""
       },
       "VALUE_METADATA": {
-        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
-        "VALUE_SET_URL": "",
-        "CODE_VALUE_SOURCE": ""
+        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-source-type",
+        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralSourceType",
+        "CODE_VALUE_SOURCE": "",
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-referralSourceType"
       }
     },
     {
@@ -10306,9 +10307,10 @@
         "ORGANIZATION_CODE": ""
       },
       "VALUE_METADATA": {
-        "CODE_SYSTEM": "",
-        "VALUE_SET_URL": "",
-        "CODE_VALUE_SOURCE": ""
+        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-ReferralType",
+        "CODE_VALUE_SOURCE": "",
+        "EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-ReferralType"
       }
     },
     {
@@ -10900,9 +10902,10 @@
         "ORGANIZATION_CODE": ""
       },
       "VALUE_METADATA": {
-        "CODE_SYSTEM": "",
-        "VALUE_SET_URL": "",
-        "CODE_VALUE_SOURCE": ""
+        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/functional-centre-code",
+        "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-functionalCentreCode",
+        "CODE_VALUE_SOURCE": "",
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-functionalCentreCode"
       }
     },
     {
@@ -11882,7 +11885,7 @@
     {
       "FIELD_CODE": "DE04_019",
       "DESCRIPTION": "Number of People Income Supports",
-      "ACTIVE_IND": 1,
+      "ACTIVE_IND": 0,
       "REQUIRED_IND": 0
     },
     {
