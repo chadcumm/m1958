@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.76-17-config-value-mapping";
-var packageVersion = "0.0.76";
+var buildVersion = "v0.0.77-17-config-value-mapping";
+var packageVersion = "0.0.77";
 var gitBranch = "17-config-value-mapping";
 
 // src/app/app-version/app-version.ts
