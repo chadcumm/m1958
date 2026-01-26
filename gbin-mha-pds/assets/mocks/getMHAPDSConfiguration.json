@@ -2,6 +2,7 @@
   "UPDT_DT_TM": "2026-01-23T17:22:22.000+00:00",
   "MIRTH_CONNECT": {
     "URL": "https://mirth.example.com:8443/api",
+    "CHANNEL_ID": "",
     "USERNAME": "mha_pds_user",
     "PASSWORD": "",
     "TIMEOUT_SECONDS": 30,
