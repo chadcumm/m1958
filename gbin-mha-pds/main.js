@@ -51,7 +51,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-Q3NJF3UQ.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-MQT6AXTG.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
@@ -61,7 +61,7 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-5WCHU3SV.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-K3XKP6TS.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.103-develop";
-var packageVersion = "0.0.103";
+var buildVersion = "v0.0.105-develop";
+var packageVersion = "0.0.105";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
