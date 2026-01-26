@@ -10915,47 +10915,6 @@
       "MHA_PDS_FIELD_TYPE": "mapping",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
-      "MHA_PDS_CODE_SET": "CT-030",
-      "MHA_PDS_VERSIONS": [
-        {
-          "VERSION": "1"
-        }
-      ],
-      "DESCRIPTION": "",
-      "FUNCTION": "",
-      "NOTES": "Encounter Status",
-      "CODE_SETS": [],
-      "DTAS": [],
-      "TABLES": [
-        {
-          "TABLE": "CUST_GBIN_MHA_PDS_SERVICE",
-          "FIELD_NAME": "ENCOUNTER_STATUS_MAPPED",
-          "PRIORITY": 1
-        }
-      ],
-      "ALPHA_RESONSE_IND": 0,
-      "CONSTANT_IND": 0,
-      "PAIRS": [],
-      "OBSERVATION_CODE": {
-        "CODE": "",
-        "LABEL": "",
-        "CODE_SYSTEM": ""
-      },
-      "IDENTIFIER_SYSTEM": {
-        "SYSTEM_URL": "",
-        "ORGANIZATION_CODE": ""
-      },
-      "VALUE_METADATA": {
-        "CODE_SYSTEM": "",
-        "VALUE_SET_URL": "",
-        "CODE_VALUE_SOURCE": ""
-      }
-    },
-    {
-      "MHA_PDS_FIELD_NAME": "DE10.003",
-      "MHA_PDS_FIELD_TYPE": "mapping",
-      "MHA_PDS_RDB_TABLE_NAME": "",
-      "MHA_PDS_SELECTION_TYPE": "single",
       "MHA_PDS_CODE_SET": "CT-024",
       "MHA_PDS_VERSIONS": [
         {
@@ -10993,7 +10952,7 @@
       }
     },
     {
-      "MHA_PDS_FIELD_NAME": "DE10.004",
+      "MHA_PDS_FIELD_NAME": "DE10.003",
       "MHA_PDS_FIELD_TYPE": "mapping",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
@@ -11034,7 +10993,7 @@
       }
     },
     {
-      "MHA_PDS_FIELD_NAME": "DE10.005",
+      "MHA_PDS_FIELD_NAME": "DE10.004",
       "MHA_PDS_FIELD_TYPE": "date_time",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
@@ -11075,7 +11034,7 @@
       }
     },
     {
-      "MHA_PDS_FIELD_NAME": "DE10.006",
+      "MHA_PDS_FIELD_NAME": "DE10.005",
       "MHA_PDS_FIELD_TYPE": "freetext",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
@@ -11087,7 +11046,7 @@
       ],
       "DESCRIPTION": "",
       "FUNCTION": "",
-      "NOTES": "Group Service ID",
+      "NOTES": "Health Service Group ID",
       "CODE_SETS": [],
       "DTAS": [],
       "TABLES": [
@@ -11116,7 +11075,7 @@
       }
     },
     {
-      "MHA_PDS_FIELD_NAME": "DE10.007",
+      "MHA_PDS_FIELD_NAME": "DE10.006",
       "MHA_PDS_FIELD_TYPE": "number",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
@@ -11157,7 +11116,7 @@
       }
     },
     {
-      "MHA_PDS_FIELD_NAME": "DE10.008",
+      "MHA_PDS_FIELD_NAME": "DE10.007",
       "MHA_PDS_FIELD_TYPE": "number",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
@@ -11176,6 +11135,47 @@
         {
           "TABLE": "CUST_GBIN_MHA_PDS_SERVICE",
           "FIELD_NAME": "INDIRECT_SERVICE_MINUTES",
+          "PRIORITY": 1
+        }
+      ],
+      "ALPHA_RESONSE_IND": 0,
+      "CONSTANT_IND": 0,
+      "PAIRS": [],
+      "OBSERVATION_CODE": {
+        "CODE": "",
+        "LABEL": "",
+        "CODE_SYSTEM": ""
+      },
+      "IDENTIFIER_SYSTEM": {
+        "SYSTEM_URL": "",
+        "ORGANIZATION_CODE": ""
+      },
+      "VALUE_METADATA": {
+        "CODE_SYSTEM": "",
+        "VALUE_SET_URL": "",
+        "CODE_VALUE_SOURCE": ""
+      }
+    },
+    {
+      "MHA_PDS_FIELD_NAME": "DE10.008",
+      "MHA_PDS_FIELD_TYPE": "mapping",
+      "MHA_PDS_RDB_TABLE_NAME": "",
+      "MHA_PDS_SELECTION_TYPE": "single",
+      "MHA_PDS_CODE_SET": "CT-030",
+      "MHA_PDS_VERSIONS": [
+        {
+          "VERSION": "1"
+        }
+      ],
+      "DESCRIPTION": "",
+      "FUNCTION": "",
+      "NOTES": "Encounter Status",
+      "CODE_SETS": [],
+      "DTAS": [],
+      "TABLES": [
+        {
+          "TABLE": "CUST_GBIN_MHA_PDS_SERVICE",
+          "FIELD_NAME": "ENCOUNTER_STATUS_MAPPED",
           "PRIORITY": 1
         }
       ],
