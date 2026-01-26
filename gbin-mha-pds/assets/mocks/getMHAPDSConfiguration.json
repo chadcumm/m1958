@@ -1,10 +1,11 @@
 {
   "UPDT_DT_TM": "2026-01-23T17:22:22.000+00:00",
   "MIRTH_CONNECT": {
-    "URL": "https://mirth.example.com:8443/api",
-    "CHANNEL_ID": "",
-    "USERNAME": "mha_pds_user",
-    "PASSWORD": "",
+    "URL": "https://10.100.101.179:8443/api",
+    "TRIGGER_URL": "https://10.100.101.179:8444/mha-pds/trigger",
+    "CHANNEL_ID": "b397b5cb-c91c-47c2-af3a-438acfef6d8a",
+    "USERNAME": "mha-pds-api",
+    "PASSWORD": "qEgmyh-jovqev-8gydfe",
     "TIMEOUT_SECONDS": 30,
     "RETRY_ATTEMPTS": 3
   },
