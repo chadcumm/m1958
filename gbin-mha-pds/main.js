@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-FSK4RQW2.js";
+} from "./chunk-TRBKVRYW.js";
 import {
   AppStatusService,
   ConfigService,
@@ -14,7 +14,7 @@ import {
   bootstrapApplication,
   provideHttpClient,
   withFetch
-} from "./chunk-QDEHJEDS.js";
+} from "./chunk-ZGUDOQOJ.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,39 +39,39 @@ import {
   ɵɵpureFunction0,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-UUZPJP4Q.js";
+} from "./chunk-N6ZQYAD3.js";
 import "./chunk-I7D2VZMI.js";
 
 // src/app/app.routes.ts
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-ONBXQSCQ.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-YNROCSTL.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-MQT6AXTG.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-GFCGGURH.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-OH4KMSKU.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-IAOPO642.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-K3XKP6TS.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-E3YZUPBG.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-ORSIRL6M.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-IUHQLZQC.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
   },
   {
     path: "reference",
-    loadComponent: () => import("./chunk-SPEMHKKA.js").then((m) => m.ReferenceComponent),
+    loadComponent: () => import("./chunk-RCI662US.js").then((m) => m.ReferenceComponent),
     title: "MHA PDS Reference"
   }
 ];
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.108-develop";
-var packageVersion = "0.0.108";
+var buildVersion = "v0.0.110-develop";
+var packageVersion = "0.0.110";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
