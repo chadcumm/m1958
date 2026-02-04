@@ -46,7 +46,7 @@ import "./chunk-I7D2VZMI.js";
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-7SPAON7S.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-ZW33AVUP.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.132-develop";
-var packageVersion = "0.0.132";
+var buildVersion = "v0.0.133-develop";
+var packageVersion = "0.0.133";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
