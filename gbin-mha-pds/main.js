@@ -46,7 +46,7 @@ import "./chunk-I7D2VZMI.js";
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-ZW33AVUP.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-BSMPYD2W.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
@@ -66,7 +66,7 @@ var routes = [
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-K3U6X7PU.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-KL4RVKKW.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
   },
   {
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.134-develop";
-var packageVersion = "0.0.134";
+var buildVersion = "v0.0.135-develop";
+var packageVersion = "0.0.135";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
