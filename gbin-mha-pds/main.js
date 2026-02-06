@@ -51,7 +51,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-57MTMIZ2.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-3KQBTWMP.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.159-develop";
-var packageVersion = "0.0.159";
+var buildVersion = "v0.0.160-develop";
+var packageVersion = "0.0.160";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
