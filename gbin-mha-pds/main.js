@@ -19,6 +19,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ErrorHandler,
+  Injectable,
   computed,
   inject,
   provideAppInitializer,
@@ -30,6 +31,7 @@ import {
   ɵɵconditional,
   ɵɵconditionalCreate,
   ɵɵdefineComponent,
+  ɵɵdefineInjectable,
   ɵɵdomElementEnd,
   ɵɵdomElementStart,
   ɵɵelement,
@@ -41,6 +43,31 @@ import {
   ɵɵtextInterpolate
 } from "./chunk-N6ZQYAD3.js";
 import "./chunk-I7D2VZMI.js";
+
+// src/app/operations/operations.guard.ts
+var OperationsCanDeactivateGuard = class _OperationsCanDeactivateGuard {
+  canDeactivate(component) {
+    if (!component.triggeringMirth()) {
+      return true;
+    }
+    return new Promise((resolve) => {
+      const confirmed = window.confirm("The Mirth trigger is currently running. Navigating away may stop the process. Are you sure you want to continue?");
+      resolve(confirmed);
+    });
+  }
+  static \u0275fac = function OperationsCanDeactivateGuard_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _OperationsCanDeactivateGuard)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _OperationsCanDeactivateGuard, factory: _OperationsCanDeactivateGuard.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OperationsCanDeactivateGuard, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
 
 // src/app/app.routes.ts
 var routes = [
@@ -66,7 +93,8 @@ var routes = [
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-KWYWK7EG.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-OSKCFY4Y.js").then((m) => m.OperationsComponent),
+    canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
   {
@@ -106,8 +134,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.167-develop";
-var packageVersion = "0.0.167";
+var buildVersion = "v0.0.168-develop";
+var packageVersion = "0.0.168";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
