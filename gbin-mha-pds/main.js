@@ -61,7 +61,7 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-V22BVF6U.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-5TWDCIHL.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
