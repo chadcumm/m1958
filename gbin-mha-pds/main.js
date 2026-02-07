@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-TRBKVRYW.js";
+} from "./chunk-F7WEVTC5.js";
 import {
   AppStatusService,
   ConfigService,
@@ -14,7 +14,7 @@ import {
   bootstrapApplication,
   provideHttpClient,
   withFetch
-} from "./chunk-ZGUDOQOJ.js";
+} from "./chunk-3ATNLWV6.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -46,32 +46,32 @@ import "./chunk-I7D2VZMI.js";
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-423YQN4H.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-4MEUIHKH.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-3KQBTWMP.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-KNT2B3PI.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-3AVTL33F.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-XJCMTZA3.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-4TJ2O2NS.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-MSMROYD4.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-O3OCRJ4R.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-KWYWK7EG.js").then((m) => m.OperationsComponent),
     title: "MHA PDS Operations"
   },
   {
     path: "reference",
-    loadComponent: () => import("./chunk-RCI662US.js").then((m) => m.ReferenceComponent),
+    loadComponent: () => import("./chunk-R7IXVX3S.js").then((m) => m.ReferenceComponent),
     title: "MHA PDS Reference"
   }
 ];
@@ -106,8 +106,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.165-develop";
-var packageVersion = "0.0.165";
+var buildVersion = "v0.0.166-develop";
+var packageVersion = "0.0.166";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
