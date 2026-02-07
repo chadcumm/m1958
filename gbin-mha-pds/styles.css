@@ -106,6 +106,66 @@
   padding: 0;
   margin: 0;
 }
+.field-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+  cursor: help;
+  flex-shrink: 0;
+}
+.field-indicator.submittable {
+  background-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+.field-indicator.needs-review {
+  background-color: #fd7e14;
+  box-shadow: 0 0 0 2px rgba(253, 126, 20, 0.2);
+  animation: pulse-warning 2s infinite;
+}
+.field-indicator.not-submitted {
+  background-color: #adb5bd;
+  opacity: 0.6;
+}
+@keyframes pulse-warning {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(253, 126, 20, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(253, 126, 20, 0.3);
+  }
+}
+.mapping-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 4px;
+  cursor: help;
+}
+.mapping-indicator.valid {
+  background-color: #28a745;
+  color: white;
+}
+.mapping-indicator.invalid {
+  background-color: #dc3545;
+  color: white;
+  animation: pulse-error 2s infinite;
+}
+@keyframes pulse-error {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
 
 /* src/clinical-office-styles.scss */
 .cdk-overlay-container,
