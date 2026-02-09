@@ -1,11 +1,11 @@
 {
   "UPDT_DT_TM": "2026-02-03T19:55:02.000+00:00",
   "MIRTH_CONNECT": {
-    "URL": "https://mirth-server:8443/api",
-    "TRIGGER_URL": "",
-    "CHANNEL_ID": "b397b5cb-c91c-47c2-af3a-438acfef6d8a",
+    "URL": "https://10.100.101.179:8081/mha-pds-trigger/",
+    "TRIGGER_URL": "http://10.100.101.179:8081/mha-pds-trigger/",
+    "CHANNEL_ID": "12345678-abcd-4ef0-9012-345678901234",
     "USERNAME": "mha-pds-api",
-    "PASSWORD": "",
+    "PASSWORD": "mha-pds-api",
     "TIMEOUT_SECONDS": 30,
     "RETRY_ATTEMPTS": 3
   },
@@ -323,7 +323,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "348",
-      "LABEL": "A348 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Brief Services",
+      "LABEL": "A348 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Brief Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -333,7 +333,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "349",
-      "LABEL": "A349 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Counselling/Therapy Services",
+      "LABEL": "A349 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Counselling/Therapy Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -343,7 +343,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "350",
-      "LABEL": "A350 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Crisis Support Services",
+      "LABEL": "A350 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Crisis Support Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -353,7 +353,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "351",
-      "LABEL": "A351 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201cFamily Capacity Building and Support",
+      "LABEL": "A351 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Family Capacity Building and Support",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -373,7 +373,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "353",
-      "LABEL": "A353 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Intensive Treatment Services",
+      "LABEL": "A353 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Intensive Treatment Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -413,7 +413,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "356",
-      "LABEL": "A356 \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Targeted Prevention",
+      "LABEL": "A356 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Targeted Prevention",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1013,7 +1013,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725097810",
-      "LABEL": "Case Mgmt/ Supportive Counselling & Services \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
+      "LABEL": "Case Mgmt/ Supportive Counselling & Services ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "DATIS-MDS, OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1273,7 +1273,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "72530750",
-      "LABEL": "MH- Home Care \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Child/Adolescent",
+      "LABEL": "MH- Home Care ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Child/Adolescent",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1293,7 +1293,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307625",
-      "LABEL": "MH- Home Care -Psychiatric \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Acute",
+      "LABEL": "MH- Home Care -Psychiatric ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Acute",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1303,7 +1303,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307655",
-      "LABEL": "MH- Home Care \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Forensic Psychiatry",
+      "LABEL": "MH- Home Care ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Forensic Psychiatry",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1323,7 +1323,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307690",
-      "LABEL": "MH - Home Care \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Psychiatric Crisis",
+      "LABEL": "MH - Home Care ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Psychiatric Crisis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -2423,7 +2423,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186039002",
-      "LABEL": "New Zealand M\u00c3\u0192\u00e2\u20ac\u017e\u00c3\u201a\u00c2\u0081ori",
+      "LABEL": "New Zealand MÃƒâ€žÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2433,7 +2433,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186040000",
-      "LABEL": "Cook Island M\u00c3\u0192\u00e2\u20ac\u017e\u00c3\u201a\u00c2\u0081ori",
+      "LABEL": "Cook Island MÃƒâ€žÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2633,7 +2633,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "243284401000087108",
-      "LABEL": "M\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00a9tis",
+      "LABEL": "MÃƒÆ’Ã‚Â©tis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -3873,7 +3873,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "73736004",
-      "LABEL": "M\u00c3\u0192\u00e2\u20ac\u017e\u00c3\u201a\u00c2\u0081ori",
+      "LABEL": "MÃƒâ€žÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4203,7 +4203,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "87323008",
-      "LABEL": "Nez Perc\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00a9",
+      "LABEL": "Nez PercÃƒÆ’Ã‚Â©",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4437,7 +4437,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4447,17 +4447,17 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
       "CODE_TABLE_ID": "CT-012",
       "CODE": "189542671000087101",
-      "LABEL": "Minist\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00a8re de la Sant\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00a9 et des Services sociaux du Qu\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00a9bec",
+      "LABEL": "MinistÃƒÆ’Ã‚Â¨re de la SantÃƒÆ’Ã‚Â© et des Services sociaux du QuÃƒÆ’Ã‚Â©bec",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4467,7 +4467,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4477,7 +4477,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4487,7 +4487,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4497,7 +4497,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4507,7 +4507,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4517,7 +4517,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4527,7 +4527,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4537,7 +4537,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4547,7 +4547,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4557,7 +4557,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4567,7 +4567,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4577,7 +4577,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4587,7 +4587,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4597,7 +4597,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -4607,7 +4607,7 @@
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
-      "VALUE_SET_URL": "ON - Mental Health and Addictions PDS | MHA Patient JHN Identifier System - SIMPLIFIER.NET",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
       "COMMENT": "Sent in the patient HCN identifier system in the URI form..."
     },
     {
@@ -6243,7 +6243,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPA",
-      "LABEL": "Health Promotion/Education \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Awareness",
+      "LABEL": "Health Promotion/Education ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Awareness",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -6253,7 +6253,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPW",
-      "LABEL": "Health Promotion/Education \u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u20ac\u0161\u00c2\u00ac\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u201c Women's Health (MH)",
+      "LABEL": "Health Promotion/Education ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ Women's Health (MH)",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -8355,12 +8355,12 @@
       "CONSTANT_IND": 0,
       "PAIRS": [],
       "OBSERVATION_CODE": {
-        "CODE": "",
-        "LABEL": "",
-        "CODE_SYSTEM": ""
+        "CODE": "JHN",
+        "LABEL": "Jurisdictional health number",
+        "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203"
       },
       "IDENTIFIER_SYSTEM": {
-        "SYSTEM_URL": "",
+        "SYSTEM_URL": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-on-patient-hcn",
         "ORGANIZATION_CODE": ""
       },
       "VALUE_METADATA": {
@@ -8507,7 +8507,7 @@
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
           "PDS_VALUE": "189542671000087101",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Minist\u00c3\u0192\u00c6\u2019\u00c3\u2020\u00e2\u20ac\u2122\u00c3\u0192\u00e2\u20ac\u0161\u00c3\u201a\u00c2\u00a8re de la Sant\u00c3\u0192\u00c6\u2019\u00c3\u2020\u00e2\u20ac\u2122\u00c3\u0192\u00e2\u20ac\u0161\u00c3\u201a\u00c2\u00a9 et des Services sociaux du Qu\u00c3\u0192\u00c6\u2019\u00c3\u2020\u00e2\u20ac\u2122\u00c3\u0192\u00e2\u20ac\u0161\u00c3\u201a\u00c2\u00a9bec",
+          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©bec",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -8538,14 +8538,14 @@
         "CODE_SYSTEM": ""
       },
       "IDENTIFIER_SYSTEM": {
-        "SYSTEM_URL": "",
+        "SYSTEM_URL": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-on-patient-hcn",
         "ORGANIZATION_CODE": ""
       },
       "VALUE_METADATA": {
         "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/hcn-issuing-authority",
         "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-HCNIssuingAuthority",
         "CODE_VALUE_SOURCE": "MHA PDS v1.2",
-        "EXTENSION_URL": ""
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system"
       }
     },
     {
@@ -9951,7 +9951,7 @@
       "MHA_PDS_FIELD_TYPE": "identifier",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
-      "MHA_PDS_CODE_SET": "client_hp",
+      "MHA_PDS_CODE_SET": "",
       "MHA_PDS_VERSIONS": [
         {
           "VERSION": "1"
@@ -9971,15 +9971,46 @@
       ],
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "PAIRS": [
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "ACT Team-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "14",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Assertive Community Treatment Team",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "BriefCounsel-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "15",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Brief Counselling",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Concurrent Disorders- Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Case Management",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
         "CODE_SYSTEM": ""
       },
       "IDENTIFIER_SYSTEM": {
-        "SYSTEM_URL": "http://ontariohealth.ca/fhir/NamingSystem/id-HealthcareService-GBRH",
-        "ORGANIZATION_CODE": "GBRH"
+        "SYSTEM_URL": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-healthcare-service",
+        "ORGANIZATION_CODE": "BHS"
       },
       "VALUE_METADATA": {
         "CODE_SYSTEM": "",
@@ -10565,7 +10596,7 @@
         "CODE_SYSTEM": "",
         "VALUE_SET_URL": "",
         "CODE_VALUE_SOURCE": "",
-        "EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-FirstContactDate"
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-FirstContactDate"
       }
     },
     {
@@ -11083,6 +11114,26 @@
           "DISPLAY": "MH - ACT Teams",
           "ACTIVE_IND": 1,
           "PRIORITY": 7
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Single encounter",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7151576",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Crisis Intervention - Mental Health",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "BriefCounsel-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "725107612",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Clinics/Programs - MH Counseling and Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
         }
       ],
       "OBSERVATION_CODE": {
@@ -11129,13 +11180,23 @@
       "PAIRS": [
         {
           "TYPE": "SERVICE_MODALITY",
-          "KEY_REF": "face-to-face",
+          "KEY_REF": "Outpatient - Face-to-Face",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "AMB",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "In-person",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
+        },
+        {
+          "TYPE": "SERVICE_MODALITY",
+          "KEY_REF": "Non-Face-to-Face Visit",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "VR",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Virtual (video conference)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
         }
       ],
       "OBSERVATION_CODE": {
@@ -11180,26 +11241,31 @@
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
       "PAIRS": [
-        {
-          "TYPE": "SERVICE_MODALITY_TYPE",
-          "KEY_REF": "in-person",
-          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
-          "PDS_VALUE": "140182721000087101",
-          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "individual encounter",
-          "ACTIVE_IND": 1,
-          "PRIORITY": 1
-        },
-        {
-          "TYPE": "SERVICE_MODALITY_TYPE",
-          "KEY_REF": "Virtual Video",
-          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
-          "PDS_VALUE": "140182721000087101",
-          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "individual encounter",
-          "ACTIVE_IND": 1,
-          "PRIORITY": 2
-        }
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Group - Client","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"803155061000087106","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"group encounter","ACTIVE_IND":1,"PRIORITY":1},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Group - Program","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"803155061000087106","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"group encounter","ACTIVE_IND":1,"PRIORITY":2},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Group Prescriber 1 hour","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"803155061000087106","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"group encounter","ACTIVE_IND":1,"PRIORITY":3},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Group Prescriber 30 mins","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"803155061000087106","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"group encounter","ACTIVE_IND":1,"PRIORITY":4},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH Telemedicine","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"185317003","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"Phone","ACTIVE_IND":1,"PRIORITY":5},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH Telemedicine On Call","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"185317003","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"Phone","ACTIVE_IND":1,"PRIORITY":6},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Individual","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":7},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Individual Prescriber 1 hour","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":8},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Individual Prescriber 30 mins","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":9},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Initial","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":10},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Initial Prescriber 1 hour","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":11},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Initial Prescriber 30 mins","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":12},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MHA Service Discharge","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":13},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH Telemedicine Virtual","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":14},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH Telemedicine Virtual On Call","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":15},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"Dual Diag F/U OS","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":16},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"Dual Diag Initial Visit OS","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":17},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS F/U","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":18},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS InHosp F/U","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":19},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS InHosp Service Initiation","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":20},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS Not Uniquely Identified","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":21},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS Service Discharge","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":22},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"MH BSS Service Initiation","KEY_REF_TYPE":"APPOINTMENT_TYPE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":23},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"in-person","KEY_REF_TYPE":"ALPHA_RESPONSE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":50},
+        {"TYPE":"SERVICE_MODALITY_TYPE","KEY_REF":"Virtual Video","KEY_REF_TYPE":"ALPHA_RESPONSE_DISPLAY","PDS_VALUE":"140182721000087101","PDS_VALUE_TYPE":"MHA_PDS_CODE","DISPLAY":"individual encounter","ACTIVE_IND":1,"PRIORITY":51}
       ],
       "OBSERVATION_CODE": {
         "CODE": "",
@@ -11404,13 +11470,24 @@
       "TABLES": [
         {
           "TABLE": "CUST_GBIN_MHA_PDS_SERVICE",
-          "FIELD_NAME": "INDIRECT_SERVICE_MINUTES",
+          "FIELD_NAME": "ENCOUNTER_STATUS_MAPPED",
           "PRIORITY": 1
         }
       ],
       "ALPHA_RESONSE_IND": 0,
-      "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "CONSTANT_IND": 1,
+      "PAIRS": [
+        {
+          "TYPE": "ENCOUNTER_STATUS",
+          "KEY_REF": "",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "finished",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Finished",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
@@ -11693,6 +11770,26 @@
           "DISPLAY": "Educated to senior high school level",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Completed Registered Apprenticeship or other trades certificate or diploma (or ongoing)",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "722465008",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Received education at technical college",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Some high school, but did not graduate",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "224291002",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Education interrupted",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
         }
       ],
       "OBSERVATION_CODE": {
@@ -11799,7 +11896,18 @@
       ],
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "PAIRS": [
+        {
+          "TYPE": "PERSONAL_INCOME_SOURCE",
+          "KEY_REF": "Self",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "earned",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Employment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
@@ -11893,6 +12001,26 @@
           "DISPLAY": "Lives in rented accommodation",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Supportive housing or group home",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "26511000087103",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Group Living",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Social housing, subsidized housing or rent-geared-to-income",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "25701000087102",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Supportive living",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
         }
       ],
       "OBSERVATION_CODE": {
@@ -12020,7 +12148,18 @@
       ],
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "PAIRS": [
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Entered in Error",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "723510000",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Entered in error",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
@@ -12034,7 +12173,7 @@
         "CODE_SYSTEM": "",
         "VALUE_SET_URL": "",
         "CODE_VALUE_SOURCE": "",
-        "EXTENSION_URL": ""
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-ServiceTerminationReason"
       }
     }
   ],
