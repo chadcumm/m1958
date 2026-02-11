@@ -10740,6 +10740,16 @@
           "DISPLAY": "Corrections/Criminal Justice",
           "ACTIVE_IND": 1,
           "PRIORITY": 5
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE",
+          "KEY_REF": "Native Treatment Centre",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other Referral Source",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
         }
       ],
       "OBSERVATION_CODE": {
@@ -13188,19 +13198,19 @@
     {
       "FIELD_CODE": "DE04_009",
       "DESCRIPTION": "Year Arrived in Canada",
-      "ACTIVE_IND": 1,
+      "ACTIVE_IND": 0,
       "REQUIRED_IND": 0
     },
     {
       "FIELD_CODE": "DE04_010",
       "DESCRIPTION": "Born in Canada",
-      "ACTIVE_IND": 1,
+      "ACTIVE_IND": 0,
       "REQUIRED_IND": 0
     },
     {
       "FIELD_CODE": "DE04_012",
       "DESCRIPTION": "Citizenship Status",
-      "ACTIVE_IND": 1,
+      "ACTIVE_IND": 0,
       "REQUIRED_IND": 0
     },
     {
