@@ -88,12 +88,12 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-WBUJJ3ZN.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-66WHHVSD.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-I6CBPAIQ.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-IA5SDHSD.js").then((m) => m.OperationsComponent),
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
@@ -134,8 +134,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.180-develop";
-var packageVersion = "0.0.180";
+var buildVersion = "v0.0.181-develop";
+var packageVersion = "0.0.181";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
