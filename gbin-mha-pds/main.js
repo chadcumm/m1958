@@ -93,7 +93,7 @@ var routes = [
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-IA5SDHSD.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-LPNQYEBR.js").then((m) => m.OperationsComponent),
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
@@ -134,8 +134,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.182-develop";
-var packageVersion = "0.0.182";
+var buildVersion = "v0.0.183-develop";
+var packageVersion = "0.0.183";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
