@@ -10312,6 +10312,16 @@
           "DISPLAY": "Acute Withdrawal Management Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 4
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Owen Sound - Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Case Management",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
         }
       ],
       "OBSERVATION_CODE": {
@@ -10750,6 +10760,16 @@
           "DISPLAY": "Other Referral Source",
           "ACTIVE_IND": 1,
           "PRIORITY": 6
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE",
+          "KEY_REF": "Community Mental Health and/or Addictions Organization - Adult",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "COMHA",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Community Org - Mental Health and Addictions",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
         }
       ],
       "OBSERVATION_CODE": {
@@ -11663,7 +11683,7 @@
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "7250976",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "MH - ACT Teams",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -11740,7 +11760,7 @@
         {
           "TYPE": "FUNCTIONAL_CENTRE_CODE",
           "KEY_REF": "BriefCounsel-OS",
-          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "725107612",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "COM Clinics/Programs - MH Counseling and Treatment",
@@ -11756,6 +11776,16 @@
           "DISPLAY": "SA - Residential - Withdrawal Mgmt Centres",
           "ACTIVE_IND": 1,
           "PRIORITY": 10
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Owen Sound - Case Mgt",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
         }
       ],
       "OBSERVATION_CODE": {
