@@ -8915,9 +8915,9 @@
         }
       ],
       "OBSERVATION_CODE": {
-        "CODE": "",
-        "LABEL": "",
-        "CODE_SYSTEM": ""
+        "CODE": "428996008",
+        "LABEL": "Language of comfort",
+        "CODE_SYSTEM": "http://snomed.info/sct"
       },
       "IDENTIFIER_SYSTEM": {
         "SYSTEM_URL": "",
@@ -8927,7 +8927,7 @@
         "CODE_SYSTEM": "urn:ietf:bcp:47",
         "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-human-language",
         "CODE_VALUE_SOURCE": "BCP 47",
-        "EXTENSION_URL": ""
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse"
       }
     },
     {
@@ -8943,7 +8943,7 @@
       ],
       "DESCRIPTION": "",
       "FUNCTION": "",
-      "NOTES": "",
+      "NOTES": "Official Language",
       "CODE_SETS": [],
       "DTAS": [
         {
@@ -8983,9 +8983,9 @@
         }
       ],
       "OBSERVATION_CODE": {
-        "CODE": "",
-        "LABEL": "",
-        "CODE_SYSTEM": ""
+        "CODE": "OFL",
+        "LABEL": "Official Language",
+        "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/LanguageUse"
       },
       "IDENTIFIER_SYSTEM": {
         "SYSTEM_URL": "",
@@ -8995,7 +8995,7 @@
         "CODE_SYSTEM": "urn:ietf:bcp:47",
         "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/ca-on-mha-PreferredOfficialLanguage",
         "CODE_VALUE_SOURCE": "BCP 47",
-        "EXTENSION_URL": ""
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse"
       }
     },
     {
@@ -10322,6 +10322,16 @@
           "DISPLAY": "Case Management",
           "ACTIVE_IND": 1,
           "PRIORITY": 5
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "PEPP-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "16",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Prevention and Early Intervention in Psychosis (PEPP)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
         }
       ],
       "OBSERVATION_CODE": {
@@ -10752,7 +10762,7 @@
           "PRIORITY": 5
         },
         {
-          "TYPE": "REFERRAL_SOURCE",
+          "TYPE": "REFERRAL_SOURCE_TYPE",
           "KEY_REF": "Native Treatment Centre",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "OTH",
@@ -10762,7 +10772,7 @@
           "PRIORITY": 6
         },
         {
-          "TYPE": "REFERRAL_SOURCE",
+          "TYPE": "REFERRAL_SOURCE_TYPE",
           "KEY_REF": "Community Mental Health and/or Addictions Organization - Adult",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "COMHA",
@@ -10770,6 +10780,16 @@
           "DISPLAY": "Community Org - Mental Health and Addictions",
           "ACTIVE_IND": 1,
           "PRIORITY": 7
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Emergency Response",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-09",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Crisis Intervention",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
         }
       ],
       "OBSERVATION_CODE": {
@@ -11786,6 +11806,16 @@
           "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 11
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "PEPP-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 12
         }
       ],
       "OBSERVATION_CODE": {
@@ -11849,6 +11879,16 @@
           "DISPLAY": "Virtual (video conference)",
           "ACTIVE_IND": 1,
           "PRIORITY": 2
+        },
+        {
+          "TYPE": "SERVICE_MODALITY",
+          "KEY_REF": "Not a direct interaction",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "VR",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Virtual (video conference)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
         }
       ],
       "OBSERVATION_CODE": {
@@ -12142,6 +12182,16 @@
           "DISPLAY": "individual encounter",
           "ACTIVE_IND": 1,
           "PRIORITY": 51
+        },
+        {
+          "TYPE": "SERVICE_MODALITY_TYPE",
+          "KEY_REF": "telephone",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "185317003",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Phone",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 26
         }
       ],
       "OBSERVATION_CODE": {
@@ -13796,7 +13846,7 @@
       "ACTIVE_IND": 1
     }
   ],
-  "SERVICE_EVENT_TYPES_CNT": 5,
+  "SERVICE_EVENT_TYPES_CNT": 6,
   "SERVICE_EVENT_TYPES": [
     {
       "EVENT_TITLE_TEXT": "Initial Assessment - Outpatient MHA",
@@ -13832,9 +13882,16 @@
       "DESCRIPTION": "Follow-up visit form",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 0
+    },
+    {
+      "EVENT_TITLE_TEXT": "Progress Note - Outpatient MHA",
+      "EVENT_TYPE_NAME": "PROGRESS_NOTE",
+      "DESCRIPTION": "Additional Client Interaction",
+      "DCP_EVENT_CD": 258355,
+      "ACTIVE_IND": 1
     }
   ],
-  "TIME_INTERVAL_MAPPINGS_CNT": 8,
+  "TIME_INTERVAL_MAPPINGS_CNT": 9,
   "TIME_INTERVAL_MAPPINGS": [
     {
       "INTERVAL_TEXT": "Less than 15 minutes",
@@ -13867,6 +13924,10 @@
     {
       "INTERVAL_TEXT": "More than 5 hours",
       "MAX_MINUTES": 360
+    },
+    {
+      "INTERVAL_TEXT": "More than 5 minutes to 30 minutes",
+      "MAX_MINUTES": 30
     }
   ]
 }
