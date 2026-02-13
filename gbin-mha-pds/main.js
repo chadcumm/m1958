@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-F7WEVTC5.js";
+} from "./chunk-YNCTTABP.js";
 import {
   AppStatusService,
   ConfigService,
@@ -14,7 +14,7 @@ import {
   bootstrapApplication,
   provideHttpClient,
   withFetch
-} from "./chunk-3ATNLWV6.js";
+} from "./chunk-KVCK6FKY.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -73,27 +73,27 @@ var OperationsCanDeactivateGuard = class _OperationsCanDeactivateGuard {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-WI2JL6OL.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-ZK3MH7DS.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-VHONBB2I.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-M723U3TE.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-BC5OIGUK.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-JL3OYGMI.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-RWCBHIZV.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-QONKWEVY.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-ESEZP76K.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-NRNB3BUC.js").then((m) => m.OperationsComponent),
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
@@ -134,8 +134,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.188-develop";
-var packageVersion = "0.0.188";
+var buildVersion = "v0.0.189-develop";
+var packageVersion = "0.0.189";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
