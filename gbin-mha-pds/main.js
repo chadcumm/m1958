@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-YNCTTABP.js";
+} from "./chunk-K62AZZWV.js";
 import {
   AppStatusService,
   ConfigService,
@@ -83,17 +83,17 @@ var routes = [
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-HRG6KGTL.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-JNRKSPQI.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-CJG635E3.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-KDSIGISV.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-XUXLGQGL.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-BL7YLAHK.js").then((m) => m.OperationsComponent),
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
@@ -134,8 +134,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.194-develop";
-var packageVersion = "0.0.194";
+var buildVersion = "v0.0.195-develop";
+var packageVersion = "0.0.195";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
