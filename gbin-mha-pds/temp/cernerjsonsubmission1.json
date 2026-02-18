@@ -1,0 +1,909 @@
+{
+    "MHA_PDS_SUBMISSION": {
+      "CNT": 1,
+      "INFO": {
+        "EXECUTION_START_DT_TM": "2026-02-18 07:20:59",
+        "EXECUTION_END_DT_TM": "2026-02-18 07:20:59",
+        "CURNODE": "gbrhcdapp5",
+        "CURDOMAIN": "M1958"
+      },
+      "SUBMISSION_METADATA": {
+        "SUBMIT_FIELDS_CNT": 49,
+        "SUBMIT_FIELDS": [
+          "DE01_001",
+          "DE01_003",
+          "DE01_004",
+          "DE01_005",
+          "DE01_006",
+          "DE02_001",
+          "DE02_002",
+          "DE02_003",
+          "DE02_004",
+          "DE02_005",
+          "DE03_001",
+          "DE03_002",
+          "DE03_003",
+          "DE03_004",
+          "DE04_001",
+          "DE04_005",
+          "DE04_006",
+          "DE04_008",
+          "DE04_018",
+          "DE04_019",
+          "DE05_001",
+          "DE05_002",
+          "DE05_003",
+          "DE05_004",
+          "DE05_005",
+          "DE06_001",
+          "DE06_002",
+          "DE06_004",
+          "DE06_006",
+          "DE06_007",
+          "DE06_008",
+          "DE06_010",
+          "DE07_001",
+          "DE07_002",
+          "DE07_003",
+          "DE07_004",
+          "DE08_001",
+          "DE08_002",
+          "DE09_001",
+          "DE09_002",
+          "DE09_003",
+          "DE10_001",
+          "DE10_002",
+          "DE10_003",
+          "DE10_004",
+          "DE10_005",
+          "DE10_006",
+          "DE10_007",
+          "DE10_008"
+        ]
+      },
+      "QUAL": [
+        {
+          "FIELDS_LIST_CNT": 45,
+          "FIELDS_LIST": [
+            "DE01_001",
+            "DE01_003",
+            "DE01_004",
+            "DE01_005",
+            "DE01_006",
+            "DE02_001",
+            "DE02_002",
+            "DE02_003",
+            "DE02_004",
+            "DE02_005",
+            "DE03_001",
+            "DE03_002",
+            "DE03_003",
+            "DE03_004",
+            "DE04_001",
+            "DE04_005",
+            "DE04_006",
+            "DE04_008",
+            "DE04_018",
+            "DE04_019",
+            "DE05_001",
+            "DE05_002",
+            "DE05_003",
+            "DE05_004",
+            "DE05_005",
+            "DE06_001",
+            "DE06_002",
+            "DE06_004",
+            "DE06_006",
+            "DE06_008",
+            "DE07_001",
+            "DE07_002",
+            "DE07_003",
+            "DE07_004",
+            "DE08_001",
+            "DE08_002",
+            "DE09_001",
+            "DE09_002",
+            "DE09_003",
+            "DE10_001",
+            "DE10_002",
+            "DE10_003",
+            "DE10_004",
+            "DE10_006",
+            "DE10_008"
+          ],
+          "SUBMIT_BUNDLE_CNT": 3,
+          "SUBMIT_BUNDLE": [
+            {
+              "TYPE": "SERVICE_REQUEST_EOC",
+              "SEQUENCE": 1,
+              "BUNDLE_ID": "484D3B7A-0CC4-11F1-AC01-F38788DB107E",
+              "STATUS": "pending",
+              "PROFILE_CNT": 6,
+              "PROFILE": [
+                {
+                  "TYPE": "Patient",
+                  "SEQUENCE": 1
+                },
+                {
+                  "TYPE": "Organization",
+                  "SEQUENCE": 2
+                },
+                {
+                  "TYPE": "Location",
+                  "SEQUENCE": 3
+                },
+                {
+                  "TYPE": "ServiceRequest",
+                  "SEQUENCE": 4
+                },
+                {
+                  "TYPE": "EpisodeOfCare",
+                  "SEQUENCE": 5
+                },
+                {
+                  "TYPE": "HealthcareService",
+                  "SEQUENCE": 6
+                }
+              ]
+            },
+            {
+              "TYPE": "CLIENT_SDOH",
+              "SEQUENCE": 2,
+              "BUNDLE_ID": "484E4F10-0CC4-11F1-AC01-83C3ECC68A08",
+              "STATUS": "pending",
+              "PROFILE_CNT": 6,
+              "PROFILE": [
+                {
+                  "TYPE": "Patient",
+                  "SEQUENCE": 1
+                },
+                {
+                  "TYPE": "Organization",
+                  "SEQUENCE": 2
+                },
+                {
+                  "TYPE": "Location",
+                  "SEQUENCE": 3
+                },
+                {
+                  "TYPE": "Observation-SexualOrientation",
+                  "SEQUENCE": 4
+                },
+                {
+                  "TYPE": "Observation-TotalHouseholdIncome",
+                  "SEQUENCE": 5
+                },
+                {
+                  "TYPE": "Observation-NumberOfPeopleIncomeSupports",
+                  "SEQUENCE": 6
+                }
+              ]
+            },
+            {
+              "TYPE": "HEALTH_SERVICES",
+              "SEQUENCE": 3,
+              "BUNDLE_ID": "484F3CB8-0CC4-11F1-AC01-EE13DB868CD4",
+              "STATUS": "pending",
+              "PROFILE_CNT": 7,
+              "PROFILE": [
+                {
+                  "TYPE": "Patient",
+                  "SEQUENCE": 1
+                },
+                {
+                  "TYPE": "Organization",
+                  "SEQUENCE": 2
+                },
+                {
+                  "TYPE": "Location",
+                  "SEQUENCE": 3
+                },
+                {
+                  "TYPE": "ServiceRequest",
+                  "SEQUENCE": 4
+                },
+                {
+                  "TYPE": "EpisodeOfCare",
+                  "SEQUENCE": 5
+                },
+                {
+                  "TYPE": "Encounter",
+                  "SEQUENCE": 6
+                },
+                {
+                  "TYPE": "HealthcareService",
+                  "SEQUENCE": 7
+                }
+              ]
+            }
+          ],
+          "EPISODE_IDENTIFIER": "EP-54018736",
+          "SUBMISSION_DATE": "2026-02-18 07:20:59",
+          "CLIENT": {
+            "DE01_001_FIRST_NAME": "MHAPDS",
+            "DE01_002_MIDDLE_NAME": "",
+            "DE01_003_LAST_NAME": "ATESTPATIENT",
+            "DE01_004_DATE_OF_BIRTH": "1967-07-15",
+            "DE01_005_ESTIMATED_DOB_FLAG": {
+              "CODE": "false",
+              "LABEL": "False",
+              "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+              "CODE_SYSTEM": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-birthdate-estimated-flag",
+              "VALUE_SET_URL": ""
+            },
+            "DE01_006_ACTIVE_STATUS": {
+              "CODE": "true",
+              "LABEL": "Client Active",
+              "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-031",
+              "CODE_SYSTEM": "",
+              "VALUE_SET_URL": ""
+            },
+            "DE02_001_CLIENT_IDENTIFIER_MRN": "0500077",
+            "DE02_002_VENDOR_ISSUING_ID": "955",
+            "DE02_003_HEALTH_CARD_NUMBER": {
+              "VALUE": "4444444444",
+              "IDENTIFIER_SYSTEM": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-on-patient-hcn",
+              "CODE": "JHN",
+              "LABEL": "Jurisdictional health number",
+              "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203"
+            },
+            "DE02_004_HCN_ISSUING_AUTHORITY": {
+              "CODE": "644191431000087105",
+              "LABEL": "Ontario Ministry of Health and Long-Term Care",
+              "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
+              "CODE_SYSTEM": "http://snomed.info/sct",
+              "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system"
+            },
+            "DE02_005_IDENTIFIER_TYPE": {
+              "CODE": "MR",
+              "LABEL": "Medical record number",
+              "CODE_VALUE_SOURCE": "HL7 v2 Table 0203",
+              "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0203",
+              "VALUE_SET_URL": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-mrn"
+            },
+            "ADDRESS": {
+              "DE03_001_ADDRESS_USE": {
+                "CODE": "home",
+                "LABEL": "Home",
+                "CODE_VALUE_SOURCE": "eHO PCR FHIR, HL7 v2.2, CCO WTIS",
+                "CODE_SYSTEM": "http://hl7.org/fhir/address-use",
+                "VALUE_SET_URL": ""
+              },
+              "DE03_002_CITY": "TORONTO",
+              "DE03_003_PROVINCE": {
+                "CODE": "ON",
+                "LABEL": "Ontario",
+                "CODE_VALUE_SOURCE": "CIHI sources, Canada Post, ISO 3166, Natural Resources Canada, DATIS-MDS, eHO...",
+                "CODE_SYSTEM": "http://canadapost.ca/CodeSystem/ProvinceCodes",
+                "VALUE_SET_URL": "https://fhir.infoway-inforoute.ca/ValueSet/canadianjurisdiction"
+              },
+              "DE03_004_POSTAL_CODE": "M5M3V7"
+            },
+            "SOCIO_DEMOGRAPHICS": {
+              "DE04_001_SDOH_EFFECTIVE_DATE": "2026-02-13",
+              "OBSERVATION_STATUS": "final",
+              "OBSERVATION_CATEGORY": {
+                "CODE": "social-history",
+                "LABEL": "Social History",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "VALUE_SET_URL": ""
+              },
+              "DE04_002_ETHNICITY_CNT": 0,
+              "DE04_002_ETHNICITY": [],
+              "DE04_003_RELIGION_SPIRITUAL": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": ""
+              },
+              "DE04_004_FIRST_LANGUAGE": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": ""
+              },
+              "DE04_005_PREFERRED_SERVICE_LANGUAGE": {
+                "CODE": "en",
+                "LABEL": "English",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "urn:ietf:bcp:47",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+                "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse",
+                "OBSERVATION_CODE": {
+                  "CODE": "428996008",
+                  "LABEL": "Language of comfort",
+                  "CODE_SYSTEM": "http://snomed.info/sct"
+                }
+              },
+              "DE04_006_PREFERRED_OFFICIAL_LANGUAGE": {
+                "CODE": "en",
+                "LABEL": "English",
+                "CODE_VALUE_SOURCE": "OCAN, ISO-639-2, Stat Can 2016 Census, OMD-CDS",
+                "CODE_SYSTEM": "urn:ietf:bcp:47",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/official-language",
+                "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse",
+                "OBSERVATION_CODE": {
+                  "CODE": "OFL",
+                  "LABEL": "Official Language",
+                  "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/LanguageUse"
+                }
+              },
+              "DE04_007_GENDER_IDENTITY": {
+                "CODE": "female",
+                "LABEL": "Female",
+                "CODE_VALUE_SOURCE": "Tri-Hospital, DATIS-MDS, OCAN, CYMH BI, OPOC-MHA, MCYS IBDB, MOH OHIP, CRDM D...",
+                "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/gender-identity",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/gender-identity",
+                "OBSERVATION_CODE": {
+                  "CODE": "76691-5",
+                  "LABEL": "Gender identity",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_008_SEXUAL_ORIENTATION": {
+                "CODE": "440583007",
+                "LABEL": "Do not know",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "http://snomed.info/sct",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/sexual-orientation",
+                "OBSERVATION_CODE": {
+                  "CODE": "76690-7",
+                  "LABEL": "Sexual Orientation",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_009_YEAR_ARRIVED_CANADA": "",
+              "DE04_009_YEAR_ARRIVED_CANADA_EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-yearArrivedInCanada",
+              "DE04_010_BORN_IN_CANADA": {
+                "CODE": "Y",
+                "LABEL": "Yes",
+                "CODE_VALUE_SOURCE": "http://torontohealthequity.ca/wp-content/uploads/2017/05/TC-LHIN-CHCs-Demogra...",
+                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/bornInCanadaResponse",
+                "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-bornInCanada"
+              },
+              "DE04_012_CITIZENSHIP_STATUS": {
+                "CODE": "UNK",
+                "LABEL": "Unknown",
+                "CODE_VALUE_SOURCE": "MCYS IBDB, OCAN",
+                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/mha/citizenshipStatus",
+                "OBSERVATION_CODE": {
+                  "CODE": "69433-1",
+                  "LABEL": "Citizenship Status",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_013_HIGHEST_EDUCATION": {
+                "CODE": "603434003",
+                "LABEL": "Educated to senior high school level",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "http://snomed.info/sct",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/highest-level-of-education-attained",
+                "OBSERVATION_CODE": {
+                  "CODE": "82589-3",
+                  "LABEL": "Highest level of education",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_014_EMPLOYMENT_STATUS": {
+                "CODE": "406156006",
+                "LABEL": "In paid employment",
+                "CODE_VALUE_SOURCE": "DATIS-MDS, MDS 1998, OMHRS",
+                "CODE_SYSTEM": "http://snomed.info/sct",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/employment-status",
+                "OBSERVATION_CODE": {
+                  "CODE": "74165-2",
+                  "LABEL": "Employment Status",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_015_INCOME_SOURCE": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": "",
+                "OBSERVATION_CODE": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_SYSTEM": ""
+                }
+              },
+              "DE04_016_MARITAL_STATUS": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": ""
+              },
+              "DE04_017_HOUSING_STATUS": {
+                "CODE": "224213000",
+                "LABEL": "Lives in rented accommodation",
+                "CODE_VALUE_SOURCE": "SNOMED, Toronto Health Equity",
+                "CODE_SYSTEM": "http://snomed.info/sct",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/housing-status",
+                "OBSERVATION_CODE": {
+                  "CODE": "71802-3",
+                  "LABEL": "Housing Status",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_018_HOUSEHOLD_INCOME": {
+                "CODE": "UNK",
+                "LABEL": "Do not know",
+                "CODE_VALUE_SOURCE": "Tri-Hospital",
+                "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+                "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/total-household-income",
+                "OBSERVATION_CODE": {
+                  "CODE": "77244-2",
+                  "LABEL": "Total Household Income",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_019_HOUSEHOLD_MEMBERS_SUPPORTED": {
+                "VALUE": 1,
+                "OBSERVATION_CODE": {
+                  "CODE": "86639-2",
+                  "LABEL": "Number of People Household Income Supports",
+                  "CODE_SYSTEM": "http://loinc.org"
+                }
+              },
+              "DE04_020_LEGAL_STATUS": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": "",
+                "OBSERVATION_CODE": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_SYSTEM": ""
+                }
+              },
+              "DE04_021_PRE_EXISTING_CONDITIONS": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": ""
+              }
+            }
+          },
+          "REFERRAL": {
+            "DE05_001_REFERRAL_ID": {
+              "CODE": "REF-54018736",
+              "LABEL": "REF-54018736",
+              "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+              "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-referral",
+              "VALUE_SET_URL": ""
+            },
+            "DE05_002_REFERRAL_RECEIVED_DATE": "2026-01-18",
+            "DE05_003_REFERRAL_SOURCE": "Other Referral Source",
+            "DE05_STATUS": {
+              "CODE": "active",
+              "LABEL": "Active",
+              "CODE_VALUE_SOURCE": "FHIR R4",
+              "CODE_SYSTEM": "http://hl7.org/fhir/request-status",
+              "VALUE_SET_URL": ""
+            },
+            "DE05_INTENT": {
+              "CODE": "order",
+              "LABEL": "Order",
+              "CODE_VALUE_SOURCE": "FHIR R4",
+              "CODE_SYSTEM": "http://hl7.org/fhir/request-intent",
+              "VALUE_SET_URL": ""
+            },
+            "DE05_004_REFERRAL_SOURCE_TYPE": {
+              "CODE": "OTH",
+              "LABEL": "Other Referral Source",
+              "CODE_VALUE_SOURCE": "DATIS, CDS-MH,HL7 v.3 (2008-05-01), OCAN 3.0",
+              "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+              "VALUE_SET_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-referralSourceType",
+              "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-referralSourceType"
+            },
+            "DE05_005_REFERRAL_TYPE": {
+              "CODE": "2",
+              "LABEL": "External Referral",
+              "CODE_VALUE_SOURCE": "CIHI FPT",
+              "CODE_SYSTEM": "http://ontariohealth.ca/fhir/CodeSystem/referral-type",
+              "VALUE_SET_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-ReferralType",
+              "EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-ReferralType"
+            }
+          },
+          "EPISODE_OF_CARE": {
+            "DE06_001_EPISODE_OF_CARE_ID": {
+              "CODE": "EP-54018736",
+              "LABEL": "EP-54018736",
+              "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+              "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-episode-of-care",
+              "VALUE_SET_URL": ""
+            },
+            "DE06_002_EPISODE_OF_CARE_STATUS": {
+              "CODE": "active",
+              "LABEL": "Active",
+              "CODE_VALUE_SOURCE": "HL7 FHIR",
+              "CODE_SYSTEM": "http://hl7.org/fhir/episode-of-care-status",
+              "VALUE_SET_URL": "http://hl7.org/fhir/ValueSet/episode-of-care-status"
+            },
+            "DE06_003_FIRST_CONTACT_DATE": "2026-01-21",
+            "DE06_003_FIRST_CONTACT_DATE_EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-FirstContactDate",
+            "DE06_004_ELIGIBILITY_SCREENING_DATE": "2026-01-21",
+            "DE06_004_ELIGIBILITY_SCREENING_DATE_EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-eligibilityScreeningDate",
+            "DE06_005_INITIAL_ASSESSMENT_DATE": "",
+            "DE06_005_INITIAL_ASSESSMENT_DATE_EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-InitialAssessmentDate",
+            "APPOINTMENT": {
+              "APPOINTMENT_STATUS": {
+                "CODE": "arrived",
+                "LABEL": "Arrived",
+                "CODE_VALUE_SOURCE": "FHIR R4",
+                "CODE_SYSTEM": "http://hl7.org/fhir/appointmentstatus",
+                "VALUE_SET_URL": ""
+              },
+              "DE06_006_SCHEDULED_APPOINTMENT_DATE": "2026-01-21T10:00:00",
+              "DE06_006_SCHEDULED_APPOINTMENT_END": "2026-01-21T11:00:00",
+              "DE06_007_CANCELLATION_REASON": {
+                "CODE": "",
+                "LABEL": "",
+                "CODE_VALUE_SOURCE": "",
+                "CODE_SYSTEM": "",
+                "VALUE_SET_URL": ""
+              }
+            },
+            "DE06_008_SERVICE_INITIATION_DATE": "2026-01-21",
+            "DE06_008_SERVICE_INITIATION_DATE_EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-ServiceInitiationDate",
+            "DE06_009_SERVICE_ENROLLMENT_DATE": "2026-01-21",
+            "DE06_010_SERVICE_TERMINATION_DATE": "",
+            "DE06_011_SERVICE_TERMINATION_REASON": {
+              "CODE": "",
+              "LABEL": "",
+              "CODE_VALUE_SOURCE": "",
+              "CODE_SYSTEM": "",
+              "VALUE_SET_URL": "",
+              "EXTENSION_URL": ""
+            }
+          },
+          "HEALTH_PROGRAM": {
+            "DE09_001_PROGRAM_NUMBER": {
+              "CODE": "13",
+              "LABEL": "Case Management",
+              "CODE_VALUE_SOURCE": "",
+              "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-HealthcareService-ConnexProgram",
+              "VALUE_SET_URL": ""
+            },
+            "DE09_002_PROGRAM_NAME": "Concurrent Disorders- Case Mgt",
+            "DE09_003_FUNCTIONAL_CENTRE": {
+              "CODE": "7250976",
+              "LABEL": "MH - Case Management/Supportive Counselling & ServicesMH - Case Management",
+              "CODE_VALUE_SOURCE": "DATIS-MDS, OHRS",
+              "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
+              "VALUE_SET_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-functionalCentreCode",
+              "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-functionalCentreCode"
+            }
+          },
+          "SERVICES_CNT": 4,
+          "SERVICES": [
+            {
+              "HSP_ORGANIZATION": {
+                "DE07_001_ORGANIZATION_NUMBER": {
+                  "CODE": "10022",
+                  "LABEL": "10022",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_002_MOH_ORGANIZATION_ID": {
+                  "CODE": "955",
+                  "LABEL": "955",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_003_ORGANIZATION_NAME": "Brightshores Health System",
+                "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                  "CODE": "true",
+                  "LABEL": "Organization Active",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                }
+              },
+              "HSP_SITE": {
+                "DE08_001_SITE_NUMBER": {
+                  "CODE": "4",
+                  "LABEL": "Wellness & Recovery Centre",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                  "VALUE_SET_URL": ""
+                },
+                "DE08_002_SITE_NAME": "Wellness & Recovery Centre"
+              },
+              "HEALTH_SERVICE_EVENT": {
+                "DE10_001_EVENT_ID": {
+                  "CODE": "SRV-3393360169",
+                  "LABEL": "SRV-3393360169",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-encounter",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_CLASS": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_002_SERVICE_MODALITY": {
+                  "CODE": "AMB",
+                  "LABEL": "In-person",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_003_SERVICE_MODALITY_TYPE": {
+                  "CODE": "140182721000087101",
+                  "LABEL": "individual encounter",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://snomed.info/sct",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_004_ENCOUNTER_DATE": "2026-01-21",
+                "DE10_005_GROUP_SERVICE_ID": "",
+                "DE10_006_DIRECT_MINUTES": 60,
+                "DE10_006_DIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-directminutes",
+                "DE10_007_INDIRECT_MINUTES": 0,
+                "DE10_007_INDIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-indirectminutes",
+                "DE10_008_ENCOUNTER_STATUS": {
+                  "CODE": "finished",
+                  "LABEL": "Finished",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                  "VALUE_SET_URL": ""
+                }
+              }
+            },
+            {
+              "HSP_ORGANIZATION": {
+                "DE07_001_ORGANIZATION_NUMBER": {
+                  "CODE": "10022",
+                  "LABEL": "10022",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_002_MOH_ORGANIZATION_ID": {
+                  "CODE": "955",
+                  "LABEL": "955",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_003_ORGANIZATION_NAME": "Brightshores Health System",
+                "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                  "CODE": "true",
+                  "LABEL": "Organization Active",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                }
+              },
+              "HSP_SITE": {
+                "DE08_001_SITE_NUMBER": {
+                  "CODE": "4",
+                  "LABEL": "Wellness & Recovery Centre",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                  "VALUE_SET_URL": ""
+                },
+                "DE08_002_SITE_NAME": "Wellness & Recovery Centre"
+              },
+              "HEALTH_SERVICE_EVENT": {
+                "DE10_001_EVENT_ID": {
+                  "CODE": "SRV-3393361999",
+                  "LABEL": "SRV-3393361999",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-encounter",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_CLASS": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_002_SERVICE_MODALITY": {
+                  "CODE": "VR",
+                  "LABEL": "Virtual (video conference)",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_003_SERVICE_MODALITY_TYPE": {
+                  "CODE": "140182721000087101",
+                  "LABEL": "individual encounter",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://snomed.info/sct",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_004_ENCOUNTER_DATE": "2026-02-13",
+                "DE10_005_GROUP_SERVICE_ID": "",
+                "DE10_006_DIRECT_MINUTES": 30,
+                "DE10_006_DIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-directminutes",
+                "DE10_007_INDIRECT_MINUTES": 0,
+                "DE10_007_INDIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-indirectminutes",
+                "DE10_008_ENCOUNTER_STATUS": {
+                  "CODE": "finished",
+                  "LABEL": "Finished",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                  "VALUE_SET_URL": ""
+                }
+              }
+            },
+            {
+              "HSP_ORGANIZATION": {
+                "DE07_001_ORGANIZATION_NUMBER": {
+                  "CODE": "10022",
+                  "LABEL": "10022",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_002_MOH_ORGANIZATION_ID": {
+                  "CODE": "955",
+                  "LABEL": "955",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_003_ORGANIZATION_NAME": "Brightshores Health System",
+                "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                  "CODE": "true",
+                  "LABEL": "Organization Active",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                }
+              },
+              "HSP_SITE": {
+                "DE08_001_SITE_NUMBER": {
+                  "CODE": "4",
+                  "LABEL": "Wellness & Recovery Centre",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                  "VALUE_SET_URL": ""
+                },
+                "DE08_002_SITE_NAME": "Wellness & Recovery Centre"
+              },
+              "HEALTH_SERVICE_EVENT": {
+                "DE10_001_EVENT_ID": {
+                  "CODE": "SRV-3393362203",
+                  "LABEL": "SRV-3393362203",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-encounter",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_CLASS": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_002_SERVICE_MODALITY": {
+                  "CODE": "AMB",
+                  "LABEL": "In-person",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_003_SERVICE_MODALITY_TYPE": {
+                  "CODE": "140182721000087101",
+                  "LABEL": "individual encounter",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://snomed.info/sct",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_004_ENCOUNTER_DATE": "2026-02-13",
+                "DE10_005_GROUP_SERVICE_ID": "",
+                "DE10_006_DIRECT_MINUTES": 30,
+                "DE10_006_DIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-directminutes",
+                "DE10_007_INDIRECT_MINUTES": 0,
+                "DE10_007_INDIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-indirectminutes",
+                "DE10_008_ENCOUNTER_STATUS": {
+                  "CODE": "finished",
+                  "LABEL": "Finished",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                  "VALUE_SET_URL": ""
+                }
+              }
+            },
+            {
+              "HSP_ORGANIZATION": {
+                "DE07_001_ORGANIZATION_NUMBER": {
+                  "CODE": "10022",
+                  "LABEL": "10022",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_002_MOH_ORGANIZATION_ID": {
+                  "CODE": "955",
+                  "LABEL": "955",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+                  "VALUE_SET_URL": ""
+                },
+                "DE07_003_ORGANIZATION_NAME": "Brightshores Health System",
+                "DE07_004_ORGANIZATION_ACTIVE_FLAG": {
+                  "CODE": "true",
+                  "LABEL": "Organization Active",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2 CT-032",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                }
+              },
+              "HSP_SITE": {
+                "DE08_001_SITE_NUMBER": {
+                  "CODE": "4",
+                  "LABEL": "Wellness & Recovery Centre",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+                  "VALUE_SET_URL": ""
+                },
+                "DE08_002_SITE_NAME": "Wellness & Recovery Centre"
+              },
+              "HEALTH_SERVICE_EVENT": {
+                "DE10_001_EVENT_ID": {
+                  "CODE": "SRV-3393362296",
+                  "LABEL": "SRV-3393362296",
+                  "CODE_VALUE_SOURCE": "MHA PDS v1.2",
+                  "CODE_SYSTEM": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-encounter",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_CLASS": {
+                  "CODE": "",
+                  "LABEL": "",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_002_SERVICE_MODALITY": {
+                  "CODE": "AMB",
+                  "LABEL": "In-person",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_003_SERVICE_MODALITY_TYPE": {
+                  "CODE": "140182721000087101",
+                  "LABEL": "individual encounter",
+                  "CODE_VALUE_SOURCE": "Encounter Class is sourced from HL7 V3 Encounter Type is sourced from  SNOMED CT",
+                  "CODE_SYSTEM": "http://snomed.info/sct",
+                  "VALUE_SET_URL": ""
+                },
+                "DE10_004_ENCOUNTER_DATE": "2026-02-13",
+                "DE10_005_GROUP_SERVICE_ID": "",
+                "DE10_006_DIRECT_MINUTES": 60,
+                "DE10_006_DIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-directminutes",
+                "DE10_007_INDIRECT_MINUTES": 0,
+                "DE10_007_INDIRECT_MINUTES_EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-indirectminutes",
+                "DE10_008_ENCOUNTER_STATUS": {
+                  "CODE": "finished",
+                  "LABEL": "Finished",
+                  "CODE_VALUE_SOURCE": "",
+                  "CODE_SYSTEM": "http://hl7.org/fhir/encounter-status",
+                  "VALUE_SET_URL": ""
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
