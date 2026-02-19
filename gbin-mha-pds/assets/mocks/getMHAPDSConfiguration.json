@@ -7,7 +7,7 @@
     "USERNAME": "mha-pds-api",
     "PASSWORD": "mha-pds-api",
     "TIMEOUT_SECONDS": 30,
-    "RETRY_ATTEMPTS": 3
+    "RETRY_ATTEMPTS": 4
   },
   "MIRTH_API": {
     "BASE_URL": "https://mirth-server:8443/api",
@@ -158,7 +158,7 @@
       "CODE_TABLE_NAME": "HSP ORGANIZATION ACTIVE FLAG"
     }
   ],
-  "CODE_TABLE_MAPPING_CNT": 786,
+  "CODE_TABLE_MAPPING_CNT": 787,
   "CODE_TABLE_MAPPINGS": [
     {
       "CODE_TABLE_ID": "CT-001",
@@ -5342,6 +5342,16 @@
     },
     {
       "CODE_TABLE_ID": "CT-017",
+      "CODE": "es",
+      "LABEL": "Spanish",
+      "DESCRIPTION": "Spanish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
       "CODE": "jam",
       "LABEL": "Jamaican Creole English",
       "DESCRIPTION": "Jamaican Creole English",
@@ -8517,7 +8527,7 @@
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
           "PDS_VALUE": "189542671000087101",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
+          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -8906,12 +8916,22 @@
         {
           "TYPE": "LANGUAGE_OF_COMFORT_CODE",
           "KEY_REF": "Jamaican Creole English",
-          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "jam",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Jamaican Creole English",
           "ACTIVE_IND": 1,
           "PRIORITY": 2
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Spanish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "es",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Spanish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
         }
       ],
       "OBSERVATION_CODE": {
@@ -10229,6 +10249,16 @@
           "DISPLAY": "369 Mary St. Wiarton",
           "ACTIVE_IND": 1,
           "PRIORITY": 29
+        },
+        {
+          "TYPE": "CONNEX_SITE_NUMBER",
+          "KEY_REF": "Outpatient Addiction Treatment",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "8",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Outpatient Addiction Treatment Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 30
         }
       ],
       "OBSERVATION_CODE": {
@@ -10249,7 +10279,7 @@
     },
     {
       "MHA_PDS_FIELD_NAME": "DE09.001",
-      "MHA_PDS_FIELD_TYPE": "identifier",
+      "MHA_PDS_FIELD_TYPE": "mapping",
       "MHA_PDS_RDB_TABLE_NAME": "",
       "MHA_PDS_SELECTION_TYPE": "single",
       "MHA_PDS_CODE_SET": "",
@@ -10332,6 +10362,46 @@
           "DISPLAY": "Prevention and Early Intervention in Psychosis (PEPP)",
           "ACTIVE_IND": 1,
           "PRIORITY": 6
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "RAAM Clinic-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "10",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Rapid Access Addiction Medicine (RAAM) Clinic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Dual Diagnosis - OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "6",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dual Diagnosis",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Addiction Treatment Services",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "5",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Addiction Treatment Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Outpatient Addiction Treatment",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "8",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Outpatient Addiction Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
         }
       ],
       "OBSERVATION_CODE": {
@@ -10616,7 +10686,12 @@
       "FUNCTION": "",
       "NOTES": "Referral Received Date",
       "CODE_SETS": [],
-      "DTAS": [],
+      "DTAS": [
+        {
+          "DTA": "MHA Date of Referral",
+          "PRIORITY": 1
+        }
+      ],
       "TABLES": [
         {
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
@@ -10790,6 +10865,16 @@
           "DISPLAY": "Crisis Intervention",
           "ACTIVE_IND": 1,
           "PRIORITY": 8
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Psychiatric Referral",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-16",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Psychiatrist",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
         }
       ],
       "OBSERVATION_CODE": {
@@ -11816,6 +11901,46 @@
           "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 12
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "RAAM Clinic-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "715107820",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Clinics/Programs - Addictions Withdrawal Mgmt.",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 13
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Dual Diagnosis - OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107699",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Other Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 14
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Addiction Treatment Services",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "715407811",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "SA - Day/Evening Care Addictions Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 15
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Outpatient Addiction Treatment",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "715207810",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Day/Night Care - Eating Disorder",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 16
         }
       ],
       "OBSERVATION_CODE": {
@@ -12402,17 +12527,27 @@
         }
       ],
       "ALPHA_RESONSE_IND": 0,
-      "CONSTANT_IND": 1,
+      "CONSTANT_IND": 0,
       "PAIRS": [
         {
           "TYPE": "ENCOUNTER_STATUS",
-          "KEY_REF": "",
+          "KEY_REF": "finished",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
           "PDS_VALUE": "finished",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "Finished",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
+        },
+        {
+          "TYPE": "ENCOUNTER_STATUS",
+          "KEY_REF": "entered-in-error",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "entered-in-error",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Entered in Error",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
         }
       ],
       "OBSERVATION_CODE": {
@@ -12811,6 +12946,16 @@
           "DISPLAY": "Unemployed",
           "ACTIVE_IND": 1,
           "PRIORITY": 3
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Employed - casual, on-call, temporary or seasonal",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "224364001",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "In paid casual work",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 4
         }
       ],
       "OBSERVATION_CODE": {
@@ -13846,7 +13991,7 @@
       "ACTIVE_IND": 1
     }
   ],
-  "SERVICE_EVENT_TYPES_CNT": 6,
+  "SERVICE_EVENT_TYPES_CNT": 7,
   "SERVICE_EVENT_TYPES": [
     {
       "EVENT_TITLE_TEXT": "Initial Assessment - Outpatient MHA",
@@ -13887,6 +14032,13 @@
       "EVENT_TITLE_TEXT": "Progress Note - Outpatient MHA",
       "EVENT_TYPE_NAME": "PROGRESS_NOTE",
       "DESCRIPTION": "Additional Client Interaction",
+      "DCP_EVENT_CD": 258355,
+      "ACTIVE_IND": 1
+    },
+    {
+      "EVENT_TITLE_TEXT": "Group Progress Note - Outpatient MHA",
+      "EVENT_TYPE_NAME": "GROUP_VISIT",
+      "DESCRIPTION": "Group Progress Interaction form",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     }
