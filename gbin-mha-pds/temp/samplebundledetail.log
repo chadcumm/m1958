@@ -1,0 +1,1591 @@
+1)declare debug_ind = i2 with noconstant(1) go
+1)free define oraclesystem go
+1)execute ccl_rdb_connect "v500",0 go
+
+Qual:      0 Len:      0
+Connect RDBMS(V500@m19581 Pos:0 Con:1 Stm:1 Drc:0 Han:189302532 Opt:8 Ver:19.00 Sys:LNX End:0 Acc:1 Mod:1,1 Try:1 Ela:0.00   )
+CCL_RDB_CONNECT: CURRDBUSER= V500, CURRDBLINK= m19581, CURRDBSYS= LNX:19.0.0.0.0
+1)free record request go
+1)execute 1co5_mpage_test:GROUP1		"MINE", "1co_debug_5874970.json" go
+
+%CCL-I-317-1CO5_MPAGE_ENTRY(0,0,58)260220:1018{_MEMORY_REPLY_STRING}The variable (_MEMORY_REPLY_STRING) has already been defined.
+(S58L5.5q1)
+_memory_reply_string
+
+  0)PRSNL:P(N#0#0)(Rng:0)Len<2438>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:    173
+
+  0)DM_INFO:D(N#0#0)(Rng:0)Len<4429>Dim<1>KEY1<0>Rec<0>
+   1)ENCOUNTER:E(N#5#0)(Rng:1)Len<3035>Dim<1>Row<0>
+    2)PERSON:P(N#5#0)(Rng:2)Len<3794>Dim<1>Row<0>
+
+Row:      0 Qual:      0 Len:    127
+
+  0)PERSON:P(N#0#0)(Rng:0)Len<3794>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:    111
+
+  0)DUMMYT:D(N#0#0)(Rng:0)Len<32>Dim<1>KEY1<0>Rec<1>
+   1)ENCOUNTER:E(N#2#0)(Rng:1)Len<3035>Dim<1>KEY1<0>Rec<0>
+
+Row:      1 Qual:      0 Len:     60
+starting gbin_mha_pds_utils
+starting gbin_std_encntr_routines
+starting gbin_std_log_routines
+finishing gbin_std_log_routines
+finishing gbin_std_encntr_routines
+starting gbin_std_ce_routines
+finishing gbin_std_ce_routines
+finishing gbin_mha_pds_utils
+including subroutines: gbin_custom_ccl_common.inc
+
+%CCL-I-420-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{FORMAT.}Implicitly convert handle type (I4 to W8) for (FILE_DESC) arg (0)
+(S58L7.6r2)
+ = i4
+
+%CCL-I-420-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{FORMAT.}Implicitly convert handle type (I4 to W8) for (FILE_DESC) arg (0)
+(S58L7.6r2)
+ = i4
+program_log->email.subject  = Emailing Log For: 02/20/2026 m1958 gbin_mha_pds_service
+program_log->files.filename_log = /cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_20260220101832.log
+startLog(/cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_20260220101832.log)
+program_log->files.filename_audit = /cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_2026_02_20_10_18_32.csv
+startAudit(/cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_2026_02_20_10_18_32.csv)
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_setwebrequestprops(p1=i4(value),p2=i4(value)) = i4 WITH image_axp = "srvuri",
+ image_aix = "libsrvuri.a(libsrvuri.o)", uar = "SRV_SetWebRequestProps",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_writebuffer(p1=i4(value),p2=vc(ref),p3=i4(value),p4=i4(ref)) = i4 WITH image_axp =
+ "srvcore", image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_WriteBuffer",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_readbuffer(p1=i4(value),p2=vc(ref),p3=i4(value),p4=i4(ref)) = i4 WITH image_axp =
+ "srvcore", image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_ReadBuffer",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_setbufferpos(p1=i4(value),p2=i4(value),p3=i4(value),p4=i4(ref)) = i4 WITH image_axp
+  = "srvcore", image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_SetBufferPos",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_getmemorybuffersize(p1=i4(value),p2=i4(ref)) = i4 WITH image_axp = "srvcore",
+ image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_GetMemoryBufferSize",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_getpropstring(p1=i4(value),p2=vc(ref),p3=vc(ref),p4=i4(ref)) = i4 WITH image_axp =
+ "srvcore", image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_GetPropString",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_getpropint(p1=i4(value),p2=vc(ref),p3=i4(ref)) = i4 WITH image_axp = "srvcore",
+ image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_GetPropInt",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_setpropstring(p1=i4(value),p2=vc(ref),p3=vc(ref)) = i4 WITH image_axp = "srvcore",
+ image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_SetPropString",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_setprophandle(p1=i4(value),p2=vc(ref),p3=i4(value),p4=i4(value)) = i4 WITH image_axp
+  = "srvcore", image_aix = "libsrvcore.a(libsrvcore.o)", uar = "SRV_SetPropHandle",
+ persist
+
+%CCL-I-76-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{Z_DECLARE.}Invalid set command option (DECLARE).
+(S58L7.6p1)
+
+ DECLARE uar_srv_closehandle(p1=i4(value)) = i4 WITH image_axp = "srvcore", image_aix =
+ "libsrvcore.a(libsrvcore.o)", uar = "SRV_CloseHandle",
+ persist
+loading script:GBIN_MHA_PDS_SERVICE
+[02/20/2026 10:18:32]************************************************************
+[02/20/2026 10:18:32]* START MHA PDS Service ************************************
+[02/20/2026 10:18:32]* START Check OPS Status ************************************
+[02/20/2026 10:18:32]--->program_log->ops_date =20-FEB-2026 10:18:32.00
+[02/20/2026 10:18:32]* END   Check OPS Status ************************************
+
+%CCL-I-317-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{HREQ}The variable (HREQ) has already been defined.
+(S58L7.6q1)
+hreq
+
+%CCL-I-317-GBIN_MHA_PDS_SERVICE(0,0,58)260220:1018{DCLSTAT}The variable (DCLSTAT) has already been defined.
+(S58L7.6q1)
+dclstat
+[02/20/2026 10:18:32]clinical_office_ind=          1
+start sGetMHAPDSConfiguration, configID=
+start sGetMHAPDSConfigID
+start sGetMHAPDSDMInfo, type=CONFIG
+exit sGetMHAPDSDMInfo
+
+  0)DM_INFO:DI(N#0#0)(Rng:0)Len<4429>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+->DmInfo_LongTextId=  369222201.00
+->auto-retrieved config_id=  369222201.00
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+->retrieved      346883 bytes
+ending sGetMHAPDSConfiguration
+[02/20/2026 10:18:32]#START_026_GET_PATIENT_AUDIT_BUNDLES
+[02/20/2026 10:18:32]->requestData length=         47
+[02/20/2026 10:18:32]->cnvtjsontorec stat=          1
+[02/20/2026 10:18:32]->person_id=    6570236.00
+
+  0)PERSON:P(N#0#0)(Rng:0)Len<3794>Dim<1>KEY1<0>Rec<1>
+   1)PERSON_ALIAS:PA(N#5#0)(Rng:1)Len<486>Dim<1>Row<1>
+
+Row:      2 Qual:      1 Len:    611
+
+  0)CUST_GBIN_MHA_PDS_EPISODE:E(N#0#0)(Rng:0)Len<1728>Dim<1>KEY1<0>Rec<2>
+
+Row:      2 Qual:      1 Len:   1059
+
+  0)CUST_GBIN_MHA_PDS_CLIENT:CL(N#0#0)(Rng:0)Len<4304>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:   1235
+
+  0)CUST_GBIN_MHA_PDS_EPISODE:E3(N#0#0)(Rng:1)Len<1728>Dim<1>KEY1<0>Rec<1>
+   1)CUST_GBIN_MHA_PDS_CLIENT:CL2(N#5#0)(Rng:0)Len<4304>Dim<1>Row<1>
+
+Row:      2 Qual:      1 Len:    111
+
+  0)CUST_GBIN_MHA_PDS_EPISODE:E4(N#0#0)(Rng:1)Len<1728>Dim<1>KEY1<0>Rec<5>
+   1)CUST_GBIN_MHA_PDS_SERVICE:S(N#5#0)(Rng:0)Len<1690>Dim<1>Row<5>
+
+Row:     10 Qual:      1 Len:    947
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37502.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      14819
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37476.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      14743
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37478.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      13589
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37510.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      16369
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37504.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      17171
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37484.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      17103
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37480.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      17103
+
+  0)CUST_GBIN_MHA_PDS_LOG:LG(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     27
+start sGet_MHA_PDS_Log_Text
+->logID=      37482.00
+
+  0)CUST_GBIN_MHA_PDS_LOG:L(N#0#0)(Rng:0)Len<920>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:     19
+
+  0)LONG_BLOB:LB(N#0#0)(Rng:0)Len<32156>Dim<1>KEY1<0>Rec<1>
+
+Row:      1 Qual:      1 Len:  32011
+ending sGet_MHA_PDS_Log_Text, data length=      17135
+[02/20/2026 10:18:32]#END_026_GET_PATIENT_AUDIT_BUNDLES
+[02/20/2026 10:18:32]elapsed_time_seconds=          0
+[02/20/2026 10:18:32]final status=S
+[02/20/2026 10:18:32]************************************************************
+[02/20/2026 10:18:32]* END MHA PDS Service **************************************
+[02/20/2026 10:18:32]* START Email List Build ************************************
+[02/20/2026 10:18:32]** program_log->email.qual size  =           0
+[02/20/2026 10:18:32]* END   Email List Build ************************************
+closeLog(/cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_20260220101832.log)
+closeAudit(/cerner/d_m1958/cclscratch/m1958_gbin_mha_pds_service2006177612_2026_02_20_10_18_32.csv)
+[02/20/2026 10:18:32]LogActivity(_END)
+exiting script GBIN_MHA_PDS_SERVICE
+>>>Begin EchoRecord T_REC   ;T_REC
+ 1 REPLY
+  2 TEXT=VC37   {Found           8 bundles for patient}
+  2 JSON=VC0   {}
+  2 PROGRAM_LOG=VC0   {}
+  2 RELOAD_IND= I2   {0}
+  2 UPDATE_DATE_AND_TIME=DQ8   {71365223120000000    (2026-02-20 15:18:32.00) utc(1)}
+  2 ELAPSED_TIME_SECONDS= I4   {0}
+  2 STATUS_DATA
+   3 STATUS=C1   {S}
+   3 SUBEVENTSTATUS[1]
+    4 OPERATIONNAME=C15   {}
+    4 OPERATIONSTATUS=C1   {}
+    4 TARGETOBJECTNAME=C15   {}
+    4 TARGETOBJECTVALUE=C100   {}
+ 1 PROMPTS
+  2 OUTDEV=VC0   {}
+  2 JSON=VC0   {}
+  2 REQUESTTYPE=VC22   {getPatientAuditBundles}
+  2 REQUESTID=F8   {1771600580759.0000000000                }
+  2 REQUESTDATA=VC47   {{"audit_bundle_params":{"person_id":"6570236"}}}
+ 1 CONS
+  2 RUN_DT_TM=DQ8   {71365223120000000    (2026-02-20 15:18:32.00) utc(1)}
+  2 CLINICAL_OFFICE_IND= I2   {1}
+ 1 RESPONSE_ERROR_CNT= I2   {0}
+ 1 RESPONSE_ERROR_QUAL[0,0*]
+>>>End EchoRecord T_REC Varchar=7, Varlist=0, Fixsize=262, Varsize=328
+{"runStats":{"id":0,"startTime":"2026-02-20T15:18:32.000+00:00","endTime":"2026-02-20T15:18:32.000+00:00","status":"","hexMode":0,"
+debugFile":"","referenceInd":0,"domain":"M1958","node":"gbrhcdapp5","prsnlId":5874970.000000,"prsnlName":"Cummings, Chad (Consultan
+t)","physicianInd":0,"positionCd":19680934.000000,"position":"DBA","username":"CCUMMINGS"},"chartId":{"personId":0.000000,"encntrId
+":0.000000,"nameFullFormatted":""},"errors":[],"customPre":[{"id":"getPatientAuditBundles","data":{"STATUS":"S","PERSON_ID":6570236
+.000000,"DISPLAY_NAME":"APRICOT, A","MRN":"500090","BUNDLE_CNT":8,"BUNDLES":[{"SUBMISSION_BATCH_ID":"FFBD0546-0D10-11F1-A90A-C356B1
+A7C87E","SUBMISSION_RESPONSE_ID":"621044","BUNDLE_TYPE":"SERVICE_REQUEST_EOC","SUBMISSION_STATUS":"ACCEPTED","SUBMISSION_DT_TM":"20
+26-02-18 16:30:29","SUBMISSION_DT_TM_FMT":"18-FEB-2026 16:30:29","RECORD_SOURCE":"EPISODE","SOURCE_ID":37117.000000,"EPISODE_IDENTI
+FIER":"EP-54024729","DATA_POINT_CNT":9,"DATA_POINTS":[{"FIELD_CODE":"DE05.001","FIELD_LABEL":"Referral ID","VALUE_SENT":"REF-540247
+29","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.002","FIELD_LABEL":"Referral Received Date","VALUE_SEN
+T":"17-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.004","FIELD_LABEL":"Referral Source Type"
+,"VALUE_SENT":"","MAPPED_CODE":"Primary Care","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.005","FIELD_LABEL":"Referral
+Type","VALUE_SENT":"","MAPPED_CODE":"Internal","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.001","FIELD_LABEL":"Episode
+Status","VALUE_SENT":"","MAPPED_CODE":"active","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.008","FIELD_LABEL":"Service
+Initiation Date","VALUE_SENT":"17-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.009","FIELD_LA
+BEL":"Service Enrollment Date","VALUE_SENT":"17-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE09.
+001","FIELD_LABEL":"Program Number","VALUE_SENT":"PROG-54024729","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE"
+:"DE09.003","FIELD_LABEL":"Functional Centre","VALUE_SENT":"","MAPPED_CODE":"Outpatient Addiction Treatment","MAPPED_LABEL":"","COD
+E_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUEST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:29-05:00\",\"
+mirthChannelId\":\"503b37e9-6e52-4c97-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMes
+sageId\":17758,\"submittedData\":\"{\\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FFBD0546-0D10-11F1-A90A-C356B1A7C87E\\\",\\\
+"meta\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"689e0602-73ac-4540-8175-3d0437b50dd0\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\
+\"code\\\":\\\"ebac5978-485a-4244-bed2-8c5b6a4ebd0c\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"2b1a6ad7-653d-4448-a5
+db-47d6d36376f4\\\",\\\"display\\\":\\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uu
+id:449f026e-c236-4381-8ffc-a45aa9590bbe\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"449f026e-c236-438
+1-8ffc-a45aa9590bbe\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-
+patient\\\"]},\\\"identifier\\\":[{\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0
+203\\\",\\\"code\\\":\\\"MR\\\",\\\"display\\\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhi
+r\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APR
+ICOT\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"h
+ttp:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"addre
+ss\\\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"com
+munication\\\":[{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUs
+e\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\
+",\\\"display\\\":\\\"Language of comfort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"co
+de\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/Structu
+reDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealt
+h.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\
+\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrg
+anization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:cb12b491-97
+3d-40ad-b219-e4969c8c107d\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"cb12b491-973d-40ad-b219-e4
+969c8c107d\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organizat
+ion\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\
+"value\\\":\\\"10022\\\"},{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\
+":\\\"955\\\"}],\\\"active\\\":true,\\\"name\\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:4d0a2ba3-fc34-4
+1ab-af5a-af7b6b8d5e13\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e
+13\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\
+\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"
+4\\\"}],\\\"name\\\":\\\"Wellness & Recovery Centre\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-
+40ad-b219-e4969c8c107d\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\\"resource\\\":{\\\"resource
+Type\\\":\\\"ServiceRequest\\\",\\\"id\\\":\\\"b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\
+/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohe
+alth.ca\/fhir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":
+\\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-15\\\",\\\"display\\\":\\\"Ph
+ysician\/Private Practitioner\\\"}]}},{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-Referra
+lType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-t
+ype\\\",\\\"code\\\":\\\"1\\\",\\\"display\\\":\\\"Internal Referral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehea
+lthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-referral\\\",\\\"value\\\":\\\"REF-54024729\\\"}],\\\"statu
+s\\\":\\\"active\\\",\\\"intent\\\":\\\"order\\\",\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590
+bbe\\\"},\\\"authoredOn\\\":\\\"2026-02-17\\\",\\\"locationReference\\\":[{\\\"reference\\\":\\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-a
+f7b6b8d5e13\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\\"resource\\\":{\\\"resourceType\\\":\
+\\"EpisodeOfCare\\\",\\\"id\\\":\\\"efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohea
+lth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhi
+r\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\\"valueDate\\\":\\\"2026-02-17\\\"},{\\\"url\\\":\\\"http:\/\/onta
+riohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\\"valueDate\\\":\\\"2026-02-17\\\"}],\\\"identifier\
+\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\
+\\"value\\\":\\\"EP-54024729\\\"}],\\\"status\\\":\\\"active\\\",\\\"patient\\\":{\\\"reference\\\":\\\"urn:uuid:449f026e-c236-4381
+-8ffc-a45aa9590bbe\\\"},\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"},\\\"
+referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:733
+ca71d-5ade-4ca7-ba85-89d09125af99\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"HealthcareService\\\",\\\"id\\\":\\\"733ca71d-5ade
+-4ca7-ba85-89d09125af99\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-prof
+ile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext
+-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/ont
+ario-healthcare-reporting-system\\\",\\\"code\\\":\\\"715207810\\\",\\\"display\\\":\\\"COM Day\/Evening Addictions Treatment\\\"}]
+}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",
+\\\"value\\\":\\\"8\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"},\\\"location
+\\\":[{\\\"reference\\\":\\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"}],\\\"name\\\":\\\"Outpatient Addiction Treatment\\\
+"}}]}\",\"responseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\\"621044\\\",\\n  \\\"meta\\\": {\\n    \\
+\"versionId\\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21:30:29.325+00:00\\\",\\n    \\\"source\\\": \\\"#4527bf9e6c
+8e5cc4e5d9452cae4ec1b6\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"4527bf9e6c8e5cc4e5d9452cae4ec1b6\\\",\\n      \\\"disp
+lay\\\": \\\"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69962f7546543613\\\",\\n      \\\"display\\\": \\\"X-GtwyTx
+Id\\\"\\n    } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:uuid:449f026e-c
+236-4381-8ffc-a45aa9590bbe\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n
+        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\" ]\\n      },\\n
+     \\\"identifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/t
+erminology.hl7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n            \\\"display\\\": \\\"Medical rec
+ord number\\\"\\n          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-bright
+shores-health-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ],\\n      \\\"name\\\": [ {\\n        \\\"
+family\\\": \\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n      \\\"birthDate\\\": \\\"1967-07-15\\\",\\n
+     \\\"_birthDate\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/Structure
+Definition\/ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\": false\\n        } ]\\n      },\\n      \\\"ad
+dress\\\": [ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\
+n        \\\"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [ {\\n        \\\"extension\\\": [ {\\n
+      \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCo
+deableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n
+       \\\"code\\\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language of comfort\\\"\\n            } ]\\n
+}\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\
+",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      }, {\
+\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-L
+anguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"h
+ttp:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code\\\": \\\"OFL\\\",\\n              \\\"display
+\\\": \\\"Official Language\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding
+\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\
+\\": \\\"English\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\":
+\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:cb12b491-973d-
+40ad-b219-e4969c8c107d\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Organization\\\",\\n      \\\"meta\\\": {\\
+n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\" ]\\n
+},\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-Co
+nnexOrg\\\",\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/Na
+mingSystem\/id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\n      \\\"active\\\": true,\\n      \\\"n
+ame\\\": \\\"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e
+13\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\"
+: [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\" ]\\n      },\\n      \\\"identifier\\\
+": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\n        \\\"valu
+e\\\": \\\"4\\\"\\n      } ],\\n      \\\"name\\\": \\\"Wellness & Recovery Centre\\\",\\n      \\\"managingOrganization\\\": {\\n
+       \\\"reference\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \
+\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"ServiceRequest\\\
+",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-service
+request\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefini
+tion\/ca-on-ext-referralSourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\
+"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\n            \\\"code\\\": \\\"018-
+15\\\",\\n            \\\"display\\\": \\\"Physician\/Private Practitioner\\\"\\n          } ]\\n        }\\n      }, {\\n        \
+\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\n        \\\"valueCodeableC
+oncept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referr
+al-type\\\",\\n            \\\"code\\\": \\\"1\\\",\\n            \\\"display\\\": \\\"Internal Referral\\\"\\n          } ]\\n
+    }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id
+-brightshores-health-system-oracle-referral\\\",\\n        \\\"value\\\": \\\"REF-54024729\\\"\\n      } ],\\n      \\\"status\\\":
+ \\\"active\\\",\\n      \\\"intent\\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:449f02
+6e-c236-4381-8ffc-a45aa9590bbe\\\"\\n      },\\n      \\\"authoredOn\\\": \\\"2026-02-17\\\",\\n      \\\"locationReference\\\": [
+{\\n        \\\"reference\\\": \\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl
+\\\": \\\"urn:uuid:efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"EpisodeOfC
+are\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-E
+pisodeOfCare\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureD
+efinition\/ca-on-ext-eligibilityScreeningDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n      }, {\\n        \\\"url\\
+\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\n        \\\"valueDate\\\": \\\
+"2026-02-17\\\"\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/Naming
+System\/id-brightshores-health-system-oracle-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP-54024729\\\"\\n      } ],\\n
+ \\\"status\\\": \\\"active\\\",\\n      \\\"patient\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa
+9590bbe\\\"\\n      },\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4
+969c8c107d\\\"\\n      },\\n      \\\"referralRequest\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-22
+2ed966b1bf\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:733ca71d-5ade-4ca7-ba85-89d09125af99\\\",\\n    \\\
+"resource\\\": {\\n      \\\"resourceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"
+http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\" ]\\n      },\\n      \\\"extension\\\
+": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\n
+       \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\
+/dataset\/ontario-healthcare-reporting-system\\\",\\n            \\\"code\\\": \\\"715207810\\\",\\n            \\\"display\\\": \\
+\"COM Day\/Evening Addictions Treatment\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"
+system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\n        \\\"value\\\": \\
+\"8\\\"\\n      } ],\\n      \\\"providedBy\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\
+\"\\n      },\\n      \\\"location\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"\\n
+    } ],\\n      \\\"name\\\": \\\"Outpatient Addiction Treatment\\\"\\n    }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseSt
+atusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BATCH_ID":"FF7F3CA2-0D10-11F1-A90A-9164710592D9","SUBMISSION_RESPONSE_ID":"62
+0993","BUNDLE_TYPE":"SERVICE_REQUEST_EOC","SUBMISSION_STATUS":"ACCEPTED","SUBMISSION_DT_TM":"2026-02-18 16:30:19","SUBMISSION_DT_TM
+_FMT":"18-FEB-2026 16:30:19","RECORD_SOURCE":"EPISODE","SOURCE_ID":36762.000000,"EPISODE_IDENTIFIER":"EP-54022731","DATA_POINT_CNT"
+:9,"DATA_POINTS":[{"FIELD_CODE":"DE05.001","FIELD_LABEL":"Referral ID","VALUE_SENT":"REF-54022731","MAPPED_CODE":"","MAPPED_LABEL":
+"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.002","FIELD_LABEL":"Referral Received Date","VALUE_SENT":"01-FEB-2026","MAPPED_CODE":"","M
+APPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.004","FIELD_LABEL":"Referral Source Type","VALUE_SENT":"","MAPPED_CODE":"Emer
+gency Response","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE05.005","FIELD_LABEL":"Referral Type","VALUE_SENT":"","MAPPED_
+CODE":"External","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.001","FIELD_LABEL":"Episode Status","VALUE_SENT":"","MAPPE
+D_CODE":"active","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.008","FIELD_LABEL":"Service Initiation Date","VALUE_SENT":
+"04-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE06.009","FIELD_LABEL":"Service Enrollment Date"
+,"VALUE_SENT":"04-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE09.001","FIELD_LABEL":"Program Nu
+mber","VALUE_SENT":"PROG-54022731","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE09.003","FIELD_LABEL":"Fun
+ctional Centre","VALUE_SENT":"","MAPPED_CODE":"BriefCounsel-OS","MAPPED_LABEL":"","CODE_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUE
+ST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:19-05:00\",\"mirthChannelId\":\"503b37e9-6e52-4c97-a4a7-ea
+c8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMessageId\":17745,\"submittedData\":\"{\\\"resou
+rceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FF7F3CA2-0D10-11F1-A90A-9164710592D9\\\",\\\"meta\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"97c
+23795-96f1-4067-830e-34cd1cf34381\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\\"code\\\":\\\"0fa8716f-17ab-45e8-978c-28ae5f
+533668\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"fbb31e33-172e-42c6-be3f-2e51566c87eb\\\",\\\"display\\\":\\\"X-Lob
+TxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\
+\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\\\"meta\\\":{\\\"pro
+file\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\"]},\\\"identifier\\\":[{\\\"type\\
+\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\\"code\\\":\\\"MR\\\",\\\"display\\
+\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-syste
+m-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birt
+hDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefi
+nition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"address\\\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\
+":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communication\\\":[{\\\"extension\\\":[{\\\"url\
+\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"codin
+g\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\\"display\\\":\\\"Language of comfort\\\"
+}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English
+\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\
+\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\\"c
+ode\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:b
+cp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid
+:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\\"resource\\\
+":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\\"meta\\\":{\\\"profile\\\":
+[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\"]},\\\"identifier\\\":[{\\\"system\\\"
+:\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\"value\\\":\\\"10022\\\"},{\\\"system\\\":\\\
+"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\":\\\"955\\\"}],\\\"active\\\":true,\\\"name\
+\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\\"resource\\\":{\
+\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"htt
+p:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/
+\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\"}],\\\"name\\\":\\\"Owen Sound Hospital\
+\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"}}},{\\\"fullUrl\\\":\\\"u
+rn:uuid:8b4697d8-9359-45e1-8962-9c24b081f6e2\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"ServiceRequest\\\",\\\"id\\\":\\\"8b469
+7d8-9359-45e1-8962-9c24b081f6e2\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-
+mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referr
+alSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/common-data-
+set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-09\\\",\\\"display\\\":\\\"Crisis Intervention\\\"}]}},{\\\"url\\\":\\\"https:\/\
+/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"sys
+tem\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\\"code\\\":\\\"2\\\",\\\"display\\\":\\\"External Refe
+rral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system
+-oracle-referral\\\",\\\"value\\\":\\\"REF-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"intent\\\":\\\"order\\\",\\\"subject\\\
+":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"authoredOn\\\":\\\"2026-02-01\\\",\\\"locationRefer
+ence\\\":[{\\\"reference\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:fe9c6794-78a5-
+40e1-8b66-555ee8f42501\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\"fe9c6794-78a5-40e1-8b66-555e
+e8f42501\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"]}
+,\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\
+\\"valueDate\\\":\\\"2026-02-17\\\"},{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitia
+tionDate\\\",\\\"valueDate\\\":\\\"2026-02-04\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/Namin
+gSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\\\"value\\\":\\\"EP-54022731\\\"}],\\\"status\\\":\\\"active\\\"
+,\\\"patient\\\":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"managingOrganization\\\":{\\\"refere
+nce\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"},\\\"referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:8b4697d8-93
+59-45e1-8962-9c24b081f6e2\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:0d5472c4-6a2b-4ac5-b5dc-637edadd7106\\\",\\\"resource\\\":{\\\"reso
+urceType\\\":\\\"HealthcareService\\\",\\\"id\\\":\\\"0d5472c4-6a2b-4ac5-b5dc-637edadd7106\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"h
+ttp:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"
+http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"codi
+ng\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\\"code\\\":\\\"725107612\
+\\",\\\"display\\\":\\\"MH - Counselling and Treatment\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\
+/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\\"value\\\":\\\"15\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"ur
+n:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"},\\\"location\\\":[{\\\"reference\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c
+0d0a\\\"}],\\\"name\\\":\\\"BriefCounsel-OS\\\"}}]}\",\"responseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\"
+: \\\"620993\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21:30:19.252+00
+:00\\\",\\n    \\\"source\\\": \\\"#104ac330b2b381f884d0f87b5a45770f\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"104ac330
+b2b381f884d0f87b5a45770f\\\",\\n      \\\"display\\\": \\\"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69962f6b46543
+4c3\\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n    } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\
+\n    \\\"fullUrl\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\
+": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/
+ca-on-mha-profile-patient\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [
+{\\n            \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\
+\n            \\\"display\\\": \\\"Medical record number\\\"\\n          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/eh
+ealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n
+ } ],\\n      \\\"name\\\": [ {\\n        \\\"family\\\": \\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n
+    \\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_birthDate\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\":
+\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\":
+ false\\n        } ]\\n      },\\n      \\\"address\\\": [ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORON
+TO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\
+": [ {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mh
+a-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\"
+: \\\"http:\/\/snomed.info\/sct\\\",\\n              \\\"code\\\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language
+ of comfort\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n
+        \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English
+\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.
+ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\
+\\": [ {\\n              \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code
+\\\": \\\"OFL\\\",\\n              \\\"display\\\": \\\"Official Language\\\"\\n            } ]\\n          }\\n        } ],\\n
+    \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"co
+de\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrg
+anization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      }\\n    }\\n  }, {\\n
+  \\\"fullUrl\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \
+\\"Organization\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\
+/ca-on-mha-profile-organization\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthonta
+rio.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system
+\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      }
+],\\n      \\\"active\\\": true,\\n      \\\"name\\\": \\\"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \
+\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n
+     \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-locat
+ion\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/
+id-Location-ConnexSite\\\",\\n        \\\"value\\\": \\\"2\\\"\\n      } ],\\n      \\\"name\\\": \\\"Owen Sound Hospital\\\",\\n
+    \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      }\\n
+    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:8b4697d8-9359-45e1-8962-9c24b081f6e2\\\",\\n    \\\"resource\\\": {\\n      \\\"
+resourceType\\\": \\\"ServiceRequest\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\
+/StructureDefinition\/ca-on-mha-servicerequest\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/
+ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n
+  \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\
+",\\n            \\\"code\\\": \\\"018-09\\\",\\n            \\\"display\\\": \\\"Crisis Intervention\\\"\\n          } ]\\n
+ }\\n      }, {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\
+n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/ontariohealth.c
+a\/fhir\/CodeSystem\/referral-type\\\",\\n            \\\"code\\\": \\\"2\\\",\\n            \\\"display\\\": \\\"External Referral
+\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario
+.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-referral\\\",\\n        \\\"value\\\": \\\"REF-54022731\\\"\\n      }
+ ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"intent\\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n        \\\"referen
+ce\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"authoredOn\\\": \\\"2026-02-01\\\",\\n      \\
+\"locationReference\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"\\n      } ]\\n    }
+\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:fe9c6794-78a5-40e1-8b66-555ee8f42501\\\",\\n    \\\"resource\\\": {\\n      \\\"resou
+rceType\\\": \\\"EpisodeOfCare\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/Struc
+tureDefinition\/ca-on-mha-EpisodeOfCare\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontario
+health.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n
+   }, {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\n
+     \\\"valueDate\\\": \\\"2026-02-04\\\"\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehea
+lthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP-540227
+31\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"patient\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62
+c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid
+:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      },\\n      \\\"referralRequest\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid
+:8b4697d8-9359-45e1-8962-9c24b081f6e2\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:0d5472c4-6a2b-4ac5-b5dc-
+637edadd7106\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\\": {\\n
+    \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\" ]\\n
+},\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-fu
+nctionalCentreCode\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\
+"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\n            \\\"code\\\": \\\"725107612\\\",\\n
+        \\\"display\\\": \\\"MH - Counselling and Treatment\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\"
+: [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\n
+   \\\"value\\\": \\\"15\\\"\\n      } ],\\n      \\\"providedBy\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-411
+2-9a1d-db5170e58e61\\\"\\n      },\\n      \\\"location\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-
+e207be4c0d0a\\\"\\n      } ],\\n      \\\"name\\\": \\\"BriefCounsel-OS\\\"\\n    }\\n  } ]\\n}\",\"responseStatusCode\":201,\"resp
+onseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BATCH_ID":"FF805812-0D10-11F1-A90A-940120AC0DA2","SUBMISSION_RESPONSE_I
+D":"621038","BUNDLE_TYPE":"CLIENT_SDOH","SUBMISSION_STATUS":"ACCEPTED","SUBMISSION_DT_TM":"2026-02-18 16:30:20","SUBMISSION_DT_TM_F
+MT":"18-FEB-2026 16:30:20","RECORD_SOURCE":"CLIENT","SOURCE_ID":37070.000000,"EPISODE_IDENTIFIER":"EP-54022731","DATA_POINT_CNT":9,
+"DATA_POINTS":[{"FIELD_CODE":"DE01.004","FIELD_LABEL":"Date of Birth","VALUE_SENT":"1967-07-15","MAPPED_CODE":"","MAPPED_LABEL":"",
+"CODE_SYSTEM":""},{"FIELD_CODE":"DE02.001","FIELD_LABEL":"Client Identifier (MRN)","VALUE_SENT":"0500090","MAPPED_CODE":"","MAPPED_
+LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE02.003","FIELD_LABEL":"Health Card Number","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LA
+BEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE03.002","FIELD_LABEL":"City","VALUE_SENT":"TORONTO","MAPPED_CODE":"","MAPPED_LABEL":"","
+CODE_SYSTEM":""},{"FIELD_CODE":"DE03.003","FIELD_LABEL":"Province","VALUE_SENT":"","MAPPED_CODE":"Ontario","MAPPED_LABEL":"","CODE_
+SYSTEM":""},{"FIELD_CODE":"DE04.007","FIELD_LABEL":"Gender Identity","VALUE_SENT":"","MAPPED_CODE":"Man","MAPPED_LABEL":"","CODE_SY
+STEM":""},{"FIELD_CODE":"DE04.014","FIELD_LABEL":"Employment Status","VALUE_SENT":"","MAPPED_CODE":"Employed - part time (permanent
+)","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE04.017","FIELD_LABEL":"Housing Status","VALUE_SENT":"","MAPPED_CODE":"Suppo
+rtive housing or group home","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE04.020","FIELD_LABEL":"Legal Status","VALUE_SENT"
+:"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUEST\":{\"requestType\":\"logSubmission\",\"t
+imestamp\":\"2026-02-18T16:30:20-05:00\",\"mirthChannelId\":\"503b37e9-6e52-4c97-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - On
+tario Health Submission\",\"mirthChannelMessageId\":17746,\"submittedData\":\"{\\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"F
+F805812-0D10-11F1-A90A-940120AC0DA2\\\",\\\"meta\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"d475dc39-66cf-4495-bb60-4c1a06347bf9\\\",\\\"d
+isplay\\\":\\\"X-Client-Request-Id\\\"},{\\\"code\\\":\\\"28dc05cd-35af-41e6-ba4e-c9c22c468593\\\",\\\"display\\\":\\\"X-GtwyTxId\\
+\"},{\\\"code\\\":\\\"fcd3b7b5-e628-4def-ac7b-27a80ed561a6\\\",\\\"display\\\":\\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\"
+,\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"P
+atient\\\",\\\"id\\\":\\\"62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fh
+ir\/StructureDefinition\/ca-on-mha-profile-patient\\\"]},\\\"identifier\\\":[{\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"htt
+p:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\\"code\\\":\\\"MR\\\",\\\"display\\\":\\\"Medical record number\\\"}]},\\\"sys
+tem\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\
+\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate
+\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\
+\\",\\\"valueBoolean\\\":false}]},\\\"address\\\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",
+\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communication\\\":[{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/St
+ructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.
+info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\\"display\\\":\\\"Language of comfort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\
+\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\
+\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\"
+:[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Off
+icial Language\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"displ
+ay\\\":\\\"English\\\"}]}}],\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"}}
+},{\\\"fullUrl\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Organization\\\
+",\\\"id\\\":\\\"cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/Struc
+tureDefinition\/ca-on-mha-profile-organization\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/Nami
+ngSystem\/id-Organization-ConnexOrg\\\",\\\"value\\\":\\\"10022\\\"},{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSy
+stem\/id-Organization-OHFS\\\",\\\"value\\\":\\\"955\\\"}],\\\"active\\\":true,\\\"name\\\":\\\"Brightshores Health System\\\"}},{\
+\\"fullUrl\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id
+\\\":\\\"bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefi
+nition\/ca-on-mha-profile-location\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id
+-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\"}],\\\"name\\\":\\\"Owen Sound Hospital\\\",\\\"managingOrganization\\\":{\\\"refer
+ence\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:4ba38bb8-cf70-4f60-bb1f-6626c1f617a
+b\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Observation\\\",\\\"id\\\":\\\"4ba38bb8-cf70-4f60-bb1f-6626c1f617ab\\\",\\\"meta\\
+\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-sexual-orientation\\\"]},\
+\\"status\\\":\\\"final\\\",\\\"category\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/observ
+ation-category\\\",\\\"code\\\":\\\"social-history\\\",\\\"display\\\":\\\"Social History\\\"}]}],\\\"code\\\":{\\\"coding\\\":[{\\
+\"system\\\":\\\"http:\/\/loinc.org\\\",\\\"code\\\":\\\"76690-7\\\",\\\"display\\\":\\\"Sexual Orientation\\\"}]},\\\"subject\\\":
+{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"effectiveDateTime\\\":\\\"2026-02-17\\\",\\\"valueCod
+eableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/data-absent-reason\\\",\\\"code\\\"
+:\\\"asked-declined\\\",\\\"display\\\":\\\"Asked But Declined\\\"}]}}},{\\\"fullUrl\\\":\\\"urn:uuid:d13e3b18-7c76-4bd1-ac18-e63c6
+ad6b228\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Observation\\\",\\\"id\\\":\\\"d13e3b18-7c76-4bd1-ac18-e63c6ad6b228\\\",\\\"
+meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-total-household-inco
+me\\\"]},\\\"status\\\":\\\"final\\\",\\\"category\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSyst
+em\/observation-category\\\",\\\"code\\\":\\\"social-history\\\",\\\"display\\\":\\\"Social History\\\"}]}],\\\"code\\\":{\\\"codin
+g\\\":[{\\\"system\\\":\\\"http:\/\/loinc.org\\\",\\\"code\\\":\\\"77244-2\\\",\\\"display\\\":\\\"Total Household Income\\\"}]},\\
+\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"effectiveDateTime\\\":\\\"2026-02-17\\\
+",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/total-household-in
+come\\\",\\\"code\\\":\\\"4\\\",\\\"display\\\":\\\"$60,000-$89,999\\\"}]}}},{\\\"fullUrl\\\":\\\"urn:uuid:1de3f606-de09-4d72-9d50-
+2ef3625522bf\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Observation\\\",\\\"id\\\":\\\"1de3f606-de09-4d72-9d50-2ef3625522bf\\\"
+,\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-number-of-peopl
+e-income-supports\\\"]},\\\"status\\\":\\\"final\\\",\\\"category\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl
+7.org\/CodeSystem\/observation-category\\\",\\\"code\\\":\\\"social-history\\\",\\\"display\\\":\\\"Social History\\\"}]}],\\\"code
+\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/loinc.org\\\",\\\"code\\\":\\\"86639-2\\\",\\\"display\\\":\\\"Number of People
+Household Income Supports\\\"}]},\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"effe
+ctiveDateTime\\\":\\\"2026-02-17\\\",\\\"valueInteger\\\":88}}]}\",\"responseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\
+n  \\\"id\\\": \\\"621038\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21
+:30:20.033+00:00\\\",\\n    \\\"source\\\": \\\"#05dcb869c84cdc31c23fd144e0a91a4e\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\":
+ \\\"05dcb869c84cdc31c23fd144e0a91a4e\\\",\\n      \\\"display\\\": \\\"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee
+69962f6b51b0a582\\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n    } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"en
+try\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\",\\n    \\\"resource\\\": {\\n      \\\"re
+sourceType\\\": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/Structur
+eDefinition\/ca-on-mha-profile-patient\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"c
+oding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\":
+ \\\"MR\\\",\\n            \\\"display\\\": \\\"Medical record number\\\"\\n          } ]\\n        },\\n        \\\"system\\\": \\
+\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"050009
+0\\\"\\n      } ],\\n      \\\"name\\\": [ {\\n        \\\"family\\\": \\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n
+    } ],\\n      \\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_birthDate\\\": {\\n        \\\"extension\\\": [ {\\n
+\\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valu
+eBoolean\\\": false\\n        } ]\\n      },\\n      \\\"address\\\": [ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\
+\": \\\"TORONTO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"com
+munication\\\": [ {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinit
+ion\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \
+\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n              \\\"code\\\": \\\"428996008\\\",\\n              \\\"display\\\":
+ \\\"Language of comfort\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\
+": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\"
+: \\\"English\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/o
+ntariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n
+  \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n
+     \\\"code\\\": \\\"OFL\\\",\\n              \\\"display\\\": \\\"Official Language\\\"\\n            } ]\\n          }\\n
+  } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n
+       \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      } ],\\n      \\
+\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      }\\n    }\
+\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\n    \\\"resource\\\": {\\n      \\\"resour
+ceType\\\": \\\"Organization\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/Structu
+reDefinition\/ca-on-mha-profile-organization\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/
+\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n
+   \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\
+\"\\n      } ],\\n      \\\"active\\\": true,\\n      \\\"name\\\": \\\"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"f
+ullUrl\\\": \\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Loca
+tion\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-
+profile-location\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/N
+amingSystem\/id-Location-ConnexSite\\\",\\n        \\\"value\\\": \\\"2\\\"\\n      } ],\\n      \\\"name\\\": \\\"Owen Sound Hospi
+tal\\\",\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"
+\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:4ba38bb8-cf70-4f60-bb1f-6626c1f617ab\\\",\\n    \\\"resource\\\": {
+\\n      \\\"resourceType\\\": \\\"Observation\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth
+.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-sexual-orientation\\\" ]\\n      },\\n      \\\"status\\\": \\\"final\\\"
+,\\n      \\\"category\\\": [ {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSys
+tem\/observation-category\\\",\\n          \\\"code\\\": \\\"social-history\\\",\\n          \\\"display\\\": \\\"Social History\\\
+"\\n        } ]\\n      } ],\\n      \\\"code\\\": {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/loinc.o
+rg\\\",\\n          \\\"code\\\": \\\"76690-7\\\",\\n          \\\"display\\\": \\\"Sexual Orientation\\\"\\n        } ]\\n      },
+\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \
+\\"effectiveDateTime\\\": \\\"2026-02-17\\\",\\n      \\\"valueCodeableConcept\\\": {\\n        \\\"coding\\\": [ {\\n          \\\
+"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/data-absent-reason\\\",\\n          \\\"code\\\": \\\"asked-declined\\\"
+,\\n          \\\"display\\\": \\\"Asked But Declined\\\"\\n        } ]\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:u
+uid:d13e3b18-7c76-4bd1-ac18-e63c6ad6b228\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Observation\\\",\\n
+\\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-to
+tal-household-income\\\" ]\\n      },\\n      \\\"status\\\": \\\"final\\\",\\n      \\\"category\\\": [ {\\n        \\\"coding\\\"
+: [ {\\n          \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/observation-category\\\",\\n          \\\"code\\\":
+ \\\"social-history\\\",\\n          \\\"display\\\": \\\"Social History\\\"\\n        } ]\\n      } ],\\n      \\\"code\\\": {\\n
+       \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/loinc.org\\\",\\n          \\\"code\\\": \\\"77244-2\\\",\\n
+       \\\"display\\\": \\\"Total Household Income\\\"\\n        } ]\\n      },\\n      \\\"subject\\\": {\\n        \\\"reference\
+\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"effectiveDateTime\\\": \\\"2026-02-17\\\",\\n
+  \\\"valueCodeableConcept\\\": {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/Co
+deSystem\/total-household-income\\\",\\n          \\\"code\\\": \\\"4\\\",\\n          \\\"display\\\": \\\"$60,000-$89,999\\\"\\n
+       } ]\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:1de3f606-de09-4d72-9d50-2ef3625522bf\\\",\\n    \\\"resou
+rce\\\": {\\n      \\\"resourceType\\\": \\\"Observation\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ont
+ariohealth.ca\/fhir\/StructureDefinition\/ca-on-profile-observation-number-of-people-income-supports\\\" ]\\n      },\\n      \\\"s
+tatus\\\": \\\"final\\\",\\n      \\\"category\\\": [ {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/term
+inology.hl7.org\/CodeSystem\/observation-category\\\",\\n          \\\"code\\\": \\\"social-history\\\",\\n          \\\"display\\\
+": \\\"Social History\\\"\\n        } ]\\n      } ],\\n      \\\"code\\\": {\\n        \\\"coding\\\": [ {\\n          \\\"system\\
+\": \\\"http:\/\/loinc.org\\\",\\n          \\\"code\\\": \\\"86639-2\\\",\\n          \\\"display\\\": \\\"Number of People Househ
+old Income Supports\\\"\\n        } ]\\n      },\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62c3c7ea-d2d7
+-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"effectiveDateTime\\\": \\\"2026-02-17\\\",\\n      \\\"valueInteger\\\": 88\\n
+  }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BATCH_ID":"9997D6E2-
+0D15-11F1-A916-D1C8CD367A69","SUBMISSION_RESPONSE_ID":"621046","BUNDLE_TYPE":"HEALTH_SERVICES","SUBMISSION_STATUS":"ACCEPTED","SUBM
+ISSION_DT_TM":"2026-02-18 17:03:08","SUBMISSION_DT_TM_FMT":"18-FEB-2026 17:03:08","RECORD_SOURCE":"SERVICE","SOURCE_ID":36800.00000
+0,"EPISODE_IDENTIFIER":"EP-54022731","DATA_POINT_CNT":7,"DATA_POINTS":[{"FIELD_CODE":"DE07.001","FIELD_LABEL":"HSP Organization Num
+ber","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE08.001","FIELD_LABEL":"HSP Site Number",
+"VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.001","FIELD_LABEL":"Service Event ID","VAL
+UE_SENT":"SRV-3393361569","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.002","FIELD_LABEL":"Service Moda
+lity","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.004","FIELD_LABEL":"Service Event Da
+te","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.005","FIELD_LABEL":"Direct Service Min
+utes","VALUE_SENT":"          0","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.007","FIELD_LABEL":"Encou
+nter Status","VALUE_SENT":"","MAPPED_CODE":"entered-in-error","MAPPED_LABEL":"","CODE_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUEST
+\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T17:03:08-05:00\",\"mirthChannelId\":\"503b37e9-6e52-4c97-a4a7-eac8
+b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMessageId\":17760,\"submittedData\":\"{\\\"resourc
+eType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"9997D6E2-0D15-11F1-A916-D1C8CD367A69\\\",\\\"meta\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"13b42
+efb-8894-4085-9bf7-0f4475022a69\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\\"code\\\":\\\"8e9bf86b-17ce-46b3-81e7-66b6ceb8
+4472\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"ccde5682-a3c5-4c79-a54a-1ae8c568a267\\\",\\\"display\\\":\\\"X-LobTx
+Id\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\",\\\
+"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\",\\\"meta\\\":{\\\"profi
+le\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\"]},\\\"identifier\\\":[{\\\"type\\\"
+:{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\\"code\\\":\\\"MR\\\",\\\"display\\\"
+:\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-
+oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birthD
+ate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefini
+tion\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"address\\\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\":
+\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communication\\\":[{\\\"extension\\\":[{\\\"url\\\
+":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\
+\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\\"display\\\":\\\"Language of comfort\\\"}]
+}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\
+\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\
+"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\\"cod
+e\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp
+:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:8
+398662c-a1b2-4332-bb4d-e318a83b1de8\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\",\\\"resource\\\":
+{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"8398662c-a1b2-4332-bb4d-e318a83b1de8\\\",\\\"meta\\\":{\\\"profile\\\":[\
+\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\"]},\\\"identifier\\\":[{\\\"system\\\":\
+\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\"value\\\":\\\"10022\\\"},{\\\"system\\\":\\\"h
+ttp:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\":\\\"955\\\"}],\\\"active\\\":true,\\\"name\\\
+":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\",\\\"resource\\\":{\\\
+"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:
+\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/
+ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\"}],\\\"name\\\":\\\"Owen Sound Hospital\\\
+",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"}}},{\\\"fullUrl\\\":\\\"urn
+:uuid:0ae454ca-7da4-427a-865d-670ad801a755\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"ServiceRequest\\\",\\\"id\\\":\\\"0ae454c
+a-7da4-427a-865d-670ad801a755\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mh
+a-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referral
+SourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/common-data-se
+t-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-09\\\",\\\"display\\\":\\\"Crisis Intervention\\\"}]}},{\\\"url\\\":\\\"https:\/\/o
+ntariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"syste
+m\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\\"code\\\":\\\"2\\\",\\\"display\\\":\\\"External Referr
+al\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-o
+racle-referral\\\",\\\"value\\\":\\\"REF-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"intent\\\":\\\"order\\\",\\\"subject\\\":
+{\\\"reference\\\":\\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\"},\\\"encounter\\\":{\\\"reference\\\":\\\"urn:uuid:9f6093c
+c-49e0-4751-aa90-d3e27ea68d29\\\"},\\\"authoredOn\\\":\\\"2026-02-01\\\",\\\"locationReference\\\":[{\\\"reference\\\":\\\"urn:uuid
+:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:045939a4-fcd6-4332-b772-208516638c69\\\",\\\"resource\\
+\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\"045939a4-fcd6-4332-b772-208516638c69\\\",\\\"meta\\\":{\\\"profile\\\
+":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http
+:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\\"valueDate\\\":\\\"2026-02-17\\\"},{\\\
+"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\\"valueDate\\\":\\\"2026-0
+2-04\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-or
+acle-episode-of-care\\\",\\\"value\\\":\\\"EP-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"patient\\\":{\\\"reference\\\":\\\"u
+rn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\"},\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:8398662c-a1b2-4332-b
+b4d-e318a83b1de8\\\"},\\\"referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:0ae454ca-7da4-427a-865d-670ad801a755\\\"}]}},{\\\"fu
+llUrl\\\":\\\"urn:uuid:9f6093cc-49e0-4751-aa90-d3e27ea68d29\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Encounter\\\",\\\"id\\\"
+:\\\"9f6093cc-49e0-4751-aa90-d3e27ea68d29\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefiniti
+on\/ca-on-mha-profile-encounter\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-br
+ightshores-health-system-oracle-encounter\\\",\\\"value\\\":\\\"SRV-3393361569\\\"}],\\\"status\\\":\\\"entered-in-error\\\",\\\"cl
+ass\\\":{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\\"code\\\":\\\"AMB\\\",\\\"display\\\":\\\"A
+mbulatory\\\"},\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\"}}},{\\\"fullUrl\\\":\\\"urn
+:uuid:85c1cb4b-1bcd-4aa2-a1d6-c13970c83ee0\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"HealthcareService\\\",\\\"id\\\":\\\"85c1
+cb4b-1bcd-4aa2-a1d6-c13970c83ee0\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on
+-mha-profile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-o
+n-mha-ext-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dat
+aset\/ontario-healthcare-reporting-system\\\",\\\"code\\\":\\\"725107612\\\",\\\"display\\\":\\\"MH - Counselling and Treatment\\\"
+}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\
+",\\\"value\\\":\\\"15\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"},\\\"locat
+ion\\\":[{\\\"reference\\\":\\\"urn:uuid:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\"}],\\\"name\\\":\\\"BriefCounsel-OS\\\"}}]}\",\"re
+sponseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\\"621046\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\
+\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T22:03:07.770+00:00\\\",\\n    \\\"source\\\": \\\"#9fbd6fb802845ce02e52d0
+f281ab6bc7\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"9fbd6fb802845ce02e52d0f281ab6bc7\\\",\\n      \\\"display\\\": \\\
+"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69963719465598f3\\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n
+ } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:uuid:f9d04032-8496-4b5e-be5
+e-5cdf8d57caf2\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"
+profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\" ]\\n      },\\n      \\\"ide
+ntifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/terminology.h
+l7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n            \\\"display\\\": \\\"Medical record number\\
+\"\\n          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-healt
+h-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ],\\n      \\\"name\\\": [ {\\n        \\\"family\\\":
+\\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n      \\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_bi
+rthDate\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/
+ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\": false\\n        } ]\\n      },\\n      \\\"address\\\": [
+ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\
+"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [ {\\n        \\\"extension\\\": [ {\\n          \\\"ur
+l\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcep
+t\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n              \\\"c
+ode\\\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language of comfort\\\"\\n            } ]\\n          }\\n
+} ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n
+     \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      }, {\\n        \\
+\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\
+\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/onta
+riohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code\\\": \\\"OFL\\\",\\n              \\\"display\\\": \\\"Of
+ficial Language\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n
+            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"Eng
+lish\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid
+:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:8398662c-a1b2-4332-bb4d-e3
+18a83b1de8\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Organization\\\",\\n      \\\"meta\\\": {\\n        \\\
+"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\" ]\\n      },\\n      \
+\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",
+\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/
+id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\n      \\\"active\\\": true,\\n      \\\"name\\\": \\\
+"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\",\\n
+  \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http
+:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n
+     \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\n        \\\"value\\\": \\\"2
+\\\"\\n      } ],\\n      \\\"name\\\": \\\"Owen Sound Hospital\\\",\\n      \\\"managingOrganization\\\": {\\n        \\\"referenc
+e\\\": \\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:0ae454c
+a-7da4-427a-865d-670ad801a755\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"ServiceRequest\\\",\\n      \\\"meta
+\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\" ]\\n
+   },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ref
+erralSourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"ht
+tps:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\n            \\\"code\\\": \\\"018-09\\\",\\n
+   \\\"display\\\": \\\"Crisis Intervention\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"url\\\": \\\"https:\/\/ontar
+iohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"c
+oding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\n            \\\"
+code\\\": \\\"2\\\",\\n            \\\"display\\\": \\\"External Referral\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"
+identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-ora
+cle-referral\\\",\\n        \\\"value\\\": \\\"REF-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"in
+tent\\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\
+\\"\\n      },\\n      \\\"encounter\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:9f6093cc-49e0-4751-aa90-d3e27ea68d29\\\"\\n
+    },\\n      \\\"authoredOn\\\": \\\"2026-02-01\\\",\\n      \\\"locationReference\\\": [ {\\n        \\\"reference\\\": \\\"urn:
+uuid:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:045939a4-fcd6-4332-b
+772-208516638c69\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"EpisodeOfCare\\\",\\n      \\\"meta\\\": {\\n
+    \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\" ]\\n      },\\n      \
+\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeni
+ngDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n      }, {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir
+\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-04\\\"\\n      } ],\\n      \\
+\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-o
+racle-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n
+  \\\"patient\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\"\\n      },\\n      \\\"mana
+gingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"\\n      },\\n      \\\"r
+eferralRequest\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:0ae454ca-7da4-427a-865d-670ad801a755\\\"\\n      } ]\\n    }\\n
+}, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:9f6093cc-49e0-4751-aa90-d3e27ea68d29\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceTy
+pe\\\": \\\"Encounter\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefin
+ition\/ca-on-mha-profile-encounter\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealtho
+ntario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\n        \\\"value\\\": \\\"SRV-3393361569\\\"\
+\n      } ],\\n      \\\"status\\\": \\\"entered-in-error\\\",\\n      \\\"class\\\": {\\n        \\\"system\\\": \\\"http:\/\/term
+inology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\n        \\\"code\\\": \\\"AMB\\\",\\n        \\\"display\\\": \\\"Ambulatory\\\"\\n
+     },\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:f9d04032-8496-4b5e-be5e-5cdf8d57caf2\\\"\\n      }\\n
+   }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:85c1cb4b-1bcd-4aa2-a1d6-c13970c83ee0\\\",\\n    \\\"resource\\\": {\\n      \\\"r
+esourceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhi
+r\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\":
+\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\n        \\\"valueCodeableConcep
+t\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-r
+eporting-system\\\",\\n            \\\"code\\\": \\\"725107612\\\",\\n            \\\"display\\\": \\\"MH - Counselling and Treatme
+nt\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontar
+io.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\n        \\\"value\\\": \\\"15\\\"\\n      } ],\\n      \\\"pro
+videdBy\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:8398662c-a1b2-4332-bb4d-e318a83b1de8\\\"\\n      },\\n      \\\"location\\
+\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:b6c4cb66-3f94-4b2f-a3fa-d24c5cd36e33\\\"\\n      } ],\\n      \\\"name\\\": \\\"B
+riefCounsel-OS\\\"\\n    }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSI
+ON_BATCH_ID":"FFBDC828-0D10-11F1-A90A-81B12DCE09E7","SUBMISSION_RESPONSE_ID":"621045","BUNDLE_TYPE":"HEALTH_SERVICES","SUBMISSION_S
+TATUS":"ACCEPTED","SUBMISSION_DT_TM":"2026-02-18 16:30:30","SUBMISSION_DT_TM_FMT":"18-FEB-2026 16:30:30","RECORD_SOURCE":"SERVICE",
+"SOURCE_ID":37144.000000,"EPISODE_IDENTIFIER":"EP-54024729","DATA_POINT_CNT":7,"DATA_POINTS":[{"FIELD_CODE":"DE07.001","FIELD_LABEL
+":"HSP Organization Number","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE08.001","FIELD_LA
+BEL":"HSP Site Number","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.001","FIELD_LABEL":
+"Service Event ID","VALUE_SENT":"SRV-3393363613","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.002","FIE
+LD_LABEL":"Service Modality","VALUE_SENT":"","MAPPED_CODE":"Outpatient - Face-to-Face","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_
+CODE":"DE10.004","FIELD_LABEL":"Service Event Date","VALUE_SENT":"17-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""}
+,{"FIELD_CODE":"DE10.005","FIELD_LABEL":"Direct Service Minutes","VALUE_SENT":"        120","MAPPED_CODE":"","MAPPED_LABEL":"","COD
+E_SYSTEM":""},{"FIELD_CODE":"DE10.007","FIELD_LABEL":"Encounter Status","VALUE_SENT":"","MAPPED_CODE":"finished","MAPPED_LABEL":"",
+"CODE_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUEST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:30-05:00\
+",\"mirthChannelId\":\"503b37e9-6e52-4c97-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChanne
+lMessageId\":17759,\"submittedData\":\"{\\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FFBDC828-0D10-11F1-A90A-81B12DCE09E7\\\"
+,\\\"meta\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"bf1758be-fee7-49f2-bf34-cefb5f6efe7c\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"}
+,{\\\"code\\\":\\\"b22199f7-dfe9-4c1b-8581-b5ae9272f3f4\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"e696938c-fcec-41f
+2-bc75-30f0407bf9a2\\\",\\\"display\\\":\\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"ur
+n:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"449f026e-c236
+-4381-8ffc-a45aa9590bbe\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-prof
+ile-patient\\\"]},\\\"identifier\\\":[{\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/
+v2-0203\\\",\\\"code\\\":\\\"MR\\\",\\\"display\\\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\
+/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\
+"APRICOT\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\
+\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"a
+ddress\\\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\
+"communication\\\":[{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-Langua
+geUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"42899600
+8\\\",\\\"display\\\":\\\"Language of comfort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\
+\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/Str
+uctureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontarioh
+ealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\
+":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managin
+gOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:cb12b49
+1-973d-40ad-b219-e4969c8c107d\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"cb12b491-973d-40ad-b21
+9-e4969c8c107d\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organ
+ization\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\"
+,\\\"value\\\":\\\"10022\\\"},{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"valu
+e\\\":\\\"955\\\"}],\\\"active\\\":true,\\\"name\\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:4d0a2ba3-fc
+34-41ab-af5a-af7b6b8d5e13\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"4d0a2ba3-fc34-41ab-af5a-af7b6b
+8d5e13\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]
+},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":
+\\\"4\\\"}],\\\"name\\\":\\\"Wellness & Recovery Centre\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-9
+73d-40ad-b219-e4969c8c107d\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\\"resource\\\":{\\\"reso
+urceType\\\":\\\"ServiceRequest\\\",\\\"id\\\":\\\"b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http
+:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontar
+iohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\
+\\":\\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-15\\\",\\\"display\\\":\\
+\"Physician\/Private Practitioner\\\"}]}},{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-Ref
+erralType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referr
+al-type\\\",\\\"code\\\":\\\"1\\\",\\\"display\\\":\\\"Internal Referral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/
+ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-referral\\\",\\\"value\\\":\\\"REF-54024729\\\"}],\\\"s
+tatus\\\":\\\"active\\\",\\\"intent\\\":\\\"order\\\",\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa
+9590bbe\\\"},\\\"encounter\\\":{\\\"reference\\\":\\\"urn:uuid:ab52b7bc-6ab3-4e31-b500-180b1b6b9632\\\"},\\\"authoredOn\\\":\\\"202
+6-02-17\\\",\\\"locationReference\\\":[{\\\"reference\\\":\\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"}]}},{\\\"fullUrl\\\
+":\\\"urn:uuid:efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\
+"efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/
+ca-on-mha-EpisodeOfCare\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-e
+ligibilityScreeningDate\\\",\\\"valueDate\\\":\\\"2026-02-17\\\"},{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefini
+tion\/ca-on-ext-ServiceInitiationDate\\\",\\\"valueDate\\\":\\\"2026-02-17\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/e
+healthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\\\"value\\\":\\\"EP-54024729\\\"}],
+\\\"status\\\":\\\"active\\\",\\\"patient\\\":{\\\"reference\\\":\\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\"},\\\"managin
+gOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"},\\\"referralRequest\\\":[{\\\"reference
+\\\":\\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:ab52b7bc-6ab3-4e31-b500-180b1b6b9632\\
+\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Encounter\\\",\\\"id\\\":\\\"ab52b7bc-6ab3-4e31-b500-180b1b6b9632\\\",\\\"meta\\\":{\
+\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-encounter\\\"]},\\\"extension\\\":[{\\\
+"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-directminutes\\\",\\\"valueInteger\\\":120}],\\\"
+identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\
+\\",\\\"value\\\":\\\"SRV-3393363613\\\"}],\\\"status\\\":\\\"finished\\\",\\\"class\\\":{\\\"system\\\":\\\"http:\/\/terminology.h
+l7.org\/CodeSystem\/v3-ActCode\\\",\\\"code\\\":\\\"AMB\\\",\\\"display\\\":\\\"In-person\\\"},\\\"type\\\":[{\\\"coding\\\":[{\\\"
+system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"803155061000087106\\\",\\\"display\\\":\\\"group encounter\\\"}]}],\\
+\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\"},\\\"period\\\":{\\\"start\\\":\\\"2026-02-1
+7\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:733ca71d-5ade-4ca7-ba85-89d09125af99\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Healthca
+reService\\\",\\\"id\\\":\\\"733ca71d-5ade-4ca7-ba85-89d09125af99\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\
+/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca
+\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\
+\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\\"code\\\":\\\"715207810\\\",\\\"display\\\":\\\"C
+OM Day\/Evening Addictions Treatment\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSyste
+m\/id-HealthcareService-ConnexProgram\\\",\\\"value\\\":\\\"8\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:cb12b491-973
+d-40ad-b219-e4969c8c107d\\\"},\\\"location\\\":[{\\\"reference\\\":\\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"}],\\\"name
+\\\":\\\"Outpatient Addiction Treatment\\\"}}]}\",\"responseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\
+\"621045\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21:30:29.955+00:00\
+\\",\\n    \\\"source\\\": \\\"#bdf9666f92f444fbfe07a58cd7eb8ca4\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"bdf9666f92f4
+44fbfe07a58cd7eb8ca4\\\",\\n      \\\"display\\\": \\\"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69962f7551b0a6c2\
+\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n    } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n
+  \\\"fullUrl\\\": \\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \
+\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-o
+n-mha-profile-patient\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n
+            \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n
+          \\\"display\\\": \\\"Medical record number\\\"\\n          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/ehealt
+hontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ]
+,\\n      \\\"name\\\": [ {\\n        \\\"family\\\": \\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n
+\\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_birthDate\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"
+http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\": fal
+se\\n        } ]\\n      },\\n      \\\"address\\\": [ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\
+\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [
+ {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ex
+t-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\
+\"http:\/\/snomed.info\/sct\\\",\\n              \\\"code\\\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language of
+comfort\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n
+    \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"
+\\n          } ]\\n        }\\n      }, {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/
+fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\":
+ [ {\\n              \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code\\\"
+: \\\"OFL\\\",\\n              \\\"display\\\": \\\"Official Language\\\"\\n            } ]\\n          }\\n        } ],\\n
+\\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\
+\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrganiz
+ation\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      }\\n    }\\n  }, {\\n    \\
+\"fullUrl\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"O
+rganization\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-
+on-mha-profile-organization\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.
+ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\"
+: \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\
+n      \\\"active\\\": true,\\n      \\\"name\\\": \\\"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"u
+rn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n
+ \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\
+\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-L
+ocation-ConnexSite\\\",\\n        \\\"value\\\": \\\"4\\\"\\n      } ],\\n      \\\"name\\\": \\\"Wellness & Recovery Centre\\\",\\
+n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      }
+\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\",\\n    \\\"resource\\\": {\\n      \
+\\"resourceType\\\": \\\"ServiceRequest\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fh
+ir\/StructureDefinition\/ca-on-mha-servicerequest\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\
+/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n
+     \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh
+\\\",\\n            \\\"code\\\": \\\"018-15\\\",\\n            \\\"display\\\": \\\"Physician\/Private Practitioner\\\"\\n
+  } ]\\n        }\\n      }, {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-Refe
+rralType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/
+ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\n            \\\"code\\\": \\\"1\\\",\\n            \\\"display\\\": \\\"In
+ternal Referral\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\
+/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-referral\\\",\\n        \\\"value\\\": \\\"REF-5402472
+9\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"intent\\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n
+    \\\"reference\\\": \\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\"\\n      },\\n      \\\"encounter\\\": {\\n        \\\"
+reference\\\": \\\"urn:uuid:ab52b7bc-6ab3-4e31-b500-180b1b6b9632\\\"\\n      },\\n      \\\"authoredOn\\\": \\\"2026-02-17\\\",\\n
+     \\\"locationReference\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:4d0a2ba3-fc34-41ab-af5a-af7b6b8d5e13\\\"\\n      } ]\
+\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:efc60c37-7f58-4aa4-8f7f-ac1e62096ef6\\\",\\n    \\\"resource\\\": {\\n      \\
+\"resourceType\\\": \\\"EpisodeOfCare\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir
+\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/
+ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\
+"\\n      }, {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\"
+,\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\
+/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP
+-54024729\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"patient\\\": {\\n        \\\"reference\\\": \\\"urn:
+uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\"\\n      },\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"u
+rn:uuid:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      },\\n      \\\"referralRequest\\\": [ {\\n        \\\"reference\\\": \\\"u
+rn:uuid:b17e025d-e3f8-4b5e-9ba3-222ed966b1bf\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:ab52b7bc-6ab3-4e3
+1-b500-180b1b6b9632\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Encounter\\\",\\n      \\\"meta\\\": {\\n
+   \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-encounter\\\" ]\\n      },\\n
+  \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-directminu
+tes\\\",\\n        \\\"valueInteger\\\": 120\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/eh
+ealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\n        \\\"value\\\": \\\"SRV-339336361
+3\\\"\\n      } ],\\n      \\\"status\\\": \\\"finished\\\",\\n      \\\"class\\\": {\\n        \\\"system\\\": \\\"http:\/\/termin
+ology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\n        \\\"code\\\": \\\"AMB\\\",\\n        \\\"display\\\": \\\"In-person\\\"\\n
+  },\\n      \\\"type\\\": [ {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n
+     \\\"code\\\": \\\"803155061000087106\\\",\\n          \\\"display\\\": \\\"group encounter\\\"\\n        } ]\\n      } ],\\n
+    \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:449f026e-c236-4381-8ffc-a45aa9590bbe\\\"\\n      },\\n      \\\"pe
+riod\\\": {\\n        \\\"start\\\": \\\"2026-02-17\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:733ca71d-5ad
+e-4ca7-ba85-89d09125af99\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\
+\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\
+" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-o
+n-mha-ext-functionalCentreCode\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"sys
+tem\\\": \\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\n            \\\"code\\\": \\\"715207810
+\\\",\\n            \\\"display\\\": \\\"COM Day\/Evening Addictions Treatment\\\"\\n          } ]\\n        }\\n      } ],\\n
+ \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexP
+rogram\\\",\\n        \\\"value\\\": \\\"8\\\"\\n      } ],\\n      \\\"providedBy\\\": {\\n        \\\"reference\\\": \\\"urn:uuid
+:cb12b491-973d-40ad-b219-e4969c8c107d\\\"\\n      },\\n      \\\"location\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:4d0a2b
+a3-fc34-41ab-af5a-af7b6b8d5e13\\\"\\n      } ],\\n      \\\"name\\\": \\\"Outpatient Addiction Treatment\\\"\\n    }\\n  } ]\\n}\",
+\"responseStatusCode\":201,\"responseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BATCH_ID":"FF91A374-0D10-11F1-A90A-DBD
+BB23B8F44","SUBMISSION_RESPONSE_ID":"620995","BUNDLE_TYPE":"HEALTH_SERVICES","SUBMISSION_STATUS":"ACCEPTED","SUBMISSION_DT_TM":"202
+6-02-18 16:30:22","SUBMISSION_DT_TM_FMT":"18-FEB-2026 16:30:22","RECORD_SOURCE":"SERVICE","SOURCE_ID":36799.000000,"EPISODE_IDENTIF
+IER":"EP-54022731","DATA_POINT_CNT":7,"DATA_POINTS":[{"FIELD_CODE":"DE07.001","FIELD_LABEL":"HSP Organization Number","VALUE_SENT":
+"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE08.001","FIELD_LABEL":"HSP Site Number","VALUE_SENT":"","M
+APPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.001","FIELD_LABEL":"Service Event ID","VALUE_SENT":"SRV-3393
+361232","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.002","FIELD_LABEL":"Service Modality","VALUE_SENT"
+:"","MAPPED_CODE":"Outpatient - Face-to-Face","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.004","FIELD_LABEL":"Service E
+vent Date","VALUE_SENT":"11-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.005","FIELD_LABEL":"
+Direct Service Minutes","VALUE_SENT":"         30","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.007","F
+IELD_LABEL":"Encounter Status","VALUE_SENT":"","MAPPED_CODE":"finished","MAPPED_LABEL":"","CODE_SYSTEM":""}],"JSON_PAYLOAD":"{\"MIR
+TH_REQUEST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:22-05:00\",\"mirthChannelId\":\"503b37e9-6e52-4c97
+-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMessageId\":17749,\"submittedData\":\"{\
+\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FF91A374-0D10-11F1-A90A-DBDBB23B8F44\\\",\\\"meta\\\":{\\\"tag\\\":[{\\\"code\\\"
+:\\\"085942cc-54b4-4bbc-82a9-4aa618c4a4d8\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\\"code\\\":\\\"c83e5489-3c37-4bb1-9a9
+7-ebf759c31c97\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"3c86883b-ef4b-478d-8ef6-3c1faa1d175a\\\",\\\"display\\\":\
+\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186
+cb\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\",\\\"meta\\\":
+{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\"]},\\\"identifier\\\":[{\\
+\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\\"code\\\":\\\"MR\\\",\\\"d
+isplay\\\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-heal
+th-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT\\\",\\\"given\\\":[\\\"A\\\"]}],
+\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/Struc
+tureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"address\\\":[{\\\"use\\\":\\\"home\\\",\\\
+"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communication\\\":[{\\\"extension\\\":[{
+\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\
+\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\\"display\\\":\\\"Language of com
+fort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\
+"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageU
+se\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\
+\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"ur
+n:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrganization\\\":{\\\"reference\\\":\\\"
+urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\",\\\"res
+ource\\\":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"c1a56206-0546-463f-8e82-2ee3d7573111\\\",\\\"meta\\\":{\\\"prof
+ile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\"]},\\\"identifier\\\":[{\\\"sy
+stem\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\"value\\\":\\\"10022\\\"},{\\\"system
+\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\":\\\"955\\\"}],\\\"active\\\":true,\
+\\"name\\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:1e82a3ce-1816-401a-adec-7b347071a333\\\",\\\"resourc
+e\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"1e82a3ce-1816-401a-adec-7b347071a333\\\",\\\"meta\\\":{\\\"profile\\\":
+[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\
+"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\"}],\\\"name\\\":\\\"Owen Sound H
+ospital\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\"}}},{\\\"fullUrl\\
+\":\\\"urn:uuid:d9e70bca-1858-41d5-a55f-571501f955b3\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"ServiceRequest\\\",\\\"id\\\":\
+\\"d9e70bca-1858-41d5-a55f-571501f955b3\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition
+\/ca-on-mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ex
+t-referralSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/comm
+on-data-set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-09\\\",\\\"display\\\":\\\"Crisis Intervention\\\"}]}},{\\\"url\\\":\\\"h
+ttps:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[
+{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\\"code\\\":\\\"2\\\",\\\"display\\\":\\\"Exter
+nal Referral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-healt
+h-system-oracle-referral\\\",\\\"value\\\":\\\"REF-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"intent\\\":\\\"order\\\",\\\"su
+bject\\\":{\\\"reference\\\":\\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\"},\\\"encounter\\\":{\\\"reference\\\":\\\"urn:uu
+id:dd65041e-c658-4025-84a4-2ba859dc0622\\\"},\\\"authoredOn\\\":\\\"2026-02-01\\\",\\\"locationReference\\\":[{\\\"reference\\\":\\
+\"urn:uuid:1e82a3ce-1816-401a-adec-7b347071a333\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:fca39a94-3cd6-4989-ae4b-cd6d4b9b4623\\\",\\\"
+resource\\\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\"fca39a94-3cd6-4989-ae4b-cd6d4b9b4623\\\",\\\"meta\\\":{\\\"
+profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"]},\\\"extension\\\":[{\\\"url\\\
+":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\\"valueDate\\\":\\\"2026-02-17
+\\\"},{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\\"valueDate\\\":
+\\\"2026-02-04\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health
+-system-oracle-episode-of-care\\\",\\\"value\\\":\\\"EP-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"patient\\\":{\\\"reference
+\\\":\\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\"},\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:c1a56206-0
+546-463f-8e82-2ee3d7573111\\\"},\\\"referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:d9e70bca-1858-41d5-a55f-571501f955b3\\\"}]
+}},{\\\"fullUrl\\\":\\\"urn:uuid:dd65041e-c658-4025-84a4-2ba859dc0622\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Encounter\\\",
+\\\"id\\\":\\\"dd65041e-c658-4025-84a4-2ba859dc0622\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/Structu
+reDefinition\/ca-on-mha-profile-encounter\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefi
+nition\/ca-on-mha-ext-directminutes\\\",\\\"valueInteger\\\":30}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.c
+a\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\\"value\\\":\\\"SRV-3393361232\\\"}],\\\"status\\\":\\\
+"finished\\\",\\\"class\\\":{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\\"code\\\":\\\"AMB\\\",\
+\\"display\\\":\\\"In-person\\\"},\\\"type\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\
+"140182721000087101\\\",\\\"display\\\":\\\"individual encounter\\\"}]}],\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:1378ec2f-7
+33c-4b64-9cb2-3ced5c0186cb\\\"},\\\"period\\\":{\\\"start\\\":\\\"2026-02-11\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:2e4b0792-93c0-46f
+1-955f-25a0d5213dba\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"HealthcareService\\\",\\\"id\\\":\\\"2e4b0792-93c0-46f1-955f-25a
+0d5213dba\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-Healthcare
+Service\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCen
+treCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcar
+e-reporting-system\\\",\\\"code\\\":\\\"725107612\\\",\\\"display\\\":\\\"MH - Counselling and Treatment\\\"}]}}],\\\"identifier\\\
+":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\\"value\\\":\\\"15\
+\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\"},\\\"location\\\":[{\\\"reference
+\\\":\\\"urn:uuid:1e82a3ce-1816-401a-adec-7b347071a333\\\"}],\\\"name\\\":\\\"BriefCounsel-OS\\\"}}]}\",\"responseData\":\"{\\n  \\
+\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\\"620995\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\\\": \\\"1\\\",\\n    \
+\\"lastUpdated\\\": \\\"2026-02-18T21:30:22.241+00:00\\\",\\n    \\\"source\\\": \\\"#f46e17922d4748b115a4267ad1a3efb5\\\",\\n    \
+\\"tag\\\": [ {\\n      \\\"code\\\": \\\"eff36bee69962f6e50d2c100\\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n    }, {\\n
+    \\\"code\\\": \\\"f46e17922d4748b115a4267ad1a3efb5\\\",\\n      \\\"display\\\": \\\"X-LobTxId\\\"\\n    } ]\\n  },\\n  \\\"typ
+e\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\",\\n
+   \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http
+:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n
+    \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-
+0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n            \\\"display\\\": \\\"Medical record number\\\"\\n          } ]\\n
+      },\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-mrn\\\"
+,\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ],\\n      \\\"name\\\": [ {\\n        \\\"family\\\": \\\"APRICOT\\\",\\n
+    \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n      \\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_birthDate\\\": {\\n
+  \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-est
+imated-flag\\\",\\n          \\\"valueBoolean\\\": false\\n        } ]\\n      },\\n      \\\"address\\\": [ {\\n        \\\"use\\\
+": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\"postalCode\\\": \\\"M0
+M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [ {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ont
+ariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n
+\\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n              \\\"code\\\": \\\"428996008\
+\\",\\n              \\\"display\\\": \\\"Language of comfort\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"lang
+uage\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"
+en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"extension\\\": [ {\\n
+          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"val
+ueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/Cod
+eSystem\/LanguageUse\\\",\\n              \\\"code\\\": \\\"OFL\\\",\\n              \\\"display\\\": \\\"Official Language\\\"\\n
+           } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\
+\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          }
+]\\n        }\\n      } ],\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:c1a56206-0546-463f-8e8
+2-2ee3d7573111\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\",\\n    \
+\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Organization\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"htt
+p:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\
+\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\n        \\\"value\\\
+": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\
+",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\n      \\\"active\\\": true,\\n      \\\"name\\\": \\\"Brightshores Health Sy
+stem\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:1e82a3ce-1816-401a-adec-7b347071a333\\\",\\n    \\\"resource\\\": {\\
+n      \\\"resourceType\\\": \\\"Location\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/
+fhir\/StructureDefinition\/ca-on-mha-profile-location\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\
+\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\n        \\\"value\\\": \\\"2\\\"\\n      } ],\\n
+   \\\"name\\\": \\\"Owen Sound Hospital\\\",\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:c1a
+56206-0546-463f-8e82-2ee3d7573111\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:d9e70bca-1858-41d5-a55f-571501
+f955b3\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"ServiceRequest\\\",\\n      \\\"meta\\\": {\\n        \\\"p
+rofile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\" ]\\n      },\\n      \\\"exten
+sion\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\n
+        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca
+\/dataset\/common-data-set-mental-health-cds-mh\\\",\\n            \\\"code\\\": \\\"018-09\\\",\\n            \\\"display\\\": \\\
+"Crisis Intervention\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/Stru
+ctureDefinition\/ca-on-mha-ext-ReferralType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n
+      \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\n            \\\"code\\\": \\\"2\\\",\\n
+            \\\"display\\\": \\\"External Referral\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n
+       \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-referral\\\",\\n
+     \\\"value\\\": \\\"REF-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"intent\\\": \\\"order\\\"
+,\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\"\\n      },\\n
+\\\"encounter\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:dd65041e-c658-4025-84a4-2ba859dc0622\\\"\\n      },\\n      \\\"auth
+oredOn\\\": \\\"2026-02-01\\\",\\n      \\\"locationReference\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:1e82a3ce-1816-401a
+-adec-7b347071a333\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:fca39a94-3cd6-4989-ae4b-cd6d4b9b4623\\\",\\
+n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"EpisodeOfCare\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [
+\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\
+n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\n        \
+\\"valueDate\\\": \\\"2026-02-17\\\"\\n      }, {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/
+ca-on-ext-ServiceInitiationDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-04\\\"\\n      } ],\\n      \\\"identifier\\\": [ {\\
+n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-episode-of-care\\
+\",\\n        \\\"value\\\": \\\"EP-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"patient\\\": {\\n
+        \\\"reference\\\": \\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ced5c0186cb\\\"\\n      },\\n      \\\"managingOrganization\\\": {
+\\n        \\\"reference\\\": \\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\"\\n      },\\n      \\\"referralRequest\\\": [ {
+\\n        \\\"reference\\\": \\\"urn:uuid:d9e70bca-1858-41d5-a55f-571501f955b3\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\
+\\": \\\"urn:uuid:dd65041e-c658-4025-84a4-2ba859dc0622\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Encounter\\
+\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profil
+e-encounter\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureD
+efinition\/ca-on-mha-ext-directminutes\\\",\\n        \\\"valueInteger\\\": 30\\n      } ],\\n      \\\"identifier\\\": [ {\\n
+   \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\n
+  \\\"value\\\": \\\"SRV-3393361232\\\"\\n      } ],\\n      \\\"status\\\": \\\"finished\\\",\\n      \\\"class\\\": {\\n        \
+\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\n        \\\"code\\\": \\\"AMB\\\",\\n        \\\"dis
+play\\\": \\\"In-person\\\"\\n      },\\n      \\\"type\\\": [ {\\n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http
+:\/\/snomed.info\/sct\\\",\\n          \\\"code\\\": \\\"140182721000087101\\\",\\n          \\\"display\\\": \\\"individual encoun
+ter\\\"\\n        } ]\\n      } ],\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:1378ec2f-733c-4b64-9cb2-3ce
+d5c0186cb\\\"\\n      },\\n      \\\"period\\\": {\\n        \\\"start\\\": \\\"2026-02-11\\\"\\n      }\\n    }\\n  }, {\\n    \\\
+"fullUrl\\\": \\\"urn:uuid:2e4b0792-93c0-46f1-955f-25a0d5213dba\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"He
+althcareService\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\
+/ca-on-mha-profile-HealthcareService\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohea
+lth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\
+\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\n
+            \\\"code\\\": \\\"725107612\\\",\\n            \\\"display\\\": \\\"MH - Counselling and Treatment\\\"\\n          } ]\
+\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSyst
+em\/id-HealthcareService-ConnexProgram\\\",\\n        \\\"value\\\": \\\"15\\\"\\n      } ],\\n      \\\"providedBy\\\": {\\n
+  \\\"reference\\\": \\\"urn:uuid:c1a56206-0546-463f-8e82-2ee3d7573111\\\"\\n      },\\n      \\\"location\\\": [ {\\n        \\\"r
+eference\\\": \\\"urn:uuid:1e82a3ce-1816-401a-adec-7b347071a333\\\"\\n      } ],\\n      \\\"name\\\": \\\"BriefCounsel-OS\\\"\\n
+  }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BATCH_ID":"FF816338-
+0D10-11F1-A90A-C32329EC19DD","SUBMISSION_RESPONSE_ID":"621039","BUNDLE_TYPE":"HEALTH_SERVICES","SUBMISSION_STATUS":"ACCEPTED","SUBM
+ISSION_DT_TM":"2026-02-18 16:30:21","SUBMISSION_DT_TM_FMT":"18-FEB-2026 16:30:21","RECORD_SOURCE":"SERVICE","SOURCE_ID":36797.00000
+0,"EPISODE_IDENTIFIER":"EP-54022731","DATA_POINT_CNT":7,"DATA_POINTS":[{"FIELD_CODE":"DE07.001","FIELD_LABEL":"HSP Organization Num
+ber","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE08.001","FIELD_LABEL":"HSP Site Number",
+"VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.001","FIELD_LABEL":"Service Event ID","VAL
+UE_SENT":"SRV-3393358047","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.002","FIELD_LABEL":"Service Moda
+lity","VALUE_SENT":"","MAPPED_CODE":"Outpatient - Face-to-Face","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.004","FIELD
+_LABEL":"Service Event Date","VALUE_SENT":"04-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.00
+5","FIELD_LABEL":"Direct Service Minutes","VALUE_SENT":"         60","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_C
+ODE":"DE10.007","FIELD_LABEL":"Encounter Status","VALUE_SENT":"","MAPPED_CODE":"finished","MAPPED_LABEL":"","CODE_SYSTEM":""}],"JSO
+N_PAYLOAD":"{\"MIRTH_REQUEST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:21-05:00\",\"mirthChannelId\":\"
+503b37e9-6e52-4c97-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMessageId\":17747,\"su
+bmittedData\":\"{\\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FF816338-0D10-11F1-A90A-C32329EC19DD\\\",\\\"meta\\\":{\\\"tag\
+\\":[{\\\"code\\\":\\\"b11f43b4-8278-4654-841c-b54f3159f1f9\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\\"code\\\":\\\"6349
+d456-4bfe-4dda-a506-73dc7d549cef\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"c9bc8cfc-8517-48e6-9e7c-2ce5676fa6ae\\\"
+,\\\"display\\\":\\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:62c3c7ea-d2d7-4d
+bc-b85c-e2a6c05d5f18\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18
+\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\"]},\\\"i
+dentifier\\\":[{\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\\"code\\\
+":\\\"MR\\\",\\\"display\\\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id
+-brightshores-health-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT\\\",\\\"given\
+\\":[\\\"A\\\"]}],\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontarioheal
+th.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"address\\\":[{\\\"use\\\
+":\\\"home\\\",\\\"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communication\\\":[{\\
+\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCode
+ableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\\"display\\\":\
+\\"Language of comfort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\
+\\"display\\\":\\\"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on
+-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSys
+tem\/LanguageUse\\\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\
+"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrganization\\\":{\\\"
+reference\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170
+e58e61\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\",\\\"
+meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\"]},\\\"ident
+ifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\"value\\\":\\\"1002
+2\\\"},{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\":\\\"955\\\"}],\\\
+"active\\\":true,\\\"name\\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d
+0a\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\\"meta\\\"
+:{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\\"identifier\\\":[{
+\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\"}],\\\"name\\\
+":\\\"Owen Sound Hospital\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"
+}}},{\\\"fullUrl\\\":\\\"urn:uuid:8b4697d8-9359-45e1-8962-9c24b081f6e2\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"ServiceReques
+t\\\",\\\"id\\\":\\\"8b4697d8-9359-45e1-8962-9c24b081f6e2\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/S
+tructureDefinition\/ca-on-mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDe
+finition\/ca-on-ext-referralSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario
+.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-09\\\",\\\"display\\\":\\\"Crisis Intervention\\\"}]}},
+{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\\"valueCodeableConcept\\\"
+:{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\\"code\\\":\\\"2\\\",\\\"dis
+play\\\":\\\"External Referral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-
+brightshores-health-system-oracle-referral\\\",\\\"value\\\":\\\"REF-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"intent\\\":\\
+\"order\\\",\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"encounter\\\":{\\\"refere
+nce\\\":\\\"urn:uuid:094cdd72-6d9f-414e-aaf8-1fc0da1d79c2\\\"},\\\"authoredOn\\\":\\\"2026-02-01\\\",\\\"locationReference\\\":[{\\
+\"reference\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:fe9c6794-78a5-40e1-8b66-555
+ee8f42501\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\"fe9c6794-78a5-40e1-8b66-555ee8f42501\\\",
+\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"]},\\\"extensio
+n\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\",\\\"valueDate\
+\\":\\\"2026-02-17\\\"},{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",
+\\\"valueDate\\\":\\\"2026-02-04\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-b
+rightshores-health-system-oracle-episode-of-care\\\",\\\"value\\\":\\\"EP-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\\"patient\
+\\":{\\\"reference\\\":\\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"managingOrganization\\\":{\\\"reference\\\":\\\"u
+rn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"},\\\"referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:8b4697d8-9359-45e1-8962-
+9c24b081f6e2\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:094cdd72-6d9f-414e-aaf8-1fc0da1d79c2\\\",\\\"resource\\\":{\\\"resourceType\\\":
+\\\"Encounter\\\",\\\"id\\\":\\\"094cdd72-6d9f-414e-aaf8-1fc0da1d79c2\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth
+.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-encounter\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/f
+hir\/StructureDefinition\/ca-on-mha-ext-directminutes\\\",\\\"valueInteger\\\":60}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/
+\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\\"value\\\":\\\"SRV-3393358047\\\"}],
+\\\"status\\\":\\\"finished\\\",\\\"class\\\":{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\\"code
+\\\":\\\"AMB\\\",\\\"display\\\":\\\"In-person\\\"},\\\"type\\\":[{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\
+",\\\"code\\\":\\\"140182721000087101\\\",\\\"display\\\":\\\"individual encounter\\\"}]}],\\\"subject\\\":{\\\"reference\\\":\\\"u
+rn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"},\\\"period\\\":{\\\"start\\\":\\\"2026-02-04\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid
+:0d5472c4-6a2b-4ac5-b5dc-637edadd7106\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"HealthcareService\\\",\\\"id\\\":\\\"0d5472c4-
+6a2b-4ac5-b5dc-637edadd7106\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-
+profile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha
+-ext-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\/\/data.ontario.ca\/dataset\
+/ontario-healthcare-reporting-system\\\",\\\"code\\\":\\\"725107612\\\",\\\"display\\\":\\\"MH - Counselling and Treatment\\\"}]}}]
+,\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\\
+"value\\\":\\\"15\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"},\\\"location\\
+\":[{\\\"reference\\\":\\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"}],\\\"name\\\":\\\"BriefCounsel-OS\\\"}}]}\",\"respons
+eData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\\"621039\\\",\\n  \\\"meta\\\": {\\n    \\\"versionId\\\":
+\\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21:30:20.828+00:00\\\",\\n    \\\"source\\\": \\\"#876c1350475f60e8ab06d111db3
+8bf21\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"876c1350475f60e8ab06d111db38bf21\\\",\\n      \\\"display\\\": \\\"X-Lo
+bTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69962f6c51b0a5c2\\\",\\n      \\\"display\\\": \\\"X-GtwyTxId\\\"\\n    } ]\
+\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a
+6c05d5f18\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Patient\\\",\\n      \\\"meta\\\": {\\n        \\\"profi
+le\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\" ]\\n      },\\n      \\\"identifi
+er\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/terminology.hl7.or
+g\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n            \\\"display\\\": \\\"Medical record number\\\"\\n
+          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-sys
+tem-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ],\\n      \\\"name\\\": [ {\\n        \\\"family\\\": \\\"A
+PRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n      \\\"birthDate\\\": \\\"1967-07-15\\\",\\n      \\\"_birthDa
+te\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on
+-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\": false\\n        } ]\\n      },\\n      \\\"address\\\": [ {\\n
+        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\\",\\n        \\\"state\\\": \\\"ON\\\",\\n        \\\"post
+alCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [ {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\"
+: \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\"
+: {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n              \\\"code\\
+\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language of comfort\\\"\\n            } ]\\n          }\\n        } ],\
+\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n
+\\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"ext
+ension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\
+n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/ontariohe
+alth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code\\\": \\\"OFL\\\",\\n              \\\"display\\\": \\\"Officia
+l Language\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n
+       \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\
+\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb
+8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e
+58e61\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Organization\\\",\\n      \\\"meta\\\": {\\n        \\\"prof
+ile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\\\" ]\\n      },\\n      \\\"id
+entifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\n
+      \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Or
+ganization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\n      \\\"active\\\": true,\\n      \\\"name\\\": \\\"Brig
+htshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\",\\n    \\\
+"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/
+ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n
+\\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\n        \\\"value\\\": \\\"2\\\"\
+\n      } ],\\n      \\\"name\\\": \\\"Owen Sound Hospital\\\",\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\"
+: \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:8b4697d8-935
+9-45e1-8962-9c24b081f6e2\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"ServiceRequest\\\",\\n      \\\"meta\\\":
+ {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\" ]\\n      },
+\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-referral
+SourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\
+/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\n            \\\"code\\\": \\\"018-09\\\",\\n            \\
+\"display\\\": \\\"Crisis Intervention\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"url\\\": \\\"https:\/\/ontariohea
+lth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding
+\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\n            \\\"code\
+\\": \\\"2\\\",\\n            \\\"display\\\": \\\"External Referral\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"ident
+ifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-r
+eferral\\\",\\n        \\\"value\\\": \\\"REF-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\"intent\
+\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\
+n      },\\n      \\\"encounter\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:094cdd72-6d9f-414e-aaf8-1fc0da1d79c2\\\"\\n      }
+,\\n      \\\"authoredOn\\\": \\\"2026-02-01\\\",\\n      \\\"locationReference\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:
+bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:fe9c6794-78a5-40e1-8b66-5
+55ee8f42501\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"EpisodeOfCare\\\",\\n      \\\"meta\\\": {\\n        \
+\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\" ]\\n      },\\n      \\\"ex
+tension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDat
+e\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n      }, {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/Str
+uctureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-04\\\"\\n      } ],\\n      \\\"ide
+ntifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle
+-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"active\\\",\\n      \\\
+"patient\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62c3c7ea-d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"managingO
+rganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      },\\n      \\\"referr
+alRequest\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:8b4697d8-9359-45e1-8962-9c24b081f6e2\\\"\\n      } ]\\n    }\\n  }, {\
+\n    \\\"fullUrl\\\": \\\"urn:uuid:094cdd72-6d9f-414e-aaf8-1fc0da1d79c2\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\
+": \\\"Encounter\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition
+\/ca-on-mha-profile-encounter\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"https:\/\/ontariohealth.ca
+\/fhir\/StructureDefinition\/ca-on-mha-ext-directminutes\\\",\\n        \\\"valueInteger\\\": 60\\n      } ],\\n      \\\"identifie
+r\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encou
+nter\\\",\\n        \\\"value\\\": \\\"SRV-3393358047\\\"\\n      } ],\\n      \\\"status\\\": \\\"finished\\\",\\n      \\\"class\
+\\": {\\n        \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\n        \\\"code\\\": \\\"AMB\\\",
+\\n        \\\"display\\\": \\\"In-person\\\"\\n      },\\n      \\\"type\\\": [ {\\n        \\\"coding\\\": [ {\\n          \\\"sy
+stem\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n          \\\"code\\\": \\\"140182721000087101\\\",\\n          \\\"display\\\": \\\
+"individual encounter\\\"\\n        } ]\\n      } ],\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:62c3c7ea-
+d2d7-4dbc-b85c-e2a6c05d5f18\\\"\\n      },\\n      \\\"period\\\": {\\n        \\\"start\\\": \\\"2026-02-04\\\"\\n      }\\n    }\
+\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:0d5472c4-6a2b-4ac5-b5dc-637edadd7106\\\",\\n    \\\"resource\\\": {\\n      \\\"resour
+ceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/St
+ructureDefinition\/ca-on-mha-profile-HealthcareService\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"h
+ttp:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\n        \\\"valueCodeableConcept\\\"
+: {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/ontario-healthcare-report
+ing-system\\\",\\n            \\\"code\\\": \\\"725107612\\\",\\n            \\\"display\\\": \\\"MH - Counselling and Treatment\\\
+"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca
+\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\n        \\\"value\\\": \\\"15\\\"\\n      } ],\\n      \\\"provided
+By\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:cbbb8131-ad5c-4112-9a1d-db5170e58e61\\\"\\n      },\\n      \\\"location\\\": [
+ {\\n        \\\"reference\\\": \\\"urn:uuid:bef61cb5-94ab-4a84-8d6f-e207be4c0d0a\\\"\\n      } ],\\n      \\\"name\\\": \\\"BriefC
+ounsel-OS\\\"\\n    }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseStatusLine\":\"HTTP\/1.1 201 Created\"}}"},{"SUBMISSION_BA
+TCH_ID":"FF8ACD9C-0D10-11F1-A90A-C93D7AE9A91E","SUBMISSION_RESPONSE_ID":"620994","BUNDLE_TYPE":"HEALTH_SERVICES","SUBMISSION_STATUS
+":"ACCEPTED","SUBMISSION_DT_TM":"2026-02-18 16:30:21","SUBMISSION_DT_TM_FMT":"18-FEB-2026 16:30:21","RECORD_SOURCE":"SERVICE","SOUR
+CE_ID":36798.000000,"EPISODE_IDENTIFIER":"EP-54022731","DATA_POINT_CNT":7,"DATA_POINTS":[{"FIELD_CODE":"DE07.001","FIELD_LABEL":"HS
+P Organization Number","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE08.001","FIELD_LABEL":
+"HSP Site Number","VALUE_SENT":"","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.001","FIELD_LABEL":"Serv
+ice Event ID","VALUE_SENT":"SRV-3393361258","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"DE10.002","FIELD_LA
+BEL":"Service Modality","VALUE_SENT":"","MAPPED_CODE":"Non-Face-to-Face Visit","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD_CODE":"D
+E10.004","FIELD_LABEL":"Service Event Date","VALUE_SENT":"11-FEB-2026","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM":""},{"FIELD
+_CODE":"DE10.005","FIELD_LABEL":"Direct Service Minutes","VALUE_SENT":"         30","MAPPED_CODE":"","MAPPED_LABEL":"","CODE_SYSTEM
+":""},{"FIELD_CODE":"DE10.007","FIELD_LABEL":"Encounter Status","VALUE_SENT":"","MAPPED_CODE":"finished","MAPPED_LABEL":"","CODE_SY
+STEM":""}],"JSON_PAYLOAD":"{\"MIRTH_REQUEST\":{\"requestType\":\"logSubmission\",\"timestamp\":\"2026-02-18T16:30:21-05:00\",\"mirt
+hChannelId\":\"503b37e9-6e52-4c97-a4a7-eac8b40a3764\",\"mirthChannelName\":\"03 - Ontario Health Submission\",\"mirthChannelMessage
+Id\":17748,\"submittedData\":\"{\\\"resourceType\\\":\\\"Bundle\\\",\\\"id\\\":\\\"FF8ACD9C-0D10-11F1-A90A-C93D7AE9A91E\\\",\\\"met
+a\\\":{\\\"tag\\\":[{\\\"code\\\":\\\"83be0255-77e0-4af8-9fa6-5b5f08461240\\\",\\\"display\\\":\\\"X-Client-Request-Id\\\"},{\\\"co
+de\\\":\\\"c2c01833-cc74-4ab1-aa81-95bd77563301\\\",\\\"display\\\":\\\"X-GtwyTxId\\\"},{\\\"code\\\":\\\"3e2e7aac-a38e-42e5-a7a0-2
+7560454bccb\\\",\\\"display\\\":\\\"X-LobTxId\\\"}]},\\\"type\\\":\\\"collection\\\",\\\"entry\\\":[{\\\"fullUrl\\\":\\\"urn:uuid:f
+0c9627b-f887-4713-aed5-65e11d1f815e\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Patient\\\",\\\"id\\\":\\\"f0c9627b-f887-4713-ae
+d5-65e11d1f815e\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-pati
+ent\\\"]},\\\"identifier\\\":[{\\\"type\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\
+\\",\\\"code\\\":\\\"MR\\\",\\\"display\\\":\\\"Medical record number\\\"}]},\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/N
+amingSystem\/id-brightshores-health-system-oracle-mrn\\\",\\\"value\\\":\\\"0500090\\\"}],\\\"name\\\":[{\\\"family\\\":\\\"APRICOT
+\\\",\\\"given\\\":[\\\"A\\\"]}],\\\"birthDate\\\":\\\"1967-07-15\\\",\\\"_birthDate\\\":{\\\"extension\\\":[{\\\"url\\\":\\\"http:
+\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\\"valueBoolean\\\":false}]},\\\"address\\
+\":[{\\\"use\\\":\\\"home\\\",\\\"city\\\":\\\"TORONTO\\\",\\\"state\\\":\\\"ON\\\",\\\"postalCode\\\":\\\"M0M0X0\\\"}],\\\"communi
+cation\\\":[{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\
+",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"428996008\\\",\\
+\"display\\\":\\\"Language of comfort\\\"}]}}],\\\"language\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\
+\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}},{\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDe
+finition\/ca-on-mha-ext-LanguageUse\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca
+\/fhir\/CodeSystem\/LanguageUse\\\",\\\"code\\\":\\\"OFL\\\",\\\"display\\\":\\\"Official Language\\\"}]}}],\\\"language\\\":{\\\"c
+oding\\\":[{\\\"system\\\":\\\"urn:ietf:bcp:47\\\",\\\"code\\\":\\\"en\\\",\\\"display\\\":\\\"English\\\"}]}}],\\\"managingOrganiz
+ation\\\":{\\\"reference\\\":\\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-607892073563\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:1ddcfe6a-0abe-4
+dec-9f89-607892073563\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Organization\\\",\\\"id\\\":\\\"1ddcfe6a-0abe-4dec-9f89-607892
+073563\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\
+\\"]},\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-ConnexOrg\\\",\\\"val
+ue\\\":\\\"10022\\\"},{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\\"value\\\":\\
+\"955\\\"}],\\\"active\\\":true,\\\"name\\\":\\\"Brightshores Health System\\\"}},{\\\"fullUrl\\\":\\\"urn:uuid:4794f5e5-997c-4d8a-
+8581-af6e02bac914\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"Location\\\",\\\"id\\\":\\\"4794f5e5-997c-4d8a-8581-af6e02bac914\\
+\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\"]},\\\"id
+entifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\\"value\\\":\\\"2\\\
+"}],\\\"name\\\":\\\"Owen Sound Hospital\\\",\\\"managingOrganization\\\":{\\\"reference\\\":\\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-6
+07892073563\\\"}}},{\\\"fullUrl\\\":\\\"urn:uuid:09b238ff-2695-488e-808e-e363e9619304\\\",\\\"resource\\\":{\\\"resourceType\\\":\\
+\"ServiceRequest\\\",\\\"id\\\":\\\"09b238ff-2695-488e-808e-e363e9619304\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohea
+lth.ca\/fhir\/StructureDefinition\/ca-on-mha-servicerequest\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fh
+ir\/StructureDefinition\/ca-on-ext-referralSourceType\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"https:\
+/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\\"code\\\":\\\"018-09\\\",\\\"display\\\":\\\"Crisis Interv
+ention\\\"}]}},{\\\"url\\\":\\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\\"valueCode
+ableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-type\\\",\\\"code\\\":\\
+\"2\\\",\\\"display\\\":\\\"External Referral\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/Na
+mingSystem\/id-brightshores-health-system-oracle-referral\\\",\\\"value\\\":\\\"REF-54022731\\\"}],\\\"status\\\":\\\"active\\\",\\
+\"intent\\\":\\\"order\\\",\\\"subject\\\":{\\\"reference\\\":\\\"urn:uuid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\"},\\\"encounter\
+\\":{\\\"reference\\\":\\\"urn:uuid:5c9fae23-c040-4a84-8f5c-39c9d8f7c264\\\"},\\\"authoredOn\\\":\\\"2026-02-01\\\",\\\"locationRef
+erence\\\":[{\\\"reference\\\":\\\"urn:uuid:4794f5e5-997c-4d8a-8581-af6e02bac914\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:ea512a2f-9b4
+c-496f-a0a7-0fa858727ff2\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"EpisodeOfCare\\\",\\\"id\\\":\\\"ea512a2f-9b4c-496f-a0a7-0f
+a858727ff2\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\\\"
+]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-eligibilityScreeningDate\\\"
+,\\\"valueDate\\\":\\\"2026-02-17\\\"},{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInit
+iationDate\\\",\\\"valueDate\\\":\\\"2026-02-04\\\"}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/Nam
+ingSystem\/id-brightshores-health-system-oracle-episode-of-care\\\",\\\"value\\\":\\\"EP-54022731\\\"}],\\\"status\\\":\\\"active\\
+\",\\\"patient\\\":{\\\"reference\\\":\\\"urn:uuid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\"},\\\"managingOrganization\\\":{\\\"refe
+rence\\\":\\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-607892073563\\\"},\\\"referralRequest\\\":[{\\\"reference\\\":\\\"urn:uuid:09b238ff-
+2695-488e-808e-e363e9619304\\\"}]}},{\\\"fullUrl\\\":\\\"urn:uuid:5c9fae23-c040-4a84-8f5c-39c9d8f7c264\\\",\\\"resource\\\":{\\\"re
+sourceType\\\":\\\"Encounter\\\",\\\"id\\\":\\\"5c9fae23-c040-4a84-8f5c-39c9d8f7c264\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/
+\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-encounter\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"https:\/\/onta
+riohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-directminutes\\\",\\\"valueInteger\\\":30}],\\\"identifier\\\":[{\\\"system\
+\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightshores-health-system-oracle-encounter\\\",\\\"value\\\":\\\"SRV-33
+93361258\\\"}],\\\"status\\\":\\\"finished\\\",\\\"class\\\":{\\\"system\\\":\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCo
+de\\\",\\\"code\\\":\\\"VR\\\",\\\"display\\\":\\\"Virtual (video conference)\\\"},\\\"type\\\":[{\\\"coding\\\":[{\\\"system\\\":\
+\\"http:\/\/snomed.info\/sct\\\",\\\"code\\\":\\\"140182721000087101\\\",\\\"display\\\":\\\"individual encounter\\\"}]}],\\\"subje
+ct\\\":{\\\"reference\\\":\\\"urn:uuid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\"},\\\"period\\\":{\\\"start\\\":\\\"2026-02-11\\\"}}
+},{\\\"fullUrl\\\":\\\"urn:uuid:c6bfc42b-14d4-4dd6-a453-1967be30cf9c\\\",\\\"resource\\\":{\\\"resourceType\\\":\\\"HealthcareServi
+ce\\\",\\\"id\\\":\\\"c6bfc42b-14d4-4dd6-a453-1967be30cf9c\\\",\\\"meta\\\":{\\\"profile\\\":[\\\"http:\/\/ontariohealth.ca\/fhir\/
+StructureDefinition\/ca-on-mha-profile-HealthcareService\\\"]},\\\"extension\\\":[{\\\"url\\\":\\\"http:\/\/ontariohealth.ca\/fhir\
+/StructureDefinition\/ca-on-mha-ext-functionalCentreCode\\\",\\\"valueCodeableConcept\\\":{\\\"coding\\\":[{\\\"system\\\":\\\"http
+s:\/\/data.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\\"code\\\":\\\"725107612\\\",\\\"display\\\":\\\"MH - Cou
+nselling and Treatment\\\"}]}}],\\\"identifier\\\":[{\\\"system\\\":\\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Healthca
+reService-ConnexProgram\\\",\\\"value\\\":\\\"15\\\"}],\\\"providedBy\\\":{\\\"reference\\\":\\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-6
+07892073563\\\"},\\\"location\\\":[{\\\"reference\\\":\\\"urn:uuid:4794f5e5-997c-4d8a-8581-af6e02bac914\\\"}],\\\"name\\\":\\\"Brie
+fCounsel-OS\\\"}}]}\",\"responseData\":\"{\\n  \\\"resourceType\\\": \\\"Bundle\\\",\\n  \\\"id\\\": \\\"620994\\\",\\n  \\\"meta\\
+\": {\\n    \\\"versionId\\\": \\\"1\\\",\\n    \\\"lastUpdated\\\": \\\"2026-02-18T21:30:21.542+00:00\\\",\\n    \\\"source\\\": \
+\\"#c71ba882750004fbd1467989f98b251a\\\",\\n    \\\"tag\\\": [ {\\n      \\\"code\\\": \\\"c71ba882750004fbd1467989f98b251a\\\",\\n
+      \\\"display\\\": \\\"X-LobTxId\\\"\\n    }, {\\n      \\\"code\\\": \\\"eff36bee69962f6d51b0a5e2\\\",\\n      \\\"display\\\"
+: \\\"X-GtwyTxId\\\"\\n    } ]\\n  },\\n  \\\"type\\\": \\\"collection\\\",\\n  \\\"entry\\\": [ {\\n    \\\"fullUrl\\\": \\\"urn:u
+uid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Patient\\\",\\n      \\\"
+meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-patient\\\" ]\
+\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"type\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\":
+\\\"http:\/\/terminology.hl7.org\/CodeSystem\/v2-0203\\\",\\n            \\\"code\\\": \\\"MR\\\",\\n            \\\"display\\\": \
+\\"Medical record number\\\"\\n          } ]\\n        },\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSys
+tem\/id-brightshores-health-system-oracle-mrn\\\",\\n        \\\"value\\\": \\\"0500090\\\"\\n      } ],\\n      \\\"name\\\": [ {\
+\n        \\\"family\\\": \\\"APRICOT\\\",\\n        \\\"given\\\": [ \\\"A\\\" ]\\n      } ],\\n      \\\"birthDate\\\": \\\"1967-
+07-15\\\",\\n      \\\"_birthDate\\\": {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/f
+hir\/StructureDefinition\/ca-on-ext-birthdate-estimated-flag\\\",\\n          \\\"valueBoolean\\\": false\\n        } ]\\n      },\
+\n      \\\"address\\\": [ {\\n        \\\"use\\\": \\\"home\\\",\\n        \\\"city\\\": \\\"TORONTO\\\",\\n        \\\"state\\\":
+ \\\"ON\\\",\\n        \\\"postalCode\\\": \\\"M0M0X0\\\"\\n      } ],\\n      \\\"communication\\\": [ {\\n        \\\"extension\\
+\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-LanguageUse\\\",\\n
+   \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"system\\\": \\\"http:\/\/snomed.info\/sct\
+\\",\\n              \\\"code\\\": \\\"428996008\\\",\\n              \\\"display\\\": \\\"Language of comfort\\\"\\n            }
+]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:
+ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n            \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }
+\\n      }, {\\n        \\\"extension\\\": [ {\\n          \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/c
+a-on-mha-ext-LanguageUse\\\",\\n          \\\"valueCodeableConcept\\\": {\\n            \\\"coding\\\": [ {\\n              \\\"sys
+tem\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/LanguageUse\\\",\\n              \\\"code\\\": \\\"OFL\\\",\\n
+   \\\"display\\\": \\\"Official Language\\\"\\n            } ]\\n          }\\n        } ],\\n        \\\"language\\\": {\\n
+    \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"urn:ietf:bcp:47\\\",\\n            \\\"code\\\": \\\"en\\\",\\n
+  \\\"display\\\": \\\"English\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"managingOrganization\\\": {\\n        \\\"r
+eference\\\": \\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-607892073563\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:
+1ddcfe6a-0abe-4dec-9f89-607892073563\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Organization\\\",\\n      \\\
+"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-organization\
+\\" ]\\n      },\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-O
+rganization-ConnexOrg\\\",\\n        \\\"value\\\": \\\"10022\\\"\\n      }, {\\n        \\\"system\\\": \\\"http:\/\/ehealthontari
+o.ca\/fhir\/NamingSystem\/id-Organization-OHFS\\\",\\n        \\\"value\\\": \\\"955\\\"\\n      } ],\\n      \\\"active\\\": true,
+\\n      \\\"name\\\": \\\"Brightshores Health System\\\"\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:4794f5e5-997c-4d8a-8
+581-af6e02bac914\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"Location\\\",\\n      \\\"meta\\\": {\\n        \
+\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-location\\\" ]\\n      },\\n      \\\
+"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-Location-ConnexSite\\\",\\n
+      \\\"value\\\": \\\"2\\\"\\n      } ],\\n      \\\"name\\\": \\\"Owen Sound Hospital\\\",\\n      \\\"managingOrganization\\\"
+: {\\n        \\\"reference\\\": \\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-607892073563\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl
+\\\": \\\"urn:uuid:09b238ff-2695-488e-808e-e363e9619304\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"ServiceReq
+uest\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-
+servicerequest\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/Structur
+eDefinition\/ca-on-ext-referralSourceType\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n
+    \\\"system\\\": \\\"https:\/\/data.ontario.ca\/dataset\/common-data-set-mental-health-cds-mh\\\",\\n            \\\"code\\\": \
+\\"018-09\\\",\\n            \\\"display\\\": \\\"Crisis Intervention\\\"\\n          } ]\\n        }\\n      }, {\\n        \\\"ur
+l\\\": \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-ReferralType\\\",\\n        \\\"valueCodeableConcep
+t\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/CodeSystem\/referral-ty
+pe\\\",\\n            \\\"code\\\": \\\"2\\\",\\n            \\\"display\\\": \\\"External Referral\\\"\\n          } ]\\n        }
+\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brig
+htshores-health-system-oracle-referral\\\",\\n        \\\"value\\\": \\\"REF-54022731\\\"\\n      } ],\\n      \\\"status\\\": \\\"
+active\\\",\\n      \\\"intent\\\": \\\"order\\\",\\n      \\\"subject\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:f0c9627b-f8
+87-4713-aed5-65e11d1f815e\\\"\\n      },\\n      \\\"encounter\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:5c9fae23-c040-4a84-
+8f5c-39c9d8f7c264\\\"\\n      },\\n      \\\"authoredOn\\\": \\\"2026-02-01\\\",\\n      \\\"locationReference\\\": [ {\\n        \
+\\"reference\\\": \\\"urn:uuid:4794f5e5-997c-4d8a-8581-af6e02bac914\\\"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn
+:uuid:ea512a2f-9b4c-496f-a0a7-0fa858727ff2\\\",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"EpisodeOfCare\\\",\\n
+    \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-EpisodeOfCare\
+\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca
+-on-ext-eligibilityScreeningDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-17\\\"\\n      }, {\\n        \\\"url\\\": \\\"http:
+\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-ext-ServiceInitiationDate\\\",\\n        \\\"valueDate\\\": \\\"2026-02-04\\
+\"\\n      } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-br
+ightshores-health-system-oracle-episode-of-care\\\",\\n        \\\"value\\\": \\\"EP-54022731\\\"\\n      } ],\\n      \\\"status\\
+\": \\\"active\\\",\\n      \\\"patient\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\"\\
+n      },\\n      \\\"managingOrganization\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-607892073563\\\
+"\\n      },\\n      \\\"referralRequest\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:09b238ff-2695-488e-808e-e363e9619304\\\
+"\\n      } ]\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:5c9fae23-c040-4a84-8f5c-39c9d8f7c264\\\",\\n    \\\"resource\\\"
+: {\\n      \\\"resourceType\\\": \\\"Encounter\\\",\\n      \\\"meta\\\": {\\n        \\\"profile\\\": [ \\\"http:\/\/ontariohealt
+h.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-encounter\\\" ]\\n      },\\n      \\\"extension\\\": [ {\\n        \\\"url\\\":
+ \\\"https:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-directminutes\\\",\\n        \\\"valueInteger\\\": 30\\n
+     } ],\\n      \\\"identifier\\\": [ {\\n        \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-brightsh
+ores-health-system-oracle-encounter\\\",\\n        \\\"value\\\": \\\"SRV-3393361258\\\"\\n      } ],\\n      \\\"status\\\": \\\"f
+inished\\\",\\n      \\\"class\\\": {\\n        \\\"system\\\": \\\"http:\/\/terminology.hl7.org\/CodeSystem\/v3-ActCode\\\",\\n
+     \\\"code\\\": \\\"VR\\\",\\n        \\\"display\\\": \\\"Virtual (video conference)\\\"\\n      },\\n      \\\"type\\\": [ {\\
+n        \\\"coding\\\": [ {\\n          \\\"system\\\": \\\"http:\/\/snomed.info\/sct\\\",\\n          \\\"code\\\": \\\"140182721
+000087101\\\",\\n          \\\"display\\\": \\\"individual encounter\\\"\\n        } ]\\n      } ],\\n      \\\"subject\\\": {\\n
+      \\\"reference\\\": \\\"urn:uuid:f0c9627b-f887-4713-aed5-65e11d1f815e\\\"\\n      },\\n      \\\"period\\\": {\\n        \\\"s
+tart\\\": \\\"2026-02-11\\\"\\n      }\\n    }\\n  }, {\\n    \\\"fullUrl\\\": \\\"urn:uuid:c6bfc42b-14d4-4dd6-a453-1967be30cf9c\\\
+",\\n    \\\"resource\\\": {\\n      \\\"resourceType\\\": \\\"HealthcareService\\\",\\n      \\\"meta\\\": {\\n        \\\"profile
+\\\": [ \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-profile-HealthcareService\\\" ]\\n      },\\n      \\\"
+extension\\\": [ {\\n        \\\"url\\\": \\\"http:\/\/ontariohealth.ca\/fhir\/StructureDefinition\/ca-on-mha-ext-functionalCentreC
+ode\\\",\\n        \\\"valueCodeableConcept\\\": {\\n          \\\"coding\\\": [ {\\n            \\\"system\\\": \\\"https:\/\/data
+.ontario.ca\/dataset\/ontario-healthcare-reporting-system\\\",\\n            \\\"code\\\": \\\"725107612\\\",\\n            \\\"dis
+play\\\": \\\"MH - Counselling and Treatment\\\"\\n          } ]\\n        }\\n      } ],\\n      \\\"identifier\\\": [ {\\n
+ \\\"system\\\": \\\"http:\/\/ehealthontario.ca\/fhir\/NamingSystem\/id-HealthcareService-ConnexProgram\\\",\\n        \\\"value\\\
+": \\\"15\\\"\\n      } ],\\n      \\\"providedBy\\\": {\\n        \\\"reference\\\": \\\"urn:uuid:1ddcfe6a-0abe-4dec-9f89-60789207
+3563\\\"\\n      },\\n      \\\"location\\\": [ {\\n        \\\"reference\\\": \\\"urn:uuid:4794f5e5-997c-4d8a-8581-af6e02bac914\\\
+"\\n      } ],\\n      \\\"name\\\": \\\"BriefCounsel-OS\\\"\\n    }\\n  } ]\\n}\",\"responseStatusCode\":201,\"responseStatusLine\
+":\"HTTP\/1.1 201 Created\"}}"}]}}],"customPost":[]}
+1)
+1)
+
+260220:101832 1co5_mpage_test.tst              Cost 0.03 Cpu 0.10 Ela 0.15 Dio   0 O0M1R11 P10R46C1 S35,34
