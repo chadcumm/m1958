@@ -139,8 +139,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.227-develop";
-var packageVersion = "0.0.227";
+var buildVersion = "v0.0.228-develop";
+var packageVersion = "0.0.228";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
