@@ -1,0 +1,394 @@
+{
+  "resourceType": "Bundle",
+  "id": "26F91A82-06B8-11F1-BA6D-C1B0E827C25A",
+  "meta": {
+    "tag": [
+      {
+        "code": "744f6319-8b5b-4ea4-912d-65ac2c9e20d4",
+        "display": "X-Client-Request-Id"
+      },
+      {
+        "code": "196cda77-e976-483f-899c-cf227441b5af",
+        "display": "X-GtwyTxId"
+      },
+      {
+        "code": "b3890b46-6f70-4a29-9fb8-89ae7d2973ae",
+        "display": "X-LobTxId"
+      }
+    ]
+  },
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:b7741068-4b41-4507-af9b-42794f731520",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "b7741068-4b41-4507-af9b-42794f731520",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-profile-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MR",
+                  "display": "Medical record number"
+                }
+              ]
+            },
+            "system": "http://ehealthontario.ca/fhir/NamingSystem/id-brightshores-health-system-oracle-mrn",
+            "value": "0500077"
+          },
+          {
+            "extension": [
+              {
+                "url": "http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "644191431000087105",
+                      "display": "Ontario Ministry of Health and Long-Term Care"
+                    }
+                  ]
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "JHN",
+                  "display": "Jurisdictional health number"
+                }
+              ]
+            },
+            "system": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-on-patient-hcn",
+            "value": "4444444444"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "family": "ATESTPATIENT",
+            "given": [
+              "MHAPDS"
+            ]
+          }
+        ],
+        "birthDate": "1967-07-15",
+        "_birthDate": {
+          "extension": [
+            {
+              "url": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-birthdate-estimated-flag",
+              "valueBoolean": false
+            }
+          ]
+        },
+        "address": [
+          {
+            "use": "home",
+            "city": "TORONTO",
+            "state": "ON",
+            "postalCode": "M5M3V7"
+          }
+        ],
+        "communication": [
+          {
+            "extension": [
+              {
+                "url": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://snomed.info/sct",
+                      "code": "428996008",
+                      "display": "Language of comfort"
+                    }
+                  ]
+                }
+              }
+            ],
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            }
+          },
+          {
+            "extension": [
+              {
+                "url": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-ext-LanguageUse",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://ontariohealth.ca/fhir/CodeSystem/LanguageUse",
+                      "code": "OFL",
+                      "display": "Official Language"
+                    }
+                  ]
+                }
+              }
+            ],
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            }
+          }
+        ],
+        "managingOrganization": {
+          "reference": "urn:uuid:8e6e3c9b-b867-4ded-ba7d-ae2ea34b2aba"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8e6e3c9b-b867-4ded-ba7d-ae2ea34b2aba",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "8e6e3c9b-b867-4ded-ba7d-ae2ea34b2aba",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-profile-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-ConnexOrg",
+            "value": "10022"
+          },
+          {
+            "system": "http://ehealthontario.ca/fhir/NamingSystem/id-Organization-OHFS",
+            "value": "955"
+          }
+        ],
+        "active": true,
+        "name": "Brightshores Health System"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5121681f-238a-4cd7-8900-af1ca3420855",
+      "resource": {
+        "resourceType": "Location",
+        "id": "5121681f-238a-4cd7-8900-af1ca3420855",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-profile-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ehealthontario.ca/fhir/NamingSystem/id-Location-ConnexSite",
+            "value": "4"
+          }
+        ],
+        "name": "Wellness & Recovery Centre",
+        "managingOrganization": {
+          "reference": "urn:uuid:8e6e3c9b-b867-4ded-ba7d-ae2ea34b2aba"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ca24afa7-44b2-4035-954c-eac6693f1af9",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ca24afa7-44b2-4035-954c-eac6693f1af9",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-profile-observation-sexual-orientation"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "76690-7",
+              "display": "Sexual Orientation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b7741068-4b41-4507-af9b-42794f731520"
+        },
+        "effectiveDateTime": "2026-02-10",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "440583007",
+              "display": "Do not know"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:11be1a7d-0831-4968-8ee8-8a060f958d70",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "11be1a7d-0831-4968-8ee8-8a060f958d70",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-profile-observation-citizenship-status"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-bornInCanada",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+                  "code": "Y",
+                  "display": "Yes"
+                }
+              ]
+            }
+          }
+        ],
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "69433-1",
+              "display": "Citizenship Status"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b7741068-4b41-4507-af9b-42794f731520"
+        },
+        "effectiveDateTime": "2026-02-10",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+              "code": "UNK",
+              "display": "Unknown"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b944e3f2-3191-49a9-bea0-a03efdaa5d3f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b944e3f2-3191-49a9-bea0-a03efdaa5d3f",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-profile-observation-total-household-income"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "77244-2",
+              "display": "Total Household Income"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b7741068-4b41-4507-af9b-42794f731520"
+        },
+        "effectiveDateTime": "2026-02-10",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+              "code": "UNK",
+              "display": "Do not know"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1838cae5-b788-40e0-966b-44bf0d2cd3e3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1838cae5-b788-40e0-966b-44bf0d2cd3e3",
+        "meta": {
+          "profile": [
+            "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-profile-observation-number-of-people-income-supports"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history",
+                "display": "Social History"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "86639-2",
+              "display": "Number of People Household Income Supports"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:b7741068-4b41-4507-af9b-42794f731520"
+        },
+        "effectiveDateTime": "2026-02-10",
+        "valueInteger": 1
+      }
+    }
+  ]
+}

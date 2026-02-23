@@ -1,0 +1,601 @@
+{
+  "resourceType": "OperationOutcome",
+  "issue": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 164
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+          }
+        ]
+      },
+      "diagnostics": "A code with no system has no defined meaning. A system should be provided",
+      "location": [
+        "Bundle.meta.tag[0]",
+        "Line[1] Col[164]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 235
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+          }
+        ]
+      },
+      "diagnostics": "A code with no system has no defined meaning. A system should be provided",
+      "location": [
+        "Bundle.meta.tag[1]",
+        "Line[1] Col[235]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 305
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "TERMINOLOGY_TX_SYSTEM_NO_CODE"
+          }
+        ]
+      },
+      "diagnostics": "A code with no system has no defined meaning. A system should be provided",
+      "location": [
+        "Bundle.meta.tag[2]",
+        "Line[1] Col[305]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1082
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Extension_EXT_Unknown"
+        }
+      ],
+      "severity": "information",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Extension_EXT_Unknown"
+          }
+        ]
+      },
+      "diagnostics": "Unknown extension http://ontariohealth.ca/fhir/ValueSet/mha/patient-jhn-identifier-system",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.identifier[1].extension[0]",
+        "Line[1] Col[1082]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1079
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Ontario Ministry of Health and Long-Term Care\" does not match expected \"Ministry of Health Ontario\" for 'http://snomed.info/sct#644191431000087105'",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.identifier[1].extension[0].value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[1079]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1216
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "diagnostics": "Concept Display \"Jurisdictional health number\" does not match expected \"Jurisdictional health number (Canada)\" for in-memory expansion of ValueSet: http://hl7.org/fhir/ValueSet/identifier-type",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.identifier[1].type",
+        "Line[1] Col[1216]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1867
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Language of comfort\" does not match expected \"langue prÃ©fÃ©rÃ©e (entitÃ© observable)\" for 'http://snomed.info/sct#428996008'",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.communication[0].extension[0].value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[1867]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1082
+        }
+      ],
+      "severity": "information",
+      "code": "processing",
+      "diagnostics": "This element does not match any known slice defined in the profile http://ontariohealth.ca/fhir/StructureDefinition/ca-on-mha-profile-patient|0.1.1 - Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.identifier[1].extension[0]: Does not match slice 'VersionCode' (discriminator: ('http://hl7.org/fhir/ca/baseline/StructureDefinition/ext-identifierversion' in url))",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.identifier[1].extension[0]",
+        "Line[1] Col[1082]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 1607
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "TERMINOLOGY_TX_HINT"
+        }
+      ],
+      "severity": "information",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "TERMINOLOGY_TX_HINT"
+          }
+        ]
+      },
+      "diagnostics": "Code validation occurred using a ValueSet expansion that was pre-calculated at 2022-09-20T20:03:40.231+00:00 (1239 days ago)",
+      "location": [
+        "Bundle.entry[0].resource/*Patient/b7741068-4b41-4507-af9b-42794f731520*/.address[0].state",
+        "Line[1] Col[1607]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 3871
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Sexual Orientation\" does not match expected \"Sexual orientation\" for 'http://loinc.org#76690-7'",
+      "location": [
+        "Bundle.entry[3].resource/*Observation/ca24afa7-44b2-4035-954c-eac6693f1af9*/.code.coding[0]",
+        "Line[1] Col[3871]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4091
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Do not know\" does not match expected \"Undecided about sexual orientation\" for 'http://snomed.info/sct#440583007'",
+      "location": [
+        "Bundle.entry[3].resource/*Observation/ca24afa7-44b2-4035-954c-eac6693f1af9*/.value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[4091]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4573
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Extension_EXT_Type"
+        }
+      ],
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Extension_EXT_Type"
+          }
+        ]
+      },
+      "diagnostics": "The Extension 'http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-bornInCanada' definition allows for the types [code] but found type CodeableConcept",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.extension[0]",
+        "Line[1] Col[4573]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4572
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_TX_Code_ValueSet_MISSING"
+        }
+      ],
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_TX_Code_ValueSet_MISSING"
+          }
+        ]
+      },
+      "diagnostics": "No code provided, and a code is required from the value set",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.extension[0].value.ofType(CodeableConcept)",
+        "Line[1] Col[4572]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4570
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Validation_VAL_Profile_NotAllowed"
+        }
+      ],
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Validation_VAL_Profile_NotAllowed"
+          }
+        ]
+      },
+      "diagnostics": "This element is not allowed by the profile http://hl7.org/fhir/StructureDefinition/code|4.0.1",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.extension[0].value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[4570]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4836
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Citizenship Status\" does not match expected \"Citizenship status\" for 'http://loinc.org#69433-1'",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.code.coding[0]",
+        "Line[1] Col[4836]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 5075
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Unknown\" does not match expected \"unknown\" for 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor#UNK'",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[5075]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 4573
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Extension_PROF_Type"
+        }
+      ],
+      "severity": "error",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Extension_PROF_Type"
+          }
+        ]
+      },
+      "diagnostics": "The Profile 'http://ontariohealth.ca/fhir/StructureDefinition/ca-on-profile-observation-citizenship-status|1.0.0' definition allows for the type code but found type CodeableConcept",
+      "location": [
+        "Bundle.entry[4].resource/*Observation/11be1a7d-0831-4968-8ee8-8a060f958d70*/.extension[0].value.ofType(CodeableConcept)",
+        "Line[1] Col[4573]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 5610
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Total Household Income\" does not match expected \"Total combined household income range in last year\" for 'http://loinc.org#77244-2'",
+      "location": [
+        "Bundle.entry[5].resource/*Observation/b944e3f2-3191-49a9-bea0-a03efdaa5d3f*/.code.coding[0]",
+        "Line[1] Col[5610]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 5853
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display \"Do not know\" does not match expected \"unknown\" for 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor#UNK'",
+      "location": [
+        "Bundle.entry[5].resource/*Observation/b944e3f2-3191-49a9-bea0-a03efdaa5d3f*/.value.ofType(CodeableConcept).coding[0]",
+        "Line[1] Col[5853]"
+      ]
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 1
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 6418
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-message-id",
+          "valueString": "Terminology_PassThrough_TX_Message"
+        }
+      ],
+      "severity": "warning",
+      "code": "processing",
+      "details": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/java-core-messageId",
+            "code": "Terminology_PassThrough_TX_Message"
+          }
+        ]
+      },
+      "diagnostics": "Concept Display &quot;Number of People Household Income Supports&quot; does not match expected &quot;Household size [#]&quot; for 'http://loinc.org#86639-2'",
+      "location": [
+        "Bundle.entry[6].resource/*Observation/1838cae5-b788-40e0-966b-44bf0d2cd3e3*/.code.coding[0]",
+        "Line[1] Col[6418]"
+      ]
+    }
+  ]
+}
