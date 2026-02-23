@@ -83,7 +83,7 @@ var routes = [
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-PEQWDKSP.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-4XY7RY4O.js").then((m) => m.LogsComponent),
     title: "MHA PDS Logs"
   },
   {
@@ -139,8 +139,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.232-develop";
-var packageVersion = "0.0.232";
+var buildVersion = "v0.0.233-develop";
+var packageVersion = "0.0.233";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
