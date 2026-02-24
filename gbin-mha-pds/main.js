@@ -88,7 +88,7 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-76AAOUMJ.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-ECI3BCKQ.js").then((m) => m.PatientsComponent),
     title: "MHA PDS Patients"
   },
   {
@@ -139,8 +139,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.238-feature/patient-detail-timeline-redesign";
-var packageVersion = "0.0.238";
+var buildVersion = "v0.0.239-feature/patient-detail-timeline-redesign";
+var packageVersion = "0.0.239";
 var gitBranch = "feature/patient-detail-timeline-redesign";
 
 // src/app/app-version/app-version.ts

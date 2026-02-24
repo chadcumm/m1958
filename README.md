@@ -3,9 +3,9 @@
 ## Current Deployment
 
 **Environment:** M1958
-**Version:** v0.0.238
+**Version:** v0.0.239
 **Branch:** feature/patient-detail-timeline-redesign
-**Last Deployed:** 02/24/2026, 14:52:38
+**Last Deployed:** 02/24/2026, 15:01:49
 
 ## About
 
@@ -13,6 +13,7 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 
 ## Deployment History
 
+- **v0.0.239** | Branch: `feature/patient-detail-timeline-redesign` | Deployed: 02/24/2026, 15:01:49
 - **v0.0.238** | Branch: `feature/patient-detail-timeline-redesign` | Deployed: 02/24/2026, 14:52:38
 - **v0.0.237** | Branch: `feature/patient-detail-timeline-redesign` | Deployed: 02/24/2026, 14:37:49
 - **v0.0.236** | Branch: `develop` | Deployed: 02/23/2026, 16:03:43
@@ -22,7 +23,6 @@ This directory contains the deployed build artifacts for the gbin-mha-pds MPage 
 - **v0.0.232** | Branch: `develop` | Deployed: 02/23/2026, 13:52:42
 - **v0.0.231** | Branch: `develop` | Deployed: 02/23/2026, 12:38:51
 - **v0.0.230** | Branch: `develop` | Deployed: 02/23/2026, 12:24:29
-- **v0.0.228** | Branch: `develop` | Deployed: 02/23/2026, 10:30:24
 
 ---
 
