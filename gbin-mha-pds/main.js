@@ -139,8 +139,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.239-feature/patient-detail-timeline-redesign";
-var packageVersion = "0.0.239";
+var buildVersion = "v0.0.240-feature/patient-detail-timeline-redesign";
+var packageVersion = "0.0.240";
 var gitBranch = "feature/patient-detail-timeline-redesign";
 
 // src/app/app-version/app-version.ts
