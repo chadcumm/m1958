@@ -1,8 +1,36 @@
+@charset "UTF-8";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
 @import "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined";
 @import "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap";
 
 /* src/styles.scss */
+:root {
+  --mha-bg: #f0f2f5;
+  --mha-surface: #ffffff;
+  --mha-surface-dim: #f7f8fa;
+  --mha-border: #d9dde3;
+  --mha-border-light: #e8ebf0;
+  --mha-text-1: #1b2332;
+  --mha-text-2: #4a5468;
+  --mha-text-3: #8993a4;
+  --mha-teal: #0d9488;
+  --mha-teal-bg: #f0fdfa;
+  --mha-teal-dark: #0f766e;
+  --mha-green: #16a34a;
+  --mha-green-bg: #f0fdf4;
+  --mha-amber: #d97706;
+  --mha-amber-bg: #fffbeb;
+  --mha-red: #dc2626;
+  --mha-red-bg: #fef2f2;
+  --mha-blue: #2563eb;
+  --mha-blue-bg: #eff6ff;
+  --mha-violet: #7c3aed;
+  --mha-violet-bg: #f5f3ff;
+  --mha-r: 6px;
+  --mha-r-lg: 10px;
+  --mha-font: "IBM Plex Sans", sans-serif;
+}
 :root {
   --text-color: black;
   --text-color-alternate: grey;
