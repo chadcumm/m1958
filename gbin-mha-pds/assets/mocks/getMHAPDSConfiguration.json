@@ -158,7 +158,7 @@
       "CODE_TABLE_NAME": "HSP ORGANIZATION ACTIVE FLAG"
     }
   ],
-  "CODE_TABLE_MAPPING_CNT": 787,
+  "CODE_TABLE_MAPPING_CNT": 945,
   "CODE_TABLE_MAPPINGS": [
     {
       "CODE_TABLE_ID": "CT-001",
@@ -323,7 +323,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "348",
-      "LABEL": "A348 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Brief Services",
+      "LABEL": "A348 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Brief Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -333,7 +333,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "349",
-      "LABEL": "A349 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Counselling/Therapy Services",
+      "LABEL": "A349 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Counselling/Therapy Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -343,7 +343,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "350",
-      "LABEL": "A350 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Crisis Support Services",
+      "LABEL": "A350 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Crisis Support Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -353,7 +353,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "351",
-      "LABEL": "A351 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œFamily Capacity Building and Support",
+      "LABEL": "A351 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“Family Capacity Building and Support",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -373,7 +373,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "353",
-      "LABEL": "A353 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Intensive Treatment Services",
+      "LABEL": "A353 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Intensive Treatment Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -413,7 +413,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "356",
-      "LABEL": "A356 ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Targeted Prevention",
+      "LABEL": "A356 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Targeted Prevention",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1013,7 +1013,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725097810",
-      "LABEL": "Case Mgmt/ Supportive Counselling & Services ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
+      "LABEL": "Case Mgmt/ Supportive Counselling & Services ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "DATIS-MDS, OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1273,7 +1273,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "72530750",
-      "LABEL": "MH- Home Care ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Child/Adolescent",
+      "LABEL": "MH- Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Child/Adolescent",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1293,7 +1293,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307625",
-      "LABEL": "MH- Home Care -Psychiatric ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Acute",
+      "LABEL": "MH- Home Care -Psychiatric ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Acute",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1303,7 +1303,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307655",
-      "LABEL": "MH- Home Care ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Forensic Psychiatry",
+      "LABEL": "MH- Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Forensic Psychiatry",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1323,7 +1323,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307690",
-      "LABEL": "MH - Home Care ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Psychiatric Crisis",
+      "LABEL": "MH - Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Psychiatric Crisis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -2423,7 +2423,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186039002",
-      "LABEL": "New Zealand MÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚Âori",
+      "LABEL": "New Zealand MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2433,7 +2433,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186040000",
-      "LABEL": "Cook Island MÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚Âori",
+      "LABEL": "Cook Island MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2633,7 +2633,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "243284401000087108",
-      "LABEL": "MÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©tis",
+      "LABEL": "MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©tis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -3873,7 +3873,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "73736004",
-      "LABEL": "MÃƒÆ’Ã¢â‚¬Å¾Ãƒâ€šÃ‚Âori",
+      "LABEL": "MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4203,7 +4203,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "87323008",
-      "LABEL": "Nez PercÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©",
+      "LABEL": "Nez PercÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4453,7 +4453,7 @@
     {
       "CODE_TABLE_ID": "CT-012",
       "CODE": "189542671000087101",
-      "LABEL": "MinistÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©bec",
+      "LABEL": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -5381,6 +5381,1586 @@
       "COMMENT": ""
     },
     {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "af",
+      "LABEL": "Afrikaans",
+      "DESCRIPTION": "Afrikaans",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ak",
+      "LABEL": "Akan",
+      "DESCRIPTION": "Akan",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sq",
+      "LABEL": "Albanian",
+      "DESCRIPTION": "Albanian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ase",
+      "LABEL": "American Sign Language",
+      "DESCRIPTION": "American Sign Language",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "am",
+      "LABEL": "Amharic",
+      "DESCRIPTION": "Amharic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ar",
+      "LABEL": "Arabic",
+      "DESCRIPTION": "Arabic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hy",
+      "LABEL": "Armenian",
+      "DESCRIPTION": "Armenian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "as",
+      "LABEL": "Assamese",
+      "DESCRIPTION": "Assamese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "aii",
+      "LABEL": "Assyrian Neo-Aramaic",
+      "DESCRIPTION": "Assyrian Neo-Aramaic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "az",
+      "LABEL": "Azerbaijani",
+      "DESCRIPTION": "Azerbaijani",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bal",
+      "LABEL": "Baluchi",
+      "DESCRIPTION": "Baluchi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bm",
+      "LABEL": "Bambara",
+      "DESCRIPTION": "Bambara",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "be",
+      "LABEL": "Belarusian",
+      "DESCRIPTION": "Belarusian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bn",
+      "LABEL": "Bengali",
+      "DESCRIPTION": "Bengali",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bik",
+      "LABEL": "Bikol",
+      "DESCRIPTION": "Bikol",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "byn",
+      "LABEL": "Bilin",
+      "DESCRIPTION": "Bilin",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bin",
+      "LABEL": "Bini",
+      "DESCRIPTION": "Bini",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bs",
+      "LABEL": "Bosnian",
+      "DESCRIPTION": "Bosnian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bg",
+      "LABEL": "Bulgarian",
+      "DESCRIPTION": "Bulgarian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "my",
+      "LABEL": "Burmese",
+      "DESCRIPTION": "Burmese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ca",
+      "LABEL": "Catalan",
+      "DESCRIPTION": "Catalan",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ceb",
+      "LABEL": "Cebuano",
+      "DESCRIPTION": "Cebuano",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cld",
+      "LABEL": "Chaldean Neo-Aramaic",
+      "DESCRIPTION": "Chaldean Neo-Aramaic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "zh",
+      "LABEL": "Chinese",
+      "DESCRIPTION": "Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cop",
+      "LABEL": "Coptic",
+      "DESCRIPTION": "Coptic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hr",
+      "LABEL": "Croatian",
+      "DESCRIPTION": "Croatian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cs",
+      "LABEL": "Czech",
+      "DESCRIPTION": "Czech",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "da",
+      "LABEL": "Danish",
+      "DESCRIPTION": "Danish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "prs",
+      "LABEL": "Dari",
+      "DESCRIPTION": "Dari",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "din",
+      "LABEL": "Dinka",
+      "DESCRIPTION": "Dinka",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nl",
+      "LABEL": "Dutch",
+      "DESCRIPTION": "Dutch",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "frs",
+      "LABEL": "Eastern Frisian",
+      "DESCRIPTION": "Eastern Frisian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "et",
+      "LABEL": "Estonian",
+      "DESCRIPTION": "Estonian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ee",
+      "LABEL": "Ewe",
+      "DESCRIPTION": "Ewe",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fj",
+      "LABEL": "Fijian",
+      "DESCRIPTION": "Fijian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fil",
+      "LABEL": "Filipino",
+      "DESCRIPTION": "Filipino",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fi",
+      "LABEL": "Finnish",
+      "DESCRIPTION": "Finnish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fr",
+      "LABEL": "French",
+      "DESCRIPTION": "French",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ff",
+      "LABEL": "Fulah",
+      "DESCRIPTION": "Fulah",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "gaa",
+      "LABEL": "Ga",
+      "DESCRIPTION": "Ga",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "lg",
+      "LABEL": "Ganda",
+      "DESCRIPTION": "Ganda",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ka",
+      "LABEL": "Georgian",
+      "DESCRIPTION": "Georgian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "de",
+      "LABEL": "German",
+      "DESCRIPTION": "German",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "gu",
+      "LABEL": "Gujarati",
+      "DESCRIPTION": "Gujarati",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ht",
+      "LABEL": "Haitian",
+      "DESCRIPTION": "Haitian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hak",
+      "LABEL": "Hakka Chinese",
+      "DESCRIPTION": "Hakka Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "har",
+      "LABEL": "Harari",
+      "DESCRIPTION": "Harari",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ha",
+      "LABEL": "Hausa",
+      "DESCRIPTION": "Hausa",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "he",
+      "LABEL": "Hebrew",
+      "DESCRIPTION": "Hebrew",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hil",
+      "LABEL": "Hiligaynon",
+      "DESCRIPTION": "Hiligaynon",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hi",
+      "LABEL": "Hindi",
+      "DESCRIPTION": "Hindi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hu",
+      "LABEL": "Hungarian",
+      "DESCRIPTION": "Hungarian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "is",
+      "LABEL": "Icelandic",
+      "DESCRIPTION": "Icelandic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ig",
+      "LABEL": "Igbo",
+      "DESCRIPTION": "Igbo",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ilo",
+      "LABEL": "Iloko",
+      "DESCRIPTION": "Iloko",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "id",
+      "LABEL": "Indonesian",
+      "DESCRIPTION": "Indonesian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pes",
+      "LABEL": "Iranian Persian",
+      "DESCRIPTION": "Iranian Persian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ga",
+      "LABEL": "Irish",
+      "DESCRIPTION": "Irish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "it",
+      "LABEL": "Italian",
+      "DESCRIPTION": "Italian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ja",
+      "LABEL": "Japanese",
+      "DESCRIPTION": "Japanese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kab",
+      "LABEL": "Kabyle",
+      "DESCRIPTION": "Kabyle",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kfr",
+      "LABEL": "Kachhi",
+      "DESCRIPTION": "Kachhi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kne",
+      "LABEL": "Kankanaey",
+      "DESCRIPTION": "Kankanaey",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kn",
+      "LABEL": "Kannada",
+      "DESCRIPTION": "Kannada",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ks",
+      "LABEL": "Kashmiri",
+      "DESCRIPTION": "Kashmiri",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kk",
+      "LABEL": "Kazakh",
+      "DESCRIPTION": "Kazakh",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "km",
+      "LABEL": "Central Khmer",
+      "DESCRIPTION": "Central Khmer",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ki",
+      "LABEL": "Kikuyu",
+      "DESCRIPTION": "Kikuyu",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "krj",
+      "LABEL": "Kinaray-A",
+      "DESCRIPTION": "Kinaray-A",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rw",
+      "LABEL": "Kinyarwanda",
+      "DESCRIPTION": "Kinyarwanda",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kok",
+      "LABEL": "Konkani (macrolanguage)",
+      "DESCRIPTION": "Konkani (macrolanguage)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ko",
+      "LABEL": "Korean",
+      "DESCRIPTION": "Korean",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "kri",
+      "LABEL": "Krio",
+      "DESCRIPTION": "Krio",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ku",
+      "LABEL": "Kurdish",
+      "DESCRIPTION": "Kurdish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "lo",
+      "LABEL": "Lao",
+      "DESCRIPTION": "Lao",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "lv",
+      "LABEL": "Latvian",
+      "DESCRIPTION": "Latvian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ln",
+      "LABEL": "Lingala",
+      "DESCRIPTION": "Lingala",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "lt",
+      "LABEL": "Lithuanian",
+      "DESCRIPTION": "Lithuanian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nds",
+      "LABEL": "Low German",
+      "DESCRIPTION": "Low German",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "lua",
+      "LABEL": "Luba-Lulua",
+      "DESCRIPTION": "Luba-Lulua",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mk",
+      "LABEL": "Macedonian",
+      "DESCRIPTION": "Macedonian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mg",
+      "LABEL": "Malagasy",
+      "DESCRIPTION": "Malagasy",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ms",
+      "LABEL": "Malay (macrolanguage)",
+      "DESCRIPTION": "Malay (macrolanguage)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ml",
+      "LABEL": "Malayalam",
+      "DESCRIPTION": "Malayalam",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mt",
+      "LABEL": "Maltese",
+      "DESCRIPTION": "Maltese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cmn",
+      "LABEL": "Mandarin Chinese",
+      "DESCRIPTION": "Mandarin Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mr",
+      "LABEL": "Marathi",
+      "DESCRIPTION": "Marathi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cdo",
+      "LABEL": "Min Dong Chinese",
+      "DESCRIPTION": "Min Dong Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nan",
+      "LABEL": "Min Nan Chinese",
+      "DESCRIPTION": "Min Nan Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "hna",
+      "LABEL": "Mina (Cameroon)",
+      "DESCRIPTION": "Mina (Cameroon)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mn",
+      "LABEL": "Mongolian",
+      "DESCRIPTION": "Mongolian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mfe",
+      "LABEL": "Morisyen",
+      "DESCRIPTION": "Morisyen",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "mos",
+      "LABEL": "Mossi",
+      "DESCRIPTION": "Mossi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "wmw",
+      "LABEL": "Mwani",
+      "DESCRIPTION": "Mwani",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ne",
+      "LABEL": "Nepali (macrolanguage)",
+      "DESCRIPTION": "Nepali (macrolanguage)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nd",
+      "LABEL": "North Ndebele",
+      "DESCRIPTION": "North Ndebele",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "frr",
+      "LABEL": "Northern Frisian",
+      "DESCRIPTION": "Northern Frisian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "no",
+      "LABEL": "Norwegian",
+      "DESCRIPTION": "Norwegian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nus",
+      "LABEL": "Nuer",
+      "DESCRIPTION": "Nuer",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ory",
+      "LABEL": "Odia",
+      "DESCRIPTION": "Odia",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "osx",
+      "LABEL": "Old Saxon",
+      "DESCRIPTION": "Old Saxon",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "or",
+      "LABEL": "Oriya (macrolanguage)",
+      "DESCRIPTION": "Oriya (macrolanguage)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "om",
+      "LABEL": "Oromo",
+      "DESCRIPTION": "Oromo",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pam",
+      "LABEL": "Pampanga",
+      "DESCRIPTION": "Pampanga",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pag",
+      "LABEL": "Pangasinan",
+      "DESCRIPTION": "Pangasinan",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pa",
+      "LABEL": "Panjabi",
+      "DESCRIPTION": "Panjabi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "prd",
+      "LABEL": "Parsi-Dari",
+      "DESCRIPTION": "Parsi-Dari",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pdc",
+      "LABEL": "Pennsylvania German",
+      "DESCRIPTION": "Pennsylvania German",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fa",
+      "LABEL": "Persian",
+      "DESCRIPTION": "Persian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pdt",
+      "LABEL": "Plautdietsch",
+      "DESCRIPTION": "Plautdietsch",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pl",
+      "LABEL": "Polish",
+      "DESCRIPTION": "Polish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "pt",
+      "LABEL": "Portuguese",
+      "DESCRIPTION": "Portuguese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ps",
+      "LABEL": "Pushto",
+      "DESCRIPTION": "Pushto",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fcs",
+      "LABEL": "Quebec Sign Language",
+      "DESCRIPTION": "Quebec Sign Language",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rhg",
+      "LABEL": "Rohingya",
+      "DESCRIPTION": "Rohingya",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ro",
+      "LABEL": "Romanian",
+      "DESCRIPTION": "Romanian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rge",
+      "LABEL": "Romano-Greek",
+      "DESCRIPTION": "Romano-Greek",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rn",
+      "LABEL": "Rundi",
+      "DESCRIPTION": "Rundi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ru",
+      "LABEL": "Russian",
+      "DESCRIPTION": "Russian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rue",
+      "LABEL": "Rusyn",
+      "DESCRIPTION": "Rusyn",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ksw",
+      "LABEL": "S'gaw Karen",
+      "DESCRIPTION": "S'gaw Karen",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sg",
+      "LABEL": "Sango",
+      "DESCRIPTION": "Sango",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "gd",
+      "LABEL": "Scottish Gaelic",
+      "DESCRIPTION": "Scottish Gaelic",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sr",
+      "LABEL": "Serbian",
+      "DESCRIPTION": "Serbian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sn",
+      "LABEL": "Shona",
+      "DESCRIPTION": "Shona",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sd",
+      "LABEL": "Sindhi",
+      "DESCRIPTION": "Sindhi",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "si",
+      "LABEL": "Sinhala",
+      "DESCRIPTION": "Sinhala",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sk",
+      "LABEL": "Slovak",
+      "DESCRIPTION": "Slovak",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sl",
+      "LABEL": "Slovenian",
+      "DESCRIPTION": "Slovenian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "so",
+      "LABEL": "Somali",
+      "DESCRIPTION": "Somali",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "snk",
+      "LABEL": "Soninke",
+      "DESCRIPTION": "Soninke",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "nr",
+      "LABEL": "South Ndebele",
+      "DESCRIPTION": "South Ndebele",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sw",
+      "LABEL": "Swahili (macrolanguage)",
+      "DESCRIPTION": "Swahili (macrolanguage)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "sv",
+      "LABEL": "Swedish",
+      "DESCRIPTION": "Swedish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "gsw",
+      "LABEL": "Swiss German",
+      "DESCRIPTION": "Swiss German",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ta",
+      "LABEL": "Tamil",
+      "DESCRIPTION": "Tamil",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "rif",
+      "LABEL": "Tarifit",
+      "DESCRIPTION": "Tarifit",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "te",
+      "LABEL": "Telugu",
+      "DESCRIPTION": "Telugu",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "th",
+      "LABEL": "Thai",
+      "DESCRIPTION": "Thai",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "bo",
+      "LABEL": "Tibetan",
+      "DESCRIPTION": "Tibetan",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ti",
+      "LABEL": "Tigrinya",
+      "DESCRIPTION": "Tigrinya",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "tcy",
+      "LABEL": "Tulu",
+      "DESCRIPTION": "Tulu",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "tr",
+      "LABEL": "Turkish",
+      "DESCRIPTION": "Turkish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ug",
+      "LABEL": "Uighur",
+      "DESCRIPTION": "Uighur",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "uk",
+      "LABEL": "Ukrainian",
+      "DESCRIPTION": "Ukrainian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "ur",
+      "LABEL": "Urdu",
+      "DESCRIPTION": "Urdu",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "uz",
+      "LABEL": "Uzbek",
+      "DESCRIPTION": "Uzbek",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "vi",
+      "LABEL": "Vietnamese",
+      "DESCRIPTION": "Vietnamese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "vls",
+      "LABEL": "Vlaams",
+      "DESCRIPTION": "Vlaams",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "war",
+      "LABEL": "Waray (Philippines)",
+      "DESCRIPTION": "Waray (Philippines)",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "cy",
+      "LABEL": "Welsh",
+      "DESCRIPTION": "Welsh",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "fy",
+      "LABEL": "Western Frisian",
+      "DESCRIPTION": "Western Frisian",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "jod",
+      "LABEL": "Wojenaka",
+      "DESCRIPTION": "Wojenaka",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "wo",
+      "LABEL": "Wolof",
+      "DESCRIPTION": "Wolof",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "wuu",
+      "LABEL": "Wu Chinese",
+      "DESCRIPTION": "Wu Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "yi",
+      "LABEL": "Yiddish",
+      "DESCRIPTION": "Yiddish",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "yo",
+      "LABEL": "Yoruba",
+      "DESCRIPTION": "Yoruba",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
+      "CODE_TABLE_ID": "CT-017",
+      "CODE": "yue",
+      "LABEL": "Yue Chinese",
+      "DESCRIPTION": "Yue Chinese",
+      "CODE_VALUE_SOURCE": "",
+      "CODE_SYSTEM": "urn:ietf:bcp:47",
+      "VALUE_SET_URL": "http://ontariohealth.ca/fhir/ValueSet/human-language",
+      "COMMENT": ""
+    },
+    {
       "CODE_TABLE_ID": "CT-018",
       "CODE": "asked-declined",
       "LABEL": "Asked But Declined",
@@ -6263,7 +7843,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPA",
-      "LABEL": "Health Promotion/Education ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Awareness",
+      "LABEL": "Health Promotion/Education ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Awareness",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -6273,7 +7853,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPW",
-      "LABEL": "Health Promotion/Education ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ Women's Health (MH)",
+      "LABEL": "Health Promotion/Education ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Women's Health (MH)",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -8527,7 +10107,7 @@
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
           "PDS_VALUE": "189542671000087101",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
+          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -8932,6 +10512,1606 @@
           "DISPLAY": "Spanish",
           "ACTIVE_IND": 1,
           "PRIORITY": 3
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Afrikaans",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "af",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Afrikaans",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 4
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Akan",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ak",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Akan",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Albanian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sq",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Albanian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "American Sign Language",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ase",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "American Sign Language",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Amharic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "am",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Amharic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Arabic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ar",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Arabic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Armenian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hy",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Armenian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Assamese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "as",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Assamese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Assyrian Neo-Aramaic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "aii",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Assyrian Neo-Aramaic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 12
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Azerbaijani",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "az",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Azerbaijani",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 13
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Baluchi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bal",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Baluchi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 14
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bambara",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bm",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bambara",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 15
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Belarusian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "be",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Belarusian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 16
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bengali",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bengali",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 17
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bikol",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bik",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bikol",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 18
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bilin",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "byn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bilin",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 19
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bini",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bin",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bini",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 20
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bosnian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bs",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bosnian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 21
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Bulgarian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bg",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Bulgarian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 22
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Burmese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "my",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Burmese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 23
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Catalan",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ca",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Catalan",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 24
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Cebuano",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ceb",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Cebuano",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 25
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Chaldean Neo-Aramaic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cld",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Chaldean Neo-Aramaic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 26
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "zh",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 27
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Coptic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cop",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Coptic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 28
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Croatian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Croatian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 29
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Czech",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cs",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Czech",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 30
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Danish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "da",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Danish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 31
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Dari",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "prs",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dari",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 32
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Dinka",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "din",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dinka",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 33
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Do not know",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "UNK",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Unknown",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 34
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Dutch",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nl",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dutch",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 35
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Eastern Frisian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "frs",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Eastern Frisian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 36
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Estonian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "et",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Estonian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 37
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Ewe",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ee",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Ewe",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 38
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Fijian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fj",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Fijian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 39
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Filipino",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fil",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Filipino",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 40
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Finnish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fi",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Finnish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 41
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "French",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "French",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 42
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Fulah",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ff",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Fulah",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 43
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Ga",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "gaa",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Ga",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 44
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Ganda",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "lg",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Ganda",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 45
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Georgian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ka",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Georgian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 46
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "German",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "de",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "German",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 47
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Gujarati",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "gu",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Gujarati",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 48
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Haitian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ht",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Haitian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 49
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hakka Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hak",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hakka Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 50
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Harari",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "har",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Harari",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 51
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hausa",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ha",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hausa",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 52
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hebrew",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "he",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hebrew",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 53
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hiligaynon",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hil",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hiligaynon",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 54
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hindi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hi",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hindi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 55
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Hungarian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hu",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hungarian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 56
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Icelandic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "is",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Icelandic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 57
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Igbo",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ig",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Igbo",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 58
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Iloko",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ilo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Iloko",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 59
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Indonesian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "id",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Indonesian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 60
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Iranian Persian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pes",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Iranian Persian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 61
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Irish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ga",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Irish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 62
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Italian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "it",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Italian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 63
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Japanese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ja",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Japanese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 64
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kabyle",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kab",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kabyle",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 65
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kachhi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kfr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kachhi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 66
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kankanaey",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kne",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kankanaey",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 67
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kannada",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kannada",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 68
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kashmiri",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ks",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kashmiri",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 69
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kazakh",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kk",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kazakh",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 70
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Khmer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "km",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Central Khmer",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 71
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kikuyu",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ki",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kikuyu",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 72
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kinaray-A",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "krj",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kinaray-A",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 73
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kinyarwanda",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rw",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kinyarwanda",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 74
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Konkani (macrolanguage)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kok",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Konkani (macrolanguage)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 75
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Korean",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ko",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Korean",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 76
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Krio",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "kri",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Krio",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 77
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Kurdish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ku",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Kurdish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 78
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Lao",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "lo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Lao",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 79
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Latvian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "lv",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Latvian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 80
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Lingala",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ln",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Lingala",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 81
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Lithuanian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "lt",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Lithuanian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 82
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Low German",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nds",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Low German",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 83
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Luba-Lulua",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "lua",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Luba-Lulua",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 84
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Macedonian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mk",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Macedonian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 85
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Malagasy",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mg",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Malagasy",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 86
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Malay (macrolanguage)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ms",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Malay (macrolanguage)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 87
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Malayalam",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ml",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Malayalam",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 88
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Maltese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mt",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Maltese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 89
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Mandarin Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cmn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mandarin Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 90
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Marathi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Marathi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 91
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Min Dong Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cdo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Min Dong Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 92
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Min Nan Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nan",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Min Nan Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 93
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Mina (Cameroon)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "hna",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mina (Cameroon)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 94
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Mongolian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mongolian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 95
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Morisyen",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mfe",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Morisyen",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 96
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Mossi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "mos",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mossi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 97
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Mwani",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "wmw",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mwani",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 98
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Nepali (macrolanguage)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ne",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Nepali (macrolanguage)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 99
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "North Ndebele",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nd",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "North Ndebele",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 100
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Northern Frisian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "frr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Northern Frisian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 101
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Norwegian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "no",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Norwegian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 102
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Nuer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nus",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Nuer",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 103
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Odia",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ory",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Odia",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 104
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Old Saxon",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "osx",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Old Saxon",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 105
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Oriya (macrolanguage)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "or",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Oriya (macrolanguage)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 106
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Oromo",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "om",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Oromo",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 107
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Pampanga",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pam",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Pampanga",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 108
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Pangasinan",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pag",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Pangasinan",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 109
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Panjabi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pa",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Panjabi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 110
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Parsi-Dari",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "prd",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Parsi-Dari",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 111
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Pennsylvania German",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pdc",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Pennsylvania German",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 112
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Persian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fa",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Persian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 113
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Plautdietsch",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pdt",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Plautdietsch",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 114
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Polish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pl",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Polish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 115
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Portuguese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "pt",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Portuguese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 116
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Prefer not to answer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "asked-declined",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Asked But Declined",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 117
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Pushto",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ps",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Pushto",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 118
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Quebec Sign Language",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fcs",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Quebec Sign Language",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 119
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Rohingya",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rhg",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Rohingya",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 120
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Romanian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ro",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Romanian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 121
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Romano-Greek",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rge",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Romano-Greek",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 122
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Rundi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Rundi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 123
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Russian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ru",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Russian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 124
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Rusyn",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rue",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Rusyn",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 125
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "S'gaw Karen",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ksw",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "S'gaw Karen",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 126
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Sango",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sg",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Sango",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 127
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Scottish Gaelic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "gd",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Scottish Gaelic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 128
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Serbian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Serbian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 129
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Shona",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sn",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Shona",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 130
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Sindhi",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sd",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Sindhi",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 131
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Sinhala",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "si",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Sinhala",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 132
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Slovak",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sk",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Slovak",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 133
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Slovenian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sl",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Slovenian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 134
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Somali",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "so",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Somali",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 135
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Soninke",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "snk",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Soninke",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 136
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "South Ndebele",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "nr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "South Ndebele",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 137
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Swahili (macrolanguage)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sw",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Swahili (macrolanguage)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 138
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Swedish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "sv",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Swedish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 139
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Swiss German",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "gsw",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Swiss German",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 140
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Tamil",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ta",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Tamil",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 141
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Tarifit",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "rif",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Tarifit",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 142
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Telugu",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "te",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Telugu",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 143
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Thai",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "th",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Thai",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 144
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Tibetan",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "bo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Tibetan",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 145
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Tigrinya",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ti",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Tigrinya",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 146
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Tulu",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "tcy",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Tulu",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 147
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Turkish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "tr",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Turkish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 148
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Uighur",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ug",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Uighur",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 149
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Ukrainian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "uk",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Ukrainian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 150
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Urdu",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "ur",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Urdu",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 151
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Uzbek",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "uz",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Uzbek",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 152
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Vietnamese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "vi",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Vietnamese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 153
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Vlaams",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "vls",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Vlaams",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 154
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Waray (Philippines)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "war",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Waray (Philippines)",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 155
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Welsh",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "cy",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Welsh",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 156
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Western Frisian",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "fy",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Western Frisian",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 157
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Wojenaka",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "jod",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Wojenaka",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 158
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Wolof",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "wo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Wolof",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 159
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Wu Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "wuu",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Wu Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 160
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Yiddish",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "yi",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Yiddish",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 161
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Yoruba",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "yo",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Yoruba",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 162
+        },
+        {
+          "TYPE": "LANGUAGE_OF_COMFORT_CODE",
+          "KEY_REF": "Yue Chinese",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "yue",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Yue Chinese",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 163
         }
       ],
       "OBSERVATION_CODE": {
@@ -10204,9 +13384,9 @@
           "TYPE": "CONNEX_SITE_NUMBER",
           "KEY_REF": "RAAM Clinic-OS",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "UNK",
+          "PDS_VALUE": "4",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Unknown",
+          "DISPLAY": "Wellness & Recovery Centre",
           "ACTIVE_IND": 1,
           "PRIORITY": 25
         },
@@ -10402,6 +13582,26 @@
           "DISPLAY": "Outpatient Addiction Treatment",
           "ACTIVE_IND": 1,
           "PRIORITY": 10
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "SACC-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "9",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Sexual Assault and Partner Abuse Care Centre",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Crisis Support Program",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "18",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Short-Term Crisis Support Beds",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 12
         }
       ],
       "OBSERVATION_CODE": {
@@ -10875,6 +14075,16 @@
           "DISPLAY": "Psychiatrist",
           "ACTIVE_IND": 1,
           "PRIORITY": 9
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "General Hospital",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-01",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hospital - General",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
         }
       ],
       "OBSERVATION_CODE": {
@@ -10986,7 +14196,18 @@
       ],
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "PAIRS": [
+        {
+          "TYPE": "EPISODE_OF_CARE",
+          "KEY_REF": "active",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "active",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Active",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
@@ -11196,7 +14417,18 @@
       ],
       "ALPHA_RESONSE_IND": 0,
       "CONSTANT_IND": 0,
-      "PAIRS": [],
+      "PAIRS": [
+        {
+          "TYPE": "APPOINTMENT_CANCELLATION_REASON",
+          "KEY_REF": "No Show",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "Client Did Not Show",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Client Did Not Show",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 1
+        }
+      ],
       "OBSERVATION_CODE": {
         "CODE": "",
         "LABEL": "",
@@ -11336,7 +14568,7 @@
         "CODE_SYSTEM": "",
         "VALUE_SET_URL": "",
         "CODE_VALUE_SOURCE": "",
-        "EXTENSION_URL": ""
+        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-ServiceTerminationDate"
       }
     },
     {
@@ -11651,9 +14883,9 @@
           "TYPE": "CONNEX_SITE_NAME",
           "KEY_REF": "RAAM Clinic-OS",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "Unknown",
+          "PDS_VALUE": "Brightshores Health System - Wellness & Recovery Centre",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Unknown",
+          "DISPLAY": "Wellness & Recovery Centre",
           "ACTIVE_IND": 1,
           "PRIORITY": 25
         },
@@ -11925,7 +15157,7 @@
         {
           "TYPE": "FUNCTIONAL_CENTRE_CODE",
           "KEY_REF": "Addiction Treatment Services",
-          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "715407811",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "SA - Day/Evening Care Addictions Treatment",
@@ -11935,12 +15167,22 @@
         {
           "TYPE": "FUNCTIONAL_CENTRE_CODE",
           "KEY_REF": "Outpatient Addiction Treatment",
-          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "715207810",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
           "DISPLAY": "MH - Day/Night Care - Eating Disorder",
           "ACTIVE_IND": 1,
           "PRIORITY": 16
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "SACC-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "715107660",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Clinics/Programs - MH Abuse Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 17
         }
       ],
       "OBSERVATION_CODE": {
@@ -12014,6 +15256,16 @@
           "DISPLAY": "Virtual (video conference)",
           "ACTIVE_IND": 1,
           "PRIORITY": 3
+        },
+        {
+          "TYPE": "SERVICE_MODALITY",
+          "KEY_REF": "Inpatient - Face-to-Face",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "AMB",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "In-person",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 4
         }
       ],
       "OBSERVATION_CODE": {
@@ -12317,6 +15569,46 @@
           "DISPLAY": "Phone",
           "ACTIVE_IND": 1,
           "PRIORITY": 26
+        },
+        {
+          "TYPE": "SERVICE_MODALITY_TYPE",
+          "KEY_REF": "group-in-person",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "803155061000087106",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "group encounter",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 27
+        },
+        {
+          "TYPE": "SERVICE_MODALITY_TYPE",
+          "KEY_REF": "group-virtual",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "803155061000087106",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "group encounter",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 28
+        },
+        {
+          "TYPE": "SERVICE_MODALITY_TYPE",
+          "KEY_REF": "Text Message",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "690545391000087106",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Text message",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 29
+        },
+        {
+          "TYPE": "\\t SERVICE_MODALITY_TYPE",
+          "KEY_REF": "Email",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "979296831000087107",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Email",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 30
         }
       ],
       "OBSERVATION_CODE": {
@@ -12956,6 +16248,16 @@
           "DISPLAY": "In paid casual work",
           "ACTIVE_IND": 1,
           "PRIORITY": 4
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Employed - full time (permanent)",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "228651001",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Employment retraining",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
         }
       ],
       "OBSERVATION_CODE": {
@@ -13261,6 +16563,26 @@
           "DISPLAY": "Entered in error",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Client Preference",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "895451009",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Patient discharge",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 2
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Service Plan Complete",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "CRU",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Completion - Referral Unknown",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 3
         }
       ],
       "OBSERVATION_CODE": {
@@ -13585,7 +16907,7 @@
     {
       "FIELD_CODE": "DE06_011",
       "DESCRIPTION": "Service Termination Reason",
-      "ACTIVE_IND": 0,
+      "ACTIVE_IND": 1,
       "REQUIRED_IND": 0
     },
     {
@@ -13886,7 +17208,7 @@
       "LOCATION_NAME": "ECT Clinic",
       "FACILITY_CD": 11449,
       "NURSE_UNIT_CD": 537736353,
-      "ACTIVE_IND": 1
+      "ACTIVE_IND": 0
     },
     {
       "LOCATION_NAME": "Esketamine Clinic",
@@ -13991,7 +17313,7 @@
       "ACTIVE_IND": 1
     }
   ],
-  "SERVICE_EVENT_TYPES_CNT": 7,
+  "SERVICE_EVENT_TYPES_CNT": 8,
   "SERVICE_EVENT_TYPES": [
     {
       "EVENT_TITLE_TEXT": "Initial Assessment - Outpatient MHA",
@@ -14039,6 +17361,13 @@
       "EVENT_TITLE_TEXT": "Group Progress Note - Outpatient MHA",
       "EVENT_TYPE_NAME": "GROUP_VISIT",
       "DESCRIPTION": "Group Progress Interaction form",
+      "DCP_EVENT_CD": 258355,
+      "ACTIVE_IND": 1
+    },
+    {
+      "EVENT_TITLE_TEXT": "Crisis Support Admission History and Assessment",
+      "EVENT_TYPE_NAME": "INITIAL_ASSESMENT",
+      "DESCRIPTION": "Crisis Support Admission History and Assessment",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     }
