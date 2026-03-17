@@ -73,12 +73,12 @@ var OperationsCanDeactivateGuard = class _OperationsCanDeactivateGuard {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-XMSR5JGQ.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-ZKQ5DT3C.js").then((m) => m.CclTest),
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-KAQA2T4P.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-JXH7QAEH.js").then((m) => m.ConfigEditorComponent),
     title: "MHA PDS Configuration"
   },
   {
@@ -139,8 +139,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.256-develop";
-var packageVersion = "0.0.256";
+var buildVersion = "v0.0.257-develop";
+var packageVersion = "0.0.257";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
