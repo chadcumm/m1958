@@ -1,6 +1,6 @@
 import {
   AccessControlService
-} from "./chunk-2XV7PVC6.js";
+} from "./chunk-I7I2D7UL.js";
 import {
   MhaPdsConfigurationService
 } from "./chunk-NACOCQOL.js";
@@ -91,7 +91,7 @@ var tabAccessGuard = (route) => {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-NSO4RLWA.js").then((m) => m.DefaultRedirectComponent),
+    loadComponent: () => import("./chunk-LEO42FGB.js").then((m) => m.DefaultRedirectComponent),
     title: "MHA PDS"
   },
   {
@@ -139,13 +139,13 @@ var routes = [
   },
   {
     path: "security",
-    loadComponent: () => import("./chunk-3WSDSWCZ.js").then((m) => m.SecurityComponent),
+    loadComponent: () => import("./chunk-4BIBRAPT.js").then((m) => m.SecurityComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Security"
   },
   {
     path: "no-access",
-    loadComponent: () => import("./chunk-Y7MAOGJV.js").then((m) => m.NoAccessComponent),
+    loadComponent: () => import("./chunk-N4H2URIB.js").then((m) => m.NoAccessComponent),
     title: "MHA PDS - No Access"
   }
 ];
@@ -180,8 +180,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.260-develop";
-var packageVersion = "0.0.260";
+var buildVersion = "v0.0.261-develop";
+var packageVersion = "0.0.261";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
