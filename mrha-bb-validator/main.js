@@ -5198,28 +5198,28 @@ var DefaultDomRenderer2 = class {
   setValue(node, value) {
     node.nodeValue = value;
   }
-  listen(target, event2, callback, options) {
-    (typeof ngDevMode === "undefined" || ngDevMode) && this.throwOnSyntheticProps && checkNoSyntheticProp(event2, "listener");
+  listen(target, event, callback, options) {
+    (typeof ngDevMode === "undefined" || ngDevMode) && this.throwOnSyntheticProps && checkNoSyntheticProp(event, "listener");
     if (typeof target === "string") {
       target = getDOM().getGlobalEventTarget(this.doc, target);
       if (!target) {
-        throw new RuntimeError(5102, (typeof ngDevMode === "undefined" || ngDevMode) && `Unsupported event target ${target} for event ${event2}`);
+        throw new RuntimeError(5102, (typeof ngDevMode === "undefined" || ngDevMode) && `Unsupported event target ${target} for event ${event}`);
       }
     }
     let wrappedCallback = this.decoratePreventDefault(callback);
     if (this.tracingService?.wrapEventListener) {
-      wrappedCallback = this.tracingService.wrapEventListener(target, event2, wrappedCallback);
+      wrappedCallback = this.tracingService.wrapEventListener(target, event, wrappedCallback);
     }
-    return this.eventManager.addEventListener(target, event2, wrappedCallback, options);
+    return this.eventManager.addEventListener(target, event, wrappedCallback, options);
   }
   decoratePreventDefault(eventHandler) {
-    return (event2) => {
-      if (event2 === "__ngUnwrap__") {
+    return (event) => {
+      if (event === "__ngUnwrap__") {
         return eventHandler;
       }
-      const allowDefaultBehavior = false ? this.ngZone.runGuarded(() => eventHandler(event2)) : eventHandler(event2);
+      const allowDefaultBehavior = false ? this.ngZone.runGuarded(() => eventHandler(event)) : eventHandler(event);
       if (allowDefaultBehavior === false) {
-        event2.preventDefault();
+        event.preventDefault();
       }
       return void 0;
     };
@@ -5492,10 +5492,10 @@ var _keyMap = {
   "Win": "OS"
 };
 var MODIFIER_KEY_GETTERS = {
-  "alt": (event2) => event2.altKey,
-  "control": (event2) => event2.ctrlKey,
-  "meta": (event2) => event2.metaKey,
-  "shift": (event2) => event2.shiftKey
+  "alt": (event) => event.altKey,
+  "control": (event) => event.ctrlKey,
+  "meta": (event) => event.metaKey,
+  "shift": (event) => event.shiftKey
 };
 var KeyEventsPlugin = class _KeyEventsPlugin extends EventManagerPlugin {
   constructor(doc) {
@@ -5540,11 +5540,11 @@ var KeyEventsPlugin = class _KeyEventsPlugin extends EventManagerPlugin {
     result["fullKey"] = fullKey;
     return result;
   }
-  static matchEventFullKeyCode(event2, fullKeyCode) {
-    let keycode = _keyMap[event2.key] || event2.key;
+  static matchEventFullKeyCode(event, fullKeyCode) {
+    let keycode = _keyMap[event.key] || event.key;
     let key = "";
     if (fullKeyCode.indexOf("code.") > -1) {
-      keycode = event2.code;
+      keycode = event.code;
       key = "code.";
     }
     if (keycode == null || !keycode) return false;
@@ -5557,7 +5557,7 @@ var KeyEventsPlugin = class _KeyEventsPlugin extends EventManagerPlugin {
     MODIFIER_KEYS.forEach((modifierName) => {
       if (modifierName !== keycode) {
         const modifierGetter = MODIFIER_KEY_GETTERS[modifierName];
-        if (modifierGetter(event2)) {
+        if (modifierGetter(event)) {
           key += modifierName + ".";
         }
       }
@@ -5566,9 +5566,9 @@ var KeyEventsPlugin = class _KeyEventsPlugin extends EventManagerPlugin {
     return key === fullKeyCode;
   }
   static eventCallback(fullKey, handler, zone) {
-    return (event2) => {
-      if (_KeyEventsPlugin.matchEventFullKeyCode(event2, fullKey)) {
-        zone.runGuarded(() => handler(event2));
+    return (event) => {
+      if (_KeyEventsPlugin.matchEventFullKeyCode(event, fullKey)) {
+        zone.runGuarded(() => handler(event));
       }
     };
   }
@@ -6853,30 +6853,30 @@ var HttpXhrBackend = class _HttpXhrBackend {
           });
         }
         let sentHeaders = false;
-        const onDownProgress = this.maybePropagateTrace((event2) => {
+        const onDownProgress = this.maybePropagateTrace((event) => {
           if (!sentHeaders) {
             observer.next(partialFromXhr());
             sentHeaders = true;
           }
           let progressEvent = {
             type: HttpEventType.DownloadProgress,
-            loaded: event2.loaded
+            loaded: event.loaded
           };
-          if (event2.lengthComputable) {
-            progressEvent.total = event2.total;
+          if (event.lengthComputable) {
+            progressEvent.total = event.total;
           }
           if (req.responseType === "text" && !!xhr.responseText) {
             progressEvent.partialText = xhr.responseText;
           }
           observer.next(progressEvent);
         });
-        const onUpProgress = this.maybePropagateTrace((event2) => {
+        const onUpProgress = this.maybePropagateTrace((event) => {
           let progress = {
             type: HttpEventType.UploadProgress,
-            loaded: event2.loaded
+            loaded: event.loaded
           };
-          if (event2.lengthComputable) {
-            progress.total = event2.total;
+          if (event.lengthComputable) {
+            progress.total = event.total;
           }
           observer.next(progress);
         });
@@ -7147,7 +7147,7 @@ var HttpClient = class _HttpClient {
     if (first2 instanceof HttpRequest || options.observe === "events") {
       return events$;
     }
-    const res$ = events$.pipe(filter((event2) => event2 instanceof HttpResponse));
+    const res$ = events$.pipe(filter((event) => event instanceof HttpResponse));
     switch (options.observe || "body") {
       case "body":
         switch (req.responseType) {
@@ -7787,14 +7787,14 @@ var HttpResourceImpl = class extends ResourceImpl {
         resolve = void 0;
       };
       sub = this.client.request(request2).subscribe({
-        next: (event2) => {
-          switch (event2.type) {
+        next: (event) => {
+          switch (event.type) {
             case HttpEventType.Response:
-              this._headers.set(event2.headers);
-              this._statusCode.set(event2.status);
+              this._headers.set(event.headers);
+              this._statusCode.set(event.status);
               try {
                 send({
-                  value: parse2 ? parse2(event2.body) : event2.body
+                  value: parse2 ? parse2(event.body) : event.body
                 });
               } catch (error) {
                 send({
@@ -7803,7 +7803,7 @@ var HttpResourceImpl = class extends ResourceImpl {
               }
               break;
             case HttpEventType.DownloadProgress:
-              this._progress.set(event2);
+              this._progress.set(event);
               break;
           }
         },
@@ -9275,8 +9275,8 @@ var NavigationCancel = class extends RouterEvent {
     return `NavigationCancel(id: ${this.id}, url: '${this.url}')`;
   }
 };
-function isRedirectingEvent(event2) {
-  return event2 instanceof NavigationCancel && (event2.code === NavigationCancellationCode.Redirect || event2.code === NavigationCancellationCode.SupersededByNewNavigation);
+function isRedirectingEvent(event) {
+  return event instanceof NavigationCancel && (event.code === NavigationCancellationCode.Redirect || event.code === NavigationCancellationCode.SupersededByNewNavigation);
 }
 var NavigationSkipped = class extends RouterEvent {
   reason;
@@ -12176,10 +12176,10 @@ var HistoryStateManager = class _HistoryStateManager extends StateManager {
     return this.restoredState()?.\u0275routerPageId ?? this.currentPageId;
   }
   registerNonRouterCurrentEntryChangeListener(listener) {
-    return this.location.subscribe((event2) => {
-      if (event2["type"] === "popstate") {
+    return this.location.subscribe((event) => {
+      if (event["type"] === "popstate") {
         setTimeout(() => {
-          listener(event2["url"], event2.state, "popstate");
+          listener(event["url"], event.state, "popstate");
         });
       }
     });
@@ -13281,8 +13281,8 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
   }
   constructor() {
     super();
-    const navigateListener = (event2) => {
-      this.handleNavigate(event2);
+    const navigateListener = (event) => {
+      this.handleNavigate(event);
     };
     this.navigation.addEventListener("navigate", navigateListener);
     inject(DestroyRef).onDestroy(() => this.navigation.removeEventListener("navigate", navigateListener));
@@ -13412,11 +13412,11 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
     this.currentUrlTree = this.stateMemento.currentUrlTree;
     this.rawUrlTree = traversalReset ? this.stateMemento.rawUrlTree : this.urlHandlingStrategy.merge(this.currentUrlTree, finalUrl ?? this.rawUrlTree);
   }
-  handleNavigate(event2) {
-    if (!event2.canIntercept) {
+  handleNavigate(event) {
+    if (!event.canIntercept) {
       return;
     }
-    const routerInfo = event2?.info?.\u0275routerInfo;
+    const routerInfo = event?.info?.\u0275routerInfo;
     if (routerInfo && !routerInfo.intercept) {
       return;
     }
@@ -13429,12 +13429,12 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
       }
     }
     this.currentNavigation = __spreadValues({}, this.currentNavigation);
-    this.currentNavigation.navigationEvent = event2;
+    this.currentNavigation.navigationEvent = event;
     const abortHandler = () => {
       this.currentNavigation.routerTransition?.abort();
     };
-    event2.signal.addEventListener("abort", abortHandler);
-    this.currentNavigation.removeAbortListener = () => event2.signal.removeEventListener("abort", abortHandler);
+    event.signal.addEventListener("abort", abortHandler);
+    this.currentNavigation.removeAbortListener = () => event.signal.removeEventListener("abort", abortHandler);
     let scroll = this.inMemoryScrollingEnabled ? "manual" : this.currentNavigation.routerTransition?.extras.scroll ?? "after-transition";
     const interceptOptions = {
       scroll
@@ -13455,14 +13455,14 @@ var NavigationStateManager = class _NavigationStateManager extends StateManager 
     handlerPromise.catch(() => {
     });
     interceptOptions.handler = () => handlerPromise;
-    event2.intercept(interceptOptions);
+    event.intercept(interceptOptions);
     if (!isTriggeredByRouterTransition) {
-      this.handleNavigateEventTriggeredOutsideRouterAPIs(event2);
+      this.handleNavigateEventTriggeredOutsideRouterAPIs(event);
     }
   }
-  handleNavigateEventTriggeredOutsideRouterAPIs(event2) {
-    const path = event2.destination.url.substring(this.appRootURL.length - 1);
-    const state = event2.destination.getState();
+  handleNavigateEventTriggeredOutsideRouterAPIs(event) {
+    const path = event.destination.url.substring(this.appRootURL.length - 1);
+    const state = event.destination.getState();
     this.nonRouterCurrentEntryChangeSubject.next({
       path,
       state
@@ -13993,6 +13993,6871 @@ function provideAnimationsAsync(type = "animations") {
 
 // src/app/app.routes.ts
 var routes = [];
+
+// node_modules/@angular/cdk/fesm2022/portal.mjs
+function throwNullPortalError() {
+  throw Error("Must provide a portal to attach");
+}
+function throwPortalAlreadyAttachedError() {
+  throw Error("Host already has a portal attached");
+}
+function throwPortalOutletAlreadyDisposedError() {
+  throw Error("This PortalOutlet has already been disposed");
+}
+function throwUnknownPortalTypeError() {
+  throw Error("Attempting to attach an unknown Portal type. BasePortalOutlet accepts either a ComponentPortal or a TemplatePortal.");
+}
+function throwNullPortalOutletError() {
+  throw Error("Attempting to attach a portal to a null PortalOutlet");
+}
+function throwNoPortalAttachedError() {
+  throw Error("Attempting to detach a portal that is not attached to a host");
+}
+var Portal = class {
+  _attachedHost = null;
+  attach(host) {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      if (host == null) {
+        throwNullPortalOutletError();
+      }
+      if (host.hasAttached()) {
+        throwPortalAlreadyAttachedError();
+      }
+    }
+    this._attachedHost = host;
+    return host.attach(this);
+  }
+  detach() {
+    let host = this._attachedHost;
+    if (host != null) {
+      this._attachedHost = null;
+      host.detach();
+    } else if (typeof ngDevMode === "undefined" || ngDevMode) {
+      throwNoPortalAttachedError();
+    }
+  }
+  get isAttached() {
+    return this._attachedHost != null;
+  }
+  setAttachedHost(host) {
+    this._attachedHost = host;
+  }
+};
+var ComponentPortal = class extends Portal {
+  component;
+  viewContainerRef;
+  injector;
+  projectableNodes;
+  constructor(component, viewContainerRef, injector, projectableNodes) {
+    super();
+    this.component = component;
+    this.viewContainerRef = viewContainerRef;
+    this.injector = injector;
+    this.projectableNodes = projectableNodes;
+  }
+};
+var TemplatePortal = class extends Portal {
+  templateRef;
+  viewContainerRef;
+  context;
+  injector;
+  constructor(templateRef, viewContainerRef, context, injector) {
+    super();
+    this.templateRef = templateRef;
+    this.viewContainerRef = viewContainerRef;
+    this.context = context;
+    this.injector = injector;
+  }
+  get origin() {
+    return this.templateRef.elementRef;
+  }
+  attach(host, context = this.context) {
+    this.context = context;
+    return super.attach(host);
+  }
+  detach() {
+    this.context = void 0;
+    return super.detach();
+  }
+};
+var DomPortal = class extends Portal {
+  element;
+  constructor(element) {
+    super();
+    this.element = element instanceof ElementRef ? element.nativeElement : element;
+  }
+};
+var BasePortalOutlet = class {
+  _attachedPortal = null;
+  _disposeFn = null;
+  _isDisposed = false;
+  hasAttached() {
+    return !!this._attachedPortal;
+  }
+  attach(portal) {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      if (!portal) {
+        throwNullPortalError();
+      }
+      if (this.hasAttached()) {
+        throwPortalAlreadyAttachedError();
+      }
+      if (this._isDisposed) {
+        throwPortalOutletAlreadyDisposedError();
+      }
+    }
+    if (portal instanceof ComponentPortal) {
+      this._attachedPortal = portal;
+      return this.attachComponentPortal(portal);
+    } else if (portal instanceof TemplatePortal) {
+      this._attachedPortal = portal;
+      return this.attachTemplatePortal(portal);
+    } else if (this.attachDomPortal && portal instanceof DomPortal) {
+      this._attachedPortal = portal;
+      return this.attachDomPortal(portal);
+    }
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      throwUnknownPortalTypeError();
+    }
+  }
+  attachDomPortal = null;
+  detach() {
+    if (this._attachedPortal) {
+      this._attachedPortal.setAttachedHost(null);
+      this._attachedPortal = null;
+    }
+    this._invokeDisposeFn();
+  }
+  dispose() {
+    if (this.hasAttached()) {
+      this.detach();
+    }
+    this._invokeDisposeFn();
+    this._isDisposed = true;
+  }
+  setDisposeFn(fn) {
+    this._disposeFn = fn;
+  }
+  _invokeDisposeFn() {
+    if (this._disposeFn) {
+      this._disposeFn();
+      this._disposeFn = null;
+    }
+  }
+};
+var DomPortalOutlet = class extends BasePortalOutlet {
+  outletElement;
+  _appRef;
+  _defaultInjector;
+  constructor(outletElement, _appRef, _defaultInjector) {
+    super();
+    this.outletElement = outletElement;
+    this._appRef = _appRef;
+    this._defaultInjector = _defaultInjector;
+  }
+  attachComponentPortal(portal) {
+    let componentRef;
+    if (portal.viewContainerRef) {
+      const injector = portal.injector || portal.viewContainerRef.injector;
+      const ngModuleRef = injector.get(NgModuleRef$1, null, {
+        optional: true
+      }) || void 0;
+      componentRef = portal.viewContainerRef.createComponent(portal.component, {
+        index: portal.viewContainerRef.length,
+        injector,
+        ngModuleRef,
+        projectableNodes: portal.projectableNodes || void 0
+      });
+      this.setDisposeFn(() => componentRef.destroy());
+    } else {
+      if ((typeof ngDevMode === "undefined" || ngDevMode) && !this._appRef) {
+        throw Error("Cannot attach component portal to outlet without an ApplicationRef.");
+      }
+      const appRef = this._appRef;
+      const elementInjector = portal.injector || this._defaultInjector || Injector.NULL;
+      const environmentInjector = elementInjector.get(EnvironmentInjector, appRef.injector);
+      componentRef = createComponent(portal.component, {
+        elementInjector,
+        environmentInjector,
+        projectableNodes: portal.projectableNodes || void 0
+      });
+      appRef.attachView(componentRef.hostView);
+      this.setDisposeFn(() => {
+        if (appRef.viewCount > 0) {
+          appRef.detachView(componentRef.hostView);
+        }
+        componentRef.destroy();
+      });
+    }
+    this.outletElement.appendChild(this._getComponentRootNode(componentRef));
+    this._attachedPortal = portal;
+    return componentRef;
+  }
+  attachTemplatePortal(portal) {
+    let viewContainer = portal.viewContainerRef;
+    let viewRef = viewContainer.createEmbeddedView(portal.templateRef, portal.context, {
+      injector: portal.injector
+    });
+    viewRef.rootNodes.forEach((rootNode) => this.outletElement.appendChild(rootNode));
+    viewRef.detectChanges();
+    this.setDisposeFn(() => {
+      let index = viewContainer.indexOf(viewRef);
+      if (index !== -1) {
+        viewContainer.remove(index);
+      }
+    });
+    this._attachedPortal = portal;
+    return viewRef;
+  }
+  attachDomPortal = (portal) => {
+    const element = portal.element;
+    if (!element.parentNode && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error("DOM portal content must be attached to a parent node.");
+    }
+    const anchorNode = this.outletElement.ownerDocument.createComment("dom-portal");
+    element.parentNode.insertBefore(anchorNode, element);
+    this.outletElement.appendChild(element);
+    this._attachedPortal = portal;
+    super.setDisposeFn(() => {
+      if (anchorNode.parentNode) {
+        anchorNode.parentNode.replaceChild(element, anchorNode);
+      }
+    });
+  };
+  dispose() {
+    super.dispose();
+    this.outletElement.remove();
+  }
+  _getComponentRootNode(componentRef) {
+    return componentRef.hostView.rootNodes[0];
+  }
+};
+var CdkPortal = class _CdkPortal extends TemplatePortal {
+  constructor() {
+    const templateRef = inject(TemplateRef);
+    const viewContainerRef = inject(ViewContainerRef);
+    super(templateRef, viewContainerRef);
+  }
+  static \u0275fac = function CdkPortal_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkPortal)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkPortal,
+    selectors: [["", "cdkPortal", ""]],
+    exportAs: ["cdkPortal"],
+    features: [\u0275\u0275InheritDefinitionFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkPortal, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkPortal]",
+      exportAs: "cdkPortal"
+    }]
+  }], () => [], null);
+})();
+var CdkPortalOutlet = class _CdkPortalOutlet extends BasePortalOutlet {
+  _moduleRef = inject(NgModuleRef$1, {
+    optional: true
+  });
+  _document = inject(DOCUMENT);
+  _viewContainerRef = inject(ViewContainerRef);
+  _isInitialized = false;
+  _attachedRef = null;
+  constructor() {
+    super();
+  }
+  get portal() {
+    return this._attachedPortal;
+  }
+  set portal(portal) {
+    if (this.hasAttached() && !portal && !this._isInitialized) {
+      return;
+    }
+    if (this.hasAttached()) {
+      super.detach();
+    }
+    if (portal) {
+      super.attach(portal);
+    }
+    this._attachedPortal = portal || null;
+  }
+  attached = new EventEmitter();
+  get attachedRef() {
+    return this._attachedRef;
+  }
+  ngOnInit() {
+    this._isInitialized = true;
+  }
+  ngOnDestroy() {
+    super.dispose();
+    this._attachedRef = this._attachedPortal = null;
+  }
+  attachComponentPortal(portal) {
+    portal.setAttachedHost(this);
+    const viewContainerRef = portal.viewContainerRef != null ? portal.viewContainerRef : this._viewContainerRef;
+    const ref = viewContainerRef.createComponent(portal.component, {
+      index: viewContainerRef.length,
+      injector: portal.injector || viewContainerRef.injector,
+      projectableNodes: portal.projectableNodes || void 0,
+      ngModuleRef: this._moduleRef || void 0
+    });
+    if (viewContainerRef !== this._viewContainerRef) {
+      this._getRootNode().appendChild(ref.hostView.rootNodes[0]);
+    }
+    super.setDisposeFn(() => ref.destroy());
+    this._attachedPortal = portal;
+    this._attachedRef = ref;
+    this.attached.emit(ref);
+    return ref;
+  }
+  attachTemplatePortal(portal) {
+    portal.setAttachedHost(this);
+    const viewRef = this._viewContainerRef.createEmbeddedView(portal.templateRef, portal.context, {
+      injector: portal.injector
+    });
+    super.setDisposeFn(() => this._viewContainerRef.clear());
+    this._attachedPortal = portal;
+    this._attachedRef = viewRef;
+    this.attached.emit(viewRef);
+    return viewRef;
+  }
+  attachDomPortal = (portal) => {
+    const element = portal.element;
+    if (!element.parentNode && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error("DOM portal content must be attached to a parent node.");
+    }
+    const anchorNode = this._document.createComment("dom-portal");
+    portal.setAttachedHost(this);
+    element.parentNode.insertBefore(anchorNode, element);
+    this._getRootNode().appendChild(element);
+    this._attachedPortal = portal;
+    super.setDisposeFn(() => {
+      if (anchorNode.parentNode) {
+        anchorNode.parentNode.replaceChild(element, anchorNode);
+      }
+    });
+  };
+  _getRootNode() {
+    const nativeElement = this._viewContainerRef.element.nativeElement;
+    return nativeElement.nodeType === nativeElement.ELEMENT_NODE ? nativeElement : nativeElement.parentNode;
+  }
+  static \u0275fac = function CdkPortalOutlet_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkPortalOutlet)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkPortalOutlet,
+    selectors: [["", "cdkPortalOutlet", ""]],
+    inputs: {
+      portal: [0, "cdkPortalOutlet", "portal"]
+    },
+    outputs: {
+      attached: "attached"
+    },
+    exportAs: ["cdkPortalOutlet"],
+    features: [\u0275\u0275InheritDefinitionFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkPortalOutlet, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkPortalOutlet]",
+      exportAs: "cdkPortalOutlet"
+    }]
+  }], () => [], {
+    portal: [{
+      type: Input,
+      args: ["cdkPortalOutlet"]
+    }],
+    attached: [{
+      type: Output
+    }]
+  });
+})();
+var PortalModule = class _PortalModule {
+  static \u0275fac = function PortalModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _PortalModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _PortalModule,
+    imports: [CdkPortal, CdkPortalOutlet],
+    exports: [CdkPortal, CdkPortalOutlet]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PortalModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CdkPortal, CdkPortalOutlet],
+      exports: [CdkPortal, CdkPortalOutlet]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_fake-event-detection-chunk.mjs
+function isFakeMousedownFromScreenReader(event) {
+  return event.buttons === 0 || event.detail === 0;
+}
+function isFakeTouchstartFromScreenReader(event) {
+  const touch = event.touches && event.touches[0] || event.changedTouches && event.changedTouches[0];
+  return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) && (touch.radiusY == null || touch.radiusY === 1);
+}
+
+// node_modules/@angular/cdk/fesm2022/_keycodes-chunk.mjs
+var TAB = 9;
+var ENTER = 13;
+var SHIFT = 16;
+var CONTROL = 17;
+var ALT = 18;
+var ESCAPE = 27;
+var SPACE = 32;
+var PAGE_UP = 33;
+var PAGE_DOWN = 34;
+var END = 35;
+var HOME = 36;
+var LEFT_ARROW = 37;
+var UP_ARROW = 38;
+var RIGHT_ARROW = 39;
+var DOWN_ARROW = 40;
+var ZERO = 48;
+var NINE = 57;
+var A = 65;
+var Z = 90;
+var META = 91;
+var MAC_META = 224;
+
+// node_modules/@angular/cdk/fesm2022/_shadow-dom-chunk.mjs
+var shadowDomIsSupported;
+function _supportsShadowDom() {
+  if (shadowDomIsSupported == null) {
+    const head = typeof document !== "undefined" ? document.head : null;
+    shadowDomIsSupported = !!(head && (head.createShadowRoot || head.attachShadow));
+  }
+  return shadowDomIsSupported;
+}
+function _getShadowRoot(element) {
+  if (_supportsShadowDom()) {
+    const rootNode = element.getRootNode ? element.getRootNode() : null;
+    if (typeof ShadowRoot !== "undefined" && ShadowRoot && rootNode instanceof ShadowRoot) {
+      return rootNode;
+    }
+  }
+  return null;
+}
+function _getFocusedElementPierceShadowDom() {
+  let activeElement = typeof document !== "undefined" && document ? document.activeElement : null;
+  while (activeElement && activeElement.shadowRoot) {
+    const newActiveElement = activeElement.shadowRoot.activeElement;
+    if (newActiveElement === activeElement) {
+      break;
+    } else {
+      activeElement = newActiveElement;
+    }
+  }
+  return activeElement;
+}
+function _getEventTarget(event) {
+  return event.composedPath ? event.composedPath()[0] : event.target;
+}
+
+// node_modules/@angular/cdk/fesm2022/_platform-chunk.mjs
+var hasV8BreakIterator;
+try {
+  hasV8BreakIterator = typeof Intl !== "undefined" && Intl.v8BreakIterator;
+} catch {
+  hasV8BreakIterator = false;
+}
+var Platform = class _Platform {
+  _platformId = inject(PLATFORM_ID);
+  isBrowser = this._platformId ? isPlatformBrowser(this._platformId) : typeof document === "object" && !!document;
+  EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
+  TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+  BLINK = this.isBrowser && !!(window.chrome || hasV8BreakIterator) && typeof CSS !== "undefined" && !this.EDGE && !this.TRIDENT;
+  WEBKIT = this.isBrowser && /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+  IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
+  FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
+  ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
+  SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
+  constructor() {
+  }
+  static \u0275fac = function Platform_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Platform)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _Platform,
+    factory: _Platform.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Platform, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_passive-listeners-chunk.mjs
+var supportsPassiveEvents;
+function supportsPassiveEventListeners() {
+  if (supportsPassiveEvents == null && typeof window !== "undefined") {
+    try {
+      window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+        get: () => supportsPassiveEvents = true
+      }));
+    } finally {
+      supportsPassiveEvents = supportsPassiveEvents || false;
+    }
+  }
+  return supportsPassiveEvents;
+}
+function normalizePassiveListenerOptions(options) {
+  return supportsPassiveEventListeners() ? options : !!options.capture;
+}
+
+// node_modules/@angular/cdk/fesm2022/_element-chunk.mjs
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
+
+// node_modules/@angular/cdk/fesm2022/_focus-monitor-chunk.mjs
+var INPUT_MODALITY_DETECTOR_OPTIONS = new InjectionToken("cdk-input-modality-detector-options");
+var INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS = {
+  ignoreKeys: [ALT, CONTROL, MAC_META, META, SHIFT]
+};
+var TOUCH_BUFFER_MS = 650;
+var modalityEventListenerOptions = {
+  passive: true,
+  capture: true
+};
+var InputModalityDetector = class _InputModalityDetector {
+  _platform = inject(Platform);
+  _listenerCleanups;
+  modalityDetected;
+  modalityChanged;
+  get mostRecentModality() {
+    return this._modality.value;
+  }
+  _mostRecentTarget = null;
+  _modality = new BehaviorSubject(null);
+  _options;
+  _lastTouchMs = 0;
+  _onKeydown = (event) => {
+    if (this._options?.ignoreKeys?.some((keyCode) => keyCode === event.keyCode)) {
+      return;
+    }
+    this._modality.next("keyboard");
+    this._mostRecentTarget = _getEventTarget(event);
+  };
+  _onMousedown = (event) => {
+    if (Date.now() - this._lastTouchMs < TOUCH_BUFFER_MS) {
+      return;
+    }
+    this._modality.next(isFakeMousedownFromScreenReader(event) ? "keyboard" : "mouse");
+    this._mostRecentTarget = _getEventTarget(event);
+  };
+  _onTouchstart = (event) => {
+    if (isFakeTouchstartFromScreenReader(event)) {
+      this._modality.next("keyboard");
+      return;
+    }
+    this._lastTouchMs = Date.now();
+    this._modality.next("touch");
+    this._mostRecentTarget = _getEventTarget(event);
+  };
+  constructor() {
+    const ngZone = inject(NgZone);
+    const document2 = inject(DOCUMENT);
+    const options = inject(INPUT_MODALITY_DETECTOR_OPTIONS, {
+      optional: true
+    });
+    this._options = __spreadValues(__spreadValues({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
+    this.modalityDetected = this._modality.pipe(skip(1));
+    this.modalityChanged = this.modalityDetected.pipe(distinctUntilChanged());
+    if (this._platform.isBrowser) {
+      const renderer = inject(RendererFactory2).createRenderer(null, null);
+      this._listenerCleanups = ngZone.runOutsideAngular(() => {
+        return [renderer.listen(document2, "keydown", this._onKeydown, modalityEventListenerOptions), renderer.listen(document2, "mousedown", this._onMousedown, modalityEventListenerOptions), renderer.listen(document2, "touchstart", this._onTouchstart, modalityEventListenerOptions)];
+      });
+    }
+  }
+  ngOnDestroy() {
+    this._modality.complete();
+    this._listenerCleanups?.forEach((cleanup) => cleanup());
+  }
+  static \u0275fac = function InputModalityDetector_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _InputModalityDetector)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _InputModalityDetector,
+    factory: _InputModalityDetector.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputModalityDetector, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var FocusMonitorDetectionMode;
+(function(FocusMonitorDetectionMode2) {
+  FocusMonitorDetectionMode2[FocusMonitorDetectionMode2["IMMEDIATE"] = 0] = "IMMEDIATE";
+  FocusMonitorDetectionMode2[FocusMonitorDetectionMode2["EVENTUAL"] = 1] = "EVENTUAL";
+})(FocusMonitorDetectionMode || (FocusMonitorDetectionMode = {}));
+var FOCUS_MONITOR_DEFAULT_OPTIONS = new InjectionToken("cdk-focus-monitor-default-options");
+var captureEventListenerOptions = normalizePassiveListenerOptions({
+  passive: true,
+  capture: true
+});
+var FocusMonitor = class _FocusMonitor {
+  _ngZone = inject(NgZone);
+  _platform = inject(Platform);
+  _inputModalityDetector = inject(InputModalityDetector);
+  _origin = null;
+  _lastFocusOrigin = null;
+  _windowFocused = false;
+  _windowFocusTimeoutId;
+  _originTimeoutId;
+  _originFromTouchInteraction = false;
+  _elementInfo = /* @__PURE__ */ new Map();
+  _monitoredElementCount = 0;
+  _rootNodeFocusListenerCount = /* @__PURE__ */ new Map();
+  _detectionMode;
+  _windowFocusListener = () => {
+    this._windowFocused = true;
+    this._windowFocusTimeoutId = setTimeout(() => this._windowFocused = false);
+  };
+  _document = inject(DOCUMENT);
+  _stopInputModalityDetector = new Subject();
+  constructor() {
+    const options = inject(FOCUS_MONITOR_DEFAULT_OPTIONS, {
+      optional: true
+    });
+    this._detectionMode = options?.detectionMode || FocusMonitorDetectionMode.IMMEDIATE;
+  }
+  _rootNodeFocusAndBlurListener = (event) => {
+    const target = _getEventTarget(event);
+    for (let element = target; element; element = element.parentElement) {
+      if (event.type === "focus") {
+        this._onFocus(event, element);
+      } else {
+        this._onBlur(event, element);
+      }
+    }
+  };
+  monitor(element, checkChildren = false) {
+    const nativeElement = coerceElement(element);
+    if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
+      return of();
+    }
+    const rootNode = _getShadowRoot(nativeElement) || this._document;
+    const cachedInfo = this._elementInfo.get(nativeElement);
+    if (cachedInfo) {
+      if (checkChildren) {
+        cachedInfo.checkChildren = true;
+      }
+      return cachedInfo.subject;
+    }
+    const info = {
+      checkChildren,
+      subject: new Subject(),
+      rootNode
+    };
+    this._elementInfo.set(nativeElement, info);
+    this._registerGlobalListeners(info);
+    return info.subject;
+  }
+  stopMonitoring(element) {
+    const nativeElement = coerceElement(element);
+    const elementInfo = this._elementInfo.get(nativeElement);
+    if (elementInfo) {
+      elementInfo.subject.complete();
+      this._setClasses(nativeElement);
+      this._elementInfo.delete(nativeElement);
+      this._removeGlobalListeners(elementInfo);
+    }
+  }
+  focusVia(element, origin, options) {
+    const nativeElement = coerceElement(element);
+    const focusedElement = this._document.activeElement;
+    if (nativeElement === focusedElement) {
+      this._getClosestElementsInfo(nativeElement).forEach(([currentElement, info]) => this._originChanged(currentElement, origin, info));
+    } else {
+      this._setOrigin(origin);
+      if (typeof nativeElement.focus === "function") {
+        nativeElement.focus(options);
+      }
+    }
+  }
+  ngOnDestroy() {
+    this._elementInfo.forEach((_info, element) => this.stopMonitoring(element));
+  }
+  _getWindow() {
+    return this._document.defaultView || window;
+  }
+  _getFocusOrigin(focusEventTarget) {
+    if (this._origin) {
+      if (this._originFromTouchInteraction) {
+        return this._shouldBeAttributedToTouch(focusEventTarget) ? "touch" : "program";
+      } else {
+        return this._origin;
+      }
+    }
+    if (this._windowFocused && this._lastFocusOrigin) {
+      return this._lastFocusOrigin;
+    }
+    if (focusEventTarget && this._isLastInteractionFromInputLabel(focusEventTarget)) {
+      return "mouse";
+    }
+    return "program";
+  }
+  _shouldBeAttributedToTouch(focusEventTarget) {
+    return this._detectionMode === FocusMonitorDetectionMode.EVENTUAL || !!focusEventTarget?.contains(this._inputModalityDetector._mostRecentTarget);
+  }
+  _setClasses(element, origin) {
+    element.classList.toggle("cdk-focused", !!origin);
+    element.classList.toggle("cdk-touch-focused", origin === "touch");
+    element.classList.toggle("cdk-keyboard-focused", origin === "keyboard");
+    element.classList.toggle("cdk-mouse-focused", origin === "mouse");
+    element.classList.toggle("cdk-program-focused", origin === "program");
+  }
+  _setOrigin(origin, isFromInteraction = false) {
+    this._ngZone.runOutsideAngular(() => {
+      this._origin = origin;
+      this._originFromTouchInteraction = origin === "touch" && isFromInteraction;
+      if (this._detectionMode === FocusMonitorDetectionMode.IMMEDIATE) {
+        clearTimeout(this._originTimeoutId);
+        const ms = this._originFromTouchInteraction ? TOUCH_BUFFER_MS : 1;
+        this._originTimeoutId = setTimeout(() => this._origin = null, ms);
+      }
+    });
+  }
+  _onFocus(event, element) {
+    const elementInfo = this._elementInfo.get(element);
+    const focusEventTarget = _getEventTarget(event);
+    if (!elementInfo || !elementInfo.checkChildren && element !== focusEventTarget) {
+      return;
+    }
+    this._originChanged(element, this._getFocusOrigin(focusEventTarget), elementInfo);
+  }
+  _onBlur(event, element) {
+    const elementInfo = this._elementInfo.get(element);
+    if (!elementInfo || elementInfo.checkChildren && event.relatedTarget instanceof Node && element.contains(event.relatedTarget)) {
+      return;
+    }
+    this._setClasses(element);
+    this._emitOrigin(elementInfo, null);
+  }
+  _emitOrigin(info, origin) {
+    if (info.subject.observers.length) {
+      this._ngZone.run(() => info.subject.next(origin));
+    }
+  }
+  _registerGlobalListeners(elementInfo) {
+    if (!this._platform.isBrowser) {
+      return;
+    }
+    const rootNode = elementInfo.rootNode;
+    const rootNodeFocusListeners = this._rootNodeFocusListenerCount.get(rootNode) || 0;
+    if (!rootNodeFocusListeners) {
+      this._ngZone.runOutsideAngular(() => {
+        rootNode.addEventListener("focus", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
+        rootNode.addEventListener("blur", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
+      });
+    }
+    this._rootNodeFocusListenerCount.set(rootNode, rootNodeFocusListeners + 1);
+    if (++this._monitoredElementCount === 1) {
+      this._ngZone.runOutsideAngular(() => {
+        const window2 = this._getWindow();
+        window2.addEventListener("focus", this._windowFocusListener);
+      });
+      this._inputModalityDetector.modalityDetected.pipe(takeUntil(this._stopInputModalityDetector)).subscribe((modality) => {
+        this._setOrigin(modality, true);
+      });
+    }
+  }
+  _removeGlobalListeners(elementInfo) {
+    const rootNode = elementInfo.rootNode;
+    if (this._rootNodeFocusListenerCount.has(rootNode)) {
+      const rootNodeFocusListeners = this._rootNodeFocusListenerCount.get(rootNode);
+      if (rootNodeFocusListeners > 1) {
+        this._rootNodeFocusListenerCount.set(rootNode, rootNodeFocusListeners - 1);
+      } else {
+        rootNode.removeEventListener("focus", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
+        rootNode.removeEventListener("blur", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
+        this._rootNodeFocusListenerCount.delete(rootNode);
+      }
+    }
+    if (!--this._monitoredElementCount) {
+      const window2 = this._getWindow();
+      window2.removeEventListener("focus", this._windowFocusListener);
+      this._stopInputModalityDetector.next();
+      clearTimeout(this._windowFocusTimeoutId);
+      clearTimeout(this._originTimeoutId);
+    }
+  }
+  _originChanged(element, origin, elementInfo) {
+    this._setClasses(element, origin);
+    this._emitOrigin(elementInfo, origin);
+    this._lastFocusOrigin = origin;
+  }
+  _getClosestElementsInfo(element) {
+    const results = [];
+    this._elementInfo.forEach((info, currentElement) => {
+      if (currentElement === element || info.checkChildren && currentElement.contains(element)) {
+        results.push([currentElement, info]);
+      }
+    });
+    return results;
+  }
+  _isLastInteractionFromInputLabel(focusEventTarget) {
+    const {
+      _mostRecentTarget: mostRecentTarget,
+      mostRecentModality
+    } = this._inputModalityDetector;
+    if (mostRecentModality !== "mouse" || !mostRecentTarget || mostRecentTarget === focusEventTarget || focusEventTarget.nodeName !== "INPUT" && focusEventTarget.nodeName !== "TEXTAREA" || focusEventTarget.disabled) {
+      return false;
+    }
+    const labels = focusEventTarget.labels;
+    if (labels) {
+      for (let i = 0; i < labels.length; i++) {
+        if (labels[i].contains(mostRecentTarget)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  static \u0275fac = function FocusMonitor_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FocusMonitor)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _FocusMonitor,
+    factory: _FocusMonitor.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusMonitor, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkMonitorFocus = class _CdkMonitorFocus {
+  _elementRef = inject(ElementRef);
+  _focusMonitor = inject(FocusMonitor);
+  _monitorSubscription;
+  _focusOrigin = null;
+  cdkFocusChange = new EventEmitter();
+  constructor() {
+  }
+  get focusOrigin() {
+    return this._focusOrigin;
+  }
+  ngAfterViewInit() {
+    const element = this._elementRef.nativeElement;
+    this._monitorSubscription = this._focusMonitor.monitor(element, element.nodeType === 1 && element.hasAttribute("cdkMonitorSubtreeFocus")).subscribe((origin) => {
+      this._focusOrigin = origin;
+      this.cdkFocusChange.emit(origin);
+    });
+  }
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef);
+    this._monitorSubscription?.unsubscribe();
+  }
+  static \u0275fac = function CdkMonitorFocus_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkMonitorFocus)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkMonitorFocus,
+    selectors: [["", "cdkMonitorElementFocus", ""], ["", "cdkMonitorSubtreeFocus", ""]],
+    outputs: {
+      cdkFocusChange: "cdkFocusChange"
+    },
+    exportAs: ["cdkMonitorFocus"]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkMonitorFocus, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]",
+      exportAs: "cdkMonitorFocus"
+    }]
+  }], () => [], {
+    cdkFocusChange: [{
+      type: Output
+    }]
+  });
+})();
+
+// node_modules/@angular/cdk/fesm2022/_style-loader-chunk.mjs
+var appsWithLoaders = /* @__PURE__ */ new WeakMap();
+var _CdkPrivateStyleLoader = class __CdkPrivateStyleLoader {
+  _appRef;
+  _injector = inject(Injector);
+  _environmentInjector = inject(EnvironmentInjector);
+  load(loader) {
+    const appRef = this._appRef = this._appRef || this._injector.get(ApplicationRef);
+    let data = appsWithLoaders.get(appRef);
+    if (!data) {
+      data = {
+        loaders: /* @__PURE__ */ new Set(),
+        refs: []
+      };
+      appsWithLoaders.set(appRef, data);
+      appRef.onDestroy(() => {
+        appsWithLoaders.get(appRef)?.refs.forEach((ref) => ref.destroy());
+        appsWithLoaders.delete(appRef);
+      });
+    }
+    if (!data.loaders.has(loader)) {
+      data.loaders.add(loader);
+      data.refs.push(createComponent(loader, {
+        environmentInjector: this._environmentInjector
+      }));
+    }
+  }
+  static \u0275fac = function _CdkPrivateStyleLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __CdkPrivateStyleLoader)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: __CdkPrivateStyleLoader,
+    factory: __CdkPrivateStyleLoader.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_CdkPrivateStyleLoader, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/private.mjs
+var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
+  static \u0275fac = function _VisuallyHiddenLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __VisuallyHiddenLoader)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: __VisuallyHiddenLoader,
+    selectors: [["ng-component"]],
+    exportAs: ["cdkVisuallyHidden"],
+    decls: 0,
+    vars: 0,
+    template: function _VisuallyHiddenLoader_Template(rf, ctx) {
+    },
+    styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_VisuallyHiddenLoader, [{
+    type: Component,
+    args: [{
+      exportAs: "cdkVisuallyHidden",
+      encapsulation: ViewEncapsulation.None,
+      template: "",
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"]
+    }]
+  }], null, null);
+})();
+var policy;
+function getPolicy() {
+  if (policy === void 0) {
+    policy = null;
+    if (typeof window !== "undefined") {
+      const ttWindow = window;
+      if (ttWindow.trustedTypes !== void 0) {
+        policy = ttWindow.trustedTypes.createPolicy("angular#components", {
+          createHTML: (s2) => s2
+        });
+      }
+    }
+  }
+  return policy;
+}
+function trustedHTMLFromString(html) {
+  return getPolicy()?.createHTML(html) || html;
+}
+function _setInnerHtml(element, html, sanitizer) {
+  const cleanHtml = sanitizer.sanitize(SecurityContext.HTML, html);
+  if (cleanHtml === null && (typeof ngDevMode === "undefined" || ngDevMode)) {
+    throw new Error(`Could not sanitize HTML: ${html}`);
+  }
+  element.innerHTML = trustedHTMLFromString(cleanHtml || "");
+}
+
+// node_modules/@angular/cdk/fesm2022/_array-chunk.mjs
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+
+// node_modules/@angular/cdk/fesm2022/_breakpoints-observer-chunk.mjs
+var mediaQueriesForWebkitCompatibility = /* @__PURE__ */ new Set();
+var mediaQueryStyleNode;
+var MediaMatcher = class _MediaMatcher {
+  _platform = inject(Platform);
+  _nonce = inject(CSP_NONCE, {
+    optional: true
+  });
+  _matchMedia;
+  constructor() {
+    this._matchMedia = this._platform.isBrowser && window.matchMedia ? window.matchMedia.bind(window) : noopMatchMedia;
+  }
+  matchMedia(query) {
+    if (this._platform.WEBKIT || this._platform.BLINK) {
+      createEmptyStyleRule(query, this._nonce);
+    }
+    return this._matchMedia(query);
+  }
+  static \u0275fac = function MediaMatcher_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _MediaMatcher)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _MediaMatcher,
+    factory: _MediaMatcher.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MediaMatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function createEmptyStyleRule(query, nonce) {
+  if (mediaQueriesForWebkitCompatibility.has(query)) {
+    return;
+  }
+  try {
+    if (!mediaQueryStyleNode) {
+      mediaQueryStyleNode = document.createElement("style");
+      if (nonce) {
+        mediaQueryStyleNode.setAttribute("nonce", nonce);
+      }
+      mediaQueryStyleNode.setAttribute("type", "text/css");
+      document.head.appendChild(mediaQueryStyleNode);
+    }
+    if (mediaQueryStyleNode.sheet) {
+      mediaQueryStyleNode.sheet.insertRule(`@media ${query} {body{ }}`, 0);
+      mediaQueriesForWebkitCompatibility.add(query);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+function noopMatchMedia(query) {
+  return {
+    matches: query === "all" || query === "",
+    media: query,
+    addListener: () => {
+    },
+    removeListener: () => {
+    }
+  };
+}
+var BreakpointObserver = class _BreakpointObserver {
+  _mediaMatcher = inject(MediaMatcher);
+  _zone = inject(NgZone);
+  _queries = /* @__PURE__ */ new Map();
+  _destroySubject = new Subject();
+  constructor() {
+  }
+  ngOnDestroy() {
+    this._destroySubject.next();
+    this._destroySubject.complete();
+  }
+  isMatched(value) {
+    const queries = splitQueries(coerceArray(value));
+    return queries.some((mediaQuery) => this._registerQuery(mediaQuery).mql.matches);
+  }
+  observe(value) {
+    const queries = splitQueries(coerceArray(value));
+    const observables = queries.map((query) => this._registerQuery(query).observable);
+    let stateObservable = combineLatest(observables);
+    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
+    return stateObservable.pipe(map((breakpointStates) => {
+      const response = {
+        matches: false,
+        breakpoints: {}
+      };
+      breakpointStates.forEach(({
+        matches,
+        query
+      }) => {
+        response.matches = response.matches || matches;
+        response.breakpoints[query] = matches;
+      });
+      return response;
+    }));
+  }
+  _registerQuery(query) {
+    if (this._queries.has(query)) {
+      return this._queries.get(query);
+    }
+    const mql = this._mediaMatcher.matchMedia(query);
+    const queryObservable = new Observable((observer) => {
+      const handler = (e) => this._zone.run(() => observer.next(e));
+      mql.addListener(handler);
+      return () => {
+        mql.removeListener(handler);
+      };
+    }).pipe(startWith(mql), map(({
+      matches
+    }) => ({
+      query,
+      matches
+    })), takeUntil(this._destroySubject));
+    const output2 = {
+      observable: queryObservable,
+      mql
+    };
+    this._queries.set(query, output2);
+    return output2;
+  }
+  static \u0275fac = function BreakpointObserver_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BreakpointObserver)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _BreakpointObserver,
+    factory: _BreakpointObserver.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BreakpointObserver, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function splitQueries(queries) {
+  return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
+}
+
+// node_modules/@angular/cdk/fesm2022/observers.mjs
+function shouldIgnoreRecord(record) {
+  if (record.type === "characterData" && record.target instanceof Comment) {
+    return true;
+  }
+  if (record.type === "childList") {
+    for (let i = 0; i < record.addedNodes.length; i++) {
+      if (!(record.addedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    for (let i = 0; i < record.removedNodes.length; i++) {
+      if (!(record.removedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}
+var MutationObserverFactory = class _MutationObserverFactory {
+  create(callback) {
+    return typeof MutationObserver === "undefined" ? null : new MutationObserver(callback);
+  }
+  static \u0275fac = function MutationObserverFactory_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _MutationObserverFactory)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _MutationObserverFactory,
+    factory: _MutationObserverFactory.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MutationObserverFactory, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var ContentObserver = class _ContentObserver {
+  _mutationObserverFactory = inject(MutationObserverFactory);
+  _observedElements = /* @__PURE__ */ new Map();
+  _ngZone = inject(NgZone);
+  constructor() {
+  }
+  ngOnDestroy() {
+    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
+  }
+  observe(elementOrRef) {
+    const element = coerceElement(elementOrRef);
+    return new Observable((observer) => {
+      const stream = this._observeElement(element);
+      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
+        this._ngZone.run(() => {
+          observer.next(records);
+        });
+      });
+      return () => {
+        subscription.unsubscribe();
+        this._unobserveElement(element);
+      };
+    });
+  }
+  _observeElement(element) {
+    return this._ngZone.runOutsideAngular(() => {
+      if (!this._observedElements.has(element)) {
+        const stream = new Subject();
+        const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
+        if (observer) {
+          observer.observe(element, {
+            characterData: true,
+            childList: true,
+            subtree: true
+          });
+        }
+        this._observedElements.set(element, {
+          observer,
+          stream,
+          count: 1
+        });
+      } else {
+        this._observedElements.get(element).count++;
+      }
+      return this._observedElements.get(element).stream;
+    });
+  }
+  _unobserveElement(element) {
+    if (this._observedElements.has(element)) {
+      this._observedElements.get(element).count--;
+      if (!this._observedElements.get(element).count) {
+        this._cleanupObserver(element);
+      }
+    }
+  }
+  _cleanupObserver(element) {
+    if (this._observedElements.has(element)) {
+      const {
+        observer,
+        stream
+      } = this._observedElements.get(element);
+      if (observer) {
+        observer.disconnect();
+      }
+      stream.complete();
+      this._observedElements.delete(element);
+    }
+  }
+  static \u0275fac = function ContentObserver_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ContentObserver)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ContentObserver,
+    factory: _ContentObserver.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContentObserver, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkObserveContent = class _CdkObserveContent {
+  _contentObserver = inject(ContentObserver);
+  _elementRef = inject(ElementRef);
+  event = new EventEmitter();
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value) {
+    this._disabled = value;
+    this._disabled ? this._unsubscribe() : this._subscribe();
+  }
+  _disabled = false;
+  get debounce() {
+    return this._debounce;
+  }
+  set debounce(value) {
+    this._debounce = coerceNumberProperty(value);
+    this._subscribe();
+  }
+  _debounce;
+  _currentSubscription = null;
+  constructor() {
+  }
+  ngAfterContentInit() {
+    if (!this._currentSubscription && !this.disabled) {
+      this._subscribe();
+    }
+  }
+  ngOnDestroy() {
+    this._unsubscribe();
+  }
+  _subscribe() {
+    this._unsubscribe();
+    const stream = this._contentObserver.observe(this._elementRef);
+    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
+  }
+  _unsubscribe() {
+    this._currentSubscription?.unsubscribe();
+  }
+  static \u0275fac = function CdkObserveContent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkObserveContent)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkObserveContent,
+    selectors: [["", "cdkObserveContent", ""]],
+    inputs: {
+      disabled: [2, "cdkObserveContentDisabled", "disabled", booleanAttribute],
+      debounce: "debounce"
+    },
+    outputs: {
+      event: "cdkObserveContent"
+    },
+    exportAs: ["cdkObserveContent"]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkObserveContent, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkObserveContent]",
+      exportAs: "cdkObserveContent"
+    }]
+  }], () => [], {
+    event: [{
+      type: Output,
+      args: ["cdkObserveContent"]
+    }],
+    disabled: [{
+      type: Input,
+      args: [{
+        alias: "cdkObserveContentDisabled",
+        transform: booleanAttribute
+      }]
+    }],
+    debounce: [{
+      type: Input
+    }]
+  });
+})();
+var ObserversModule = class _ObserversModule {
+  static \u0275fac = function ObserversModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ObserversModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _ObserversModule,
+    imports: [CdkObserveContent],
+    exports: [CdkObserveContent]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    providers: [MutationObserverFactory]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ObserversModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CdkObserveContent],
+      exports: [CdkObserveContent],
+      providers: [MutationObserverFactory]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_a11y-module-chunk.mjs
+var InteractivityChecker = class _InteractivityChecker {
+  _platform = inject(Platform);
+  constructor() {
+  }
+  isDisabled(element) {
+    return element.hasAttribute("disabled");
+  }
+  isVisible(element) {
+    return hasGeometry(element) && getComputedStyle(element).visibility === "visible";
+  }
+  isTabbable(element) {
+    if (!this._platform.isBrowser) {
+      return false;
+    }
+    const frameElement = getFrameElement(getWindow(element));
+    if (frameElement) {
+      if (getTabIndexValue(frameElement) === -1) {
+        return false;
+      }
+      if (!this.isVisible(frameElement)) {
+        return false;
+      }
+    }
+    let nodeName = element.nodeName.toLowerCase();
+    let tabIndexValue = getTabIndexValue(element);
+    if (element.hasAttribute("contenteditable")) {
+      return tabIndexValue !== -1;
+    }
+    if (nodeName === "iframe" || nodeName === "object") {
+      return false;
+    }
+    if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
+      return false;
+    }
+    if (nodeName === "audio") {
+      if (!element.hasAttribute("controls")) {
+        return false;
+      }
+      return tabIndexValue !== -1;
+    }
+    if (nodeName === "video") {
+      if (tabIndexValue === -1) {
+        return false;
+      }
+      if (tabIndexValue !== null) {
+        return true;
+      }
+      return this._platform.FIREFOX || element.hasAttribute("controls");
+    }
+    return element.tabIndex >= 0;
+  }
+  isFocusable(element, config) {
+    return isPotentiallyFocusable(element) && !this.isDisabled(element) && (config?.ignoreVisibility || this.isVisible(element));
+  }
+  static \u0275fac = function InteractivityChecker_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _InteractivityChecker)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _InteractivityChecker,
+    factory: _InteractivityChecker.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InteractivityChecker, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function getFrameElement(window2) {
+  try {
+    return window2.frameElement;
+  } catch {
+    return null;
+  }
+}
+function hasGeometry(element) {
+  return !!(element.offsetWidth || element.offsetHeight || typeof element.getClientRects === "function" && element.getClientRects().length);
+}
+function isNativeFormElement(element) {
+  let nodeName = element.nodeName.toLowerCase();
+  return nodeName === "input" || nodeName === "select" || nodeName === "button" || nodeName === "textarea";
+}
+function isHiddenInput(element) {
+  return isInputElement(element) && element.type == "hidden";
+}
+function isAnchorWithHref(element) {
+  return isAnchorElement(element) && element.hasAttribute("href");
+}
+function isInputElement(element) {
+  return element.nodeName.toLowerCase() == "input";
+}
+function isAnchorElement(element) {
+  return element.nodeName.toLowerCase() == "a";
+}
+function hasValidTabIndex(element) {
+  if (!element.hasAttribute("tabindex") || element.tabIndex === void 0) {
+    return false;
+  }
+  let tabIndex = element.getAttribute("tabindex");
+  return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
+}
+function getTabIndexValue(element) {
+  if (!hasValidTabIndex(element)) {
+    return null;
+  }
+  const tabIndex = parseInt(element.getAttribute("tabindex") || "", 10);
+  return isNaN(tabIndex) ? -1 : tabIndex;
+}
+function isPotentiallyTabbableIOS(element) {
+  let nodeName = element.nodeName.toLowerCase();
+  let inputType = nodeName === "input" && element.type;
+  return inputType === "text" || inputType === "password" || nodeName === "select" || nodeName === "textarea";
+}
+function isPotentiallyFocusable(element) {
+  if (isHiddenInput(element)) {
+    return false;
+  }
+  return isNativeFormElement(element) || isAnchorWithHref(element) || element.hasAttribute("contenteditable") || hasValidTabIndex(element);
+}
+function getWindow(node) {
+  return node.ownerDocument && node.ownerDocument.defaultView || window;
+}
+var FocusTrap = class {
+  _element;
+  _checker;
+  _ngZone;
+  _document;
+  _injector;
+  _startAnchor = null;
+  _endAnchor = null;
+  _hasAttached = false;
+  startAnchorListener = () => this.focusLastTabbableElement();
+  endAnchorListener = () => this.focusFirstTabbableElement();
+  get enabled() {
+    return this._enabled;
+  }
+  set enabled(value) {
+    this._enabled = value;
+    if (this._startAnchor && this._endAnchor) {
+      this._toggleAnchorTabIndex(value, this._startAnchor);
+      this._toggleAnchorTabIndex(value, this._endAnchor);
+    }
+  }
+  _enabled = true;
+  constructor(_element, _checker, _ngZone, _document2, deferAnchors = false, _injector) {
+    this._element = _element;
+    this._checker = _checker;
+    this._ngZone = _ngZone;
+    this._document = _document2;
+    this._injector = _injector;
+    if (!deferAnchors) {
+      this.attachAnchors();
+    }
+  }
+  destroy() {
+    const startAnchor = this._startAnchor;
+    const endAnchor = this._endAnchor;
+    if (startAnchor) {
+      startAnchor.removeEventListener("focus", this.startAnchorListener);
+      startAnchor.remove();
+    }
+    if (endAnchor) {
+      endAnchor.removeEventListener("focus", this.endAnchorListener);
+      endAnchor.remove();
+    }
+    this._startAnchor = this._endAnchor = null;
+    this._hasAttached = false;
+  }
+  attachAnchors() {
+    if (this._hasAttached) {
+      return true;
+    }
+    this._ngZone.runOutsideAngular(() => {
+      if (!this._startAnchor) {
+        this._startAnchor = this._createAnchor();
+        this._startAnchor.addEventListener("focus", this.startAnchorListener);
+      }
+      if (!this._endAnchor) {
+        this._endAnchor = this._createAnchor();
+        this._endAnchor.addEventListener("focus", this.endAnchorListener);
+      }
+    });
+    if (this._element.parentNode) {
+      this._element.parentNode.insertBefore(this._startAnchor, this._element);
+      this._element.parentNode.insertBefore(this._endAnchor, this._element.nextSibling);
+      this._hasAttached = true;
+    }
+    return this._hasAttached;
+  }
+  focusInitialElementWhenReady(options) {
+    return new Promise((resolve) => {
+      this._executeOnStable(() => resolve(this.focusInitialElement(options)));
+    });
+  }
+  focusFirstTabbableElementWhenReady(options) {
+    return new Promise((resolve) => {
+      this._executeOnStable(() => resolve(this.focusFirstTabbableElement(options)));
+    });
+  }
+  focusLastTabbableElementWhenReady(options) {
+    return new Promise((resolve) => {
+      this._executeOnStable(() => resolve(this.focusLastTabbableElement(options)));
+    });
+  }
+  _getRegionBoundary(bound) {
+    const markers = this._element.querySelectorAll(`[cdk-focus-region-${bound}], [cdkFocusRegion${bound}], [cdk-focus-${bound}]`);
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      for (let i = 0; i < markers.length; i++) {
+        if (markers[i].hasAttribute(`cdk-focus-${bound}`)) {
+          console.warn(`Found use of deprecated attribute 'cdk-focus-${bound}', use 'cdkFocusRegion${bound}' instead. The deprecated attribute will be removed in 8.0.0.`, markers[i]);
+        } else if (markers[i].hasAttribute(`cdk-focus-region-${bound}`)) {
+          console.warn(`Found use of deprecated attribute 'cdk-focus-region-${bound}', use 'cdkFocusRegion${bound}' instead. The deprecated attribute will be removed in 8.0.0.`, markers[i]);
+        }
+      }
+    }
+    if (bound == "start") {
+      return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
+    }
+    return markers.length ? markers[markers.length - 1] : this._getLastTabbableElement(this._element);
+  }
+  focusInitialElement(options) {
+    const redirectToElement = this._element.querySelector(`[cdk-focus-initial], [cdkFocusInitial]`);
+    if (redirectToElement) {
+      if ((typeof ngDevMode === "undefined" || ngDevMode) && redirectToElement.hasAttribute(`cdk-focus-initial`)) {
+        console.warn(`Found use of deprecated attribute 'cdk-focus-initial', use 'cdkFocusInitial' instead. The deprecated attribute will be removed in 8.0.0`, redirectToElement);
+      }
+      if ((typeof ngDevMode === "undefined" || ngDevMode) && !this._checker.isFocusable(redirectToElement)) {
+        console.warn(`Element matching '[cdkFocusInitial]' is not focusable.`, redirectToElement);
+      }
+      if (!this._checker.isFocusable(redirectToElement)) {
+        const focusableChild = this._getFirstTabbableElement(redirectToElement);
+        focusableChild?.focus(options);
+        return !!focusableChild;
+      }
+      redirectToElement.focus(options);
+      return true;
+    }
+    return this.focusFirstTabbableElement(options);
+  }
+  focusFirstTabbableElement(options) {
+    const redirectToElement = this._getRegionBoundary("start");
+    if (redirectToElement) {
+      redirectToElement.focus(options);
+    }
+    return !!redirectToElement;
+  }
+  focusLastTabbableElement(options) {
+    const redirectToElement = this._getRegionBoundary("end");
+    if (redirectToElement) {
+      redirectToElement.focus(options);
+    }
+    return !!redirectToElement;
+  }
+  hasAttached() {
+    return this._hasAttached;
+  }
+  _getFirstTabbableElement(root) {
+    if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+      return root;
+    }
+    const children = root.children;
+    for (let i = 0; i < children.length; i++) {
+      const tabbableChild = children[i].nodeType === this._document.ELEMENT_NODE ? this._getFirstTabbableElement(children[i]) : null;
+      if (tabbableChild) {
+        return tabbableChild;
+      }
+    }
+    return null;
+  }
+  _getLastTabbableElement(root) {
+    if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
+      return root;
+    }
+    const children = root.children;
+    for (let i = children.length - 1; i >= 0; i--) {
+      const tabbableChild = children[i].nodeType === this._document.ELEMENT_NODE ? this._getLastTabbableElement(children[i]) : null;
+      if (tabbableChild) {
+        return tabbableChild;
+      }
+    }
+    return null;
+  }
+  _createAnchor() {
+    const anchor = this._document.createElement("div");
+    this._toggleAnchorTabIndex(this._enabled, anchor);
+    anchor.classList.add("cdk-visually-hidden");
+    anchor.classList.add("cdk-focus-trap-anchor");
+    anchor.setAttribute("aria-hidden", "true");
+    return anchor;
+  }
+  _toggleAnchorTabIndex(isEnabled, anchor) {
+    isEnabled ? anchor.setAttribute("tabindex", "0") : anchor.removeAttribute("tabindex");
+  }
+  toggleAnchors(enabled) {
+    if (this._startAnchor && this._endAnchor) {
+      this._toggleAnchorTabIndex(enabled, this._startAnchor);
+      this._toggleAnchorTabIndex(enabled, this._endAnchor);
+    }
+  }
+  _executeOnStable(fn) {
+    if (this._injector) {
+      afterNextRender(fn, {
+        injector: this._injector
+      });
+    } else {
+      setTimeout(fn);
+    }
+  }
+};
+var FocusTrapFactory = class _FocusTrapFactory {
+  _checker = inject(InteractivityChecker);
+  _ngZone = inject(NgZone);
+  _document = inject(DOCUMENT);
+  _injector = inject(Injector);
+  constructor() {
+    inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
+  }
+  create(element, deferCaptureElements = false) {
+    return new FocusTrap(element, this._checker, this._ngZone, this._document, deferCaptureElements, this._injector);
+  }
+  static \u0275fac = function FocusTrapFactory_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FocusTrapFactory)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _FocusTrapFactory,
+    factory: _FocusTrapFactory.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusTrapFactory, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkTrapFocus = class _CdkTrapFocus {
+  _elementRef = inject(ElementRef);
+  _focusTrapFactory = inject(FocusTrapFactory);
+  focusTrap = void 0;
+  _previouslyFocusedElement = null;
+  get enabled() {
+    return this.focusTrap?.enabled || false;
+  }
+  set enabled(value) {
+    if (this.focusTrap) {
+      this.focusTrap.enabled = value;
+    }
+  }
+  autoCapture = false;
+  constructor() {
+    const platform = inject(Platform);
+    if (platform.isBrowser) {
+      this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+  }
+  ngOnDestroy() {
+    this.focusTrap?.destroy();
+    if (this._previouslyFocusedElement) {
+      this._previouslyFocusedElement.focus();
+      this._previouslyFocusedElement = null;
+    }
+  }
+  ngAfterContentInit() {
+    this.focusTrap?.attachAnchors();
+    if (this.autoCapture) {
+      this._captureFocus();
+    }
+  }
+  ngDoCheck() {
+    if (this.focusTrap && !this.focusTrap.hasAttached()) {
+      this.focusTrap.attachAnchors();
+    }
+  }
+  ngOnChanges(changes) {
+    const autoCaptureChange = changes["autoCapture"];
+    if (autoCaptureChange && !autoCaptureChange.firstChange && this.autoCapture && this.focusTrap?.hasAttached()) {
+      this._captureFocus();
+    }
+  }
+  _captureFocus() {
+    this._previouslyFocusedElement = _getFocusedElementPierceShadowDom();
+    this.focusTrap?.focusInitialElementWhenReady();
+  }
+  static \u0275fac = function CdkTrapFocus_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkTrapFocus)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkTrapFocus,
+    selectors: [["", "cdkTrapFocus", ""]],
+    inputs: {
+      enabled: [2, "cdkTrapFocus", "enabled", booleanAttribute],
+      autoCapture: [2, "cdkTrapFocusAutoCapture", "autoCapture", booleanAttribute]
+    },
+    exportAs: ["cdkTrapFocus"],
+    features: [\u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkTrapFocus, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkTrapFocus]",
+      exportAs: "cdkTrapFocus"
+    }]
+  }], () => [], {
+    enabled: [{
+      type: Input,
+      args: [{
+        alias: "cdkTrapFocus",
+        transform: booleanAttribute
+      }]
+    }],
+    autoCapture: [{
+      type: Input,
+      args: [{
+        alias: "cdkTrapFocusAutoCapture",
+        transform: booleanAttribute
+      }]
+    }]
+  });
+})();
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken("liveAnnouncerElement", {
+  providedIn: "root",
+  factory: () => null
+});
+var LIVE_ANNOUNCER_DEFAULT_OPTIONS = new InjectionToken("LIVE_ANNOUNCER_DEFAULT_OPTIONS");
+var uniqueIds = 0;
+var LiveAnnouncer = class _LiveAnnouncer {
+  _ngZone = inject(NgZone);
+  _defaultOptions = inject(LIVE_ANNOUNCER_DEFAULT_OPTIONS, {
+    optional: true
+  });
+  _liveElement;
+  _document = inject(DOCUMENT);
+  _sanitizer = inject(DomSanitizer);
+  _previousTimeout;
+  _currentPromise;
+  _currentResolve;
+  constructor() {
+    const elementToken = inject(LIVE_ANNOUNCER_ELEMENT_TOKEN, {
+      optional: true
+    });
+    this._liveElement = elementToken || this._createLiveElement();
+  }
+  announce(message, ...args) {
+    const defaultOptions = this._defaultOptions;
+    let politeness;
+    let duration;
+    if (args.length === 1 && typeof args[0] === "number") {
+      duration = args[0];
+    } else {
+      [politeness, duration] = args;
+    }
+    this.clear();
+    clearTimeout(this._previousTimeout);
+    if (!politeness) {
+      politeness = defaultOptions && defaultOptions.politeness ? defaultOptions.politeness : "polite";
+    }
+    if (duration == null && defaultOptions) {
+      duration = defaultOptions.duration;
+    }
+    this._liveElement.setAttribute("aria-live", politeness);
+    if (this._liveElement.id) {
+      this._exposeAnnouncerToModals(this._liveElement.id);
+    }
+    return this._ngZone.runOutsideAngular(() => {
+      if (!this._currentPromise) {
+        this._currentPromise = new Promise((resolve) => this._currentResolve = resolve);
+      }
+      clearTimeout(this._previousTimeout);
+      this._previousTimeout = setTimeout(() => {
+        if (!message || typeof message === "string") {
+          this._liveElement.textContent = message;
+        } else {
+          _setInnerHtml(this._liveElement, message, this._sanitizer);
+        }
+        if (typeof duration === "number") {
+          this._previousTimeout = setTimeout(() => this.clear(), duration);
+        }
+        this._currentResolve?.();
+        this._currentPromise = this._currentResolve = void 0;
+      }, 100);
+      return this._currentPromise;
+    });
+  }
+  clear() {
+    if (this._liveElement) {
+      this._liveElement.textContent = "";
+    }
+  }
+  ngOnDestroy() {
+    clearTimeout(this._previousTimeout);
+    this._liveElement?.remove();
+    this._liveElement = null;
+    this._currentResolve?.();
+    this._currentPromise = this._currentResolve = void 0;
+  }
+  _createLiveElement() {
+    const elementClass = "cdk-live-announcer-element";
+    const previousElements = this._document.getElementsByClassName(elementClass);
+    const liveEl = this._document.createElement("div");
+    for (let i = 0; i < previousElements.length; i++) {
+      previousElements[i].remove();
+    }
+    liveEl.classList.add(elementClass);
+    liveEl.classList.add("cdk-visually-hidden");
+    liveEl.setAttribute("aria-atomic", "true");
+    liveEl.setAttribute("aria-live", "polite");
+    liveEl.id = `cdk-live-announcer-${uniqueIds++}`;
+    this._document.body.appendChild(liveEl);
+    return liveEl;
+  }
+  _exposeAnnouncerToModals(id) {
+    const modals = this._document.querySelectorAll('body > .cdk-overlay-container [aria-modal="true"]');
+    for (let i = 0; i < modals.length; i++) {
+      const modal = modals[i];
+      const ariaOwns = modal.getAttribute("aria-owns");
+      if (!ariaOwns) {
+        modal.setAttribute("aria-owns", id);
+      } else if (ariaOwns.indexOf(id) === -1) {
+        modal.setAttribute("aria-owns", ariaOwns + " " + id);
+      }
+    }
+  }
+  static \u0275fac = function LiveAnnouncer_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _LiveAnnouncer)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _LiveAnnouncer,
+    factory: _LiveAnnouncer.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LiveAnnouncer, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkAriaLive = class _CdkAriaLive {
+  _elementRef = inject(ElementRef);
+  _liveAnnouncer = inject(LiveAnnouncer);
+  _contentObserver = inject(ContentObserver);
+  _ngZone = inject(NgZone);
+  get politeness() {
+    return this._politeness;
+  }
+  set politeness(value) {
+    this._politeness = value === "off" || value === "assertive" ? value : "polite";
+    if (this._politeness === "off") {
+      if (this._subscription) {
+        this._subscription.unsubscribe();
+        this._subscription = void 0;
+      }
+    } else if (!this._subscription) {
+      this._subscription = this._ngZone.runOutsideAngular(() => {
+        return this._contentObserver.observe(this._elementRef).subscribe(() => {
+          const elementText = this._elementRef.nativeElement.textContent;
+          if (elementText !== this._previousAnnouncedText) {
+            this._liveAnnouncer.announce(elementText, this._politeness, this.duration);
+            this._previousAnnouncedText = elementText;
+          }
+        });
+      });
+    }
+  }
+  _politeness = "polite";
+  duration;
+  _previousAnnouncedText;
+  _subscription;
+  constructor() {
+    inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
+  }
+  ngOnDestroy() {
+    this._subscription?.unsubscribe();
+  }
+  static \u0275fac = function CdkAriaLive_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkAriaLive)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkAriaLive,
+    selectors: [["", "cdkAriaLive", ""]],
+    inputs: {
+      politeness: [0, "cdkAriaLive", "politeness"],
+      duration: [0, "cdkAriaLiveDuration", "duration"]
+    },
+    exportAs: ["cdkAriaLive"]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkAriaLive, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkAriaLive]",
+      exportAs: "cdkAriaLive"
+    }]
+  }], () => [], {
+    politeness: [{
+      type: Input,
+      args: ["cdkAriaLive"]
+    }],
+    duration: [{
+      type: Input,
+      args: ["cdkAriaLiveDuration"]
+    }]
+  });
+})();
+var HighContrastMode;
+(function(HighContrastMode2) {
+  HighContrastMode2[HighContrastMode2["NONE"] = 0] = "NONE";
+  HighContrastMode2[HighContrastMode2["BLACK_ON_WHITE"] = 1] = "BLACK_ON_WHITE";
+  HighContrastMode2[HighContrastMode2["WHITE_ON_BLACK"] = 2] = "WHITE_ON_BLACK";
+})(HighContrastMode || (HighContrastMode = {}));
+var BLACK_ON_WHITE_CSS_CLASS = "cdk-high-contrast-black-on-white";
+var WHITE_ON_BLACK_CSS_CLASS = "cdk-high-contrast-white-on-black";
+var HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS = "cdk-high-contrast-active";
+var HighContrastModeDetector = class _HighContrastModeDetector {
+  _platform = inject(Platform);
+  _hasCheckedHighContrastMode = false;
+  _document = inject(DOCUMENT);
+  _breakpointSubscription;
+  constructor() {
+    this._breakpointSubscription = inject(BreakpointObserver).observe("(forced-colors: active)").subscribe(() => {
+      if (this._hasCheckedHighContrastMode) {
+        this._hasCheckedHighContrastMode = false;
+        this._applyBodyHighContrastModeCssClasses();
+      }
+    });
+  }
+  getHighContrastMode() {
+    if (!this._platform.isBrowser) {
+      return HighContrastMode.NONE;
+    }
+    const testElement = this._document.createElement("div");
+    testElement.style.backgroundColor = "rgb(1,2,3)";
+    testElement.style.position = "absolute";
+    this._document.body.appendChild(testElement);
+    const documentWindow = this._document.defaultView || window;
+    const computedStyle = documentWindow && documentWindow.getComputedStyle ? documentWindow.getComputedStyle(testElement) : null;
+    const computedColor = (computedStyle && computedStyle.backgroundColor || "").replace(/ /g, "");
+    testElement.remove();
+    switch (computedColor) {
+      case "rgb(0,0,0)":
+      case "rgb(45,50,54)":
+      case "rgb(32,32,32)":
+        return HighContrastMode.WHITE_ON_BLACK;
+      case "rgb(255,255,255)":
+      case "rgb(255,250,239)":
+        return HighContrastMode.BLACK_ON_WHITE;
+    }
+    return HighContrastMode.NONE;
+  }
+  ngOnDestroy() {
+    this._breakpointSubscription.unsubscribe();
+  }
+  _applyBodyHighContrastModeCssClasses() {
+    if (!this._hasCheckedHighContrastMode && this._platform.isBrowser && this._document.body) {
+      const bodyClasses = this._document.body.classList;
+      bodyClasses.remove(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, BLACK_ON_WHITE_CSS_CLASS, WHITE_ON_BLACK_CSS_CLASS);
+      this._hasCheckedHighContrastMode = true;
+      const mode = this.getHighContrastMode();
+      if (mode === HighContrastMode.BLACK_ON_WHITE) {
+        bodyClasses.add(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, BLACK_ON_WHITE_CSS_CLASS);
+      } else if (mode === HighContrastMode.WHITE_ON_BLACK) {
+        bodyClasses.add(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, WHITE_ON_BLACK_CSS_CLASS);
+      }
+    }
+  }
+  static \u0275fac = function HighContrastModeDetector_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _HighContrastModeDetector)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _HighContrastModeDetector,
+    factory: _HighContrastModeDetector.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HighContrastModeDetector, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var A11yModule = class _A11yModule {
+  constructor() {
+    inject(HighContrastModeDetector)._applyBodyHighContrastModeCssClasses();
+  }
+  static \u0275fac = function A11yModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _A11yModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _A11yModule,
+    imports: [ObserversModule, CdkAriaLive, CdkTrapFocus, CdkMonitorFocus],
+    exports: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [ObserversModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(A11yModule, [{
+    type: NgModule,
+    args: [{
+      imports: [ObserversModule, CdkAriaLive, CdkTrapFocus, CdkMonitorFocus],
+      exports: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]
+    }]
+  }], () => [], null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/keycodes.mjs
+function hasModifierKey(event, ...modifiers) {
+  if (modifiers.length) {
+    return modifiers.some((modifier) => event[modifier]);
+  }
+  return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
+}
+
+// node_modules/@angular/cdk/fesm2022/_test-environment-chunk.mjs
+function _isTestEnvironment() {
+  return typeof __karma__ !== "undefined" && !!__karma__ || typeof jasmine !== "undefined" && !!jasmine || typeof jest !== "undefined" && !!jest || typeof Mocha !== "undefined" && !!Mocha;
+}
+
+// node_modules/@angular/cdk/fesm2022/_css-pixel-value-chunk.mjs
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+
+// node_modules/@angular/cdk/fesm2022/_directionality-chunk.mjs
+var DIR_DOCUMENT = new InjectionToken("cdk-dir-doc", {
+  providedIn: "root",
+  factory: () => inject(DOCUMENT)
+});
+var RTL_LOCALE_PATTERN = /^(ar|ckb|dv|he|iw|fa|nqo|ps|sd|ug|ur|yi|.*[-_](Adlm|Arab|Hebr|Nkoo|Rohg|Thaa))(?!.*[-_](Latn|Cyrl)($|-|_))($|-|_)/i;
+function _resolveDirectionality(rawValue) {
+  const value = rawValue?.toLowerCase() || "";
+  if (value === "auto" && typeof navigator !== "undefined" && navigator?.language) {
+    return RTL_LOCALE_PATTERN.test(navigator.language) ? "rtl" : "ltr";
+  }
+  return value === "rtl" ? "rtl" : "ltr";
+}
+var Directionality = class _Directionality {
+  get value() {
+    return this.valueSignal();
+  }
+  valueSignal = signal("ltr", ...ngDevMode ? [{
+    debugName: "valueSignal"
+  }] : []);
+  change = new EventEmitter();
+  constructor() {
+    const _document2 = inject(DIR_DOCUMENT, {
+      optional: true
+    });
+    if (_document2) {
+      const bodyDir = _document2.body ? _document2.body.dir : null;
+      const htmlDir = _document2.documentElement ? _document2.documentElement.dir : null;
+      this.valueSignal.set(_resolveDirectionality(bodyDir || htmlDir || "ltr"));
+    }
+  }
+  ngOnDestroy() {
+    this.change.complete();
+  }
+  static \u0275fac = function Directionality_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Directionality)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _Directionality,
+    factory: _Directionality.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Directionality, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_scrolling-chunk.mjs
+var RtlScrollAxisType;
+(function(RtlScrollAxisType2) {
+  RtlScrollAxisType2[RtlScrollAxisType2["NORMAL"] = 0] = "NORMAL";
+  RtlScrollAxisType2[RtlScrollAxisType2["NEGATED"] = 1] = "NEGATED";
+  RtlScrollAxisType2[RtlScrollAxisType2["INVERTED"] = 2] = "INVERTED";
+})(RtlScrollAxisType || (RtlScrollAxisType = {}));
+var rtlScrollAxisType;
+var scrollBehaviorSupported;
+function supportsScrollBehavior() {
+  if (scrollBehaviorSupported == null) {
+    if (typeof document !== "object" || !document || typeof Element !== "function" || !Element) {
+      scrollBehaviorSupported = false;
+      return scrollBehaviorSupported;
+    }
+    if (document.documentElement?.style && "scrollBehavior" in document.documentElement.style) {
+      scrollBehaviorSupported = true;
+    } else {
+      const scrollToFunction = Element.prototype.scrollTo;
+      if (scrollToFunction) {
+        scrollBehaviorSupported = !/\{\s*\[native code\]\s*\}/.test(scrollToFunction.toString());
+      } else {
+        scrollBehaviorSupported = false;
+      }
+    }
+  }
+  return scrollBehaviorSupported;
+}
+function getRtlScrollAxisType() {
+  if (typeof document !== "object" || !document) {
+    return RtlScrollAxisType.NORMAL;
+  }
+  if (rtlScrollAxisType == null) {
+    const scrollContainer = document.createElement("div");
+    const containerStyle = scrollContainer.style;
+    scrollContainer.dir = "rtl";
+    containerStyle.width = "1px";
+    containerStyle.overflow = "auto";
+    containerStyle.visibility = "hidden";
+    containerStyle.pointerEvents = "none";
+    containerStyle.position = "absolute";
+    const content = document.createElement("div");
+    const contentStyle = content.style;
+    contentStyle.width = "2px";
+    contentStyle.height = "1px";
+    scrollContainer.appendChild(content);
+    document.body.appendChild(scrollContainer);
+    rtlScrollAxisType = RtlScrollAxisType.NORMAL;
+    if (scrollContainer.scrollLeft === 0) {
+      scrollContainer.scrollLeft = 1;
+      rtlScrollAxisType = scrollContainer.scrollLeft === 0 ? RtlScrollAxisType.NEGATED : RtlScrollAxisType.INVERTED;
+    }
+    scrollContainer.remove();
+  }
+  return rtlScrollAxisType;
+}
+
+// node_modules/@angular/cdk/fesm2022/bidi.mjs
+var Dir = class _Dir {
+  _isInitialized = false;
+  _rawDir = "";
+  change = new EventEmitter();
+  get dir() {
+    return this.valueSignal();
+  }
+  set dir(value) {
+    const previousValue = this.valueSignal();
+    this.valueSignal.set(_resolveDirectionality(value));
+    this._rawDir = value;
+    if (previousValue !== this.valueSignal() && this._isInitialized) {
+      this.change.emit(this.valueSignal());
+    }
+  }
+  get value() {
+    return this.dir;
+  }
+  valueSignal = signal("ltr", ...ngDevMode ? [{
+    debugName: "valueSignal"
+  }] : []);
+  ngAfterContentInit() {
+    this._isInitialized = true;
+  }
+  ngOnDestroy() {
+    this.change.complete();
+  }
+  static \u0275fac = function Dir_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Dir)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _Dir,
+    selectors: [["", "dir", ""]],
+    hostVars: 1,
+    hostBindings: function Dir_HostBindings(rf, ctx) {
+      if (rf & 2) {
+        \u0275\u0275attribute("dir", ctx._rawDir);
+      }
+    },
+    inputs: {
+      dir: "dir"
+    },
+    outputs: {
+      change: "dirChange"
+    },
+    exportAs: ["dir"],
+    features: [\u0275\u0275ProvidersFeature([{
+      provide: Directionality,
+      useExisting: _Dir
+    }])]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Dir, [{
+    type: Directive,
+    args: [{
+      selector: "[dir]",
+      providers: [{
+        provide: Directionality,
+        useExisting: Dir
+      }],
+      host: {
+        "[attr.dir]": "_rawDir"
+      },
+      exportAs: "dir"
+    }]
+  }], null, {
+    change: [{
+      type: Output,
+      args: ["dirChange"]
+    }],
+    dir: [{
+      type: Input
+    }]
+  });
+})();
+var BidiModule = class _BidiModule {
+  static \u0275fac = function BidiModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BidiModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _BidiModule,
+    imports: [Dir],
+    exports: [Dir]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BidiModule, [{
+    type: NgModule,
+    args: [{
+      imports: [Dir],
+      exports: [Dir]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_data-source-chunk.mjs
+var DataSource = class {
+};
+function isDataSource(value) {
+  return value && typeof value.connect === "function" && !(value instanceof ConnectableObservable);
+}
+
+// node_modules/@angular/cdk/fesm2022/_recycle-view-repeater-strategy-chunk.mjs
+var ArrayDataSource = class extends DataSource {
+  _data;
+  constructor(_data) {
+    super();
+    this._data = _data;
+  }
+  connect() {
+    return isObservable(this._data) ? this._data : of(this._data);
+  }
+  disconnect() {
+  }
+};
+var _ViewRepeaterOperation;
+(function(_ViewRepeaterOperation2) {
+  _ViewRepeaterOperation2[_ViewRepeaterOperation2["REPLACED"] = 0] = "REPLACED";
+  _ViewRepeaterOperation2[_ViewRepeaterOperation2["INSERTED"] = 1] = "INSERTED";
+  _ViewRepeaterOperation2[_ViewRepeaterOperation2["MOVED"] = 2] = "MOVED";
+  _ViewRepeaterOperation2[_ViewRepeaterOperation2["REMOVED"] = 3] = "REMOVED";
+})(_ViewRepeaterOperation || (_ViewRepeaterOperation = {}));
+var _RecycleViewRepeaterStrategy = class {
+  viewCacheSize = 20;
+  _viewCache = [];
+  applyChanges(changes, viewContainerRef, itemContextFactory, itemValueResolver, itemViewChanged) {
+    changes.forEachOperation((record, adjustedPreviousIndex, currentIndex) => {
+      let view;
+      let operation;
+      if (record.previousIndex == null) {
+        const viewArgsFactory = () => itemContextFactory(record, adjustedPreviousIndex, currentIndex);
+        view = this._insertView(viewArgsFactory, currentIndex, viewContainerRef, itemValueResolver(record));
+        operation = view ? _ViewRepeaterOperation.INSERTED : _ViewRepeaterOperation.REPLACED;
+      } else if (currentIndex == null) {
+        this._detachAndCacheView(adjustedPreviousIndex, viewContainerRef);
+        operation = _ViewRepeaterOperation.REMOVED;
+      } else {
+        view = this._moveView(adjustedPreviousIndex, currentIndex, viewContainerRef, itemValueResolver(record));
+        operation = _ViewRepeaterOperation.MOVED;
+      }
+      if (itemViewChanged) {
+        itemViewChanged({
+          context: view?.context,
+          operation,
+          record
+        });
+      }
+    });
+  }
+  detach() {
+    for (const view of this._viewCache) {
+      view.destroy();
+    }
+    this._viewCache = [];
+  }
+  _insertView(viewArgsFactory, currentIndex, viewContainerRef, value) {
+    const cachedView = this._insertViewFromCache(currentIndex, viewContainerRef);
+    if (cachedView) {
+      cachedView.context.$implicit = value;
+      return void 0;
+    }
+    const viewArgs = viewArgsFactory();
+    return viewContainerRef.createEmbeddedView(viewArgs.templateRef, viewArgs.context, viewArgs.index);
+  }
+  _detachAndCacheView(index, viewContainerRef) {
+    const detachedView = viewContainerRef.detach(index);
+    this._maybeCacheView(detachedView, viewContainerRef);
+  }
+  _moveView(adjustedPreviousIndex, currentIndex, viewContainerRef, value) {
+    const view = viewContainerRef.get(adjustedPreviousIndex);
+    viewContainerRef.move(view, currentIndex);
+    view.context.$implicit = value;
+    return view;
+  }
+  _maybeCacheView(view, viewContainerRef) {
+    if (this._viewCache.length < this.viewCacheSize) {
+      this._viewCache.push(view);
+    } else {
+      const index = viewContainerRef.indexOf(view);
+      if (index === -1) {
+        view.destroy();
+      } else {
+        viewContainerRef.remove(index);
+      }
+    }
+  }
+  _insertViewFromCache(index, viewContainerRef) {
+    const cachedView = this._viewCache.pop();
+    if (cachedView) {
+      viewContainerRef.insert(cachedView, index);
+    }
+    return cachedView || null;
+  }
+};
+
+// node_modules/@angular/cdk/fesm2022/scrolling.mjs
+var _c0 = ["contentWrapper"];
+var _c1 = ["*"];
+var VIRTUAL_SCROLL_STRATEGY = new InjectionToken("VIRTUAL_SCROLL_STRATEGY");
+var FixedSizeVirtualScrollStrategy = class {
+  _scrolledIndexChange = new Subject();
+  scrolledIndexChange = this._scrolledIndexChange.pipe(distinctUntilChanged());
+  _viewport = null;
+  _itemSize;
+  _minBufferPx;
+  _maxBufferPx;
+  constructor(itemSize, minBufferPx, maxBufferPx) {
+    this._itemSize = itemSize;
+    this._minBufferPx = minBufferPx;
+    this._maxBufferPx = maxBufferPx;
+  }
+  attach(viewport) {
+    this._viewport = viewport;
+    this._updateTotalContentSize();
+    this._updateRenderedRange();
+  }
+  detach() {
+    this._scrolledIndexChange.complete();
+    this._viewport = null;
+  }
+  updateItemAndBufferSize(itemSize, minBufferPx, maxBufferPx) {
+    if (maxBufferPx < minBufferPx && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error("CDK virtual scroll: maxBufferPx must be greater than or equal to minBufferPx");
+    }
+    this._itemSize = itemSize;
+    this._minBufferPx = minBufferPx;
+    this._maxBufferPx = maxBufferPx;
+    this._updateTotalContentSize();
+    this._updateRenderedRange();
+  }
+  onContentScrolled() {
+    this._updateRenderedRange();
+  }
+  onDataLengthChanged() {
+    this._updateTotalContentSize();
+    this._updateRenderedRange();
+  }
+  onContentRendered() {
+  }
+  onRenderedOffsetChanged() {
+  }
+  scrollToIndex(index, behavior) {
+    if (this._viewport) {
+      this._viewport.scrollToOffset(index * this._itemSize, behavior);
+    }
+  }
+  _updateTotalContentSize() {
+    if (!this._viewport) {
+      return;
+    }
+    this._viewport.setTotalContentSize(this._viewport.getDataLength() * this._itemSize);
+  }
+  _updateRenderedRange() {
+    if (!this._viewport) {
+      return;
+    }
+    const renderedRange = this._viewport.getRenderedRange();
+    const newRange = {
+      start: renderedRange.start,
+      end: renderedRange.end
+    };
+    const viewportSize = this._viewport.getViewportSize();
+    const dataLength = this._viewport.getDataLength();
+    let scrollOffset = this._viewport.measureScrollOffset();
+    let firstVisibleIndex = this._itemSize > 0 ? scrollOffset / this._itemSize : 0;
+    if (newRange.end > dataLength) {
+      const maxVisibleItems = Math.ceil(viewportSize / this._itemSize);
+      const newVisibleIndex = Math.max(0, Math.min(firstVisibleIndex, dataLength - maxVisibleItems));
+      if (firstVisibleIndex != newVisibleIndex) {
+        firstVisibleIndex = newVisibleIndex;
+        scrollOffset = newVisibleIndex * this._itemSize;
+        newRange.start = Math.floor(firstVisibleIndex);
+      }
+      newRange.end = Math.max(0, Math.min(dataLength, newRange.start + maxVisibleItems));
+    }
+    const startBuffer = scrollOffset - newRange.start * this._itemSize;
+    if (startBuffer < this._minBufferPx && newRange.start != 0) {
+      const expandStart = Math.ceil((this._maxBufferPx - startBuffer) / this._itemSize);
+      newRange.start = Math.max(0, newRange.start - expandStart);
+      newRange.end = Math.min(dataLength, Math.ceil(firstVisibleIndex + (viewportSize + this._minBufferPx) / this._itemSize));
+    } else {
+      const endBuffer = newRange.end * this._itemSize - (scrollOffset + viewportSize);
+      if (endBuffer < this._minBufferPx && newRange.end != dataLength) {
+        const expandEnd = Math.ceil((this._maxBufferPx - endBuffer) / this._itemSize);
+        if (expandEnd > 0) {
+          newRange.end = Math.min(dataLength, newRange.end + expandEnd);
+          newRange.start = Math.max(0, Math.floor(firstVisibleIndex - this._minBufferPx / this._itemSize));
+        }
+      }
+    }
+    this._viewport.setRenderedRange(newRange);
+    this._viewport.setRenderedContentOffset(Math.round(this._itemSize * newRange.start));
+    this._scrolledIndexChange.next(Math.floor(firstVisibleIndex));
+  }
+};
+function _fixedSizeVirtualScrollStrategyFactory(fixedSizeDir) {
+  return fixedSizeDir._scrollStrategy;
+}
+var CdkFixedSizeVirtualScroll = class _CdkFixedSizeVirtualScroll {
+  get itemSize() {
+    return this._itemSize;
+  }
+  set itemSize(value) {
+    this._itemSize = coerceNumberProperty(value);
+  }
+  _itemSize = 20;
+  get minBufferPx() {
+    return this._minBufferPx;
+  }
+  set minBufferPx(value) {
+    this._minBufferPx = coerceNumberProperty(value);
+  }
+  _minBufferPx = 100;
+  get maxBufferPx() {
+    return this._maxBufferPx;
+  }
+  set maxBufferPx(value) {
+    this._maxBufferPx = coerceNumberProperty(value);
+  }
+  _maxBufferPx = 200;
+  _scrollStrategy = new FixedSizeVirtualScrollStrategy(this.itemSize, this.minBufferPx, this.maxBufferPx);
+  ngOnChanges() {
+    this._scrollStrategy.updateItemAndBufferSize(this.itemSize, this.minBufferPx, this.maxBufferPx);
+  }
+  static \u0275fac = function CdkFixedSizeVirtualScroll_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkFixedSizeVirtualScroll)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkFixedSizeVirtualScroll,
+    selectors: [["cdk-virtual-scroll-viewport", "itemSize", ""]],
+    inputs: {
+      itemSize: "itemSize",
+      minBufferPx: "minBufferPx",
+      maxBufferPx: "maxBufferPx"
+    },
+    features: [\u0275\u0275ProvidersFeature([{
+      provide: VIRTUAL_SCROLL_STRATEGY,
+      useFactory: _fixedSizeVirtualScrollStrategyFactory,
+      deps: [forwardRef(() => _CdkFixedSizeVirtualScroll)]
+    }]), \u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkFixedSizeVirtualScroll, [{
+    type: Directive,
+    args: [{
+      selector: "cdk-virtual-scroll-viewport[itemSize]",
+      providers: [{
+        provide: VIRTUAL_SCROLL_STRATEGY,
+        useFactory: _fixedSizeVirtualScrollStrategyFactory,
+        deps: [forwardRef(() => CdkFixedSizeVirtualScroll)]
+      }]
+    }]
+  }], null, {
+    itemSize: [{
+      type: Input
+    }],
+    minBufferPx: [{
+      type: Input
+    }],
+    maxBufferPx: [{
+      type: Input
+    }]
+  });
+})();
+var DEFAULT_SCROLL_TIME = 20;
+var ScrollDispatcher = class _ScrollDispatcher {
+  _ngZone = inject(NgZone);
+  _platform = inject(Platform);
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
+  _cleanupGlobalListener;
+  constructor() {
+  }
+  _scrolled = new Subject();
+  _scrolledCount = 0;
+  scrollContainers = /* @__PURE__ */ new Map();
+  register(scrollable) {
+    if (!this.scrollContainers.has(scrollable)) {
+      this.scrollContainers.set(scrollable, scrollable.elementScrolled().subscribe(() => this._scrolled.next(scrollable)));
+    }
+  }
+  deregister(scrollable) {
+    const scrollableReference = this.scrollContainers.get(scrollable);
+    if (scrollableReference) {
+      scrollableReference.unsubscribe();
+      this.scrollContainers.delete(scrollable);
+    }
+  }
+  scrolled(auditTimeInMs = DEFAULT_SCROLL_TIME) {
+    if (!this._platform.isBrowser) {
+      return of();
+    }
+    return new Observable((observer) => {
+      if (!this._cleanupGlobalListener) {
+        this._cleanupGlobalListener = this._ngZone.runOutsideAngular(() => this._renderer.listen("document", "scroll", () => this._scrolled.next()));
+      }
+      const subscription = auditTimeInMs > 0 ? this._scrolled.pipe(auditTime(auditTimeInMs)).subscribe(observer) : this._scrolled.subscribe(observer);
+      this._scrolledCount++;
+      return () => {
+        subscription.unsubscribe();
+        this._scrolledCount--;
+        if (!this._scrolledCount) {
+          this._cleanupGlobalListener?.();
+          this._cleanupGlobalListener = void 0;
+        }
+      };
+    });
+  }
+  ngOnDestroy() {
+    this._cleanupGlobalListener?.();
+    this._cleanupGlobalListener = void 0;
+    this.scrollContainers.forEach((_, container) => this.deregister(container));
+    this._scrolled.complete();
+  }
+  ancestorScrolled(elementOrElementRef, auditTimeInMs) {
+    const ancestors = this.getAncestorScrollContainers(elementOrElementRef);
+    return this.scrolled(auditTimeInMs).pipe(filter((target) => !target || ancestors.indexOf(target) > -1));
+  }
+  getAncestorScrollContainers(elementOrElementRef) {
+    const scrollingContainers = [];
+    this.scrollContainers.forEach((_subscription, scrollable) => {
+      if (this._scrollableContainsElement(scrollable, elementOrElementRef)) {
+        scrollingContainers.push(scrollable);
+      }
+    });
+    return scrollingContainers;
+  }
+  _scrollableContainsElement(scrollable, elementOrElementRef) {
+    let element = coerceElement(elementOrElementRef);
+    let scrollableElement = scrollable.getElementRef().nativeElement;
+    do {
+      if (element == scrollableElement) {
+        return true;
+      }
+    } while (element = element.parentElement);
+    return false;
+  }
+  static \u0275fac = function ScrollDispatcher_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ScrollDispatcher)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ScrollDispatcher,
+    factory: _ScrollDispatcher.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollDispatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var CdkScrollable = class _CdkScrollable {
+  elementRef = inject(ElementRef);
+  scrollDispatcher = inject(ScrollDispatcher);
+  ngZone = inject(NgZone);
+  dir = inject(Directionality, {
+    optional: true
+  });
+  _scrollElement = this.elementRef.nativeElement;
+  _destroyed = new Subject();
+  _renderer = inject(Renderer2);
+  _cleanupScroll;
+  _elementScrolled = new Subject();
+  constructor() {
+  }
+  ngOnInit() {
+    this._cleanupScroll = this.ngZone.runOutsideAngular(() => this._renderer.listen(this._scrollElement, "scroll", (event) => this._elementScrolled.next(event)));
+    this.scrollDispatcher.register(this);
+  }
+  ngOnDestroy() {
+    this._cleanupScroll?.();
+    this._elementScrolled.complete();
+    this.scrollDispatcher.deregister(this);
+    this._destroyed.next();
+    this._destroyed.complete();
+  }
+  elementScrolled() {
+    return this._elementScrolled;
+  }
+  getElementRef() {
+    return this.elementRef;
+  }
+  scrollTo(options) {
+    const el = this.elementRef.nativeElement;
+    const isRtl = this.dir && this.dir.value == "rtl";
+    if (options.left == null) {
+      options.left = isRtl ? options.end : options.start;
+    }
+    if (options.right == null) {
+      options.right = isRtl ? options.start : options.end;
+    }
+    if (options.bottom != null) {
+      options.top = el.scrollHeight - el.clientHeight - options.bottom;
+    }
+    if (isRtl && getRtlScrollAxisType() != RtlScrollAxisType.NORMAL) {
+      if (options.left != null) {
+        options.right = el.scrollWidth - el.clientWidth - options.left;
+      }
+      if (getRtlScrollAxisType() == RtlScrollAxisType.INVERTED) {
+        options.left = options.right;
+      } else if (getRtlScrollAxisType() == RtlScrollAxisType.NEGATED) {
+        options.left = options.right ? -options.right : options.right;
+      }
+    } else {
+      if (options.right != null) {
+        options.left = el.scrollWidth - el.clientWidth - options.right;
+      }
+    }
+    this._applyScrollToOptions(options);
+  }
+  _applyScrollToOptions(options) {
+    const el = this.elementRef.nativeElement;
+    if (supportsScrollBehavior()) {
+      el.scrollTo(options);
+    } else {
+      if (options.top != null) {
+        el.scrollTop = options.top;
+      }
+      if (options.left != null) {
+        el.scrollLeft = options.left;
+      }
+    }
+  }
+  measureScrollOffset(from2) {
+    const LEFT = "left";
+    const RIGHT = "right";
+    const el = this.elementRef.nativeElement;
+    if (from2 == "top") {
+      return el.scrollTop;
+    }
+    if (from2 == "bottom") {
+      return el.scrollHeight - el.clientHeight - el.scrollTop;
+    }
+    const isRtl = this.dir && this.dir.value == "rtl";
+    if (from2 == "start") {
+      from2 = isRtl ? RIGHT : LEFT;
+    } else if (from2 == "end") {
+      from2 = isRtl ? LEFT : RIGHT;
+    }
+    if (isRtl && getRtlScrollAxisType() == RtlScrollAxisType.INVERTED) {
+      if (from2 == LEFT) {
+        return el.scrollWidth - el.clientWidth - el.scrollLeft;
+      } else {
+        return el.scrollLeft;
+      }
+    } else if (isRtl && getRtlScrollAxisType() == RtlScrollAxisType.NEGATED) {
+      if (from2 == LEFT) {
+        return el.scrollLeft + el.scrollWidth - el.clientWidth;
+      } else {
+        return -el.scrollLeft;
+      }
+    } else {
+      if (from2 == LEFT) {
+        return el.scrollLeft;
+      } else {
+        return el.scrollWidth - el.clientWidth - el.scrollLeft;
+      }
+    }
+  }
+  static \u0275fac = function CdkScrollable_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkScrollable)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkScrollable,
+    selectors: [["", "cdk-scrollable", ""], ["", "cdkScrollable", ""]]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkScrollable, [{
+    type: Directive,
+    args: [{
+      selector: "[cdk-scrollable], [cdkScrollable]"
+    }]
+  }], () => [], null);
+})();
+var DEFAULT_RESIZE_TIME = 20;
+var ViewportRuler = class _ViewportRuler {
+  _platform = inject(Platform);
+  _listeners;
+  _viewportSize = null;
+  _change = new Subject();
+  _document = inject(DOCUMENT);
+  constructor() {
+    const ngZone = inject(NgZone);
+    const renderer = inject(RendererFactory2).createRenderer(null, null);
+    ngZone.runOutsideAngular(() => {
+      if (this._platform.isBrowser) {
+        const changeListener = (event) => this._change.next(event);
+        this._listeners = [renderer.listen("window", "resize", changeListener), renderer.listen("window", "orientationchange", changeListener)];
+      }
+      this.change().subscribe(() => this._viewportSize = null);
+    });
+  }
+  ngOnDestroy() {
+    this._listeners?.forEach((cleanup) => cleanup());
+    this._change.complete();
+  }
+  getViewportSize() {
+    if (!this._viewportSize) {
+      this._updateViewportSize();
+    }
+    const output2 = {
+      width: this._viewportSize.width,
+      height: this._viewportSize.height
+    };
+    if (!this._platform.isBrowser) {
+      this._viewportSize = null;
+    }
+    return output2;
+  }
+  getViewportRect() {
+    const scrollPosition = this.getViewportScrollPosition();
+    const {
+      width,
+      height
+    } = this.getViewportSize();
+    return {
+      top: scrollPosition.top,
+      left: scrollPosition.left,
+      bottom: scrollPosition.top + height,
+      right: scrollPosition.left + width,
+      height,
+      width
+    };
+  }
+  getViewportScrollPosition() {
+    if (!this._platform.isBrowser) {
+      return {
+        top: 0,
+        left: 0
+      };
+    }
+    const document2 = this._document;
+    const window2 = this._getWindow();
+    const documentElement = document2.documentElement;
+    const documentRect = documentElement.getBoundingClientRect();
+    const top = -documentRect.top || document2.body?.scrollTop || window2.scrollY || documentElement.scrollTop || 0;
+    const left = -documentRect.left || document2.body?.scrollLeft || window2.scrollX || documentElement.scrollLeft || 0;
+    return {
+      top,
+      left
+    };
+  }
+  change(throttleTime = DEFAULT_RESIZE_TIME) {
+    return throttleTime > 0 ? this._change.pipe(auditTime(throttleTime)) : this._change;
+  }
+  _getWindow() {
+    return this._document.defaultView || window;
+  }
+  _updateViewportSize() {
+    const window2 = this._getWindow();
+    this._viewportSize = this._platform.isBrowser ? {
+      width: window2.innerWidth,
+      height: window2.innerHeight
+    } : {
+      width: 0,
+      height: 0
+    };
+  }
+  static \u0275fac = function ViewportRuler_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ViewportRuler)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ViewportRuler,
+    factory: _ViewportRuler.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ViewportRuler, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var VIRTUAL_SCROLLABLE = new InjectionToken("VIRTUAL_SCROLLABLE");
+var CdkVirtualScrollable = class _CdkVirtualScrollable extends CdkScrollable {
+  constructor() {
+    super();
+  }
+  measureViewportSize(orientation) {
+    const viewportEl = this.elementRef.nativeElement;
+    return orientation === "horizontal" ? viewportEl.clientWidth : viewportEl.clientHeight;
+  }
+  static \u0275fac = function CdkVirtualScrollable_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkVirtualScrollable)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkVirtualScrollable,
+    features: [\u0275\u0275InheritDefinitionFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollable, [{
+    type: Directive
+  }], () => [], null);
+})();
+function rangesEqual(r1, r2) {
+  return r1.start == r2.start && r1.end == r2.end;
+}
+var SCROLL_SCHEDULER = typeof requestAnimationFrame !== "undefined" ? animationFrameScheduler : asapScheduler;
+var CDK_VIRTUAL_SCROLL_VIEWPORT = new InjectionToken("CDK_VIRTUAL_SCROLL_VIEWPORT");
+var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtualScrollable {
+  elementRef = inject(ElementRef);
+  _changeDetectorRef = inject(ChangeDetectorRef);
+  _scrollStrategy = inject(VIRTUAL_SCROLL_STRATEGY, {
+    optional: true
+  });
+  scrollable = inject(VIRTUAL_SCROLLABLE, {
+    optional: true
+  });
+  _platform = inject(Platform);
+  _detachedSubject = new Subject();
+  _renderedRangeSubject = new Subject();
+  _renderedContentOffsetSubject = new Subject();
+  get orientation() {
+    return this._orientation;
+  }
+  set orientation(orientation) {
+    if (this._orientation !== orientation) {
+      this._orientation = orientation;
+      this._calculateSpacerSize();
+    }
+  }
+  _orientation = "vertical";
+  appendOnly = false;
+  scrolledIndexChange = new Observable((observer) => this._scrollStrategy.scrolledIndexChange.subscribe((index) => Promise.resolve().then(() => this.ngZone.run(() => observer.next(index)))));
+  _contentWrapper;
+  renderedRangeStream = this._renderedRangeSubject;
+  renderedContentOffset = this._renderedContentOffsetSubject.pipe(filter((offset2) => offset2 !== null), distinctUntilChanged());
+  _totalContentSize = 0;
+  _totalContentWidth = signal("", ...ngDevMode ? [{
+    debugName: "_totalContentWidth"
+  }] : []);
+  _totalContentHeight = signal("", ...ngDevMode ? [{
+    debugName: "_totalContentHeight"
+  }] : []);
+  _renderedContentTransform;
+  _renderedRange = {
+    start: 0,
+    end: 0
+  };
+  _dataLength = 0;
+  _viewportSize = 0;
+  _forOf = null;
+  _renderedContentOffset = 0;
+  _renderedContentOffsetNeedsRewrite = false;
+  _changeDetectionNeeded = signal(false, ...ngDevMode ? [{
+    debugName: "_changeDetectionNeeded"
+  }] : []);
+  _runAfterChangeDetection = [];
+  _viewportChanges = Subscription.EMPTY;
+  _injector = inject(Injector);
+  _isDestroyed = false;
+  constructor() {
+    super();
+    const viewportRuler = inject(ViewportRuler);
+    if (!this._scrollStrategy && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error('Error: cdk-virtual-scroll-viewport requires the "itemSize" property to be set.');
+    }
+    this._viewportChanges = viewportRuler.change().subscribe(() => {
+      this.checkViewportSize();
+    });
+    if (!this.scrollable) {
+      this.elementRef.nativeElement.classList.add("cdk-virtual-scrollable");
+      this.scrollable = this;
+    }
+    const ref = effect(() => {
+      if (this._changeDetectionNeeded()) {
+        this._doChangeDetection();
+      }
+    }, __spreadProps(__spreadValues({}, ngDevMode ? {
+      debugName: "ref"
+    } : {}), {
+      injector: inject(ApplicationRef).injector
+    }));
+    inject(DestroyRef).onDestroy(() => void ref.destroy());
+  }
+  ngOnInit() {
+    if (!this._platform.isBrowser) {
+      return;
+    }
+    if (this.scrollable === this) {
+      super.ngOnInit();
+    }
+    this.ngZone.runOutsideAngular(() => Promise.resolve().then(() => {
+      this._measureViewportSize();
+      this._scrollStrategy.attach(this);
+      this.scrollable.elementScrolled().pipe(startWith(null), auditTime(0, SCROLL_SCHEDULER), takeUntil(this._destroyed)).subscribe(() => this._scrollStrategy.onContentScrolled());
+      this._markChangeDetectionNeeded();
+    }));
+  }
+  ngOnDestroy() {
+    this.detach();
+    this._scrollStrategy.detach();
+    this._renderedRangeSubject.complete();
+    this._detachedSubject.complete();
+    this._viewportChanges.unsubscribe();
+    this._isDestroyed = true;
+    super.ngOnDestroy();
+  }
+  attach(forOf) {
+    if (this._forOf && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error("CdkVirtualScrollViewport is already attached.");
+    }
+    this.ngZone.runOutsideAngular(() => {
+      this._forOf = forOf;
+      this._forOf.dataStream.pipe(takeUntil(this._detachedSubject)).subscribe((data) => {
+        const newLength = data.length;
+        if (newLength !== this._dataLength) {
+          this._dataLength = newLength;
+          this._scrollStrategy.onDataLengthChanged();
+        }
+        this._doChangeDetection();
+      });
+    });
+  }
+  detach() {
+    this._forOf = null;
+    this._detachedSubject.next();
+  }
+  getDataLength() {
+    return this._dataLength;
+  }
+  getViewportSize() {
+    return this._viewportSize;
+  }
+  getRenderedRange() {
+    return this._renderedRange;
+  }
+  measureBoundingClientRectWithScrollOffset(from2) {
+    return this.getElementRef().nativeElement.getBoundingClientRect()[from2];
+  }
+  setTotalContentSize(size) {
+    if (this._totalContentSize !== size) {
+      this._totalContentSize = size;
+      this._calculateSpacerSize();
+      this._markChangeDetectionNeeded();
+    }
+  }
+  setRenderedRange(range) {
+    if (!rangesEqual(this._renderedRange, range)) {
+      if (this.appendOnly) {
+        range = {
+          start: 0,
+          end: Math.max(this._renderedRange.end, range.end)
+        };
+      }
+      this._renderedRangeSubject.next(this._renderedRange = range);
+      this._markChangeDetectionNeeded(() => this._scrollStrategy.onContentRendered());
+    }
+  }
+  getOffsetToRenderedContentStart() {
+    return this._renderedContentOffsetNeedsRewrite ? null : this._renderedContentOffset;
+  }
+  setRenderedContentOffset(offset2, to = "to-start") {
+    offset2 = this.appendOnly && to === "to-start" ? 0 : offset2;
+    const isRtl = this.dir && this.dir.value == "rtl";
+    const isHorizontal = this.orientation == "horizontal";
+    const axis = isHorizontal ? "X" : "Y";
+    const axisDirection = isHorizontal && isRtl ? -1 : 1;
+    let transform = `translate${axis}(${Number(axisDirection * offset2)}px)`;
+    this._renderedContentOffset = offset2;
+    if (to === "to-end") {
+      transform += ` translate${axis}(-100%)`;
+      this._renderedContentOffsetNeedsRewrite = true;
+    }
+    if (this._renderedContentTransform != transform) {
+      this._renderedContentTransform = transform;
+      this._markChangeDetectionNeeded(() => {
+        if (this._renderedContentOffsetNeedsRewrite) {
+          this._renderedContentOffset -= this.measureRenderedContentSize();
+          this._renderedContentOffsetNeedsRewrite = false;
+          this.setRenderedContentOffset(this._renderedContentOffset);
+        } else {
+          this._scrollStrategy.onRenderedOffsetChanged();
+        }
+      });
+    }
+  }
+  scrollToOffset(offset2, behavior = "auto") {
+    const options = {
+      behavior
+    };
+    if (this.orientation === "horizontal") {
+      options.start = offset2;
+    } else {
+      options.top = offset2;
+    }
+    this.scrollable.scrollTo(options);
+  }
+  scrollToIndex(index, behavior = "auto") {
+    this._scrollStrategy.scrollToIndex(index, behavior);
+  }
+  measureScrollOffset(from2) {
+    let measureScrollOffset;
+    if (this.scrollable == this) {
+      measureScrollOffset = (_from) => super.measureScrollOffset(_from);
+    } else {
+      measureScrollOffset = (_from) => this.scrollable.measureScrollOffset(_from);
+    }
+    return Math.max(0, measureScrollOffset(from2 ?? (this.orientation === "horizontal" ? "start" : "top")) - this.measureViewportOffset());
+  }
+  measureViewportOffset(from2) {
+    let fromRect;
+    const LEFT = "left";
+    const RIGHT = "right";
+    const isRtl = this.dir?.value == "rtl";
+    if (from2 == "start") {
+      fromRect = isRtl ? RIGHT : LEFT;
+    } else if (from2 == "end") {
+      fromRect = isRtl ? LEFT : RIGHT;
+    } else if (from2) {
+      fromRect = from2;
+    } else {
+      fromRect = this.orientation === "horizontal" ? "left" : "top";
+    }
+    const scrollerClientRect = this.scrollable.measureBoundingClientRectWithScrollOffset(fromRect);
+    const viewportClientRect = this.elementRef.nativeElement.getBoundingClientRect()[fromRect];
+    return viewportClientRect - scrollerClientRect;
+  }
+  measureRenderedContentSize() {
+    const contentEl = this._contentWrapper.nativeElement;
+    return this.orientation === "horizontal" ? contentEl.offsetWidth : contentEl.offsetHeight;
+  }
+  measureRangeSize(range) {
+    if (!this._forOf) {
+      return 0;
+    }
+    return this._forOf.measureRangeSize(range, this.orientation);
+  }
+  checkViewportSize() {
+    this._measureViewportSize();
+    this._scrollStrategy.onDataLengthChanged();
+  }
+  _measureViewportSize() {
+    this._viewportSize = this.scrollable.measureViewportSize(this.orientation);
+  }
+  _markChangeDetectionNeeded(runAfter) {
+    if (runAfter) {
+      this._runAfterChangeDetection.push(runAfter);
+    }
+    if (untracked(this._changeDetectionNeeded)) {
+      return;
+    }
+    this.ngZone.runOutsideAngular(() => {
+      Promise.resolve().then(() => {
+        this.ngZone.run(() => {
+          this._changeDetectionNeeded.set(true);
+        });
+      });
+    });
+  }
+  _doChangeDetection() {
+    if (this._isDestroyed) {
+      return;
+    }
+    this.ngZone.run(() => {
+      this._changeDetectorRef.markForCheck();
+      this._contentWrapper.nativeElement.style.transform = this._renderedContentTransform;
+      this._renderedContentOffsetSubject.next(this.getOffsetToRenderedContentStart());
+      afterNextRender(() => {
+        this._changeDetectionNeeded.set(false);
+        const runAfterChangeDetection = this._runAfterChangeDetection;
+        this._runAfterChangeDetection = [];
+        for (const fn of runAfterChangeDetection) {
+          fn();
+        }
+      }, {
+        injector: this._injector
+      });
+    });
+  }
+  _calculateSpacerSize() {
+    this._totalContentHeight.set(this.orientation === "horizontal" ? "" : `${this._totalContentSize}px`);
+    this._totalContentWidth.set(this.orientation === "horizontal" ? `${this._totalContentSize}px` : "");
+  }
+  static \u0275fac = function CdkVirtualScrollViewport_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkVirtualScrollViewport)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _CdkVirtualScrollViewport,
+    selectors: [["cdk-virtual-scroll-viewport"]],
+    viewQuery: function CdkVirtualScrollViewport_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(_c0, 7);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._contentWrapper = _t.first);
+      }
+    },
+    hostAttrs: [1, "cdk-virtual-scroll-viewport"],
+    hostVars: 4,
+    hostBindings: function CdkVirtualScrollViewport_HostBindings(rf, ctx) {
+      if (rf & 2) {
+        \u0275\u0275classProp("cdk-virtual-scroll-orientation-horizontal", ctx.orientation === "horizontal")("cdk-virtual-scroll-orientation-vertical", ctx.orientation !== "horizontal");
+      }
+    },
+    inputs: {
+      orientation: "orientation",
+      appendOnly: [2, "appendOnly", "appendOnly", booleanAttribute]
+    },
+    outputs: {
+      scrolledIndexChange: "scrolledIndexChange"
+    },
+    features: [\u0275\u0275ProvidersFeature([{
+      provide: CdkScrollable,
+      useFactory: () => inject(VIRTUAL_SCROLLABLE, {
+        optional: true
+      }) || inject(_CdkVirtualScrollViewport)
+    }, {
+      provide: CDK_VIRTUAL_SCROLL_VIEWPORT,
+      useExisting: _CdkVirtualScrollViewport
+    }]), \u0275\u0275InheritDefinitionFeature],
+    ngContentSelectors: _c1,
+    decls: 4,
+    vars: 4,
+    consts: [["contentWrapper", ""], [1, "cdk-virtual-scroll-content-wrapper"], [1, "cdk-virtual-scroll-spacer"]],
+    template: function CdkVirtualScrollViewport_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275projectionDef();
+        \u0275\u0275domElementStart(0, "div", 1, 0);
+        \u0275\u0275projection(2);
+        \u0275\u0275domElementEnd();
+        \u0275\u0275domElement(3, "div", 2);
+      }
+      if (rf & 2) {
+        \u0275\u0275advance(3);
+        \u0275\u0275styleProp("width", ctx._totalContentWidth())("height", ctx._totalContentHeight());
+      }
+    },
+    styles: ["cdk-virtual-scroll-viewport{display:block;position:relative;transform:translateZ(0)}.cdk-virtual-scrollable{overflow:auto;will-change:scroll-position;contain:strict}.cdk-virtual-scroll-content-wrapper{position:absolute;top:0;left:0;contain:content}[dir=rtl] .cdk-virtual-scroll-content-wrapper{right:0;left:auto}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper{min-height:100%}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-left:0;padding-right:0;margin-left:0;margin-right:0;border-left-width:0;border-right-width:0;outline:none}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper{min-width:100%}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;border-top-width:0;border-bottom-width:0;outline:none}.cdk-virtual-scroll-spacer{height:1px;transform-origin:0 0;flex:0 0 auto}[dir=rtl] .cdk-virtual-scroll-spacer{transform-origin:100% 0}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollViewport, [{
+    type: Component,
+    args: [{
+      selector: "cdk-virtual-scroll-viewport",
+      host: {
+        "class": "cdk-virtual-scroll-viewport",
+        "[class.cdk-virtual-scroll-orientation-horizontal]": 'orientation === "horizontal"',
+        "[class.cdk-virtual-scroll-orientation-vertical]": 'orientation !== "horizontal"'
+      },
+      encapsulation: ViewEncapsulation.None,
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      providers: [{
+        provide: CdkScrollable,
+        useFactory: () => inject(VIRTUAL_SCROLLABLE, {
+          optional: true
+        }) || inject(CdkVirtualScrollViewport)
+      }, {
+        provide: CDK_VIRTUAL_SCROLL_VIEWPORT,
+        useExisting: CdkVirtualScrollViewport
+      }],
+      template: '<!--\n  Wrap the rendered content in an element that will be used to offset it based on the scroll\n  position.\n-->\n<div #contentWrapper class="cdk-virtual-scroll-content-wrapper">\n  <ng-content></ng-content>\n</div>\n<!--\n  Spacer used to force the scrolling container to the correct size for the *total* number of items\n  so that the scrollbar captures the size of the entire data set.\n-->\n<div class="cdk-virtual-scroll-spacer"\n     [style.width]="_totalContentWidth()" [style.height]="_totalContentHeight()"></div>\n',
+      styles: ["cdk-virtual-scroll-viewport{display:block;position:relative;transform:translateZ(0)}.cdk-virtual-scrollable{overflow:auto;will-change:scroll-position;contain:strict}.cdk-virtual-scroll-content-wrapper{position:absolute;top:0;left:0;contain:content}[dir=rtl] .cdk-virtual-scroll-content-wrapper{right:0;left:auto}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper{min-height:100%}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-left:0;padding-right:0;margin-left:0;margin-right:0;border-left-width:0;border-right-width:0;outline:none}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper{min-width:100%}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;border-top-width:0;border-bottom-width:0;outline:none}.cdk-virtual-scroll-spacer{height:1px;transform-origin:0 0;flex:0 0 auto}[dir=rtl] .cdk-virtual-scroll-spacer{transform-origin:100% 0}\n"]
+    }]
+  }], () => [], {
+    orientation: [{
+      type: Input
+    }],
+    appendOnly: [{
+      type: Input,
+      args: [{
+        transform: booleanAttribute
+      }]
+    }],
+    scrolledIndexChange: [{
+      type: Output
+    }],
+    _contentWrapper: [{
+      type: ViewChild,
+      args: ["contentWrapper", {
+        static: true
+      }]
+    }]
+  });
+})();
+function getOffset(orientation, direction, node) {
+  const el = node;
+  if (!el.getBoundingClientRect) {
+    return 0;
+  }
+  const rect = el.getBoundingClientRect();
+  if (orientation === "horizontal") {
+    return direction === "start" ? rect.left : rect.right;
+  }
+  return direction === "start" ? rect.top : rect.bottom;
+}
+var CdkVirtualForOf = class _CdkVirtualForOf {
+  _viewContainerRef = inject(ViewContainerRef);
+  _template = inject(TemplateRef);
+  _differs = inject(IterableDiffers);
+  _viewRepeater = new _RecycleViewRepeaterStrategy();
+  _viewport = inject(CDK_VIRTUAL_SCROLL_VIEWPORT, {
+    skipSelf: true
+  });
+  viewChange = new Subject();
+  _dataSourceChanges = new Subject();
+  get cdkVirtualForOf() {
+    return this._cdkVirtualForOf;
+  }
+  set cdkVirtualForOf(value) {
+    this._cdkVirtualForOf = value;
+    if (isDataSource(value)) {
+      this._dataSourceChanges.next(value);
+    } else {
+      this._dataSourceChanges.next(new ArrayDataSource(isObservable(value) ? value : Array.from(value || [])));
+    }
+  }
+  _cdkVirtualForOf;
+  get cdkVirtualForTrackBy() {
+    return this._cdkVirtualForTrackBy;
+  }
+  set cdkVirtualForTrackBy(fn) {
+    this._needsUpdate = true;
+    this._cdkVirtualForTrackBy = fn ? (index, item) => fn(index + (this._renderedRange ? this._renderedRange.start : 0), item) : void 0;
+  }
+  _cdkVirtualForTrackBy;
+  set cdkVirtualForTemplate(value) {
+    if (value) {
+      this._needsUpdate = true;
+      this._template = value;
+    }
+  }
+  get cdkVirtualForTemplateCacheSize() {
+    return this._viewRepeater.viewCacheSize;
+  }
+  set cdkVirtualForTemplateCacheSize(size) {
+    this._viewRepeater.viewCacheSize = coerceNumberProperty(size);
+  }
+  dataStream = this._dataSourceChanges.pipe(startWith(null), pairwise(), switchMap(([prev, cur]) => this._changeDataSource(prev, cur)), shareReplay(1));
+  _differ = null;
+  _data = [];
+  _renderedItems = [];
+  _renderedRange = {
+    start: 0,
+    end: 0
+  };
+  _needsUpdate = false;
+  _destroyed = new Subject();
+  constructor() {
+    const ngZone = inject(NgZone);
+    this.dataStream.subscribe((data) => {
+      this._data = data;
+      this._onRenderedDataChange();
+    });
+    this._viewport.renderedRangeStream.pipe(takeUntil(this._destroyed)).subscribe((range) => {
+      this._renderedRange = range;
+      if (this.viewChange.observers.length) {
+        ngZone.run(() => this.viewChange.next(this._renderedRange));
+      }
+      this._onRenderedDataChange();
+    });
+    this._viewport.attach(this);
+  }
+  measureRangeSize(range, orientation) {
+    if (range.start >= range.end) {
+      return 0;
+    }
+    if ((range.start < this._renderedRange.start || range.end > this._renderedRange.end) && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error(`Error: attempted to measure an item that isn't rendered.`);
+    }
+    const renderedStartIndex = range.start - this._renderedRange.start;
+    const rangeLen = range.end - range.start;
+    let firstNode;
+    let lastNode;
+    for (let i = 0; i < rangeLen; i++) {
+      const view = this._viewContainerRef.get(i + renderedStartIndex);
+      if (view && view.rootNodes.length) {
+        firstNode = lastNode = view.rootNodes[0];
+        break;
+      }
+    }
+    for (let i = rangeLen - 1; i > -1; i--) {
+      const view = this._viewContainerRef.get(i + renderedStartIndex);
+      if (view && view.rootNodes.length) {
+        lastNode = view.rootNodes[view.rootNodes.length - 1];
+        break;
+      }
+    }
+    return firstNode && lastNode ? getOffset(orientation, "end", lastNode) - getOffset(orientation, "start", firstNode) : 0;
+  }
+  ngDoCheck() {
+    if (this._differ && this._needsUpdate) {
+      const changes = this._differ.diff(this._renderedItems);
+      if (!changes) {
+        this._updateContext();
+      } else {
+        this._applyChanges(changes);
+      }
+      this._needsUpdate = false;
+    }
+  }
+  ngOnDestroy() {
+    this._viewport.detach();
+    this._dataSourceChanges.next(void 0);
+    this._dataSourceChanges.complete();
+    this.viewChange.complete();
+    this._destroyed.next();
+    this._destroyed.complete();
+    this._viewRepeater.detach();
+  }
+  _onRenderedDataChange() {
+    if (!this._renderedRange) {
+      return;
+    }
+    this._renderedItems = this._data.slice(this._renderedRange.start, this._renderedRange.end);
+    if (!this._differ) {
+      this._differ = this._differs.find(this._renderedItems).create((index, item) => {
+        return this.cdkVirtualForTrackBy ? this.cdkVirtualForTrackBy(index, item) : item;
+      });
+    }
+    this._needsUpdate = true;
+  }
+  _changeDataSource(oldDs, newDs) {
+    if (oldDs) {
+      oldDs.disconnect(this);
+    }
+    this._needsUpdate = true;
+    return newDs ? newDs.connect(this) : of();
+  }
+  _updateContext() {
+    const count = this._data.length;
+    let i = this._viewContainerRef.length;
+    while (i--) {
+      const view = this._viewContainerRef.get(i);
+      view.context.index = this._renderedRange.start + i;
+      view.context.count = count;
+      this._updateComputedContextProperties(view.context);
+      view.detectChanges();
+    }
+  }
+  _applyChanges(changes) {
+    this._viewRepeater.applyChanges(changes, this._viewContainerRef, (record, _adjustedPreviousIndex, currentIndex) => this._getEmbeddedViewArgs(record, currentIndex), (record) => record.item);
+    changes.forEachIdentityChange((record) => {
+      const view = this._viewContainerRef.get(record.currentIndex);
+      view.context.$implicit = record.item;
+    });
+    const count = this._data.length;
+    let i = this._viewContainerRef.length;
+    while (i--) {
+      const view = this._viewContainerRef.get(i);
+      view.context.index = this._renderedRange.start + i;
+      view.context.count = count;
+      this._updateComputedContextProperties(view.context);
+    }
+  }
+  _updateComputedContextProperties(context) {
+    context.first = context.index === 0;
+    context.last = context.index === context.count - 1;
+    context.even = context.index % 2 === 0;
+    context.odd = !context.even;
+  }
+  _getEmbeddedViewArgs(record, index) {
+    return {
+      templateRef: this._template,
+      context: {
+        $implicit: record.item,
+        cdkVirtualForOf: this._cdkVirtualForOf,
+        index: -1,
+        count: -1,
+        first: false,
+        last: false,
+        odd: false,
+        even: false
+      },
+      index
+    };
+  }
+  static ngTemplateContextGuard(directive, context) {
+    return true;
+  }
+  static \u0275fac = function CdkVirtualForOf_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkVirtualForOf)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkVirtualForOf,
+    selectors: [["", "cdkVirtualFor", "", "cdkVirtualForOf", ""]],
+    inputs: {
+      cdkVirtualForOf: "cdkVirtualForOf",
+      cdkVirtualForTrackBy: "cdkVirtualForTrackBy",
+      cdkVirtualForTemplate: "cdkVirtualForTemplate",
+      cdkVirtualForTemplateCacheSize: "cdkVirtualForTemplateCacheSize"
+    }
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualForOf, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkVirtualFor][cdkVirtualForOf]"
+    }]
+  }], () => [], {
+    cdkVirtualForOf: [{
+      type: Input
+    }],
+    cdkVirtualForTrackBy: [{
+      type: Input
+    }],
+    cdkVirtualForTemplate: [{
+      type: Input
+    }],
+    cdkVirtualForTemplateCacheSize: [{
+      type: Input
+    }]
+  });
+})();
+var CdkVirtualScrollableElement = class _CdkVirtualScrollableElement extends CdkVirtualScrollable {
+  constructor() {
+    super();
+  }
+  measureBoundingClientRectWithScrollOffset(from2) {
+    return this.getElementRef().nativeElement.getBoundingClientRect()[from2] - this.measureScrollOffset(from2);
+  }
+  static \u0275fac = function CdkVirtualScrollableElement_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkVirtualScrollableElement)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkVirtualScrollableElement,
+    selectors: [["", "cdkVirtualScrollingElement", ""]],
+    hostAttrs: [1, "cdk-virtual-scrollable"],
+    features: [\u0275\u0275ProvidersFeature([{
+      provide: VIRTUAL_SCROLLABLE,
+      useExisting: _CdkVirtualScrollableElement
+    }]), \u0275\u0275InheritDefinitionFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollableElement, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkVirtualScrollingElement]",
+      providers: [{
+        provide: VIRTUAL_SCROLLABLE,
+        useExisting: CdkVirtualScrollableElement
+      }],
+      host: {
+        "class": "cdk-virtual-scrollable"
+      }
+    }]
+  }], () => [], null);
+})();
+var CdkVirtualScrollableWindow = class _CdkVirtualScrollableWindow extends CdkVirtualScrollable {
+  constructor() {
+    super();
+    const document2 = inject(DOCUMENT);
+    this.elementRef = new ElementRef(document2.documentElement);
+    this._scrollElement = document2;
+  }
+  measureBoundingClientRectWithScrollOffset(from2) {
+    return this.getElementRef().nativeElement.getBoundingClientRect()[from2];
+  }
+  static \u0275fac = function CdkVirtualScrollableWindow_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkVirtualScrollableWindow)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkVirtualScrollableWindow,
+    selectors: [["cdk-virtual-scroll-viewport", "scrollWindow", ""]],
+    features: [\u0275\u0275ProvidersFeature([{
+      provide: VIRTUAL_SCROLLABLE,
+      useExisting: _CdkVirtualScrollableWindow
+    }]), \u0275\u0275InheritDefinitionFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollableWindow, [{
+    type: Directive,
+    args: [{
+      selector: "cdk-virtual-scroll-viewport[scrollWindow]",
+      providers: [{
+        provide: VIRTUAL_SCROLLABLE,
+        useExisting: CdkVirtualScrollableWindow
+      }]
+    }]
+  }], () => [], null);
+})();
+var CdkScrollableModule = class _CdkScrollableModule {
+  static \u0275fac = function CdkScrollableModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkScrollableModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _CdkScrollableModule,
+    imports: [CdkScrollable],
+    exports: [CdkScrollable]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkScrollableModule, [{
+    type: NgModule,
+    args: [{
+      exports: [CdkScrollable],
+      imports: [CdkScrollable]
+    }]
+  }], null, null);
+})();
+var ScrollingModule = class _ScrollingModule {
+  static \u0275fac = function ScrollingModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ScrollingModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _ScrollingModule,
+    imports: [BidiModule, CdkScrollableModule, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollableWindow, CdkVirtualScrollableElement],
+    exports: [BidiModule, CdkScrollableModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport, CdkVirtualScrollableWindow, CdkVirtualScrollableElement]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    imports: [BidiModule, CdkScrollableModule, BidiModule, CdkScrollableModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollingModule, [{
+    type: NgModule,
+    args: [{
+      imports: [BidiModule, CdkScrollableModule, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollableWindow, CdkVirtualScrollableElement],
+      exports: [BidiModule, CdkScrollableModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport, CdkVirtualScrollableWindow, CdkVirtualScrollableElement]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_id-generator-chunk.mjs
+var counters = {};
+var _IdGenerator = class __IdGenerator {
+  _appId = inject(APP_ID);
+  static _infix = `a${Math.floor(Math.random() * 1e5).toString()}`;
+  getId(prefix, randomize = false) {
+    if (this._appId !== "ng") {
+      prefix += this._appId;
+    }
+    if (!counters.hasOwnProperty(prefix)) {
+      counters[prefix] = 0;
+    }
+    return `${prefix}${randomize ? __IdGenerator._infix + "-" : ""}${counters[prefix]++}`;
+  }
+  static \u0275fac = function _IdGenerator_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __IdGenerator)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: __IdGenerator,
+    factory: __IdGenerator.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_IdGenerator, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/_overlay-module-chunk.mjs
+var scrollBehaviorSupported2 = supportsScrollBehavior();
+function createBlockScrollStrategy(injector) {
+  return new BlockScrollStrategy(injector.get(ViewportRuler), injector.get(DOCUMENT));
+}
+var BlockScrollStrategy = class {
+  _viewportRuler;
+  _previousHTMLStyles = {
+    top: "",
+    left: ""
+  };
+  _previousScrollPosition;
+  _isEnabled = false;
+  _document;
+  constructor(_viewportRuler, document2) {
+    this._viewportRuler = _viewportRuler;
+    this._document = document2;
+  }
+  attach() {
+  }
+  enable() {
+    if (this._canBeEnabled()) {
+      const root = this._document.documentElement;
+      this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
+      this._previousHTMLStyles.left = root.style.left || "";
+      this._previousHTMLStyles.top = root.style.top || "";
+      root.style.left = coerceCssPixelValue(-this._previousScrollPosition.left);
+      root.style.top = coerceCssPixelValue(-this._previousScrollPosition.top);
+      root.classList.add("cdk-global-scrollblock");
+      this._isEnabled = true;
+    }
+  }
+  disable() {
+    if (this._isEnabled) {
+      const html = this._document.documentElement;
+      const body = this._document.body;
+      const htmlStyle = html.style;
+      const bodyStyle = body.style;
+      const previousHtmlScrollBehavior = htmlStyle.scrollBehavior || "";
+      const previousBodyScrollBehavior = bodyStyle.scrollBehavior || "";
+      this._isEnabled = false;
+      htmlStyle.left = this._previousHTMLStyles.left;
+      htmlStyle.top = this._previousHTMLStyles.top;
+      html.classList.remove("cdk-global-scrollblock");
+      if (scrollBehaviorSupported2) {
+        htmlStyle.scrollBehavior = bodyStyle.scrollBehavior = "auto";
+      }
+      window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
+      if (scrollBehaviorSupported2) {
+        htmlStyle.scrollBehavior = previousHtmlScrollBehavior;
+        bodyStyle.scrollBehavior = previousBodyScrollBehavior;
+      }
+    }
+  }
+  _canBeEnabled() {
+    const html = this._document.documentElement;
+    if (html.classList.contains("cdk-global-scrollblock") || this._isEnabled) {
+      return false;
+    }
+    const rootElement = this._document.documentElement;
+    const viewport = this._viewportRuler.getViewportSize();
+    return rootElement.scrollHeight > viewport.height || rootElement.scrollWidth > viewport.width;
+  }
+};
+function getMatScrollStrategyAlreadyAttachedError() {
+  return Error(`Scroll strategy has already been attached.`);
+}
+function createCloseScrollStrategy(injector, config) {
+  return new CloseScrollStrategy(injector.get(ScrollDispatcher), injector.get(NgZone), injector.get(ViewportRuler), config);
+}
+var CloseScrollStrategy = class {
+  _scrollDispatcher;
+  _ngZone;
+  _viewportRuler;
+  _config;
+  _scrollSubscription = null;
+  _overlayRef;
+  _initialScrollPosition;
+  constructor(_scrollDispatcher, _ngZone, _viewportRuler, _config) {
+    this._scrollDispatcher = _scrollDispatcher;
+    this._ngZone = _ngZone;
+    this._viewportRuler = _viewportRuler;
+    this._config = _config;
+  }
+  attach(overlayRef) {
+    if (this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw getMatScrollStrategyAlreadyAttachedError();
+    }
+    this._overlayRef = overlayRef;
+  }
+  enable() {
+    if (this._scrollSubscription) {
+      return;
+    }
+    const stream = this._scrollDispatcher.scrolled(0).pipe(filter((scrollable) => {
+      return !scrollable || !this._overlayRef.overlayElement.contains(scrollable.getElementRef().nativeElement);
+    }));
+    if (this._config && this._config.threshold && this._config.threshold > 1) {
+      this._initialScrollPosition = this._viewportRuler.getViewportScrollPosition().top;
+      this._scrollSubscription = stream.subscribe(() => {
+        const scrollPosition = this._viewportRuler.getViewportScrollPosition().top;
+        if (Math.abs(scrollPosition - this._initialScrollPosition) > this._config.threshold) {
+          this._detach();
+        } else {
+          this._overlayRef.updatePosition();
+        }
+      });
+    } else {
+      this._scrollSubscription = stream.subscribe(this._detach);
+    }
+  }
+  disable() {
+    if (this._scrollSubscription) {
+      this._scrollSubscription.unsubscribe();
+      this._scrollSubscription = null;
+    }
+  }
+  detach() {
+    this.disable();
+    this._overlayRef = null;
+  }
+  _detach = () => {
+    this.disable();
+    if (this._overlayRef.hasAttached()) {
+      this._ngZone.run(() => this._overlayRef.detach());
+    }
+  };
+};
+var NoopScrollStrategy = class {
+  enable() {
+  }
+  disable() {
+  }
+  attach() {
+  }
+};
+function isElementScrolledOutsideView(element, scrollContainers) {
+  return scrollContainers.some((containerBounds) => {
+    const outsideAbove = element.bottom < containerBounds.top;
+    const outsideBelow = element.top > containerBounds.bottom;
+    const outsideLeft = element.right < containerBounds.left;
+    const outsideRight = element.left > containerBounds.right;
+    return outsideAbove || outsideBelow || outsideLeft || outsideRight;
+  });
+}
+function isElementClippedByScrolling(element, scrollContainers) {
+  return scrollContainers.some((scrollContainerRect) => {
+    const clippedAbove = element.top < scrollContainerRect.top;
+    const clippedBelow = element.bottom > scrollContainerRect.bottom;
+    const clippedLeft = element.left < scrollContainerRect.left;
+    const clippedRight = element.right > scrollContainerRect.right;
+    return clippedAbove || clippedBelow || clippedLeft || clippedRight;
+  });
+}
+function createRepositionScrollStrategy(injector, config) {
+  return new RepositionScrollStrategy(injector.get(ScrollDispatcher), injector.get(ViewportRuler), injector.get(NgZone), config);
+}
+var RepositionScrollStrategy = class {
+  _scrollDispatcher;
+  _viewportRuler;
+  _ngZone;
+  _config;
+  _scrollSubscription = null;
+  _overlayRef;
+  constructor(_scrollDispatcher, _viewportRuler, _ngZone, _config) {
+    this._scrollDispatcher = _scrollDispatcher;
+    this._viewportRuler = _viewportRuler;
+    this._ngZone = _ngZone;
+    this._config = _config;
+  }
+  attach(overlayRef) {
+    if (this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw getMatScrollStrategyAlreadyAttachedError();
+    }
+    this._overlayRef = overlayRef;
+  }
+  enable() {
+    if (!this._scrollSubscription) {
+      const throttle = this._config ? this._config.scrollThrottle : 0;
+      this._scrollSubscription = this._scrollDispatcher.scrolled(throttle).subscribe(() => {
+        this._overlayRef.updatePosition();
+        if (this._config && this._config.autoClose) {
+          const overlayRect = this._overlayRef.overlayElement.getBoundingClientRect();
+          const {
+            width,
+            height
+          } = this._viewportRuler.getViewportSize();
+          const parentRects = [{
+            width,
+            height,
+            bottom: height,
+            right: width,
+            top: 0,
+            left: 0
+          }];
+          if (isElementScrolledOutsideView(overlayRect, parentRects)) {
+            this.disable();
+            this._ngZone.run(() => this._overlayRef.detach());
+          }
+        }
+      });
+    }
+  }
+  disable() {
+    if (this._scrollSubscription) {
+      this._scrollSubscription.unsubscribe();
+      this._scrollSubscription = null;
+    }
+  }
+  detach() {
+    this.disable();
+    this._overlayRef = null;
+  }
+};
+var ScrollStrategyOptions = class _ScrollStrategyOptions {
+  _injector = inject(Injector);
+  constructor() {
+  }
+  noop = () => new NoopScrollStrategy();
+  close = (config) => createCloseScrollStrategy(this._injector, config);
+  block = () => createBlockScrollStrategy(this._injector);
+  reposition = (config) => createRepositionScrollStrategy(this._injector, config);
+  static \u0275fac = function ScrollStrategyOptions_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ScrollStrategyOptions)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ScrollStrategyOptions,
+    factory: _ScrollStrategyOptions.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollStrategyOptions, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var OverlayConfig = class {
+  positionStrategy;
+  scrollStrategy = new NoopScrollStrategy();
+  panelClass = "";
+  hasBackdrop = false;
+  backdropClass = "cdk-overlay-dark-backdrop";
+  disableAnimations;
+  width;
+  height;
+  minWidth;
+  minHeight;
+  maxWidth;
+  maxHeight;
+  direction;
+  disposeOnNavigation = false;
+  usePopover;
+  constructor(config) {
+    if (config) {
+      const configKeys = Object.keys(config);
+      for (const key of configKeys) {
+        if (config[key] !== void 0) {
+          this[key] = config[key];
+        }
+      }
+    }
+  }
+};
+var ConnectedOverlayPositionChange = class {
+  connectionPair;
+  scrollableViewProperties;
+  constructor(connectionPair, scrollableViewProperties) {
+    this.connectionPair = connectionPair;
+    this.scrollableViewProperties = scrollableViewProperties;
+  }
+};
+function validateVerticalPosition(property, value) {
+  if (value !== "top" && value !== "bottom" && value !== "center") {
+    throw Error(`ConnectedPosition: Invalid ${property} "${value}". Expected "top", "bottom" or "center".`);
+  }
+}
+function validateHorizontalPosition(property, value) {
+  if (value !== "start" && value !== "end" && value !== "center") {
+    throw Error(`ConnectedPosition: Invalid ${property} "${value}". Expected "start", "end" or "center".`);
+  }
+}
+var BaseOverlayDispatcher = class _BaseOverlayDispatcher {
+  _attachedOverlays = [];
+  _document = inject(DOCUMENT);
+  _isAttached = false;
+  constructor() {
+  }
+  ngOnDestroy() {
+    this.detach();
+  }
+  add(overlayRef) {
+    this.remove(overlayRef);
+    this._attachedOverlays.push(overlayRef);
+  }
+  remove(overlayRef) {
+    const index = this._attachedOverlays.indexOf(overlayRef);
+    if (index > -1) {
+      this._attachedOverlays.splice(index, 1);
+    }
+    if (this._attachedOverlays.length === 0) {
+      this.detach();
+    }
+  }
+  static \u0275fac = function BaseOverlayDispatcher_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BaseOverlayDispatcher)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _BaseOverlayDispatcher,
+    factory: _BaseOverlayDispatcher.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BaseOverlayDispatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var OverlayKeyboardDispatcher = class _OverlayKeyboardDispatcher extends BaseOverlayDispatcher {
+  _ngZone = inject(NgZone);
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
+  _cleanupKeydown;
+  add(overlayRef) {
+    super.add(overlayRef);
+    if (!this._isAttached) {
+      this._ngZone.runOutsideAngular(() => {
+        this._cleanupKeydown = this._renderer.listen("body", "keydown", this._keydownListener);
+      });
+      this._isAttached = true;
+    }
+  }
+  detach() {
+    if (this._isAttached) {
+      this._cleanupKeydown?.();
+      this._isAttached = false;
+    }
+  }
+  _keydownListener = (event) => {
+    const overlays = this._attachedOverlays;
+    for (let i = overlays.length - 1; i > -1; i--) {
+      if (overlays[i]._keydownEvents.observers.length > 0) {
+        this._ngZone.run(() => overlays[i]._keydownEvents.next(event));
+        break;
+      }
+    }
+  };
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275OverlayKeyboardDispatcher_BaseFactory;
+    return function OverlayKeyboardDispatcher_Factory(__ngFactoryType__) {
+      return (\u0275OverlayKeyboardDispatcher_BaseFactory || (\u0275OverlayKeyboardDispatcher_BaseFactory = \u0275\u0275getInheritedFactory(_OverlayKeyboardDispatcher)))(__ngFactoryType__ || _OverlayKeyboardDispatcher);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _OverlayKeyboardDispatcher,
+    factory: _OverlayKeyboardDispatcher.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayKeyboardDispatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var OverlayOutsideClickDispatcher = class _OverlayOutsideClickDispatcher extends BaseOverlayDispatcher {
+  _platform = inject(Platform);
+  _ngZone = inject(NgZone);
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
+  _cursorOriginalValue;
+  _cursorStyleIsSet = false;
+  _pointerDownEventTarget = null;
+  _cleanups;
+  add(overlayRef) {
+    super.add(overlayRef);
+    if (!this._isAttached) {
+      const body = this._document.body;
+      const eventOptions = {
+        capture: true
+      };
+      const renderer = this._renderer;
+      this._cleanups = this._ngZone.runOutsideAngular(() => [renderer.listen(body, "pointerdown", this._pointerDownListener, eventOptions), renderer.listen(body, "click", this._clickListener, eventOptions), renderer.listen(body, "auxclick", this._clickListener, eventOptions), renderer.listen(body, "contextmenu", this._clickListener, eventOptions)]);
+      if (this._platform.IOS && !this._cursorStyleIsSet) {
+        this._cursorOriginalValue = body.style.cursor;
+        body.style.cursor = "pointer";
+        this._cursorStyleIsSet = true;
+      }
+      this._isAttached = true;
+    }
+  }
+  detach() {
+    if (this._isAttached) {
+      this._cleanups?.forEach((cleanup) => cleanup());
+      this._cleanups = void 0;
+      if (this._platform.IOS && this._cursorStyleIsSet) {
+        this._document.body.style.cursor = this._cursorOriginalValue;
+        this._cursorStyleIsSet = false;
+      }
+      this._isAttached = false;
+    }
+  }
+  _pointerDownListener = (event) => {
+    this._pointerDownEventTarget = _getEventTarget(event);
+  };
+  _clickListener = (event) => {
+    const target = _getEventTarget(event);
+    const origin = event.type === "click" && this._pointerDownEventTarget ? this._pointerDownEventTarget : target;
+    this._pointerDownEventTarget = null;
+    const overlays = this._attachedOverlays.slice();
+    for (let i = overlays.length - 1; i > -1; i--) {
+      const overlayRef = overlays[i];
+      if (overlayRef._outsidePointerEvents.observers.length < 1 || !overlayRef.hasAttached()) {
+        continue;
+      }
+      if (containsPierceShadowDom(overlayRef.overlayElement, target) || containsPierceShadowDom(overlayRef.overlayElement, origin)) {
+        break;
+      }
+      const outsidePointerEvents = overlayRef._outsidePointerEvents;
+      if (this._ngZone) {
+        this._ngZone.run(() => outsidePointerEvents.next(event));
+      } else {
+        outsidePointerEvents.next(event);
+      }
+    }
+  };
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275OverlayOutsideClickDispatcher_BaseFactory;
+    return function OverlayOutsideClickDispatcher_Factory(__ngFactoryType__) {
+      return (\u0275OverlayOutsideClickDispatcher_BaseFactory || (\u0275OverlayOutsideClickDispatcher_BaseFactory = \u0275\u0275getInheritedFactory(_OverlayOutsideClickDispatcher)))(__ngFactoryType__ || _OverlayOutsideClickDispatcher);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _OverlayOutsideClickDispatcher,
+    factory: _OverlayOutsideClickDispatcher.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayOutsideClickDispatcher, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+function containsPierceShadowDom(parent, child) {
+  const supportsShadowRoot = typeof ShadowRoot !== "undefined" && ShadowRoot;
+  let current = child;
+  while (current) {
+    if (current === parent) {
+      return true;
+    }
+    current = supportsShadowRoot && current instanceof ShadowRoot ? current.host : current.parentNode;
+  }
+  return false;
+}
+var _CdkOverlayStyleLoader = class __CdkOverlayStyleLoader {
+  static \u0275fac = function _CdkOverlayStyleLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __CdkOverlayStyleLoader)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: __CdkOverlayStyleLoader,
+    selectors: [["ng-component"]],
+    hostAttrs: ["cdk-overlay-style-loader", ""],
+    decls: 0,
+    vars: 0,
+    template: function _CdkOverlayStyleLoader_Template(rf, ctx) {
+    },
+    styles: [".cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed}@layer cdk-overlay{.cdk-overlay-container{z-index:1000}}.cdk-overlay-container:empty{display:none}.cdk-global-overlay-wrapper{display:flex;position:absolute}@layer cdk-overlay{.cdk-global-overlay-wrapper{z-index:1000}}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%}@layer cdk-overlay{.cdk-overlay-pane{z-index:1000}}.cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:rgba(0,0,0,0);opacity:0;touch-action:manipulation}@layer cdk-overlay{.cdk-overlay-backdrop{z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}}@media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}.cdk-overlay-backdrop-showing{opacity:1}@media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}@layer cdk-overlay{.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}}.cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}.cdk-overlay-backdrop-noop-animation{transition:none}.cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px}@layer cdk-overlay{.cdk-overlay-connected-position-bounding-box{z-index:1000}}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}.cdk-overlay-popover{background:none;border:none;padding:0;outline:0;overflow:visible;position:fixed;pointer-events:none;white-space:normal;color:inherit;text-decoration:none;width:100%;height:100%;inset:auto;top:0;left:0}.cdk-overlay-popover::backdrop{display:none}.cdk-overlay-popover .cdk-overlay-backdrop{position:fixed;z-index:auto}\n"],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_CdkOverlayStyleLoader, [{
+    type: Component,
+    args: [{
+      template: "",
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      encapsulation: ViewEncapsulation.None,
+      host: {
+        "cdk-overlay-style-loader": ""
+      },
+      styles: [".cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed}@layer cdk-overlay{.cdk-overlay-container{z-index:1000}}.cdk-overlay-container:empty{display:none}.cdk-global-overlay-wrapper{display:flex;position:absolute}@layer cdk-overlay{.cdk-global-overlay-wrapper{z-index:1000}}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%}@layer cdk-overlay{.cdk-overlay-pane{z-index:1000}}.cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:rgba(0,0,0,0);opacity:0;touch-action:manipulation}@layer cdk-overlay{.cdk-overlay-backdrop{z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}}@media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}.cdk-overlay-backdrop-showing{opacity:1}@media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}@layer cdk-overlay{.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}}.cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}.cdk-overlay-backdrop-noop-animation{transition:none}.cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px}@layer cdk-overlay{.cdk-overlay-connected-position-bounding-box{z-index:1000}}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}.cdk-overlay-popover{background:none;border:none;padding:0;outline:0;overflow:visible;position:fixed;pointer-events:none;white-space:normal;color:inherit;text-decoration:none;width:100%;height:100%;inset:auto;top:0;left:0}.cdk-overlay-popover::backdrop{display:none}.cdk-overlay-popover .cdk-overlay-backdrop{position:fixed;z-index:auto}\n"]
+    }]
+  }], null, null);
+})();
+var OverlayContainer = class _OverlayContainer {
+  _platform = inject(Platform);
+  _containerElement;
+  _document = inject(DOCUMENT);
+  _styleLoader = inject(_CdkPrivateStyleLoader);
+  constructor() {
+  }
+  ngOnDestroy() {
+    this._containerElement?.remove();
+  }
+  getContainerElement() {
+    this._loadStyles();
+    if (!this._containerElement) {
+      this._createContainer();
+    }
+    return this._containerElement;
+  }
+  _createContainer() {
+    const containerClass = "cdk-overlay-container";
+    if (this._platform.isBrowser || _isTestEnvironment()) {
+      const oppositePlatformContainers = this._document.querySelectorAll(`.${containerClass}[platform="server"], .${containerClass}[platform="test"]`);
+      for (let i = 0; i < oppositePlatformContainers.length; i++) {
+        oppositePlatformContainers[i].remove();
+      }
+    }
+    const container = this._document.createElement("div");
+    container.classList.add(containerClass);
+    if (_isTestEnvironment()) {
+      container.setAttribute("platform", "test");
+    } else if (!this._platform.isBrowser) {
+      container.setAttribute("platform", "server");
+    }
+    this._document.body.appendChild(container);
+    this._containerElement = container;
+  }
+  _loadStyles() {
+    this._styleLoader.load(_CdkOverlayStyleLoader);
+  }
+  static \u0275fac = function OverlayContainer_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _OverlayContainer)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _OverlayContainer,
+    factory: _OverlayContainer.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayContainer, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var BackdropRef = class {
+  _renderer;
+  _ngZone;
+  element;
+  _cleanupClick;
+  _cleanupTransitionEnd;
+  _fallbackTimeout;
+  constructor(document2, _renderer, _ngZone, onClick) {
+    this._renderer = _renderer;
+    this._ngZone = _ngZone;
+    this.element = document2.createElement("div");
+    this.element.classList.add("cdk-overlay-backdrop");
+    this._cleanupClick = _renderer.listen(this.element, "click", onClick);
+  }
+  detach() {
+    this._ngZone.runOutsideAngular(() => {
+      const element = this.element;
+      clearTimeout(this._fallbackTimeout);
+      this._cleanupTransitionEnd?.();
+      this._cleanupTransitionEnd = this._renderer.listen(element, "transitionend", this.dispose);
+      this._fallbackTimeout = setTimeout(this.dispose, 500);
+      element.style.pointerEvents = "none";
+      element.classList.remove("cdk-overlay-backdrop-showing");
+    });
+  }
+  dispose = () => {
+    clearTimeout(this._fallbackTimeout);
+    this._cleanupClick?.();
+    this._cleanupTransitionEnd?.();
+    this._cleanupClick = this._cleanupTransitionEnd = this._fallbackTimeout = void 0;
+    this.element.remove();
+  };
+};
+function isElement(value) {
+  return value && value.nodeType === 1;
+}
+var OverlayRef = class {
+  _portalOutlet;
+  _host;
+  _pane;
+  _config;
+  _ngZone;
+  _keyboardDispatcher;
+  _document;
+  _location;
+  _outsideClickDispatcher;
+  _animationsDisabled;
+  _injector;
+  _renderer;
+  _backdropClick = new Subject();
+  _attachments = new Subject();
+  _detachments = new Subject();
+  _positionStrategy;
+  _scrollStrategy;
+  _locationChanges = Subscription.EMPTY;
+  _backdropRef = null;
+  _detachContentMutationObserver;
+  _detachContentAfterRenderRef;
+  _disposed = false;
+  _previousHostParent;
+  _keydownEvents = new Subject();
+  _outsidePointerEvents = new Subject();
+  _afterNextRenderRef;
+  constructor(_portalOutlet, _host, _pane, _config, _ngZone, _keyboardDispatcher, _document2, _location, _outsideClickDispatcher, _animationsDisabled = false, _injector, _renderer) {
+    this._portalOutlet = _portalOutlet;
+    this._host = _host;
+    this._pane = _pane;
+    this._config = _config;
+    this._ngZone = _ngZone;
+    this._keyboardDispatcher = _keyboardDispatcher;
+    this._document = _document2;
+    this._location = _location;
+    this._outsideClickDispatcher = _outsideClickDispatcher;
+    this._animationsDisabled = _animationsDisabled;
+    this._injector = _injector;
+    this._renderer = _renderer;
+    if (_config.scrollStrategy) {
+      this._scrollStrategy = _config.scrollStrategy;
+      this._scrollStrategy.attach(this);
+    }
+    this._positionStrategy = _config.positionStrategy;
+  }
+  get overlayElement() {
+    return this._pane;
+  }
+  get backdropElement() {
+    return this._backdropRef?.element || null;
+  }
+  get hostElement() {
+    return this._host;
+  }
+  attach(portal) {
+    if (this._disposed) {
+      return null;
+    }
+    this._attachHost();
+    const attachResult = this._portalOutlet.attach(portal);
+    this._positionStrategy?.attach(this);
+    this._updateStackingOrder();
+    this._updateElementSize();
+    this._updateElementDirection();
+    if (this._scrollStrategy) {
+      this._scrollStrategy.enable();
+    }
+    this._afterNextRenderRef?.destroy();
+    this._afterNextRenderRef = afterNextRender(() => {
+      if (this.hasAttached()) {
+        this.updatePosition();
+      }
+    }, {
+      injector: this._injector
+    });
+    this._togglePointerEvents(true);
+    if (this._config.hasBackdrop) {
+      this._attachBackdrop();
+    }
+    if (this._config.panelClass) {
+      this._toggleClasses(this._pane, this._config.panelClass, true);
+    }
+    this._attachments.next();
+    this._completeDetachContent();
+    this._keyboardDispatcher.add(this);
+    if (this._config.disposeOnNavigation) {
+      this._locationChanges = this._location.subscribe(() => this.dispose());
+    }
+    this._outsideClickDispatcher.add(this);
+    if (typeof attachResult?.onDestroy === "function") {
+      attachResult.onDestroy(() => {
+        if (this.hasAttached()) {
+          this._ngZone.runOutsideAngular(() => Promise.resolve().then(() => this.detach()));
+        }
+      });
+    }
+    return attachResult;
+  }
+  detach() {
+    if (!this.hasAttached()) {
+      return;
+    }
+    this.detachBackdrop();
+    this._togglePointerEvents(false);
+    if (this._positionStrategy && this._positionStrategy.detach) {
+      this._positionStrategy.detach();
+    }
+    if (this._scrollStrategy) {
+      this._scrollStrategy.disable();
+    }
+    const detachmentResult = this._portalOutlet.detach();
+    this._detachments.next();
+    this._completeDetachContent();
+    this._keyboardDispatcher.remove(this);
+    this._detachContentWhenEmpty();
+    this._locationChanges.unsubscribe();
+    this._outsideClickDispatcher.remove(this);
+    return detachmentResult;
+  }
+  dispose() {
+    if (this._disposed) {
+      return;
+    }
+    const isAttached = this.hasAttached();
+    if (this._positionStrategy) {
+      this._positionStrategy.dispose();
+    }
+    this._disposeScrollStrategy();
+    this._backdropRef?.dispose();
+    this._locationChanges.unsubscribe();
+    this._keyboardDispatcher.remove(this);
+    this._portalOutlet.dispose();
+    this._attachments.complete();
+    this._backdropClick.complete();
+    this._keydownEvents.complete();
+    this._outsidePointerEvents.complete();
+    this._outsideClickDispatcher.remove(this);
+    this._host?.remove();
+    this._afterNextRenderRef?.destroy();
+    this._previousHostParent = this._pane = this._host = this._backdropRef = null;
+    if (isAttached) {
+      this._detachments.next();
+    }
+    this._detachments.complete();
+    this._completeDetachContent();
+    this._disposed = true;
+  }
+  hasAttached() {
+    return this._portalOutlet.hasAttached();
+  }
+  backdropClick() {
+    return this._backdropClick;
+  }
+  attachments() {
+    return this._attachments;
+  }
+  detachments() {
+    return this._detachments;
+  }
+  keydownEvents() {
+    return this._keydownEvents;
+  }
+  outsidePointerEvents() {
+    return this._outsidePointerEvents;
+  }
+  getConfig() {
+    return this._config;
+  }
+  updatePosition() {
+    if (this._positionStrategy) {
+      this._positionStrategy.apply();
+    }
+  }
+  updatePositionStrategy(strategy) {
+    if (strategy === this._positionStrategy) {
+      return;
+    }
+    if (this._positionStrategy) {
+      this._positionStrategy.dispose();
+    }
+    this._positionStrategy = strategy;
+    if (this.hasAttached()) {
+      strategy.attach(this);
+      this.updatePosition();
+    }
+  }
+  updateSize(sizeConfig) {
+    this._config = __spreadValues(__spreadValues({}, this._config), sizeConfig);
+    this._updateElementSize();
+  }
+  setDirection(dir) {
+    this._config = __spreadProps(__spreadValues({}, this._config), {
+      direction: dir
+    });
+    this._updateElementDirection();
+  }
+  addPanelClass(classes) {
+    if (this._pane) {
+      this._toggleClasses(this._pane, classes, true);
+    }
+  }
+  removePanelClass(classes) {
+    if (this._pane) {
+      this._toggleClasses(this._pane, classes, false);
+    }
+  }
+  getDirection() {
+    const direction = this._config.direction;
+    if (!direction) {
+      return "ltr";
+    }
+    return typeof direction === "string" ? direction : direction.value;
+  }
+  updateScrollStrategy(strategy) {
+    if (strategy === this._scrollStrategy) {
+      return;
+    }
+    this._disposeScrollStrategy();
+    this._scrollStrategy = strategy;
+    if (this.hasAttached()) {
+      strategy.attach(this);
+      strategy.enable();
+    }
+  }
+  _updateElementDirection() {
+    this._host.setAttribute("dir", this.getDirection());
+  }
+  _updateElementSize() {
+    if (!this._pane) {
+      return;
+    }
+    const style = this._pane.style;
+    style.width = coerceCssPixelValue(this._config.width);
+    style.height = coerceCssPixelValue(this._config.height);
+    style.minWidth = coerceCssPixelValue(this._config.minWidth);
+    style.minHeight = coerceCssPixelValue(this._config.minHeight);
+    style.maxWidth = coerceCssPixelValue(this._config.maxWidth);
+    style.maxHeight = coerceCssPixelValue(this._config.maxHeight);
+  }
+  _togglePointerEvents(enablePointer) {
+    this._pane.style.pointerEvents = enablePointer ? "" : "none";
+  }
+  _attachHost() {
+    if (!this._host.parentElement) {
+      const customInsertionPoint = this._config.usePopover ? this._positionStrategy?.getPopoverInsertionPoint?.() : null;
+      if (isElement(customInsertionPoint)) {
+        customInsertionPoint.after(this._host);
+      } else if (customInsertionPoint?.type === "parent") {
+        customInsertionPoint.element.appendChild(this._host);
+      } else {
+        this._previousHostParent?.appendChild(this._host);
+      }
+    }
+    if (this._config.usePopover) {
+      try {
+        this._host["showPopover"]();
+      } catch {
+      }
+    }
+  }
+  _attachBackdrop() {
+    const showingClass = "cdk-overlay-backdrop-showing";
+    this._backdropRef?.dispose();
+    this._backdropRef = new BackdropRef(this._document, this._renderer, this._ngZone, (event) => {
+      this._backdropClick.next(event);
+    });
+    if (this._animationsDisabled) {
+      this._backdropRef.element.classList.add("cdk-overlay-backdrop-noop-animation");
+    }
+    if (this._config.backdropClass) {
+      this._toggleClasses(this._backdropRef.element, this._config.backdropClass, true);
+    }
+    if (this._config.usePopover) {
+      this._host.prepend(this._backdropRef.element);
+    } else {
+      this._host.parentElement.insertBefore(this._backdropRef.element, this._host);
+    }
+    if (!this._animationsDisabled && typeof requestAnimationFrame !== "undefined") {
+      this._ngZone.runOutsideAngular(() => {
+        requestAnimationFrame(() => this._backdropRef?.element.classList.add(showingClass));
+      });
+    } else {
+      this._backdropRef.element.classList.add(showingClass);
+    }
+  }
+  _updateStackingOrder() {
+    if (!this._config.usePopover && this._host.nextSibling) {
+      this._host.parentNode.appendChild(this._host);
+    }
+  }
+  detachBackdrop() {
+    if (this._animationsDisabled) {
+      this._backdropRef?.dispose();
+      this._backdropRef = null;
+    } else {
+      this._backdropRef?.detach();
+    }
+  }
+  _toggleClasses(element, cssClasses, isAdd) {
+    const classes = coerceArray(cssClasses || []).filter((c) => !!c);
+    if (classes.length) {
+      isAdd ? element.classList.add(...classes) : element.classList.remove(...classes);
+    }
+  }
+  _detachContentWhenEmpty() {
+    let rethrow = false;
+    try {
+      this._detachContentAfterRenderRef = afterNextRender(() => {
+        rethrow = true;
+        this._detachContent();
+      }, {
+        injector: this._injector
+      });
+    } catch (e) {
+      if (rethrow) {
+        throw e;
+      }
+      this._detachContent();
+    }
+    if (globalThis.MutationObserver && this._pane) {
+      this._detachContentMutationObserver ||= new globalThis.MutationObserver(() => {
+        this._detachContent();
+      });
+      this._detachContentMutationObserver.observe(this._pane, {
+        childList: true
+      });
+    }
+  }
+  _detachContent() {
+    if (!this._pane || !this._host || this._pane.children.length === 0) {
+      if (this._pane && this._config.panelClass) {
+        this._toggleClasses(this._pane, this._config.panelClass, false);
+      }
+      if (this._host && this._host.parentElement) {
+        this._previousHostParent = this._host.parentElement;
+        this._host.remove();
+      }
+      this._completeDetachContent();
+    }
+  }
+  _completeDetachContent() {
+    this._detachContentAfterRenderRef?.destroy();
+    this._detachContentAfterRenderRef = void 0;
+    this._detachContentMutationObserver?.disconnect();
+  }
+  _disposeScrollStrategy() {
+    const scrollStrategy = this._scrollStrategy;
+    scrollStrategy?.disable();
+    scrollStrategy?.detach?.();
+  }
+};
+var boundingBoxClass = "cdk-overlay-connected-position-bounding-box";
+var cssUnitPattern = /([A-Za-z%]+)$/;
+function createFlexibleConnectedPositionStrategy(injector, origin) {
+  return new FlexibleConnectedPositionStrategy(origin, injector.get(ViewportRuler), injector.get(DOCUMENT), injector.get(Platform), injector.get(OverlayContainer));
+}
+var FlexibleConnectedPositionStrategy = class {
+  _viewportRuler;
+  _document;
+  _platform;
+  _overlayContainer;
+  _overlayRef;
+  _isInitialRender = false;
+  _lastBoundingBoxSize = {
+    width: 0,
+    height: 0
+  };
+  _isPushed = false;
+  _canPush = true;
+  _growAfterOpen = false;
+  _hasFlexibleDimensions = true;
+  _positionLocked = false;
+  _originRect;
+  _overlayRect;
+  _viewportRect;
+  _containerRect;
+  _viewportMargin = 0;
+  _scrollables = [];
+  _preferredPositions = [];
+  _origin;
+  _pane;
+  _isDisposed = false;
+  _boundingBox = null;
+  _lastPosition = null;
+  _lastScrollVisibility = null;
+  _positionChanges = new Subject();
+  _resizeSubscription = Subscription.EMPTY;
+  _offsetX = 0;
+  _offsetY = 0;
+  _transformOriginSelector;
+  _appliedPanelClasses = [];
+  _previousPushAmount = null;
+  _popoverLocation = "global";
+  positionChanges = this._positionChanges;
+  get positions() {
+    return this._preferredPositions;
+  }
+  constructor(connectedTo, _viewportRuler, _document2, _platform, _overlayContainer) {
+    this._viewportRuler = _viewportRuler;
+    this._document = _document2;
+    this._platform = _platform;
+    this._overlayContainer = _overlayContainer;
+    this.setOrigin(connectedTo);
+  }
+  attach(overlayRef) {
+    if (this._overlayRef && overlayRef !== this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error("This position strategy is already attached to an overlay");
+    }
+    this._validatePositions();
+    overlayRef.hostElement.classList.add(boundingBoxClass);
+    this._overlayRef = overlayRef;
+    this._boundingBox = overlayRef.hostElement;
+    this._pane = overlayRef.overlayElement;
+    this._isDisposed = false;
+    this._isInitialRender = true;
+    this._lastPosition = null;
+    this._resizeSubscription.unsubscribe();
+    this._resizeSubscription = this._viewportRuler.change().subscribe(() => {
+      this._isInitialRender = true;
+      this.apply();
+    });
+  }
+  apply() {
+    if (this._isDisposed || !this._platform.isBrowser) {
+      return;
+    }
+    if (!this._isInitialRender && this._positionLocked && this._lastPosition) {
+      this.reapplyLastPosition();
+      return;
+    }
+    this._clearPanelClasses();
+    this._resetOverlayElementStyles();
+    this._resetBoundingBoxStyles();
+    this._viewportRect = this._getNarrowedViewportRect();
+    this._originRect = this._getOriginRect();
+    this._overlayRect = this._pane.getBoundingClientRect();
+    this._containerRect = this._getContainerRect();
+    const originRect = this._originRect;
+    const overlayRect = this._overlayRect;
+    const viewportRect = this._viewportRect;
+    const containerRect = this._containerRect;
+    const flexibleFits = [];
+    let fallback;
+    for (let pos of this._preferredPositions) {
+      let originPoint = this._getOriginPoint(originRect, containerRect, pos);
+      let overlayPoint = this._getOverlayPoint(originPoint, overlayRect, pos);
+      let overlayFit = this._getOverlayFit(overlayPoint, overlayRect, viewportRect, pos);
+      if (overlayFit.isCompletelyWithinViewport) {
+        this._isPushed = false;
+        this._applyPosition(pos, originPoint);
+        return;
+      }
+      if (this._canFitWithFlexibleDimensions(overlayFit, overlayPoint, viewportRect)) {
+        flexibleFits.push({
+          position: pos,
+          origin: originPoint,
+          overlayRect,
+          boundingBoxRect: this._calculateBoundingBoxRect(originPoint, pos)
+        });
+        continue;
+      }
+      if (!fallback || fallback.overlayFit.visibleArea < overlayFit.visibleArea) {
+        fallback = {
+          overlayFit,
+          overlayPoint,
+          originPoint,
+          position: pos,
+          overlayRect
+        };
+      }
+    }
+    if (flexibleFits.length) {
+      let bestFit = null;
+      let bestScore = -1;
+      for (const fit of flexibleFits) {
+        const score = fit.boundingBoxRect.width * fit.boundingBoxRect.height * (fit.position.weight || 1);
+        if (score > bestScore) {
+          bestScore = score;
+          bestFit = fit;
+        }
+      }
+      this._isPushed = false;
+      this._applyPosition(bestFit.position, bestFit.origin);
+      return;
+    }
+    if (this._canPush) {
+      this._isPushed = true;
+      this._applyPosition(fallback.position, fallback.originPoint);
+      return;
+    }
+    this._applyPosition(fallback.position, fallback.originPoint);
+  }
+  detach() {
+    this._clearPanelClasses();
+    this._lastPosition = null;
+    this._previousPushAmount = null;
+    this._resizeSubscription.unsubscribe();
+  }
+  dispose() {
+    if (this._isDisposed) {
+      return;
+    }
+    if (this._boundingBox) {
+      extendStyles(this._boundingBox.style, {
+        top: "",
+        left: "",
+        right: "",
+        bottom: "",
+        height: "",
+        width: "",
+        alignItems: "",
+        justifyContent: ""
+      });
+    }
+    if (this._pane) {
+      this._resetOverlayElementStyles();
+    }
+    if (this._overlayRef) {
+      this._overlayRef.hostElement.classList.remove(boundingBoxClass);
+    }
+    this.detach();
+    this._positionChanges.complete();
+    this._overlayRef = this._boundingBox = null;
+    this._isDisposed = true;
+  }
+  reapplyLastPosition() {
+    if (this._isDisposed || !this._platform.isBrowser) {
+      return;
+    }
+    const lastPosition = this._lastPosition;
+    if (lastPosition) {
+      this._originRect = this._getOriginRect();
+      this._overlayRect = this._pane.getBoundingClientRect();
+      this._viewportRect = this._getNarrowedViewportRect();
+      this._containerRect = this._getContainerRect();
+      this._applyPosition(lastPosition, this._getOriginPoint(this._originRect, this._containerRect, lastPosition));
+    } else {
+      this.apply();
+    }
+  }
+  withScrollableContainers(scrollables) {
+    this._scrollables = scrollables;
+    return this;
+  }
+  withPositions(positions) {
+    this._preferredPositions = positions;
+    if (positions.indexOf(this._lastPosition) === -1) {
+      this._lastPosition = null;
+    }
+    this._validatePositions();
+    return this;
+  }
+  withViewportMargin(margin) {
+    this._viewportMargin = margin;
+    return this;
+  }
+  withFlexibleDimensions(flexibleDimensions = true) {
+    this._hasFlexibleDimensions = flexibleDimensions;
+    return this;
+  }
+  withGrowAfterOpen(growAfterOpen = true) {
+    this._growAfterOpen = growAfterOpen;
+    return this;
+  }
+  withPush(canPush = true) {
+    this._canPush = canPush;
+    return this;
+  }
+  withLockedPosition(isLocked = true) {
+    this._positionLocked = isLocked;
+    return this;
+  }
+  setOrigin(origin) {
+    this._origin = origin;
+    return this;
+  }
+  withDefaultOffsetX(offset2) {
+    this._offsetX = offset2;
+    return this;
+  }
+  withDefaultOffsetY(offset2) {
+    this._offsetY = offset2;
+    return this;
+  }
+  withTransformOriginOn(selector) {
+    this._transformOriginSelector = selector;
+    return this;
+  }
+  withPopoverLocation(location) {
+    this._popoverLocation = location;
+    return this;
+  }
+  getPopoverInsertionPoint() {
+    if (this._popoverLocation === "global") {
+      return null;
+    } else if (this._popoverLocation !== "inline") {
+      return this._popoverLocation;
+    }
+    if (this._origin instanceof ElementRef) {
+      return this._origin.nativeElement;
+    } else if (isElement(this._origin)) {
+      return this._origin;
+    } else {
+      return null;
+    }
+  }
+  _getOriginPoint(originRect, containerRect, pos) {
+    let x;
+    if (pos.originX == "center") {
+      x = originRect.left + originRect.width / 2;
+    } else {
+      const startX = this._isRtl() ? originRect.right : originRect.left;
+      const endX = this._isRtl() ? originRect.left : originRect.right;
+      x = pos.originX == "start" ? startX : endX;
+    }
+    if (containerRect.left < 0) {
+      x -= containerRect.left;
+    }
+    let y;
+    if (pos.originY == "center") {
+      y = originRect.top + originRect.height / 2;
+    } else {
+      y = pos.originY == "top" ? originRect.top : originRect.bottom;
+    }
+    if (containerRect.top < 0) {
+      y -= containerRect.top;
+    }
+    return {
+      x,
+      y
+    };
+  }
+  _getOverlayPoint(originPoint, overlayRect, pos) {
+    let overlayStartX;
+    if (pos.overlayX == "center") {
+      overlayStartX = -overlayRect.width / 2;
+    } else if (pos.overlayX === "start") {
+      overlayStartX = this._isRtl() ? -overlayRect.width : 0;
+    } else {
+      overlayStartX = this._isRtl() ? 0 : -overlayRect.width;
+    }
+    let overlayStartY;
+    if (pos.overlayY == "center") {
+      overlayStartY = -overlayRect.height / 2;
+    } else {
+      overlayStartY = pos.overlayY == "top" ? 0 : -overlayRect.height;
+    }
+    return {
+      x: originPoint.x + overlayStartX,
+      y: originPoint.y + overlayStartY
+    };
+  }
+  _getOverlayFit(point, rawOverlayRect, viewport, position) {
+    const overlay = getRoundedBoundingClientRect(rawOverlayRect);
+    let {
+      x,
+      y
+    } = point;
+    let offsetX = this._getOffset(position, "x");
+    let offsetY = this._getOffset(position, "y");
+    if (offsetX) {
+      x += offsetX;
+    }
+    if (offsetY) {
+      y += offsetY;
+    }
+    let leftOverflow = 0 - x;
+    let rightOverflow = x + overlay.width - viewport.width;
+    let topOverflow = 0 - y;
+    let bottomOverflow = y + overlay.height - viewport.height;
+    let visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow);
+    let visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow);
+    let visibleArea = visibleWidth * visibleHeight;
+    return {
+      visibleArea,
+      isCompletelyWithinViewport: overlay.width * overlay.height === visibleArea,
+      fitsInViewportVertically: visibleHeight === overlay.height,
+      fitsInViewportHorizontally: visibleWidth == overlay.width
+    };
+  }
+  _canFitWithFlexibleDimensions(fit, point, viewport) {
+    if (this._hasFlexibleDimensions) {
+      const availableHeight = viewport.bottom - point.y;
+      const availableWidth = viewport.right - point.x;
+      const minHeight = getPixelValue(this._overlayRef.getConfig().minHeight);
+      const minWidth = getPixelValue(this._overlayRef.getConfig().minWidth);
+      const verticalFit = fit.fitsInViewportVertically || minHeight != null && minHeight <= availableHeight;
+      const horizontalFit = fit.fitsInViewportHorizontally || minWidth != null && minWidth <= availableWidth;
+      return verticalFit && horizontalFit;
+    }
+    return false;
+  }
+  _pushOverlayOnScreen(start, rawOverlayRect, scrollPosition) {
+    if (this._previousPushAmount && this._positionLocked) {
+      return {
+        x: start.x + this._previousPushAmount.x,
+        y: start.y + this._previousPushAmount.y
+      };
+    }
+    const overlay = getRoundedBoundingClientRect(rawOverlayRect);
+    const viewport = this._viewportRect;
+    const overflowRight = Math.max(start.x + overlay.width - viewport.width, 0);
+    const overflowBottom = Math.max(start.y + overlay.height - viewport.height, 0);
+    const overflowTop = Math.max(viewport.top - scrollPosition.top - start.y, 0);
+    const overflowLeft = Math.max(viewport.left - scrollPosition.left - start.x, 0);
+    let pushX = 0;
+    let pushY = 0;
+    if (overlay.width <= viewport.width) {
+      pushX = overflowLeft || -overflowRight;
+    } else {
+      pushX = start.x < this._getViewportMarginStart() ? viewport.left - scrollPosition.left - start.x : 0;
+    }
+    if (overlay.height <= viewport.height) {
+      pushY = overflowTop || -overflowBottom;
+    } else {
+      pushY = start.y < this._getViewportMarginTop() ? viewport.top - scrollPosition.top - start.y : 0;
+    }
+    this._previousPushAmount = {
+      x: pushX,
+      y: pushY
+    };
+    return {
+      x: start.x + pushX,
+      y: start.y + pushY
+    };
+  }
+  _applyPosition(position, originPoint) {
+    this._setTransformOrigin(position);
+    this._setOverlayElementStyles(originPoint, position);
+    this._setBoundingBoxStyles(originPoint, position);
+    if (position.panelClass) {
+      this._addPanelClasses(position.panelClass);
+    }
+    if (this._positionChanges.observers.length) {
+      const scrollVisibility = this._getScrollVisibility();
+      if (position !== this._lastPosition || !this._lastScrollVisibility || !compareScrollVisibility(this._lastScrollVisibility, scrollVisibility)) {
+        const changeEvent = new ConnectedOverlayPositionChange(position, scrollVisibility);
+        this._positionChanges.next(changeEvent);
+      }
+      this._lastScrollVisibility = scrollVisibility;
+    }
+    this._lastPosition = position;
+    this._isInitialRender = false;
+  }
+  _setTransformOrigin(position) {
+    if (!this._transformOriginSelector) {
+      return;
+    }
+    const elements = this._boundingBox.querySelectorAll(this._transformOriginSelector);
+    let xOrigin;
+    let yOrigin = position.overlayY;
+    if (position.overlayX === "center") {
+      xOrigin = "center";
+    } else if (this._isRtl()) {
+      xOrigin = position.overlayX === "start" ? "right" : "left";
+    } else {
+      xOrigin = position.overlayX === "start" ? "left" : "right";
+    }
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].style.transformOrigin = `${xOrigin} ${yOrigin}`;
+    }
+  }
+  _calculateBoundingBoxRect(origin, position) {
+    const viewport = this._viewportRect;
+    const isRtl = this._isRtl();
+    let height, top, bottom;
+    if (position.overlayY === "top") {
+      top = origin.y;
+      height = viewport.height - top + this._getViewportMarginBottom();
+    } else if (position.overlayY === "bottom") {
+      bottom = viewport.height - origin.y + this._getViewportMarginTop() + this._getViewportMarginBottom();
+      height = viewport.height - bottom + this._getViewportMarginTop();
+    } else {
+      const smallestDistanceToViewportEdge = Math.min(viewport.bottom - origin.y + viewport.top, origin.y);
+      const previousHeight = this._lastBoundingBoxSize.height;
+      height = smallestDistanceToViewportEdge * 2;
+      top = origin.y - smallestDistanceToViewportEdge;
+      if (height > previousHeight && !this._isInitialRender && !this._growAfterOpen) {
+        top = origin.y - previousHeight / 2;
+      }
+    }
+    const isBoundedByRightViewportEdge = position.overlayX === "start" && !isRtl || position.overlayX === "end" && isRtl;
+    const isBoundedByLeftViewportEdge = position.overlayX === "end" && !isRtl || position.overlayX === "start" && isRtl;
+    let width, left, right;
+    if (isBoundedByLeftViewportEdge) {
+      right = viewport.width - origin.x + this._getViewportMarginStart() + this._getViewportMarginEnd();
+      width = origin.x - this._getViewportMarginStart();
+    } else if (isBoundedByRightViewportEdge) {
+      left = origin.x;
+      width = viewport.right - origin.x - this._getViewportMarginEnd();
+    } else {
+      const smallestDistanceToViewportEdge = Math.min(viewport.right - origin.x + viewport.left, origin.x);
+      const previousWidth = this._lastBoundingBoxSize.width;
+      width = smallestDistanceToViewportEdge * 2;
+      left = origin.x - smallestDistanceToViewportEdge;
+      if (width > previousWidth && !this._isInitialRender && !this._growAfterOpen) {
+        left = origin.x - previousWidth / 2;
+      }
+    }
+    return {
+      top,
+      left,
+      bottom,
+      right,
+      width,
+      height
+    };
+  }
+  _setBoundingBoxStyles(origin, position) {
+    const boundingBoxRect = this._calculateBoundingBoxRect(origin, position);
+    if (!this._isInitialRender && !this._growAfterOpen) {
+      boundingBoxRect.height = Math.min(boundingBoxRect.height, this._lastBoundingBoxSize.height);
+      boundingBoxRect.width = Math.min(boundingBoxRect.width, this._lastBoundingBoxSize.width);
+    }
+    const styles = {};
+    if (this._hasExactPosition()) {
+      styles.top = styles.left = "0";
+      styles.bottom = styles.right = "auto";
+      styles.maxHeight = styles.maxWidth = "";
+      styles.width = styles.height = "100%";
+    } else {
+      const maxHeight = this._overlayRef.getConfig().maxHeight;
+      const maxWidth = this._overlayRef.getConfig().maxWidth;
+      styles.width = coerceCssPixelValue(boundingBoxRect.width);
+      styles.height = coerceCssPixelValue(boundingBoxRect.height);
+      styles.top = coerceCssPixelValue(boundingBoxRect.top) || "auto";
+      styles.bottom = coerceCssPixelValue(boundingBoxRect.bottom) || "auto";
+      styles.left = coerceCssPixelValue(boundingBoxRect.left) || "auto";
+      styles.right = coerceCssPixelValue(boundingBoxRect.right) || "auto";
+      if (position.overlayX === "center") {
+        styles.alignItems = "center";
+      } else {
+        styles.alignItems = position.overlayX === "end" ? "flex-end" : "flex-start";
+      }
+      if (position.overlayY === "center") {
+        styles.justifyContent = "center";
+      } else {
+        styles.justifyContent = position.overlayY === "bottom" ? "flex-end" : "flex-start";
+      }
+      if (maxHeight) {
+        styles.maxHeight = coerceCssPixelValue(maxHeight);
+      }
+      if (maxWidth) {
+        styles.maxWidth = coerceCssPixelValue(maxWidth);
+      }
+    }
+    this._lastBoundingBoxSize = boundingBoxRect;
+    extendStyles(this._boundingBox.style, styles);
+  }
+  _resetBoundingBoxStyles() {
+    extendStyles(this._boundingBox.style, {
+      top: "0",
+      left: "0",
+      right: "0",
+      bottom: "0",
+      height: "",
+      width: "",
+      alignItems: "",
+      justifyContent: ""
+    });
+  }
+  _resetOverlayElementStyles() {
+    extendStyles(this._pane.style, {
+      top: "",
+      left: "",
+      bottom: "",
+      right: "",
+      position: "",
+      transform: ""
+    });
+  }
+  _setOverlayElementStyles(originPoint, position) {
+    const styles = {};
+    const hasExactPosition = this._hasExactPosition();
+    const hasFlexibleDimensions = this._hasFlexibleDimensions;
+    const config = this._overlayRef.getConfig();
+    if (hasExactPosition) {
+      const scrollPosition = this._viewportRuler.getViewportScrollPosition();
+      extendStyles(styles, this._getExactOverlayY(position, originPoint, scrollPosition));
+      extendStyles(styles, this._getExactOverlayX(position, originPoint, scrollPosition));
+    } else {
+      styles.position = "static";
+    }
+    let transformString = "";
+    let offsetX = this._getOffset(position, "x");
+    let offsetY = this._getOffset(position, "y");
+    if (offsetX) {
+      transformString += `translateX(${offsetX}px) `;
+    }
+    if (offsetY) {
+      transformString += `translateY(${offsetY}px)`;
+    }
+    styles.transform = transformString.trim();
+    if (config.maxHeight) {
+      if (hasExactPosition) {
+        styles.maxHeight = coerceCssPixelValue(config.maxHeight);
+      } else if (hasFlexibleDimensions) {
+        styles.maxHeight = "";
+      }
+    }
+    if (config.maxWidth) {
+      if (hasExactPosition) {
+        styles.maxWidth = coerceCssPixelValue(config.maxWidth);
+      } else if (hasFlexibleDimensions) {
+        styles.maxWidth = "";
+      }
+    }
+    extendStyles(this._pane.style, styles);
+  }
+  _getExactOverlayY(position, originPoint, scrollPosition) {
+    let styles = {
+      top: "",
+      bottom: ""
+    };
+    let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position);
+    if (this._isPushed) {
+      overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition);
+    }
+    if (position.overlayY === "bottom") {
+      const documentHeight = this._document.documentElement.clientHeight;
+      styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`;
+    } else {
+      styles.top = coerceCssPixelValue(overlayPoint.y);
+    }
+    return styles;
+  }
+  _getExactOverlayX(position, originPoint, scrollPosition) {
+    let styles = {
+      left: "",
+      right: ""
+    };
+    let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position);
+    if (this._isPushed) {
+      overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition);
+    }
+    let horizontalStyleProperty;
+    if (this._isRtl()) {
+      horizontalStyleProperty = position.overlayX === "end" ? "left" : "right";
+    } else {
+      horizontalStyleProperty = position.overlayX === "end" ? "right" : "left";
+    }
+    if (horizontalStyleProperty === "right") {
+      const documentWidth = this._document.documentElement.clientWidth;
+      styles.right = `${documentWidth - (overlayPoint.x + this._overlayRect.width)}px`;
+    } else {
+      styles.left = coerceCssPixelValue(overlayPoint.x);
+    }
+    return styles;
+  }
+  _getScrollVisibility() {
+    const originBounds = this._getOriginRect();
+    const overlayBounds = this._pane.getBoundingClientRect();
+    const scrollContainerBounds = this._scrollables.map((scrollable) => {
+      return scrollable.getElementRef().nativeElement.getBoundingClientRect();
+    });
+    return {
+      isOriginClipped: isElementClippedByScrolling(originBounds, scrollContainerBounds),
+      isOriginOutsideView: isElementScrolledOutsideView(originBounds, scrollContainerBounds),
+      isOverlayClipped: isElementClippedByScrolling(overlayBounds, scrollContainerBounds),
+      isOverlayOutsideView: isElementScrolledOutsideView(overlayBounds, scrollContainerBounds)
+    };
+  }
+  _subtractOverflows(length, ...overflows) {
+    return overflows.reduce((currentValue, currentOverflow) => {
+      return currentValue - Math.max(currentOverflow, 0);
+    }, length);
+  }
+  _getNarrowedViewportRect() {
+    const width = this._document.documentElement.clientWidth;
+    const height = this._document.documentElement.clientHeight;
+    const scrollPosition = this._viewportRuler.getViewportScrollPosition();
+    return {
+      top: scrollPosition.top + this._getViewportMarginTop(),
+      left: scrollPosition.left + this._getViewportMarginStart(),
+      right: scrollPosition.left + width - this._getViewportMarginEnd(),
+      bottom: scrollPosition.top + height - this._getViewportMarginBottom(),
+      width: width - this._getViewportMarginStart() - this._getViewportMarginEnd(),
+      height: height - this._getViewportMarginTop() - this._getViewportMarginBottom()
+    };
+  }
+  _isRtl() {
+    return this._overlayRef.getDirection() === "rtl";
+  }
+  _hasExactPosition() {
+    return !this._hasFlexibleDimensions || this._isPushed;
+  }
+  _getOffset(position, axis) {
+    if (axis === "x") {
+      return position.offsetX == null ? this._offsetX : position.offsetX;
+    }
+    return position.offsetY == null ? this._offsetY : position.offsetY;
+  }
+  _validatePositions() {
+    if (typeof ngDevMode === "undefined" || ngDevMode) {
+      if (!this._preferredPositions.length) {
+        throw Error("FlexibleConnectedPositionStrategy: At least one position is required.");
+      }
+      this._preferredPositions.forEach((pair) => {
+        validateHorizontalPosition("originX", pair.originX);
+        validateVerticalPosition("originY", pair.originY);
+        validateHorizontalPosition("overlayX", pair.overlayX);
+        validateVerticalPosition("overlayY", pair.overlayY);
+      });
+    }
+  }
+  _addPanelClasses(cssClasses) {
+    if (this._pane) {
+      coerceArray(cssClasses).forEach((cssClass) => {
+        if (cssClass !== "" && this._appliedPanelClasses.indexOf(cssClass) === -1) {
+          this._appliedPanelClasses.push(cssClass);
+          this._pane.classList.add(cssClass);
+        }
+      });
+    }
+  }
+  _clearPanelClasses() {
+    if (this._pane) {
+      this._appliedPanelClasses.forEach((cssClass) => {
+        this._pane.classList.remove(cssClass);
+      });
+      this._appliedPanelClasses = [];
+    }
+  }
+  _getViewportMarginStart() {
+    if (typeof this._viewportMargin === "number") return this._viewportMargin;
+    return this._viewportMargin?.start ?? 0;
+  }
+  _getViewportMarginEnd() {
+    if (typeof this._viewportMargin === "number") return this._viewportMargin;
+    return this._viewportMargin?.end ?? 0;
+  }
+  _getViewportMarginTop() {
+    if (typeof this._viewportMargin === "number") return this._viewportMargin;
+    return this._viewportMargin?.top ?? 0;
+  }
+  _getViewportMarginBottom() {
+    if (typeof this._viewportMargin === "number") return this._viewportMargin;
+    return this._viewportMargin?.bottom ?? 0;
+  }
+  _getOriginRect() {
+    const origin = this._origin;
+    if (origin instanceof ElementRef) {
+      return origin.nativeElement.getBoundingClientRect();
+    }
+    if (origin instanceof Element) {
+      return origin.getBoundingClientRect();
+    }
+    const width = origin.width || 0;
+    const height = origin.height || 0;
+    return {
+      top: origin.y,
+      bottom: origin.y + height,
+      left: origin.x,
+      right: origin.x + width,
+      height,
+      width
+    };
+  }
+  _getContainerRect() {
+    const isInlinePopover = this._overlayRef.getConfig().usePopover && this._popoverLocation !== "global";
+    const element = this._overlayContainer.getContainerElement();
+    if (isInlinePopover) {
+      element.style.display = "block";
+    }
+    const dimensions = element.getBoundingClientRect();
+    if (isInlinePopover) {
+      element.style.display = "";
+    }
+    return dimensions;
+  }
+};
+function extendStyles(destination, source) {
+  for (let key in source) {
+    if (source.hasOwnProperty(key)) {
+      destination[key] = source[key];
+    }
+  }
+  return destination;
+}
+function getPixelValue(input2) {
+  if (typeof input2 !== "number" && input2 != null) {
+    const [value, units] = input2.split(cssUnitPattern);
+    return !units || units === "px" ? parseFloat(value) : null;
+  }
+  return input2 || null;
+}
+function getRoundedBoundingClientRect(clientRect) {
+  return {
+    top: Math.floor(clientRect.top),
+    right: Math.floor(clientRect.right),
+    bottom: Math.floor(clientRect.bottom),
+    left: Math.floor(clientRect.left),
+    width: Math.floor(clientRect.width),
+    height: Math.floor(clientRect.height)
+  };
+}
+function compareScrollVisibility(a, b) {
+  if (a === b) {
+    return true;
+  }
+  return a.isOriginClipped === b.isOriginClipped && a.isOriginOutsideView === b.isOriginOutsideView && a.isOverlayClipped === b.isOverlayClipped && a.isOverlayOutsideView === b.isOverlayOutsideView;
+}
+var STANDARD_DROPDOWN_BELOW_POSITIONS = [{
+  originX: "start",
+  originY: "bottom",
+  overlayX: "start",
+  overlayY: "top"
+}, {
+  originX: "start",
+  originY: "top",
+  overlayX: "start",
+  overlayY: "bottom"
+}, {
+  originX: "end",
+  originY: "bottom",
+  overlayX: "end",
+  overlayY: "top"
+}, {
+  originX: "end",
+  originY: "top",
+  overlayX: "end",
+  overlayY: "bottom"
+}];
+var STANDARD_DROPDOWN_ADJACENT_POSITIONS = [{
+  originX: "end",
+  originY: "top",
+  overlayX: "start",
+  overlayY: "top"
+}, {
+  originX: "end",
+  originY: "bottom",
+  overlayX: "start",
+  overlayY: "bottom"
+}, {
+  originX: "start",
+  originY: "top",
+  overlayX: "end",
+  overlayY: "top"
+}, {
+  originX: "start",
+  originY: "bottom",
+  overlayX: "end",
+  overlayY: "bottom"
+}];
+var wrapperClass = "cdk-global-overlay-wrapper";
+function createGlobalPositionStrategy(_injector) {
+  return new GlobalPositionStrategy();
+}
+var GlobalPositionStrategy = class {
+  _overlayRef;
+  _cssPosition = "static";
+  _topOffset = "";
+  _bottomOffset = "";
+  _alignItems = "";
+  _xPosition = "";
+  _xOffset = "";
+  _width = "";
+  _height = "";
+  _isDisposed = false;
+  attach(overlayRef) {
+    const config = overlayRef.getConfig();
+    this._overlayRef = overlayRef;
+    if (this._width && !config.width) {
+      overlayRef.updateSize({
+        width: this._width
+      });
+    }
+    if (this._height && !config.height) {
+      overlayRef.updateSize({
+        height: this._height
+      });
+    }
+    overlayRef.hostElement.classList.add(wrapperClass);
+    this._isDisposed = false;
+  }
+  top(value = "") {
+    this._bottomOffset = "";
+    this._topOffset = value;
+    this._alignItems = "flex-start";
+    return this;
+  }
+  left(value = "") {
+    this._xOffset = value;
+    this._xPosition = "left";
+    return this;
+  }
+  bottom(value = "") {
+    this._topOffset = "";
+    this._bottomOffset = value;
+    this._alignItems = "flex-end";
+    return this;
+  }
+  right(value = "") {
+    this._xOffset = value;
+    this._xPosition = "right";
+    return this;
+  }
+  start(value = "") {
+    this._xOffset = value;
+    this._xPosition = "start";
+    return this;
+  }
+  end(value = "") {
+    this._xOffset = value;
+    this._xPosition = "end";
+    return this;
+  }
+  width(value = "") {
+    if (this._overlayRef) {
+      this._overlayRef.updateSize({
+        width: value
+      });
+    } else {
+      this._width = value;
+    }
+    return this;
+  }
+  height(value = "") {
+    if (this._overlayRef) {
+      this._overlayRef.updateSize({
+        height: value
+      });
+    } else {
+      this._height = value;
+    }
+    return this;
+  }
+  centerHorizontally(offset2 = "") {
+    this.left(offset2);
+    this._xPosition = "center";
+    return this;
+  }
+  centerVertically(offset2 = "") {
+    this.top(offset2);
+    this._alignItems = "center";
+    return this;
+  }
+  apply() {
+    if (!this._overlayRef || !this._overlayRef.hasAttached()) {
+      return;
+    }
+    const styles = this._overlayRef.overlayElement.style;
+    const parentStyles = this._overlayRef.hostElement.style;
+    const config = this._overlayRef.getConfig();
+    const {
+      width,
+      height,
+      maxWidth,
+      maxHeight
+    } = config;
+    const shouldBeFlushHorizontally = (width === "100%" || width === "100vw") && (!maxWidth || maxWidth === "100%" || maxWidth === "100vw");
+    const shouldBeFlushVertically = (height === "100%" || height === "100vh") && (!maxHeight || maxHeight === "100%" || maxHeight === "100vh");
+    const xPosition = this._xPosition;
+    const xOffset = this._xOffset;
+    const isRtl = this._overlayRef.getConfig().direction === "rtl";
+    let marginLeft = "";
+    let marginRight = "";
+    let justifyContent = "";
+    if (shouldBeFlushHorizontally) {
+      justifyContent = "flex-start";
+    } else if (xPosition === "center") {
+      justifyContent = "center";
+      if (isRtl) {
+        marginRight = xOffset;
+      } else {
+        marginLeft = xOffset;
+      }
+    } else if (isRtl) {
+      if (xPosition === "left" || xPosition === "end") {
+        justifyContent = "flex-end";
+        marginLeft = xOffset;
+      } else if (xPosition === "right" || xPosition === "start") {
+        justifyContent = "flex-start";
+        marginRight = xOffset;
+      }
+    } else if (xPosition === "left" || xPosition === "start") {
+      justifyContent = "flex-start";
+      marginLeft = xOffset;
+    } else if (xPosition === "right" || xPosition === "end") {
+      justifyContent = "flex-end";
+      marginRight = xOffset;
+    }
+    styles.position = this._cssPosition;
+    styles.marginLeft = shouldBeFlushHorizontally ? "0" : marginLeft;
+    styles.marginTop = shouldBeFlushVertically ? "0" : this._topOffset;
+    styles.marginBottom = this._bottomOffset;
+    styles.marginRight = shouldBeFlushHorizontally ? "0" : marginRight;
+    parentStyles.justifyContent = justifyContent;
+    parentStyles.alignItems = shouldBeFlushVertically ? "flex-start" : this._alignItems;
+  }
+  dispose() {
+    if (this._isDisposed || !this._overlayRef) {
+      return;
+    }
+    const styles = this._overlayRef.overlayElement.style;
+    const parent = this._overlayRef.hostElement;
+    const parentStyles = parent.style;
+    parent.classList.remove(wrapperClass);
+    parentStyles.justifyContent = parentStyles.alignItems = styles.marginTop = styles.marginBottom = styles.marginLeft = styles.marginRight = styles.position = "";
+    this._overlayRef = null;
+    this._isDisposed = true;
+  }
+};
+var OverlayPositionBuilder = class _OverlayPositionBuilder {
+  _injector = inject(Injector);
+  constructor() {
+  }
+  global() {
+    return createGlobalPositionStrategy();
+  }
+  flexibleConnectedTo(origin) {
+    return createFlexibleConnectedPositionStrategy(this._injector, origin);
+  }
+  static \u0275fac = function OverlayPositionBuilder_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _OverlayPositionBuilder)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _OverlayPositionBuilder,
+    factory: _OverlayPositionBuilder.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayPositionBuilder, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var OVERLAY_DEFAULT_CONFIG = new InjectionToken("OVERLAY_DEFAULT_CONFIG");
+function createOverlayRef(injector, config) {
+  injector.get(_CdkPrivateStyleLoader).load(_CdkOverlayStyleLoader);
+  const overlayContainer = injector.get(OverlayContainer);
+  const doc = injector.get(DOCUMENT);
+  const idGenerator = injector.get(_IdGenerator);
+  const appRef = injector.get(ApplicationRef);
+  const directionality = injector.get(Directionality);
+  const renderer = injector.get(Renderer2, null, {
+    optional: true
+  }) || injector.get(RendererFactory2).createRenderer(null, null);
+  const overlayConfig = new OverlayConfig(config);
+  const defaultUsePopover = injector.get(OVERLAY_DEFAULT_CONFIG, null, {
+    optional: true
+  })?.usePopover ?? true;
+  overlayConfig.direction = overlayConfig.direction || directionality.value;
+  if (!("showPopover" in doc.body)) {
+    overlayConfig.usePopover = false;
+  } else {
+    overlayConfig.usePopover = config?.usePopover ?? defaultUsePopover;
+  }
+  const pane = doc.createElement("div");
+  const host = doc.createElement("div");
+  pane.id = idGenerator.getId("cdk-overlay-");
+  pane.classList.add("cdk-overlay-pane");
+  host.appendChild(pane);
+  if (overlayConfig.usePopover) {
+    host.setAttribute("popover", "manual");
+    host.classList.add("cdk-overlay-popover");
+  }
+  const customInsertionPoint = overlayConfig.usePopover ? overlayConfig.positionStrategy?.getPopoverInsertionPoint?.() : null;
+  if (isElement(customInsertionPoint)) {
+    customInsertionPoint.after(host);
+  } else if (customInsertionPoint?.type === "parent") {
+    customInsertionPoint.element.appendChild(host);
+  } else {
+    overlayContainer.getContainerElement().appendChild(host);
+  }
+  return new OverlayRef(new DomPortalOutlet(pane, appRef, injector), host, pane, overlayConfig, injector.get(NgZone), injector.get(OverlayKeyboardDispatcher), doc, injector.get(Location), injector.get(OverlayOutsideClickDispatcher), config?.disableAnimations ?? injector.get(ANIMATION_MODULE_TYPE, null, {
+    optional: true
+  }) === "NoopAnimations", injector.get(EnvironmentInjector), renderer);
+}
+var Overlay = class _Overlay {
+  scrollStrategies = inject(ScrollStrategyOptions);
+  _positionBuilder = inject(OverlayPositionBuilder);
+  _injector = inject(Injector);
+  constructor() {
+  }
+  create(config) {
+    return createOverlayRef(this._injector, config);
+  }
+  position() {
+    return this._positionBuilder;
+  }
+  static \u0275fac = function Overlay_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Overlay)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _Overlay,
+    factory: _Overlay.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Overlay, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+var defaultPositionList = [{
+  originX: "start",
+  originY: "bottom",
+  overlayX: "start",
+  overlayY: "top"
+}, {
+  originX: "start",
+  originY: "top",
+  overlayX: "start",
+  overlayY: "bottom"
+}, {
+  originX: "end",
+  originY: "top",
+  overlayX: "end",
+  overlayY: "bottom"
+}, {
+  originX: "end",
+  originY: "bottom",
+  overlayX: "end",
+  overlayY: "top"
+}];
+var CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY = new InjectionToken("cdk-connected-overlay-scroll-strategy", {
+  providedIn: "root",
+  factory: () => {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector);
+  }
+});
+var CdkOverlayOrigin = class _CdkOverlayOrigin {
+  elementRef = inject(ElementRef);
+  constructor() {
+  }
+  static \u0275fac = function CdkOverlayOrigin_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkOverlayOrigin)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkOverlayOrigin,
+    selectors: [["", "cdk-overlay-origin", ""], ["", "overlay-origin", ""], ["", "cdkOverlayOrigin", ""]],
+    exportAs: ["cdkOverlayOrigin"]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkOverlayOrigin, [{
+    type: Directive,
+    args: [{
+      selector: "[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]",
+      exportAs: "cdkOverlayOrigin"
+    }]
+  }], () => [], null);
+})();
+var CDK_CONNECTED_OVERLAY_DEFAULT_CONFIG = new InjectionToken("cdk-connected-overlay-default-config");
+var CdkConnectedOverlay = class _CdkConnectedOverlay {
+  _dir = inject(Directionality, {
+    optional: true
+  });
+  _injector = inject(Injector);
+  _overlayRef;
+  _templatePortal;
+  _backdropSubscription = Subscription.EMPTY;
+  _attachSubscription = Subscription.EMPTY;
+  _detachSubscription = Subscription.EMPTY;
+  _positionSubscription = Subscription.EMPTY;
+  _offsetX;
+  _offsetY;
+  _position;
+  _scrollStrategyFactory = inject(CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY);
+  _ngZone = inject(NgZone);
+  origin;
+  positions;
+  positionStrategy;
+  get offsetX() {
+    return this._offsetX;
+  }
+  set offsetX(offsetX) {
+    this._offsetX = offsetX;
+    if (this._position) {
+      this._updatePositionStrategy(this._position);
+    }
+  }
+  get offsetY() {
+    return this._offsetY;
+  }
+  set offsetY(offsetY) {
+    this._offsetY = offsetY;
+    if (this._position) {
+      this._updatePositionStrategy(this._position);
+    }
+  }
+  width;
+  height;
+  minWidth;
+  minHeight;
+  backdropClass;
+  panelClass;
+  viewportMargin = 0;
+  scrollStrategy;
+  open = false;
+  disableClose = false;
+  transformOriginSelector;
+  hasBackdrop = false;
+  lockPosition = false;
+  flexibleDimensions = false;
+  growAfterOpen = false;
+  push = false;
+  disposeOnNavigation = false;
+  usePopover;
+  matchWidth = false;
+  set _config(value) {
+    if (typeof value !== "string") {
+      this._assignConfig(value);
+    }
+  }
+  backdropClick = new EventEmitter();
+  positionChange = new EventEmitter();
+  attach = new EventEmitter();
+  detach = new EventEmitter();
+  overlayKeydown = new EventEmitter();
+  overlayOutsideClick = new EventEmitter();
+  constructor() {
+    const templateRef = inject(TemplateRef);
+    const viewContainerRef = inject(ViewContainerRef);
+    const defaultConfig = inject(CDK_CONNECTED_OVERLAY_DEFAULT_CONFIG, {
+      optional: true
+    });
+    const globalConfig = inject(OVERLAY_DEFAULT_CONFIG, {
+      optional: true
+    });
+    this.usePopover = globalConfig?.usePopover === false ? null : "global";
+    this._templatePortal = new TemplatePortal(templateRef, viewContainerRef);
+    this.scrollStrategy = this._scrollStrategyFactory();
+    if (defaultConfig) {
+      this._assignConfig(defaultConfig);
+    }
+  }
+  get overlayRef() {
+    return this._overlayRef;
+  }
+  get dir() {
+    return this._dir ? this._dir.value : "ltr";
+  }
+  ngOnDestroy() {
+    this._attachSubscription.unsubscribe();
+    this._detachSubscription.unsubscribe();
+    this._backdropSubscription.unsubscribe();
+    this._positionSubscription.unsubscribe();
+    this._overlayRef?.dispose();
+  }
+  ngOnChanges(changes) {
+    if (this._position) {
+      this._updatePositionStrategy(this._position);
+      this._overlayRef?.updateSize({
+        width: this._getWidth(),
+        minWidth: this.minWidth,
+        height: this.height,
+        minHeight: this.minHeight
+      });
+      if (changes["origin"] && this.open) {
+        this._position.apply();
+      }
+    }
+    if (changes["open"]) {
+      this.open ? this.attachOverlay() : this.detachOverlay();
+    }
+  }
+  _createOverlay() {
+    if (!this.positions || !this.positions.length) {
+      this.positions = defaultPositionList;
+    }
+    const overlayRef = this._overlayRef = createOverlayRef(this._injector, this._buildConfig());
+    this._attachSubscription = overlayRef.attachments().subscribe(() => this.attach.emit());
+    this._detachSubscription = overlayRef.detachments().subscribe(() => this.detach.emit());
+    overlayRef.keydownEvents().subscribe((event) => {
+      this.overlayKeydown.next(event);
+      if (event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event)) {
+        event.preventDefault();
+        this.detachOverlay();
+      }
+    });
+    this._overlayRef.outsidePointerEvents().subscribe((event) => {
+      const origin = this._getOriginElement();
+      const target = _getEventTarget(event);
+      if (!origin || origin !== target && !origin.contains(target)) {
+        this.overlayOutsideClick.next(event);
+      }
+    });
+  }
+  _buildConfig() {
+    const positionStrategy = this._position = this.positionStrategy || this._createPositionStrategy();
+    const overlayConfig = new OverlayConfig({
+      direction: this._dir || "ltr",
+      positionStrategy,
+      scrollStrategy: this.scrollStrategy,
+      hasBackdrop: this.hasBackdrop,
+      disposeOnNavigation: this.disposeOnNavigation,
+      usePopover: !!this.usePopover
+    });
+    if (this.height || this.height === 0) {
+      overlayConfig.height = this.height;
+    }
+    if (this.minWidth || this.minWidth === 0) {
+      overlayConfig.minWidth = this.minWidth;
+    }
+    if (this.minHeight || this.minHeight === 0) {
+      overlayConfig.minHeight = this.minHeight;
+    }
+    if (this.backdropClass) {
+      overlayConfig.backdropClass = this.backdropClass;
+    }
+    if (this.panelClass) {
+      overlayConfig.panelClass = this.panelClass;
+    }
+    return overlayConfig;
+  }
+  _updatePositionStrategy(positionStrategy) {
+    const positions = this.positions.map((currentPosition) => ({
+      originX: currentPosition.originX,
+      originY: currentPosition.originY,
+      overlayX: currentPosition.overlayX,
+      overlayY: currentPosition.overlayY,
+      offsetX: currentPosition.offsetX || this.offsetX,
+      offsetY: currentPosition.offsetY || this.offsetY,
+      panelClass: currentPosition.panelClass || void 0
+    }));
+    return positionStrategy.setOrigin(this._getOrigin()).withPositions(positions).withFlexibleDimensions(this.flexibleDimensions).withPush(this.push).withGrowAfterOpen(this.growAfterOpen).withViewportMargin(this.viewportMargin).withLockedPosition(this.lockPosition).withTransformOriginOn(this.transformOriginSelector).withPopoverLocation(this.usePopover === null ? "global" : this.usePopover);
+  }
+  _createPositionStrategy() {
+    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this._getOrigin());
+    this._updatePositionStrategy(strategy);
+    return strategy;
+  }
+  _getOrigin() {
+    if (this.origin instanceof CdkOverlayOrigin) {
+      return this.origin.elementRef;
+    } else {
+      return this.origin;
+    }
+  }
+  _getOriginElement() {
+    if (this.origin instanceof CdkOverlayOrigin) {
+      return this.origin.elementRef.nativeElement;
+    }
+    if (this.origin instanceof ElementRef) {
+      return this.origin.nativeElement;
+    }
+    if (typeof Element !== "undefined" && this.origin instanceof Element) {
+      return this.origin;
+    }
+    return null;
+  }
+  _getWidth() {
+    if (this.width) {
+      return this.width;
+    }
+    return this.matchWidth ? this._getOriginElement()?.getBoundingClientRect?.().width : void 0;
+  }
+  attachOverlay() {
+    if (!this._overlayRef) {
+      this._createOverlay();
+    }
+    const ref = this._overlayRef;
+    ref.getConfig().hasBackdrop = this.hasBackdrop;
+    ref.updateSize({
+      width: this._getWidth()
+    });
+    if (!ref.hasAttached()) {
+      ref.attach(this._templatePortal);
+    }
+    if (this.hasBackdrop) {
+      this._backdropSubscription = ref.backdropClick().subscribe((event) => this.backdropClick.emit(event));
+    } else {
+      this._backdropSubscription.unsubscribe();
+    }
+    this._positionSubscription.unsubscribe();
+    if (this.positionChange.observers.length > 0) {
+      this._positionSubscription = this._position.positionChanges.pipe(takeWhile(() => this.positionChange.observers.length > 0)).subscribe((position) => {
+        this._ngZone.run(() => this.positionChange.emit(position));
+        if (this.positionChange.observers.length === 0) {
+          this._positionSubscription.unsubscribe();
+        }
+      });
+    }
+    this.open = true;
+  }
+  detachOverlay() {
+    this._overlayRef?.detach();
+    this._backdropSubscription.unsubscribe();
+    this._positionSubscription.unsubscribe();
+    this.open = false;
+  }
+  _assignConfig(config) {
+    this.origin = config.origin ?? this.origin;
+    this.positions = config.positions ?? this.positions;
+    this.positionStrategy = config.positionStrategy ?? this.positionStrategy;
+    this.offsetX = config.offsetX ?? this.offsetX;
+    this.offsetY = config.offsetY ?? this.offsetY;
+    this.width = config.width ?? this.width;
+    this.height = config.height ?? this.height;
+    this.minWidth = config.minWidth ?? this.minWidth;
+    this.minHeight = config.minHeight ?? this.minHeight;
+    this.backdropClass = config.backdropClass ?? this.backdropClass;
+    this.panelClass = config.panelClass ?? this.panelClass;
+    this.viewportMargin = config.viewportMargin ?? this.viewportMargin;
+    this.scrollStrategy = config.scrollStrategy ?? this.scrollStrategy;
+    this.disableClose = config.disableClose ?? this.disableClose;
+    this.transformOriginSelector = config.transformOriginSelector ?? this.transformOriginSelector;
+    this.hasBackdrop = config.hasBackdrop ?? this.hasBackdrop;
+    this.lockPosition = config.lockPosition ?? this.lockPosition;
+    this.flexibleDimensions = config.flexibleDimensions ?? this.flexibleDimensions;
+    this.growAfterOpen = config.growAfterOpen ?? this.growAfterOpen;
+    this.push = config.push ?? this.push;
+    this.disposeOnNavigation = config.disposeOnNavigation ?? this.disposeOnNavigation;
+    this.usePopover = config.usePopover ?? this.usePopover;
+    this.matchWidth = config.matchWidth ?? this.matchWidth;
+  }
+  static \u0275fac = function CdkConnectedOverlay_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkConnectedOverlay)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _CdkConnectedOverlay,
+    selectors: [["", "cdk-connected-overlay", ""], ["", "connected-overlay", ""], ["", "cdkConnectedOverlay", ""]],
+    inputs: {
+      origin: [0, "cdkConnectedOverlayOrigin", "origin"],
+      positions: [0, "cdkConnectedOverlayPositions", "positions"],
+      positionStrategy: [0, "cdkConnectedOverlayPositionStrategy", "positionStrategy"],
+      offsetX: [0, "cdkConnectedOverlayOffsetX", "offsetX"],
+      offsetY: [0, "cdkConnectedOverlayOffsetY", "offsetY"],
+      width: [0, "cdkConnectedOverlayWidth", "width"],
+      height: [0, "cdkConnectedOverlayHeight", "height"],
+      minWidth: [0, "cdkConnectedOverlayMinWidth", "minWidth"],
+      minHeight: [0, "cdkConnectedOverlayMinHeight", "minHeight"],
+      backdropClass: [0, "cdkConnectedOverlayBackdropClass", "backdropClass"],
+      panelClass: [0, "cdkConnectedOverlayPanelClass", "panelClass"],
+      viewportMargin: [0, "cdkConnectedOverlayViewportMargin", "viewportMargin"],
+      scrollStrategy: [0, "cdkConnectedOverlayScrollStrategy", "scrollStrategy"],
+      open: [0, "cdkConnectedOverlayOpen", "open"],
+      disableClose: [0, "cdkConnectedOverlayDisableClose", "disableClose"],
+      transformOriginSelector: [0, "cdkConnectedOverlayTransformOriginOn", "transformOriginSelector"],
+      hasBackdrop: [2, "cdkConnectedOverlayHasBackdrop", "hasBackdrop", booleanAttribute],
+      lockPosition: [2, "cdkConnectedOverlayLockPosition", "lockPosition", booleanAttribute],
+      flexibleDimensions: [2, "cdkConnectedOverlayFlexibleDimensions", "flexibleDimensions", booleanAttribute],
+      growAfterOpen: [2, "cdkConnectedOverlayGrowAfterOpen", "growAfterOpen", booleanAttribute],
+      push: [2, "cdkConnectedOverlayPush", "push", booleanAttribute],
+      disposeOnNavigation: [2, "cdkConnectedOverlayDisposeOnNavigation", "disposeOnNavigation", booleanAttribute],
+      usePopover: [0, "cdkConnectedOverlayUsePopover", "usePopover"],
+      matchWidth: [2, "cdkConnectedOverlayMatchWidth", "matchWidth", booleanAttribute],
+      _config: [0, "cdkConnectedOverlay", "_config"]
+    },
+    outputs: {
+      backdropClick: "backdropClick",
+      positionChange: "positionChange",
+      attach: "attach",
+      detach: "detach",
+      overlayKeydown: "overlayKeydown",
+      overlayOutsideClick: "overlayOutsideClick"
+    },
+    exportAs: ["cdkConnectedOverlay"],
+    features: [\u0275\u0275NgOnChangesFeature]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkConnectedOverlay, [{
+    type: Directive,
+    args: [{
+      selector: "[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]",
+      exportAs: "cdkConnectedOverlay"
+    }]
+  }], () => [], {
+    origin: [{
+      type: Input,
+      args: ["cdkConnectedOverlayOrigin"]
+    }],
+    positions: [{
+      type: Input,
+      args: ["cdkConnectedOverlayPositions"]
+    }],
+    positionStrategy: [{
+      type: Input,
+      args: ["cdkConnectedOverlayPositionStrategy"]
+    }],
+    offsetX: [{
+      type: Input,
+      args: ["cdkConnectedOverlayOffsetX"]
+    }],
+    offsetY: [{
+      type: Input,
+      args: ["cdkConnectedOverlayOffsetY"]
+    }],
+    width: [{
+      type: Input,
+      args: ["cdkConnectedOverlayWidth"]
+    }],
+    height: [{
+      type: Input,
+      args: ["cdkConnectedOverlayHeight"]
+    }],
+    minWidth: [{
+      type: Input,
+      args: ["cdkConnectedOverlayMinWidth"]
+    }],
+    minHeight: [{
+      type: Input,
+      args: ["cdkConnectedOverlayMinHeight"]
+    }],
+    backdropClass: [{
+      type: Input,
+      args: ["cdkConnectedOverlayBackdropClass"]
+    }],
+    panelClass: [{
+      type: Input,
+      args: ["cdkConnectedOverlayPanelClass"]
+    }],
+    viewportMargin: [{
+      type: Input,
+      args: ["cdkConnectedOverlayViewportMargin"]
+    }],
+    scrollStrategy: [{
+      type: Input,
+      args: ["cdkConnectedOverlayScrollStrategy"]
+    }],
+    open: [{
+      type: Input,
+      args: ["cdkConnectedOverlayOpen"]
+    }],
+    disableClose: [{
+      type: Input,
+      args: ["cdkConnectedOverlayDisableClose"]
+    }],
+    transformOriginSelector: [{
+      type: Input,
+      args: ["cdkConnectedOverlayTransformOriginOn"]
+    }],
+    hasBackdrop: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayHasBackdrop",
+        transform: booleanAttribute
+      }]
+    }],
+    lockPosition: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayLockPosition",
+        transform: booleanAttribute
+      }]
+    }],
+    flexibleDimensions: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayFlexibleDimensions",
+        transform: booleanAttribute
+      }]
+    }],
+    growAfterOpen: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayGrowAfterOpen",
+        transform: booleanAttribute
+      }]
+    }],
+    push: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayPush",
+        transform: booleanAttribute
+      }]
+    }],
+    disposeOnNavigation: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayDisposeOnNavigation",
+        transform: booleanAttribute
+      }]
+    }],
+    usePopover: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayUsePopover"
+      }]
+    }],
+    matchWidth: [{
+      type: Input,
+      args: [{
+        alias: "cdkConnectedOverlayMatchWidth",
+        transform: booleanAttribute
+      }]
+    }],
+    _config: [{
+      type: Input,
+      args: ["cdkConnectedOverlay"]
+    }],
+    backdropClick: [{
+      type: Output
+    }],
+    positionChange: [{
+      type: Output
+    }],
+    attach: [{
+      type: Output
+    }],
+    detach: [{
+      type: Output
+    }],
+    overlayKeydown: [{
+      type: Output
+    }],
+    overlayOutsideClick: [{
+      type: Output
+    }]
+  });
+})();
+var OverlayModule = class _OverlayModule {
+  static \u0275fac = function OverlayModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _OverlayModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _OverlayModule,
+    imports: [BidiModule, PortalModule, ScrollingModule, CdkConnectedOverlay, CdkOverlayOrigin],
+    exports: [CdkConnectedOverlay, CdkOverlayOrigin, ScrollingModule]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    providers: [Overlay],
+    imports: [BidiModule, PortalModule, ScrollingModule, ScrollingModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayModule, [{
+    type: NgModule,
+    args: [{
+      imports: [BidiModule, PortalModule, ScrollingModule, CdkConnectedOverlay, CdkOverlayOrigin],
+      exports: [CdkConnectedOverlay, CdkOverlayOrigin, ScrollingModule],
+      providers: [Overlay]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/dialog.mjs
+function CdkDialogContainer_ng_template_0_Template(rf, ctx) {
+}
+var DialogConfig = class {
+  viewContainerRef;
+  injector;
+  id;
+  role = "dialog";
+  panelClass = "";
+  hasBackdrop = true;
+  backdropClass = "";
+  disableClose = false;
+  closePredicate;
+  width = "";
+  height = "";
+  minWidth;
+  minHeight;
+  maxWidth;
+  maxHeight;
+  positionStrategy;
+  data = null;
+  direction;
+  ariaDescribedBy = null;
+  ariaLabelledBy = null;
+  ariaLabel = null;
+  ariaModal = false;
+  autoFocus = "first-tabbable";
+  restoreFocus = true;
+  scrollStrategy;
+  closeOnNavigation = true;
+  closeOnDestroy = true;
+  closeOnOverlayDetachments = true;
+  disableAnimations = false;
+  providers;
+  container;
+  templateContext;
+};
+function throwDialogContentAlreadyAttachedError() {
+  throw Error("Attempting to attach dialog content after content is already attached");
+}
+var CdkDialogContainer = class _CdkDialogContainer extends BasePortalOutlet {
+  _elementRef = inject(ElementRef);
+  _focusTrapFactory = inject(FocusTrapFactory);
+  _config;
+  _interactivityChecker = inject(InteractivityChecker);
+  _ngZone = inject(NgZone);
+  _focusMonitor = inject(FocusMonitor);
+  _renderer = inject(Renderer2);
+  _changeDetectorRef = inject(ChangeDetectorRef);
+  _injector = inject(Injector);
+  _platform = inject(Platform);
+  _document = inject(DOCUMENT);
+  _portalOutlet;
+  _focusTrapped = new Subject();
+  _focusTrap = null;
+  _elementFocusedBeforeDialogWasOpened = null;
+  _closeInteractionType = null;
+  _ariaLabelledByQueue = [];
+  _isDestroyed = false;
+  constructor() {
+    super();
+    this._config = inject(DialogConfig, {
+      optional: true
+    }) || new DialogConfig();
+    if (this._config.ariaLabelledBy) {
+      this._ariaLabelledByQueue.push(this._config.ariaLabelledBy);
+    }
+  }
+  _addAriaLabelledBy(id) {
+    this._ariaLabelledByQueue.push(id);
+    this._changeDetectorRef.markForCheck();
+  }
+  _removeAriaLabelledBy(id) {
+    const index = this._ariaLabelledByQueue.indexOf(id);
+    if (index > -1) {
+      this._ariaLabelledByQueue.splice(index, 1);
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+  _contentAttached() {
+    this._initializeFocusTrap();
+    this._captureInitialFocus();
+  }
+  _captureInitialFocus() {
+    this._trapFocus();
+  }
+  ngOnDestroy() {
+    this._focusTrapped.complete();
+    this._isDestroyed = true;
+    this._restoreFocus();
+  }
+  attachComponentPortal(portal) {
+    if (this._portalOutlet.hasAttached() && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throwDialogContentAlreadyAttachedError();
+    }
+    const result = this._portalOutlet.attachComponentPortal(portal);
+    this._contentAttached();
+    return result;
+  }
+  attachTemplatePortal(portal) {
+    if (this._portalOutlet.hasAttached() && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throwDialogContentAlreadyAttachedError();
+    }
+    const result = this._portalOutlet.attachTemplatePortal(portal);
+    this._contentAttached();
+    return result;
+  }
+  attachDomPortal = (portal) => {
+    if (this._portalOutlet.hasAttached() && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throwDialogContentAlreadyAttachedError();
+    }
+    const result = this._portalOutlet.attachDomPortal(portal);
+    this._contentAttached();
+    return result;
+  };
+  _recaptureFocus() {
+    if (!this._containsFocus()) {
+      this._trapFocus();
+    }
+  }
+  _forceFocus(element, options) {
+    if (!this._interactivityChecker.isFocusable(element)) {
+      element.tabIndex = -1;
+      this._ngZone.runOutsideAngular(() => {
+        const callback = () => {
+          deregisterBlur();
+          deregisterMousedown();
+          element.removeAttribute("tabindex");
+        };
+        const deregisterBlur = this._renderer.listen(element, "blur", callback);
+        const deregisterMousedown = this._renderer.listen(element, "mousedown", callback);
+      });
+    }
+    element.focus(options);
+  }
+  _focusByCssSelector(selector, options) {
+    let elementToFocus = this._elementRef.nativeElement.querySelector(selector);
+    if (elementToFocus) {
+      this._forceFocus(elementToFocus, options);
+    }
+  }
+  _trapFocus(options) {
+    if (this._isDestroyed) {
+      return;
+    }
+    afterNextRender(() => {
+      const element = this._elementRef.nativeElement;
+      switch (this._config.autoFocus) {
+        case false:
+        case "dialog":
+          if (!this._containsFocus()) {
+            element.focus(options);
+          }
+          break;
+        case true:
+        case "first-tabbable":
+          const focusedSuccessfully = this._focusTrap?.focusInitialElement(options);
+          if (!focusedSuccessfully) {
+            this._focusDialogContainer(options);
+          }
+          break;
+        case "first-heading":
+          this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]', options);
+          break;
+        default:
+          this._focusByCssSelector(this._config.autoFocus, options);
+          break;
+      }
+      this._focusTrapped.next();
+    }, {
+      injector: this._injector
+    });
+  }
+  _restoreFocus() {
+    const focusConfig = this._config.restoreFocus;
+    let focusTargetElement = null;
+    if (typeof focusConfig === "string") {
+      focusTargetElement = this._document.querySelector(focusConfig);
+    } else if (typeof focusConfig === "boolean") {
+      focusTargetElement = focusConfig ? this._elementFocusedBeforeDialogWasOpened : null;
+    } else if (focusConfig) {
+      focusTargetElement = focusConfig;
+    }
+    if (this._config.restoreFocus && focusTargetElement && typeof focusTargetElement.focus === "function") {
+      const activeElement = _getFocusedElementPierceShadowDom();
+      const element = this._elementRef.nativeElement;
+      if (!activeElement || activeElement === this._document.body || activeElement === element || element.contains(activeElement)) {
+        if (this._focusMonitor) {
+          this._focusMonitor.focusVia(focusTargetElement, this._closeInteractionType);
+          this._closeInteractionType = null;
+        } else {
+          focusTargetElement.focus();
+        }
+      }
+    }
+    if (this._focusTrap) {
+      this._focusTrap.destroy();
+    }
+  }
+  _focusDialogContainer(options) {
+    this._elementRef.nativeElement.focus?.(options);
+  }
+  _containsFocus() {
+    const element = this._elementRef.nativeElement;
+    const activeElement = _getFocusedElementPierceShadowDom();
+    return element === activeElement || element.contains(activeElement);
+  }
+  _initializeFocusTrap() {
+    if (this._platform.isBrowser) {
+      this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+      if (this._document) {
+        this._elementFocusedBeforeDialogWasOpened = _getFocusedElementPierceShadowDom();
+      }
+    }
+  }
+  static \u0275fac = function CdkDialogContainer_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CdkDialogContainer)();
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
+    type: _CdkDialogContainer,
+    selectors: [["cdk-dialog-container"]],
+    viewQuery: function CdkDialogContainer_Query(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275viewQuery(CdkPortalOutlet, 7);
+      }
+      if (rf & 2) {
+        let _t;
+        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._portalOutlet = _t.first);
+      }
+    },
+    hostAttrs: ["tabindex", "-1", 1, "cdk-dialog-container"],
+    hostVars: 6,
+    hostBindings: function CdkDialogContainer_HostBindings(rf, ctx) {
+      if (rf & 2) {
+        \u0275\u0275attribute("id", ctx._config.id || null)("role", ctx._config.role)("aria-modal", ctx._config.ariaModal)("aria-labelledby", ctx._config.ariaLabel ? null : ctx._ariaLabelledByQueue[0])("aria-label", ctx._config.ariaLabel)("aria-describedby", ctx._config.ariaDescribedBy || null);
+      }
+    },
+    features: [\u0275\u0275InheritDefinitionFeature],
+    decls: 1,
+    vars: 0,
+    consts: [["cdkPortalOutlet", ""]],
+    template: function CdkDialogContainer_Template(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275template(0, CdkDialogContainer_ng_template_0_Template, 0, 0, "ng-template", 0);
+      }
+    },
+    dependencies: [CdkPortalOutlet],
+    styles: [".cdk-dialog-container{display:block;width:100%;height:100%;min-height:inherit;max-height:inherit}\n"],
+    encapsulation: 2
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkDialogContainer, [{
+    type: Component,
+    args: [{
+      selector: "cdk-dialog-container",
+      encapsulation: ViewEncapsulation.None,
+      changeDetection: ChangeDetectionStrategy.Default,
+      imports: [CdkPortalOutlet],
+      host: {
+        "class": "cdk-dialog-container",
+        "tabindex": "-1",
+        "[attr.id]": "_config.id || null",
+        "[attr.role]": "_config.role",
+        "[attr.aria-modal]": "_config.ariaModal",
+        "[attr.aria-labelledby]": "_config.ariaLabel ? null : _ariaLabelledByQueue[0]",
+        "[attr.aria-label]": "_config.ariaLabel",
+        "[attr.aria-describedby]": "_config.ariaDescribedBy || null"
+      },
+      template: "<ng-template cdkPortalOutlet />\n",
+      styles: [".cdk-dialog-container{display:block;width:100%;height:100%;min-height:inherit;max-height:inherit}\n"]
+    }]
+  }], () => [], {
+    _portalOutlet: [{
+      type: ViewChild,
+      args: [CdkPortalOutlet, {
+        static: true
+      }]
+    }]
+  });
+})();
+var DialogRef = class {
+  overlayRef;
+  config;
+  componentInstance = null;
+  componentRef = null;
+  containerInstance;
+  disableClose;
+  closed = new Subject();
+  backdropClick;
+  keydownEvents;
+  outsidePointerEvents;
+  id;
+  _detachSubscription;
+  constructor(overlayRef, config) {
+    this.overlayRef = overlayRef;
+    this.config = config;
+    this.disableClose = config.disableClose;
+    this.backdropClick = overlayRef.backdropClick();
+    this.keydownEvents = overlayRef.keydownEvents();
+    this.outsidePointerEvents = overlayRef.outsidePointerEvents();
+    this.id = config.id;
+    this.keydownEvents.subscribe((event) => {
+      if (event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event)) {
+        event.preventDefault();
+        this.close(void 0, {
+          focusOrigin: "keyboard"
+        });
+      }
+    });
+    this.backdropClick.subscribe(() => {
+      if (!this.disableClose && this._canClose()) {
+        this.close(void 0, {
+          focusOrigin: "mouse"
+        });
+      } else {
+        this.containerInstance._recaptureFocus?.();
+      }
+    });
+    this._detachSubscription = overlayRef.detachments().subscribe(() => {
+      if (config.closeOnOverlayDetachments !== false) {
+        this.close();
+      }
+    });
+  }
+  close(result, options) {
+    if (this._canClose(result)) {
+      const closedSubject = this.closed;
+      this.containerInstance._closeInteractionType = options?.focusOrigin || "program";
+      this._detachSubscription.unsubscribe();
+      this.overlayRef.dispose();
+      closedSubject.next(result);
+      closedSubject.complete();
+      this.componentInstance = this.containerInstance = null;
+    }
+  }
+  updatePosition() {
+    this.overlayRef.updatePosition();
+    return this;
+  }
+  updateSize(width = "", height = "") {
+    this.overlayRef.updateSize({
+      width,
+      height
+    });
+    return this;
+  }
+  addPanelClass(classes) {
+    this.overlayRef.addPanelClass(classes);
+    return this;
+  }
+  removePanelClass(classes) {
+    this.overlayRef.removePanelClass(classes);
+    return this;
+  }
+  _canClose(result) {
+    const config = this.config;
+    return !!this.containerInstance && (!config.closePredicate || config.closePredicate(result, config, this.componentInstance));
+  }
+};
+var DIALOG_SCROLL_STRATEGY = new InjectionToken("DialogScrollStrategy", {
+  providedIn: "root",
+  factory: () => {
+    const injector = inject(Injector);
+    return () => createBlockScrollStrategy(injector);
+  }
+});
+var DIALOG_DATA = new InjectionToken("DialogData");
+var DEFAULT_DIALOG_CONFIG = new InjectionToken("DefaultDialogConfig");
+function getDirectionality(value) {
+  const valueSignal = signal(value, ...ngDevMode ? [{
+    debugName: "valueSignal"
+  }] : []);
+  const change = new EventEmitter();
+  return {
+    valueSignal,
+    get value() {
+      return valueSignal();
+    },
+    change,
+    ngOnDestroy() {
+      change.complete();
+    }
+  };
+}
+var Dialog = class _Dialog {
+  _injector = inject(Injector);
+  _defaultOptions = inject(DEFAULT_DIALOG_CONFIG, {
+    optional: true
+  });
+  _parentDialog = inject(_Dialog, {
+    optional: true,
+    skipSelf: true
+  });
+  _overlayContainer = inject(OverlayContainer);
+  _idGenerator = inject(_IdGenerator);
+  _openDialogsAtThisLevel = [];
+  _afterAllClosedAtThisLevel = new Subject();
+  _afterOpenedAtThisLevel = new Subject();
+  _ariaHiddenElements = /* @__PURE__ */ new Map();
+  _scrollStrategy = inject(DIALOG_SCROLL_STRATEGY);
+  get openDialogs() {
+    return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
+  }
+  get afterOpened() {
+    return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
+  }
+  afterAllClosed = defer(() => this.openDialogs.length ? this._getAfterAllClosed() : this._getAfterAllClosed().pipe(startWith(void 0)));
+  constructor() {
+  }
+  open(componentOrTemplateRef, config) {
+    const defaults = this._defaultOptions || new DialogConfig();
+    config = __spreadValues(__spreadValues({}, defaults), config);
+    config.id = config.id || this._idGenerator.getId("cdk-dialog-");
+    if (config.id && this.getDialogById(config.id) && (typeof ngDevMode === "undefined" || ngDevMode)) {
+      throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
+    }
+    const overlayConfig = this._getOverlayConfig(config);
+    const overlayRef = createOverlayRef(this._injector, overlayConfig);
+    const dialogRef = new DialogRef(overlayRef, config);
+    const dialogContainer = this._attachContainer(overlayRef, dialogRef, config);
+    dialogRef.containerInstance = dialogContainer;
+    if (!this.openDialogs.length) {
+      const overlayContainer = this._overlayContainer.getContainerElement();
+      if (dialogContainer._focusTrapped) {
+        dialogContainer._focusTrapped.pipe(take(1)).subscribe(() => {
+          this._hideNonDialogContentFromAssistiveTechnology(overlayContainer);
+        });
+      } else {
+        this._hideNonDialogContentFromAssistiveTechnology(overlayContainer);
+      }
+    }
+    this._attachDialogContent(componentOrTemplateRef, dialogRef, dialogContainer, config);
+    this.openDialogs.push(dialogRef);
+    dialogRef.closed.subscribe(() => this._removeOpenDialog(dialogRef, true));
+    this.afterOpened.next(dialogRef);
+    return dialogRef;
+  }
+  closeAll() {
+    reverseForEach(this.openDialogs, (dialog) => dialog.close());
+  }
+  getDialogById(id) {
+    return this.openDialogs.find((dialog) => dialog.id === id);
+  }
+  ngOnDestroy() {
+    reverseForEach(this._openDialogsAtThisLevel, (dialog) => {
+      if (dialog.config.closeOnDestroy === false) {
+        this._removeOpenDialog(dialog, false);
+      }
+    });
+    reverseForEach(this._openDialogsAtThisLevel, (dialog) => dialog.close());
+    this._afterAllClosedAtThisLevel.complete();
+    this._afterOpenedAtThisLevel.complete();
+    this._openDialogsAtThisLevel = [];
+  }
+  _getOverlayConfig(config) {
+    const state = new OverlayConfig({
+      positionStrategy: config.positionStrategy || createGlobalPositionStrategy().centerHorizontally().centerVertically(),
+      scrollStrategy: config.scrollStrategy || this._scrollStrategy(),
+      panelClass: config.panelClass,
+      hasBackdrop: config.hasBackdrop,
+      direction: config.direction,
+      minWidth: config.minWidth,
+      minHeight: config.minHeight,
+      maxWidth: config.maxWidth,
+      maxHeight: config.maxHeight,
+      width: config.width,
+      height: config.height,
+      disposeOnNavigation: config.closeOnNavigation,
+      disableAnimations: config.disableAnimations
+    });
+    if (config.backdropClass) {
+      state.backdropClass = config.backdropClass;
+    }
+    return state;
+  }
+  _attachContainer(overlay, dialogRef, config) {
+    const userInjector = config.injector || config.viewContainerRef?.injector;
+    const providers = [{
+      provide: DialogConfig,
+      useValue: config
+    }, {
+      provide: DialogRef,
+      useValue: dialogRef
+    }, {
+      provide: OverlayRef,
+      useValue: overlay
+    }];
+    let containerType;
+    if (config.container) {
+      if (typeof config.container === "function") {
+        containerType = config.container;
+      } else {
+        containerType = config.container.type;
+        providers.push(...config.container.providers(config));
+      }
+    } else {
+      containerType = CdkDialogContainer;
+    }
+    const containerPortal = new ComponentPortal(containerType, config.viewContainerRef, Injector.create({
+      parent: userInjector || this._injector,
+      providers
+    }));
+    const containerRef = overlay.attach(containerPortal);
+    return containerRef.instance;
+  }
+  _attachDialogContent(componentOrTemplateRef, dialogRef, dialogContainer, config) {
+    if (componentOrTemplateRef instanceof TemplateRef) {
+      const injector = this._createInjector(config, dialogRef, dialogContainer, void 0);
+      let context = {
+        $implicit: config.data,
+        dialogRef
+      };
+      if (config.templateContext) {
+        context = __spreadValues(__spreadValues({}, context), typeof config.templateContext === "function" ? config.templateContext() : config.templateContext);
+      }
+      dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, context, injector));
+    } else {
+      const injector = this._createInjector(config, dialogRef, dialogContainer, this._injector);
+      const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
+      dialogRef.componentRef = contentRef;
+      dialogRef.componentInstance = contentRef.instance;
+    }
+  }
+  _createInjector(config, dialogRef, dialogContainer, fallbackInjector) {
+    const userInjector = config.injector || config.viewContainerRef?.injector;
+    const providers = [{
+      provide: DIALOG_DATA,
+      useValue: config.data
+    }, {
+      provide: DialogRef,
+      useValue: dialogRef
+    }];
+    if (config.providers) {
+      if (typeof config.providers === "function") {
+        providers.push(...config.providers(dialogRef, config, dialogContainer));
+      } else {
+        providers.push(...config.providers);
+      }
+    }
+    if (config.direction && (!userInjector || !userInjector.get(Directionality, null, {
+      optional: true
+    }))) {
+      providers.push({
+        provide: Directionality,
+        useValue: getDirectionality(config.direction)
+      });
+    }
+    return Injector.create({
+      parent: userInjector || fallbackInjector,
+      providers
+    });
+  }
+  _removeOpenDialog(dialogRef, emitEvent) {
+    const index = this.openDialogs.indexOf(dialogRef);
+    if (index > -1) {
+      this.openDialogs.splice(index, 1);
+      if (!this.openDialogs.length) {
+        this._ariaHiddenElements.forEach((previousValue, element) => {
+          if (previousValue) {
+            element.setAttribute("aria-hidden", previousValue);
+          } else {
+            element.removeAttribute("aria-hidden");
+          }
+        });
+        this._ariaHiddenElements.clear();
+        if (emitEvent) {
+          this._getAfterAllClosed().next();
+        }
+      }
+    }
+  }
+  _hideNonDialogContentFromAssistiveTechnology(overlayContainer) {
+    if (overlayContainer.parentElement) {
+      const siblings = overlayContainer.parentElement.children;
+      for (let i = siblings.length - 1; i > -1; i--) {
+        const sibling = siblings[i];
+        if (sibling !== overlayContainer && sibling.nodeName !== "SCRIPT" && sibling.nodeName !== "STYLE" && !sibling.hasAttribute("aria-live") && !sibling.hasAttribute("popover")) {
+          this._ariaHiddenElements.set(sibling, sibling.getAttribute("aria-hidden"));
+          sibling.setAttribute("aria-hidden", "true");
+        }
+      }
+    }
+  }
+  _getAfterAllClosed() {
+    const parent = this._parentDialog;
+    return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
+  }
+  static \u0275fac = function Dialog_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Dialog)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _Dialog,
+    factory: _Dialog.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Dialog, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+function reverseForEach(items, callback) {
+  let i = items.length;
+  while (i--) {
+    callback(items[i]);
+  }
+}
+var DialogModule = class _DialogModule {
+  static \u0275fac = function DialogModule_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _DialogModule)();
+  };
+  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
+    type: _DialogModule,
+    imports: [OverlayModule, PortalModule, A11yModule, CdkDialogContainer],
+    exports: [PortalModule, CdkDialogContainer]
+  });
+  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
+    providers: [Dialog],
+    imports: [OverlayModule, PortalModule, A11yModule, PortalModule]
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DialogModule, [{
+    type: NgModule,
+    args: [{
+      imports: [OverlayModule, PortalModule, A11yModule, CdkDialogContainer],
+      exports: [PortalModule, CdkDialogContainer],
+      providers: [Dialog]
+    }]
+  }], null, null);
+})();
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
 var BaseControlValueAccessor = class _BaseControlValueAccessor {
@@ -18674,5085 +25539,6 @@ var UniqueSelectionDispatcher = class _UniqueSelectionDispatcher {
   }], null, null);
 })();
 
-// node_modules/@angular/cdk/fesm2022/_id-generator-chunk.mjs
-var counters = {};
-var _IdGenerator = class __IdGenerator {
-  _appId = inject(APP_ID);
-  static _infix = `a${Math.floor(Math.random() * 1e5).toString()}`;
-  getId(prefix, randomize = false) {
-    if (this._appId !== "ng") {
-      prefix += this._appId;
-    }
-    if (!counters.hasOwnProperty(prefix)) {
-      counters[prefix] = 0;
-    }
-    return `${prefix}${randomize ? __IdGenerator._infix + "-" : ""}${counters[prefix]++}`;
-  }
-  static \u0275fac = function _IdGenerator_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __IdGenerator)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: __IdGenerator,
-    factory: __IdGenerator.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_IdGenerator, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_platform-chunk.mjs
-var hasV8BreakIterator;
-try {
-  hasV8BreakIterator = typeof Intl !== "undefined" && Intl.v8BreakIterator;
-} catch {
-  hasV8BreakIterator = false;
-}
-var Platform = class _Platform {
-  _platformId = inject(PLATFORM_ID);
-  isBrowser = this._platformId ? isPlatformBrowser(this._platformId) : typeof document === "object" && !!document;
-  EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
-  TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
-  BLINK = this.isBrowser && !!(window.chrome || hasV8BreakIterator) && typeof CSS !== "undefined" && !this.EDGE && !this.TRIDENT;
-  WEBKIT = this.isBrowser && /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
-  IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
-  FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
-  ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
-  SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
-  constructor() {
-  }
-  static \u0275fac = function Platform_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Platform)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _Platform,
-    factory: _Platform.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Platform, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_shadow-dom-chunk.mjs
-var shadowDomIsSupported;
-function _supportsShadowDom() {
-  if (shadowDomIsSupported == null) {
-    const head = typeof document !== "undefined" ? document.head : null;
-    shadowDomIsSupported = !!(head && (head.createShadowRoot || head.attachShadow));
-  }
-  return shadowDomIsSupported;
-}
-function _getShadowRoot(element) {
-  if (_supportsShadowDom()) {
-    const rootNode = element.getRootNode ? element.getRootNode() : null;
-    if (typeof ShadowRoot !== "undefined" && ShadowRoot && rootNode instanceof ShadowRoot) {
-      return rootNode;
-    }
-  }
-  return null;
-}
-function _getFocusedElementPierceShadowDom() {
-  let activeElement = typeof document !== "undefined" && document ? document.activeElement : null;
-  while (activeElement && activeElement.shadowRoot) {
-    const newActiveElement = activeElement.shadowRoot.activeElement;
-    if (newActiveElement === activeElement) {
-      break;
-    } else {
-      activeElement = newActiveElement;
-    }
-  }
-  return activeElement;
-}
-function _getEventTarget(event2) {
-  return event2.composedPath ? event2.composedPath()[0] : event2.target;
-}
-
-// node_modules/@angular/cdk/fesm2022/_test-environment-chunk.mjs
-function _isTestEnvironment() {
-  return typeof __karma__ !== "undefined" && !!__karma__ || typeof jasmine !== "undefined" && !!jasmine || typeof jest !== "undefined" && !!jest || typeof Mocha !== "undefined" && !!Mocha;
-}
-
-// node_modules/@angular/cdk/fesm2022/_style-loader-chunk.mjs
-var appsWithLoaders = /* @__PURE__ */ new WeakMap();
-var _CdkPrivateStyleLoader = class __CdkPrivateStyleLoader {
-  _appRef;
-  _injector = inject(Injector);
-  _environmentInjector = inject(EnvironmentInjector);
-  load(loader) {
-    const appRef = this._appRef = this._appRef || this._injector.get(ApplicationRef);
-    let data = appsWithLoaders.get(appRef);
-    if (!data) {
-      data = {
-        loaders: /* @__PURE__ */ new Set(),
-        refs: []
-      };
-      appsWithLoaders.set(appRef, data);
-      appRef.onDestroy(() => {
-        appsWithLoaders.get(appRef)?.refs.forEach((ref) => ref.destroy());
-        appsWithLoaders.delete(appRef);
-      });
-    }
-    if (!data.loaders.has(loader)) {
-      data.loaders.add(loader);
-      data.refs.push(createComponent(loader, {
-        environmentInjector: this._environmentInjector
-      }));
-    }
-  }
-  static \u0275fac = function _CdkPrivateStyleLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __CdkPrivateStyleLoader)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: __CdkPrivateStyleLoader,
-    factory: __CdkPrivateStyleLoader.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_CdkPrivateStyleLoader, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_css-pixel-value-chunk.mjs
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-
-// node_modules/@angular/cdk/fesm2022/_array-chunk.mjs
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-
-// node_modules/@angular/cdk/fesm2022/_element-chunk.mjs
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
-
-// node_modules/@angular/cdk/fesm2022/_directionality-chunk.mjs
-var DIR_DOCUMENT = new InjectionToken("cdk-dir-doc", {
-  providedIn: "root",
-  factory: () => inject(DOCUMENT)
-});
-var RTL_LOCALE_PATTERN = /^(ar|ckb|dv|he|iw|fa|nqo|ps|sd|ug|ur|yi|.*[-_](Adlm|Arab|Hebr|Nkoo|Rohg|Thaa))(?!.*[-_](Latn|Cyrl)($|-|_))($|-|_)/i;
-function _resolveDirectionality(rawValue) {
-  const value = rawValue?.toLowerCase() || "";
-  if (value === "auto" && typeof navigator !== "undefined" && navigator?.language) {
-    return RTL_LOCALE_PATTERN.test(navigator.language) ? "rtl" : "ltr";
-  }
-  return value === "rtl" ? "rtl" : "ltr";
-}
-var Directionality = class _Directionality {
-  get value() {
-    return this.valueSignal();
-  }
-  valueSignal = signal("ltr", ...ngDevMode ? [{
-    debugName: "valueSignal"
-  }] : []);
-  change = new EventEmitter();
-  constructor() {
-    const _document2 = inject(DIR_DOCUMENT, {
-      optional: true
-    });
-    if (_document2) {
-      const bodyDir = _document2.body ? _document2.body.dir : null;
-      const htmlDir = _document2.documentElement ? _document2.documentElement.dir : null;
-      this.valueSignal.set(_resolveDirectionality(bodyDir || htmlDir || "ltr"));
-    }
-  }
-  ngOnDestroy() {
-    this.change.complete();
-  }
-  static \u0275fac = function Directionality_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Directionality)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _Directionality,
-    factory: _Directionality.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Directionality, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_scrolling-chunk.mjs
-var RtlScrollAxisType;
-(function(RtlScrollAxisType2) {
-  RtlScrollAxisType2[RtlScrollAxisType2["NORMAL"] = 0] = "NORMAL";
-  RtlScrollAxisType2[RtlScrollAxisType2["NEGATED"] = 1] = "NEGATED";
-  RtlScrollAxisType2[RtlScrollAxisType2["INVERTED"] = 2] = "INVERTED";
-})(RtlScrollAxisType || (RtlScrollAxisType = {}));
-var rtlScrollAxisType;
-var scrollBehaviorSupported;
-function supportsScrollBehavior() {
-  if (scrollBehaviorSupported == null) {
-    if (typeof document !== "object" || !document || typeof Element !== "function" || !Element) {
-      scrollBehaviorSupported = false;
-      return scrollBehaviorSupported;
-    }
-    if (document.documentElement?.style && "scrollBehavior" in document.documentElement.style) {
-      scrollBehaviorSupported = true;
-    } else {
-      const scrollToFunction = Element.prototype.scrollTo;
-      if (scrollToFunction) {
-        scrollBehaviorSupported = !/\{\s*\[native code\]\s*\}/.test(scrollToFunction.toString());
-      } else {
-        scrollBehaviorSupported = false;
-      }
-    }
-  }
-  return scrollBehaviorSupported;
-}
-function getRtlScrollAxisType() {
-  if (typeof document !== "object" || !document) {
-    return RtlScrollAxisType.NORMAL;
-  }
-  if (rtlScrollAxisType == null) {
-    const scrollContainer = document.createElement("div");
-    const containerStyle = scrollContainer.style;
-    scrollContainer.dir = "rtl";
-    containerStyle.width = "1px";
-    containerStyle.overflow = "auto";
-    containerStyle.visibility = "hidden";
-    containerStyle.pointerEvents = "none";
-    containerStyle.position = "absolute";
-    const content = document.createElement("div");
-    const contentStyle = content.style;
-    contentStyle.width = "2px";
-    contentStyle.height = "1px";
-    scrollContainer.appendChild(content);
-    document.body.appendChild(scrollContainer);
-    rtlScrollAxisType = RtlScrollAxisType.NORMAL;
-    if (scrollContainer.scrollLeft === 0) {
-      scrollContainer.scrollLeft = 1;
-      rtlScrollAxisType = scrollContainer.scrollLeft === 0 ? RtlScrollAxisType.NEGATED : RtlScrollAxisType.INVERTED;
-    }
-    scrollContainer.remove();
-  }
-  return rtlScrollAxisType;
-}
-
-// node_modules/@angular/cdk/fesm2022/bidi.mjs
-var Dir = class _Dir {
-  _isInitialized = false;
-  _rawDir = "";
-  change = new EventEmitter();
-  get dir() {
-    return this.valueSignal();
-  }
-  set dir(value) {
-    const previousValue = this.valueSignal();
-    this.valueSignal.set(_resolveDirectionality(value));
-    this._rawDir = value;
-    if (previousValue !== this.valueSignal() && this._isInitialized) {
-      this.change.emit(this.valueSignal());
-    }
-  }
-  get value() {
-    return this.dir;
-  }
-  valueSignal = signal("ltr", ...ngDevMode ? [{
-    debugName: "valueSignal"
-  }] : []);
-  ngAfterContentInit() {
-    this._isInitialized = true;
-  }
-  ngOnDestroy() {
-    this.change.complete();
-  }
-  static \u0275fac = function Dir_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Dir)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _Dir,
-    selectors: [["", "dir", ""]],
-    hostVars: 1,
-    hostBindings: function Dir_HostBindings(rf, ctx) {
-      if (rf & 2) {
-        \u0275\u0275attribute("dir", ctx._rawDir);
-      }
-    },
-    inputs: {
-      dir: "dir"
-    },
-    outputs: {
-      change: "dirChange"
-    },
-    exportAs: ["dir"],
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: Directionality,
-      useExisting: _Dir
-    }])]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Dir, [{
-    type: Directive,
-    args: [{
-      selector: "[dir]",
-      providers: [{
-        provide: Directionality,
-        useExisting: Dir
-      }],
-      host: {
-        "[attr.dir]": "_rawDir"
-      },
-      exportAs: "dir"
-    }]
-  }], null, {
-    change: [{
-      type: Output,
-      args: ["dirChange"]
-    }],
-    dir: [{
-      type: Input
-    }]
-  });
-})();
-var BidiModule = class _BidiModule {
-  static \u0275fac = function BidiModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BidiModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _BidiModule,
-    imports: [Dir],
-    exports: [Dir]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BidiModule, [{
-    type: NgModule,
-    args: [{
-      imports: [Dir],
-      exports: [Dir]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_data-source-chunk.mjs
-var DataSource = class {
-};
-function isDataSource(value) {
-  return value && typeof value.connect === "function" && !(value instanceof ConnectableObservable);
-}
-
-// node_modules/@angular/cdk/fesm2022/_recycle-view-repeater-strategy-chunk.mjs
-var ArrayDataSource = class extends DataSource {
-  _data;
-  constructor(_data) {
-    super();
-    this._data = _data;
-  }
-  connect() {
-    return isObservable(this._data) ? this._data : of(this._data);
-  }
-  disconnect() {
-  }
-};
-var _ViewRepeaterOperation;
-(function(_ViewRepeaterOperation2) {
-  _ViewRepeaterOperation2[_ViewRepeaterOperation2["REPLACED"] = 0] = "REPLACED";
-  _ViewRepeaterOperation2[_ViewRepeaterOperation2["INSERTED"] = 1] = "INSERTED";
-  _ViewRepeaterOperation2[_ViewRepeaterOperation2["MOVED"] = 2] = "MOVED";
-  _ViewRepeaterOperation2[_ViewRepeaterOperation2["REMOVED"] = 3] = "REMOVED";
-})(_ViewRepeaterOperation || (_ViewRepeaterOperation = {}));
-var _RecycleViewRepeaterStrategy = class {
-  viewCacheSize = 20;
-  _viewCache = [];
-  applyChanges(changes, viewContainerRef, itemContextFactory, itemValueResolver, itemViewChanged) {
-    changes.forEachOperation((record, adjustedPreviousIndex, currentIndex) => {
-      let view;
-      let operation;
-      if (record.previousIndex == null) {
-        const viewArgsFactory = () => itemContextFactory(record, adjustedPreviousIndex, currentIndex);
-        view = this._insertView(viewArgsFactory, currentIndex, viewContainerRef, itemValueResolver(record));
-        operation = view ? _ViewRepeaterOperation.INSERTED : _ViewRepeaterOperation.REPLACED;
-      } else if (currentIndex == null) {
-        this._detachAndCacheView(adjustedPreviousIndex, viewContainerRef);
-        operation = _ViewRepeaterOperation.REMOVED;
-      } else {
-        view = this._moveView(adjustedPreviousIndex, currentIndex, viewContainerRef, itemValueResolver(record));
-        operation = _ViewRepeaterOperation.MOVED;
-      }
-      if (itemViewChanged) {
-        itemViewChanged({
-          context: view?.context,
-          operation,
-          record
-        });
-      }
-    });
-  }
-  detach() {
-    for (const view of this._viewCache) {
-      view.destroy();
-    }
-    this._viewCache = [];
-  }
-  _insertView(viewArgsFactory, currentIndex, viewContainerRef, value) {
-    const cachedView = this._insertViewFromCache(currentIndex, viewContainerRef);
-    if (cachedView) {
-      cachedView.context.$implicit = value;
-      return void 0;
-    }
-    const viewArgs = viewArgsFactory();
-    return viewContainerRef.createEmbeddedView(viewArgs.templateRef, viewArgs.context, viewArgs.index);
-  }
-  _detachAndCacheView(index, viewContainerRef) {
-    const detachedView = viewContainerRef.detach(index);
-    this._maybeCacheView(detachedView, viewContainerRef);
-  }
-  _moveView(adjustedPreviousIndex, currentIndex, viewContainerRef, value) {
-    const view = viewContainerRef.get(adjustedPreviousIndex);
-    viewContainerRef.move(view, currentIndex);
-    view.context.$implicit = value;
-    return view;
-  }
-  _maybeCacheView(view, viewContainerRef) {
-    if (this._viewCache.length < this.viewCacheSize) {
-      this._viewCache.push(view);
-    } else {
-      const index = viewContainerRef.indexOf(view);
-      if (index === -1) {
-        view.destroy();
-      } else {
-        viewContainerRef.remove(index);
-      }
-    }
-  }
-  _insertViewFromCache(index, viewContainerRef) {
-    const cachedView = this._viewCache.pop();
-    if (cachedView) {
-      viewContainerRef.insert(cachedView, index);
-    }
-    return cachedView || null;
-  }
-};
-
-// node_modules/@angular/cdk/fesm2022/scrolling.mjs
-var _c0 = ["contentWrapper"];
-var _c1 = ["*"];
-var VIRTUAL_SCROLL_STRATEGY = new InjectionToken("VIRTUAL_SCROLL_STRATEGY");
-var FixedSizeVirtualScrollStrategy = class {
-  _scrolledIndexChange = new Subject();
-  scrolledIndexChange = this._scrolledIndexChange.pipe(distinctUntilChanged());
-  _viewport = null;
-  _itemSize;
-  _minBufferPx;
-  _maxBufferPx;
-  constructor(itemSize, minBufferPx, maxBufferPx) {
-    this._itemSize = itemSize;
-    this._minBufferPx = minBufferPx;
-    this._maxBufferPx = maxBufferPx;
-  }
-  attach(viewport) {
-    this._viewport = viewport;
-    this._updateTotalContentSize();
-    this._updateRenderedRange();
-  }
-  detach() {
-    this._scrolledIndexChange.complete();
-    this._viewport = null;
-  }
-  updateItemAndBufferSize(itemSize, minBufferPx, maxBufferPx) {
-    if (maxBufferPx < minBufferPx && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("CDK virtual scroll: maxBufferPx must be greater than or equal to minBufferPx");
-    }
-    this._itemSize = itemSize;
-    this._minBufferPx = minBufferPx;
-    this._maxBufferPx = maxBufferPx;
-    this._updateTotalContentSize();
-    this._updateRenderedRange();
-  }
-  onContentScrolled() {
-    this._updateRenderedRange();
-  }
-  onDataLengthChanged() {
-    this._updateTotalContentSize();
-    this._updateRenderedRange();
-  }
-  onContentRendered() {
-  }
-  onRenderedOffsetChanged() {
-  }
-  scrollToIndex(index, behavior) {
-    if (this._viewport) {
-      this._viewport.scrollToOffset(index * this._itemSize, behavior);
-    }
-  }
-  _updateTotalContentSize() {
-    if (!this._viewport) {
-      return;
-    }
-    this._viewport.setTotalContentSize(this._viewport.getDataLength() * this._itemSize);
-  }
-  _updateRenderedRange() {
-    if (!this._viewport) {
-      return;
-    }
-    const renderedRange = this._viewport.getRenderedRange();
-    const newRange = {
-      start: renderedRange.start,
-      end: renderedRange.end
-    };
-    const viewportSize = this._viewport.getViewportSize();
-    const dataLength = this._viewport.getDataLength();
-    let scrollOffset = this._viewport.measureScrollOffset();
-    let firstVisibleIndex = this._itemSize > 0 ? scrollOffset / this._itemSize : 0;
-    if (newRange.end > dataLength) {
-      const maxVisibleItems = Math.ceil(viewportSize / this._itemSize);
-      const newVisibleIndex = Math.max(0, Math.min(firstVisibleIndex, dataLength - maxVisibleItems));
-      if (firstVisibleIndex != newVisibleIndex) {
-        firstVisibleIndex = newVisibleIndex;
-        scrollOffset = newVisibleIndex * this._itemSize;
-        newRange.start = Math.floor(firstVisibleIndex);
-      }
-      newRange.end = Math.max(0, Math.min(dataLength, newRange.start + maxVisibleItems));
-    }
-    const startBuffer = scrollOffset - newRange.start * this._itemSize;
-    if (startBuffer < this._minBufferPx && newRange.start != 0) {
-      const expandStart = Math.ceil((this._maxBufferPx - startBuffer) / this._itemSize);
-      newRange.start = Math.max(0, newRange.start - expandStart);
-      newRange.end = Math.min(dataLength, Math.ceil(firstVisibleIndex + (viewportSize + this._minBufferPx) / this._itemSize));
-    } else {
-      const endBuffer = newRange.end * this._itemSize - (scrollOffset + viewportSize);
-      if (endBuffer < this._minBufferPx && newRange.end != dataLength) {
-        const expandEnd = Math.ceil((this._maxBufferPx - endBuffer) / this._itemSize);
-        if (expandEnd > 0) {
-          newRange.end = Math.min(dataLength, newRange.end + expandEnd);
-          newRange.start = Math.max(0, Math.floor(firstVisibleIndex - this._minBufferPx / this._itemSize));
-        }
-      }
-    }
-    this._viewport.setRenderedRange(newRange);
-    this._viewport.setRenderedContentOffset(Math.round(this._itemSize * newRange.start));
-    this._scrolledIndexChange.next(Math.floor(firstVisibleIndex));
-  }
-};
-function _fixedSizeVirtualScrollStrategyFactory(fixedSizeDir) {
-  return fixedSizeDir._scrollStrategy;
-}
-var CdkFixedSizeVirtualScroll = class _CdkFixedSizeVirtualScroll {
-  get itemSize() {
-    return this._itemSize;
-  }
-  set itemSize(value) {
-    this._itemSize = coerceNumberProperty(value);
-  }
-  _itemSize = 20;
-  get minBufferPx() {
-    return this._minBufferPx;
-  }
-  set minBufferPx(value) {
-    this._minBufferPx = coerceNumberProperty(value);
-  }
-  _minBufferPx = 100;
-  get maxBufferPx() {
-    return this._maxBufferPx;
-  }
-  set maxBufferPx(value) {
-    this._maxBufferPx = coerceNumberProperty(value);
-  }
-  _maxBufferPx = 200;
-  _scrollStrategy = new FixedSizeVirtualScrollStrategy(this.itemSize, this.minBufferPx, this.maxBufferPx);
-  ngOnChanges() {
-    this._scrollStrategy.updateItemAndBufferSize(this.itemSize, this.minBufferPx, this.maxBufferPx);
-  }
-  static \u0275fac = function CdkFixedSizeVirtualScroll_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkFixedSizeVirtualScroll)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkFixedSizeVirtualScroll,
-    selectors: [["cdk-virtual-scroll-viewport", "itemSize", ""]],
-    inputs: {
-      itemSize: "itemSize",
-      minBufferPx: "minBufferPx",
-      maxBufferPx: "maxBufferPx"
-    },
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: VIRTUAL_SCROLL_STRATEGY,
-      useFactory: _fixedSizeVirtualScrollStrategyFactory,
-      deps: [forwardRef(() => _CdkFixedSizeVirtualScroll)]
-    }]), \u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkFixedSizeVirtualScroll, [{
-    type: Directive,
-    args: [{
-      selector: "cdk-virtual-scroll-viewport[itemSize]",
-      providers: [{
-        provide: VIRTUAL_SCROLL_STRATEGY,
-        useFactory: _fixedSizeVirtualScrollStrategyFactory,
-        deps: [forwardRef(() => CdkFixedSizeVirtualScroll)]
-      }]
-    }]
-  }], null, {
-    itemSize: [{
-      type: Input
-    }],
-    minBufferPx: [{
-      type: Input
-    }],
-    maxBufferPx: [{
-      type: Input
-    }]
-  });
-})();
-var DEFAULT_SCROLL_TIME = 20;
-var ScrollDispatcher = class _ScrollDispatcher {
-  _ngZone = inject(NgZone);
-  _platform = inject(Platform);
-  _renderer = inject(RendererFactory2).createRenderer(null, null);
-  _cleanupGlobalListener;
-  constructor() {
-  }
-  _scrolled = new Subject();
-  _scrolledCount = 0;
-  scrollContainers = /* @__PURE__ */ new Map();
-  register(scrollable) {
-    if (!this.scrollContainers.has(scrollable)) {
-      this.scrollContainers.set(scrollable, scrollable.elementScrolled().subscribe(() => this._scrolled.next(scrollable)));
-    }
-  }
-  deregister(scrollable) {
-    const scrollableReference = this.scrollContainers.get(scrollable);
-    if (scrollableReference) {
-      scrollableReference.unsubscribe();
-      this.scrollContainers.delete(scrollable);
-    }
-  }
-  scrolled(auditTimeInMs = DEFAULT_SCROLL_TIME) {
-    if (!this._platform.isBrowser) {
-      return of();
-    }
-    return new Observable((observer) => {
-      if (!this._cleanupGlobalListener) {
-        this._cleanupGlobalListener = this._ngZone.runOutsideAngular(() => this._renderer.listen("document", "scroll", () => this._scrolled.next()));
-      }
-      const subscription = auditTimeInMs > 0 ? this._scrolled.pipe(auditTime(auditTimeInMs)).subscribe(observer) : this._scrolled.subscribe(observer);
-      this._scrolledCount++;
-      return () => {
-        subscription.unsubscribe();
-        this._scrolledCount--;
-        if (!this._scrolledCount) {
-          this._cleanupGlobalListener?.();
-          this._cleanupGlobalListener = void 0;
-        }
-      };
-    });
-  }
-  ngOnDestroy() {
-    this._cleanupGlobalListener?.();
-    this._cleanupGlobalListener = void 0;
-    this.scrollContainers.forEach((_, container) => this.deregister(container));
-    this._scrolled.complete();
-  }
-  ancestorScrolled(elementOrElementRef, auditTimeInMs) {
-    const ancestors = this.getAncestorScrollContainers(elementOrElementRef);
-    return this.scrolled(auditTimeInMs).pipe(filter((target) => !target || ancestors.indexOf(target) > -1));
-  }
-  getAncestorScrollContainers(elementOrElementRef) {
-    const scrollingContainers = [];
-    this.scrollContainers.forEach((_subscription, scrollable) => {
-      if (this._scrollableContainsElement(scrollable, elementOrElementRef)) {
-        scrollingContainers.push(scrollable);
-      }
-    });
-    return scrollingContainers;
-  }
-  _scrollableContainsElement(scrollable, elementOrElementRef) {
-    let element = coerceElement(elementOrElementRef);
-    let scrollableElement = scrollable.getElementRef().nativeElement;
-    do {
-      if (element == scrollableElement) {
-        return true;
-      }
-    } while (element = element.parentElement);
-    return false;
-  }
-  static \u0275fac = function ScrollDispatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ScrollDispatcher)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _ScrollDispatcher,
-    factory: _ScrollDispatcher.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollDispatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkScrollable = class _CdkScrollable {
-  elementRef = inject(ElementRef);
-  scrollDispatcher = inject(ScrollDispatcher);
-  ngZone = inject(NgZone);
-  dir = inject(Directionality, {
-    optional: true
-  });
-  _scrollElement = this.elementRef.nativeElement;
-  _destroyed = new Subject();
-  _renderer = inject(Renderer2);
-  _cleanupScroll;
-  _elementScrolled = new Subject();
-  constructor() {
-  }
-  ngOnInit() {
-    this._cleanupScroll = this.ngZone.runOutsideAngular(() => this._renderer.listen(this._scrollElement, "scroll", (event2) => this._elementScrolled.next(event2)));
-    this.scrollDispatcher.register(this);
-  }
-  ngOnDestroy() {
-    this._cleanupScroll?.();
-    this._elementScrolled.complete();
-    this.scrollDispatcher.deregister(this);
-    this._destroyed.next();
-    this._destroyed.complete();
-  }
-  elementScrolled() {
-    return this._elementScrolled;
-  }
-  getElementRef() {
-    return this.elementRef;
-  }
-  scrollTo(options) {
-    const el = this.elementRef.nativeElement;
-    const isRtl = this.dir && this.dir.value == "rtl";
-    if (options.left == null) {
-      options.left = isRtl ? options.end : options.start;
-    }
-    if (options.right == null) {
-      options.right = isRtl ? options.start : options.end;
-    }
-    if (options.bottom != null) {
-      options.top = el.scrollHeight - el.clientHeight - options.bottom;
-    }
-    if (isRtl && getRtlScrollAxisType() != RtlScrollAxisType.NORMAL) {
-      if (options.left != null) {
-        options.right = el.scrollWidth - el.clientWidth - options.left;
-      }
-      if (getRtlScrollAxisType() == RtlScrollAxisType.INVERTED) {
-        options.left = options.right;
-      } else if (getRtlScrollAxisType() == RtlScrollAxisType.NEGATED) {
-        options.left = options.right ? -options.right : options.right;
-      }
-    } else {
-      if (options.right != null) {
-        options.left = el.scrollWidth - el.clientWidth - options.right;
-      }
-    }
-    this._applyScrollToOptions(options);
-  }
-  _applyScrollToOptions(options) {
-    const el = this.elementRef.nativeElement;
-    if (supportsScrollBehavior()) {
-      el.scrollTo(options);
-    } else {
-      if (options.top != null) {
-        el.scrollTop = options.top;
-      }
-      if (options.left != null) {
-        el.scrollLeft = options.left;
-      }
-    }
-  }
-  measureScrollOffset(from2) {
-    const LEFT = "left";
-    const RIGHT = "right";
-    const el = this.elementRef.nativeElement;
-    if (from2 == "top") {
-      return el.scrollTop;
-    }
-    if (from2 == "bottom") {
-      return el.scrollHeight - el.clientHeight - el.scrollTop;
-    }
-    const isRtl = this.dir && this.dir.value == "rtl";
-    if (from2 == "start") {
-      from2 = isRtl ? RIGHT : LEFT;
-    } else if (from2 == "end") {
-      from2 = isRtl ? LEFT : RIGHT;
-    }
-    if (isRtl && getRtlScrollAxisType() == RtlScrollAxisType.INVERTED) {
-      if (from2 == LEFT) {
-        return el.scrollWidth - el.clientWidth - el.scrollLeft;
-      } else {
-        return el.scrollLeft;
-      }
-    } else if (isRtl && getRtlScrollAxisType() == RtlScrollAxisType.NEGATED) {
-      if (from2 == LEFT) {
-        return el.scrollLeft + el.scrollWidth - el.clientWidth;
-      } else {
-        return -el.scrollLeft;
-      }
-    } else {
-      if (from2 == LEFT) {
-        return el.scrollLeft;
-      } else {
-        return el.scrollWidth - el.clientWidth - el.scrollLeft;
-      }
-    }
-  }
-  static \u0275fac = function CdkScrollable_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkScrollable)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkScrollable,
-    selectors: [["", "cdk-scrollable", ""], ["", "cdkScrollable", ""]]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkScrollable, [{
-    type: Directive,
-    args: [{
-      selector: "[cdk-scrollable], [cdkScrollable]"
-    }]
-  }], () => [], null);
-})();
-var DEFAULT_RESIZE_TIME = 20;
-var ViewportRuler = class _ViewportRuler {
-  _platform = inject(Platform);
-  _listeners;
-  _viewportSize = null;
-  _change = new Subject();
-  _document = inject(DOCUMENT);
-  constructor() {
-    const ngZone = inject(NgZone);
-    const renderer = inject(RendererFactory2).createRenderer(null, null);
-    ngZone.runOutsideAngular(() => {
-      if (this._platform.isBrowser) {
-        const changeListener = (event2) => this._change.next(event2);
-        this._listeners = [renderer.listen("window", "resize", changeListener), renderer.listen("window", "orientationchange", changeListener)];
-      }
-      this.change().subscribe(() => this._viewportSize = null);
-    });
-  }
-  ngOnDestroy() {
-    this._listeners?.forEach((cleanup) => cleanup());
-    this._change.complete();
-  }
-  getViewportSize() {
-    if (!this._viewportSize) {
-      this._updateViewportSize();
-    }
-    const output2 = {
-      width: this._viewportSize.width,
-      height: this._viewportSize.height
-    };
-    if (!this._platform.isBrowser) {
-      this._viewportSize = null;
-    }
-    return output2;
-  }
-  getViewportRect() {
-    const scrollPosition = this.getViewportScrollPosition();
-    const {
-      width,
-      height
-    } = this.getViewportSize();
-    return {
-      top: scrollPosition.top,
-      left: scrollPosition.left,
-      bottom: scrollPosition.top + height,
-      right: scrollPosition.left + width,
-      height,
-      width
-    };
-  }
-  getViewportScrollPosition() {
-    if (!this._platform.isBrowser) {
-      return {
-        top: 0,
-        left: 0
-      };
-    }
-    const document2 = this._document;
-    const window2 = this._getWindow();
-    const documentElement = document2.documentElement;
-    const documentRect = documentElement.getBoundingClientRect();
-    const top = -documentRect.top || document2.body?.scrollTop || window2.scrollY || documentElement.scrollTop || 0;
-    const left = -documentRect.left || document2.body?.scrollLeft || window2.scrollX || documentElement.scrollLeft || 0;
-    return {
-      top,
-      left
-    };
-  }
-  change(throttleTime = DEFAULT_RESIZE_TIME) {
-    return throttleTime > 0 ? this._change.pipe(auditTime(throttleTime)) : this._change;
-  }
-  _getWindow() {
-    return this._document.defaultView || window;
-  }
-  _updateViewportSize() {
-    const window2 = this._getWindow();
-    this._viewportSize = this._platform.isBrowser ? {
-      width: window2.innerWidth,
-      height: window2.innerHeight
-    } : {
-      width: 0,
-      height: 0
-    };
-  }
-  static \u0275fac = function ViewportRuler_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ViewportRuler)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _ViewportRuler,
-    factory: _ViewportRuler.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ViewportRuler, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var VIRTUAL_SCROLLABLE = new InjectionToken("VIRTUAL_SCROLLABLE");
-var CdkVirtualScrollable = class _CdkVirtualScrollable extends CdkScrollable {
-  constructor() {
-    super();
-  }
-  measureViewportSize(orientation) {
-    const viewportEl = this.elementRef.nativeElement;
-    return orientation === "horizontal" ? viewportEl.clientWidth : viewportEl.clientHeight;
-  }
-  static \u0275fac = function CdkVirtualScrollable_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkVirtualScrollable)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkVirtualScrollable,
-    features: [\u0275\u0275InheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollable, [{
-    type: Directive
-  }], () => [], null);
-})();
-function rangesEqual(r1, r2) {
-  return r1.start == r2.start && r1.end == r2.end;
-}
-var SCROLL_SCHEDULER = typeof requestAnimationFrame !== "undefined" ? animationFrameScheduler : asapScheduler;
-var CDK_VIRTUAL_SCROLL_VIEWPORT = new InjectionToken("CDK_VIRTUAL_SCROLL_VIEWPORT");
-var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtualScrollable {
-  elementRef = inject(ElementRef);
-  _changeDetectorRef = inject(ChangeDetectorRef);
-  _scrollStrategy = inject(VIRTUAL_SCROLL_STRATEGY, {
-    optional: true
-  });
-  scrollable = inject(VIRTUAL_SCROLLABLE, {
-    optional: true
-  });
-  _platform = inject(Platform);
-  _detachedSubject = new Subject();
-  _renderedRangeSubject = new Subject();
-  _renderedContentOffsetSubject = new Subject();
-  get orientation() {
-    return this._orientation;
-  }
-  set orientation(orientation) {
-    if (this._orientation !== orientation) {
-      this._orientation = orientation;
-      this._calculateSpacerSize();
-    }
-  }
-  _orientation = "vertical";
-  appendOnly = false;
-  scrolledIndexChange = new Observable((observer) => this._scrollStrategy.scrolledIndexChange.subscribe((index) => Promise.resolve().then(() => this.ngZone.run(() => observer.next(index)))));
-  _contentWrapper;
-  renderedRangeStream = this._renderedRangeSubject;
-  renderedContentOffset = this._renderedContentOffsetSubject.pipe(filter((offset2) => offset2 !== null), distinctUntilChanged());
-  _totalContentSize = 0;
-  _totalContentWidth = signal("", ...ngDevMode ? [{
-    debugName: "_totalContentWidth"
-  }] : []);
-  _totalContentHeight = signal("", ...ngDevMode ? [{
-    debugName: "_totalContentHeight"
-  }] : []);
-  _renderedContentTransform;
-  _renderedRange = {
-    start: 0,
-    end: 0
-  };
-  _dataLength = 0;
-  _viewportSize = 0;
-  _forOf = null;
-  _renderedContentOffset = 0;
-  _renderedContentOffsetNeedsRewrite = false;
-  _changeDetectionNeeded = signal(false, ...ngDevMode ? [{
-    debugName: "_changeDetectionNeeded"
-  }] : []);
-  _runAfterChangeDetection = [];
-  _viewportChanges = Subscription.EMPTY;
-  _injector = inject(Injector);
-  _isDestroyed = false;
-  constructor() {
-    super();
-    const viewportRuler = inject(ViewportRuler);
-    if (!this._scrollStrategy && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error('Error: cdk-virtual-scroll-viewport requires the "itemSize" property to be set.');
-    }
-    this._viewportChanges = viewportRuler.change().subscribe(() => {
-      this.checkViewportSize();
-    });
-    if (!this.scrollable) {
-      this.elementRef.nativeElement.classList.add("cdk-virtual-scrollable");
-      this.scrollable = this;
-    }
-    const ref = effect(() => {
-      if (this._changeDetectionNeeded()) {
-        this._doChangeDetection();
-      }
-    }, __spreadProps(__spreadValues({}, ngDevMode ? {
-      debugName: "ref"
-    } : {}), {
-      injector: inject(ApplicationRef).injector
-    }));
-    inject(DestroyRef).onDestroy(() => void ref.destroy());
-  }
-  ngOnInit() {
-    if (!this._platform.isBrowser) {
-      return;
-    }
-    if (this.scrollable === this) {
-      super.ngOnInit();
-    }
-    this.ngZone.runOutsideAngular(() => Promise.resolve().then(() => {
-      this._measureViewportSize();
-      this._scrollStrategy.attach(this);
-      this.scrollable.elementScrolled().pipe(startWith(null), auditTime(0, SCROLL_SCHEDULER), takeUntil(this._destroyed)).subscribe(() => this._scrollStrategy.onContentScrolled());
-      this._markChangeDetectionNeeded();
-    }));
-  }
-  ngOnDestroy() {
-    this.detach();
-    this._scrollStrategy.detach();
-    this._renderedRangeSubject.complete();
-    this._detachedSubject.complete();
-    this._viewportChanges.unsubscribe();
-    this._isDestroyed = true;
-    super.ngOnDestroy();
-  }
-  attach(forOf) {
-    if (this._forOf && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("CdkVirtualScrollViewport is already attached.");
-    }
-    this.ngZone.runOutsideAngular(() => {
-      this._forOf = forOf;
-      this._forOf.dataStream.pipe(takeUntil(this._detachedSubject)).subscribe((data) => {
-        const newLength = data.length;
-        if (newLength !== this._dataLength) {
-          this._dataLength = newLength;
-          this._scrollStrategy.onDataLengthChanged();
-        }
-        this._doChangeDetection();
-      });
-    });
-  }
-  detach() {
-    this._forOf = null;
-    this._detachedSubject.next();
-  }
-  getDataLength() {
-    return this._dataLength;
-  }
-  getViewportSize() {
-    return this._viewportSize;
-  }
-  getRenderedRange() {
-    return this._renderedRange;
-  }
-  measureBoundingClientRectWithScrollOffset(from2) {
-    return this.getElementRef().nativeElement.getBoundingClientRect()[from2];
-  }
-  setTotalContentSize(size) {
-    if (this._totalContentSize !== size) {
-      this._totalContentSize = size;
-      this._calculateSpacerSize();
-      this._markChangeDetectionNeeded();
-    }
-  }
-  setRenderedRange(range) {
-    if (!rangesEqual(this._renderedRange, range)) {
-      if (this.appendOnly) {
-        range = {
-          start: 0,
-          end: Math.max(this._renderedRange.end, range.end)
-        };
-      }
-      this._renderedRangeSubject.next(this._renderedRange = range);
-      this._markChangeDetectionNeeded(() => this._scrollStrategy.onContentRendered());
-    }
-  }
-  getOffsetToRenderedContentStart() {
-    return this._renderedContentOffsetNeedsRewrite ? null : this._renderedContentOffset;
-  }
-  setRenderedContentOffset(offset2, to = "to-start") {
-    offset2 = this.appendOnly && to === "to-start" ? 0 : offset2;
-    const isRtl = this.dir && this.dir.value == "rtl";
-    const isHorizontal = this.orientation == "horizontal";
-    const axis = isHorizontal ? "X" : "Y";
-    const axisDirection = isHorizontal && isRtl ? -1 : 1;
-    let transform = `translate${axis}(${Number(axisDirection * offset2)}px)`;
-    this._renderedContentOffset = offset2;
-    if (to === "to-end") {
-      transform += ` translate${axis}(-100%)`;
-      this._renderedContentOffsetNeedsRewrite = true;
-    }
-    if (this._renderedContentTransform != transform) {
-      this._renderedContentTransform = transform;
-      this._markChangeDetectionNeeded(() => {
-        if (this._renderedContentOffsetNeedsRewrite) {
-          this._renderedContentOffset -= this.measureRenderedContentSize();
-          this._renderedContentOffsetNeedsRewrite = false;
-          this.setRenderedContentOffset(this._renderedContentOffset);
-        } else {
-          this._scrollStrategy.onRenderedOffsetChanged();
-        }
-      });
-    }
-  }
-  scrollToOffset(offset2, behavior = "auto") {
-    const options = {
-      behavior
-    };
-    if (this.orientation === "horizontal") {
-      options.start = offset2;
-    } else {
-      options.top = offset2;
-    }
-    this.scrollable.scrollTo(options);
-  }
-  scrollToIndex(index, behavior = "auto") {
-    this._scrollStrategy.scrollToIndex(index, behavior);
-  }
-  measureScrollOffset(from2) {
-    let measureScrollOffset;
-    if (this.scrollable == this) {
-      measureScrollOffset = (_from) => super.measureScrollOffset(_from);
-    } else {
-      measureScrollOffset = (_from) => this.scrollable.measureScrollOffset(_from);
-    }
-    return Math.max(0, measureScrollOffset(from2 ?? (this.orientation === "horizontal" ? "start" : "top")) - this.measureViewportOffset());
-  }
-  measureViewportOffset(from2) {
-    let fromRect;
-    const LEFT = "left";
-    const RIGHT = "right";
-    const isRtl = this.dir?.value == "rtl";
-    if (from2 == "start") {
-      fromRect = isRtl ? RIGHT : LEFT;
-    } else if (from2 == "end") {
-      fromRect = isRtl ? LEFT : RIGHT;
-    } else if (from2) {
-      fromRect = from2;
-    } else {
-      fromRect = this.orientation === "horizontal" ? "left" : "top";
-    }
-    const scrollerClientRect = this.scrollable.measureBoundingClientRectWithScrollOffset(fromRect);
-    const viewportClientRect = this.elementRef.nativeElement.getBoundingClientRect()[fromRect];
-    return viewportClientRect - scrollerClientRect;
-  }
-  measureRenderedContentSize() {
-    const contentEl = this._contentWrapper.nativeElement;
-    return this.orientation === "horizontal" ? contentEl.offsetWidth : contentEl.offsetHeight;
-  }
-  measureRangeSize(range) {
-    if (!this._forOf) {
-      return 0;
-    }
-    return this._forOf.measureRangeSize(range, this.orientation);
-  }
-  checkViewportSize() {
-    this._measureViewportSize();
-    this._scrollStrategy.onDataLengthChanged();
-  }
-  _measureViewportSize() {
-    this._viewportSize = this.scrollable.measureViewportSize(this.orientation);
-  }
-  _markChangeDetectionNeeded(runAfter) {
-    if (runAfter) {
-      this._runAfterChangeDetection.push(runAfter);
-    }
-    if (untracked(this._changeDetectionNeeded)) {
-      return;
-    }
-    this.ngZone.runOutsideAngular(() => {
-      Promise.resolve().then(() => {
-        this.ngZone.run(() => {
-          this._changeDetectionNeeded.set(true);
-        });
-      });
-    });
-  }
-  _doChangeDetection() {
-    if (this._isDestroyed) {
-      return;
-    }
-    this.ngZone.run(() => {
-      this._changeDetectorRef.markForCheck();
-      this._contentWrapper.nativeElement.style.transform = this._renderedContentTransform;
-      this._renderedContentOffsetSubject.next(this.getOffsetToRenderedContentStart());
-      afterNextRender(() => {
-        this._changeDetectionNeeded.set(false);
-        const runAfterChangeDetection = this._runAfterChangeDetection;
-        this._runAfterChangeDetection = [];
-        for (const fn of runAfterChangeDetection) {
-          fn();
-        }
-      }, {
-        injector: this._injector
-      });
-    });
-  }
-  _calculateSpacerSize() {
-    this._totalContentHeight.set(this.orientation === "horizontal" ? "" : `${this._totalContentSize}px`);
-    this._totalContentWidth.set(this.orientation === "horizontal" ? `${this._totalContentSize}px` : "");
-  }
-  static \u0275fac = function CdkVirtualScrollViewport_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkVirtualScrollViewport)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _CdkVirtualScrollViewport,
-    selectors: [["cdk-virtual-scroll-viewport"]],
-    viewQuery: function CdkVirtualScrollViewport_Query(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275viewQuery(_c0, 7);
-      }
-      if (rf & 2) {
-        let _t;
-        \u0275\u0275queryRefresh(_t = \u0275\u0275loadQuery()) && (ctx._contentWrapper = _t.first);
-      }
-    },
-    hostAttrs: [1, "cdk-virtual-scroll-viewport"],
-    hostVars: 4,
-    hostBindings: function CdkVirtualScrollViewport_HostBindings(rf, ctx) {
-      if (rf & 2) {
-        \u0275\u0275classProp("cdk-virtual-scroll-orientation-horizontal", ctx.orientation === "horizontal")("cdk-virtual-scroll-orientation-vertical", ctx.orientation !== "horizontal");
-      }
-    },
-    inputs: {
-      orientation: "orientation",
-      appendOnly: [2, "appendOnly", "appendOnly", booleanAttribute]
-    },
-    outputs: {
-      scrolledIndexChange: "scrolledIndexChange"
-    },
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: CdkScrollable,
-      useFactory: () => inject(VIRTUAL_SCROLLABLE, {
-        optional: true
-      }) || inject(_CdkVirtualScrollViewport)
-    }, {
-      provide: CDK_VIRTUAL_SCROLL_VIEWPORT,
-      useExisting: _CdkVirtualScrollViewport
-    }]), \u0275\u0275InheritDefinitionFeature],
-    ngContentSelectors: _c1,
-    decls: 4,
-    vars: 4,
-    consts: [["contentWrapper", ""], [1, "cdk-virtual-scroll-content-wrapper"], [1, "cdk-virtual-scroll-spacer"]],
-    template: function CdkVirtualScrollViewport_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275projectionDef();
-        \u0275\u0275domElementStart(0, "div", 1, 0);
-        \u0275\u0275projection(2);
-        \u0275\u0275domElementEnd();
-        \u0275\u0275domElement(3, "div", 2);
-      }
-      if (rf & 2) {
-        \u0275\u0275advance(3);
-        \u0275\u0275styleProp("width", ctx._totalContentWidth())("height", ctx._totalContentHeight());
-      }
-    },
-    styles: ["cdk-virtual-scroll-viewport{display:block;position:relative;transform:translateZ(0)}.cdk-virtual-scrollable{overflow:auto;will-change:scroll-position;contain:strict}.cdk-virtual-scroll-content-wrapper{position:absolute;top:0;left:0;contain:content}[dir=rtl] .cdk-virtual-scroll-content-wrapper{right:0;left:auto}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper{min-height:100%}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-left:0;padding-right:0;margin-left:0;margin-right:0;border-left-width:0;border-right-width:0;outline:none}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper{min-width:100%}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;border-top-width:0;border-bottom-width:0;outline:none}.cdk-virtual-scroll-spacer{height:1px;transform-origin:0 0;flex:0 0 auto}[dir=rtl] .cdk-virtual-scroll-spacer{transform-origin:100% 0}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollViewport, [{
-    type: Component,
-    args: [{
-      selector: "cdk-virtual-scroll-viewport",
-      host: {
-        "class": "cdk-virtual-scroll-viewport",
-        "[class.cdk-virtual-scroll-orientation-horizontal]": 'orientation === "horizontal"',
-        "[class.cdk-virtual-scroll-orientation-vertical]": 'orientation !== "horizontal"'
-      },
-      encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      providers: [{
-        provide: CdkScrollable,
-        useFactory: () => inject(VIRTUAL_SCROLLABLE, {
-          optional: true
-        }) || inject(CdkVirtualScrollViewport)
-      }, {
-        provide: CDK_VIRTUAL_SCROLL_VIEWPORT,
-        useExisting: CdkVirtualScrollViewport
-      }],
-      template: '<!--\n  Wrap the rendered content in an element that will be used to offset it based on the scroll\n  position.\n-->\n<div #contentWrapper class="cdk-virtual-scroll-content-wrapper">\n  <ng-content></ng-content>\n</div>\n<!--\n  Spacer used to force the scrolling container to the correct size for the *total* number of items\n  so that the scrollbar captures the size of the entire data set.\n-->\n<div class="cdk-virtual-scroll-spacer"\n     [style.width]="_totalContentWidth()" [style.height]="_totalContentHeight()"></div>\n',
-      styles: ["cdk-virtual-scroll-viewport{display:block;position:relative;transform:translateZ(0)}.cdk-virtual-scrollable{overflow:auto;will-change:scroll-position;contain:strict}.cdk-virtual-scroll-content-wrapper{position:absolute;top:0;left:0;contain:content}[dir=rtl] .cdk-virtual-scroll-content-wrapper{right:0;left:auto}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper{min-height:100%}.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-horizontal .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-left:0;padding-right:0;margin-left:0;margin-right:0;border-left-width:0;border-right-width:0;outline:none}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper{min-width:100%}.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>dl:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ol:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>table:not([cdkVirtualFor]),.cdk-virtual-scroll-orientation-vertical .cdk-virtual-scroll-content-wrapper>ul:not([cdkVirtualFor]){padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;border-top-width:0;border-bottom-width:0;outline:none}.cdk-virtual-scroll-spacer{height:1px;transform-origin:0 0;flex:0 0 auto}[dir=rtl] .cdk-virtual-scroll-spacer{transform-origin:100% 0}\n"]
-    }]
-  }], () => [], {
-    orientation: [{
-      type: Input
-    }],
-    appendOnly: [{
-      type: Input,
-      args: [{
-        transform: booleanAttribute
-      }]
-    }],
-    scrolledIndexChange: [{
-      type: Output
-    }],
-    _contentWrapper: [{
-      type: ViewChild,
-      args: ["contentWrapper", {
-        static: true
-      }]
-    }]
-  });
-})();
-function getOffset(orientation, direction, node) {
-  const el = node;
-  if (!el.getBoundingClientRect) {
-    return 0;
-  }
-  const rect = el.getBoundingClientRect();
-  if (orientation === "horizontal") {
-    return direction === "start" ? rect.left : rect.right;
-  }
-  return direction === "start" ? rect.top : rect.bottom;
-}
-var CdkVirtualForOf = class _CdkVirtualForOf {
-  _viewContainerRef = inject(ViewContainerRef);
-  _template = inject(TemplateRef);
-  _differs = inject(IterableDiffers);
-  _viewRepeater = new _RecycleViewRepeaterStrategy();
-  _viewport = inject(CDK_VIRTUAL_SCROLL_VIEWPORT, {
-    skipSelf: true
-  });
-  viewChange = new Subject();
-  _dataSourceChanges = new Subject();
-  get cdkVirtualForOf() {
-    return this._cdkVirtualForOf;
-  }
-  set cdkVirtualForOf(value) {
-    this._cdkVirtualForOf = value;
-    if (isDataSource(value)) {
-      this._dataSourceChanges.next(value);
-    } else {
-      this._dataSourceChanges.next(new ArrayDataSource(isObservable(value) ? value : Array.from(value || [])));
-    }
-  }
-  _cdkVirtualForOf;
-  get cdkVirtualForTrackBy() {
-    return this._cdkVirtualForTrackBy;
-  }
-  set cdkVirtualForTrackBy(fn) {
-    this._needsUpdate = true;
-    this._cdkVirtualForTrackBy = fn ? (index, item) => fn(index + (this._renderedRange ? this._renderedRange.start : 0), item) : void 0;
-  }
-  _cdkVirtualForTrackBy;
-  set cdkVirtualForTemplate(value) {
-    if (value) {
-      this._needsUpdate = true;
-      this._template = value;
-    }
-  }
-  get cdkVirtualForTemplateCacheSize() {
-    return this._viewRepeater.viewCacheSize;
-  }
-  set cdkVirtualForTemplateCacheSize(size) {
-    this._viewRepeater.viewCacheSize = coerceNumberProperty(size);
-  }
-  dataStream = this._dataSourceChanges.pipe(startWith(null), pairwise(), switchMap(([prev, cur]) => this._changeDataSource(prev, cur)), shareReplay(1));
-  _differ = null;
-  _data = [];
-  _renderedItems = [];
-  _renderedRange = {
-    start: 0,
-    end: 0
-  };
-  _needsUpdate = false;
-  _destroyed = new Subject();
-  constructor() {
-    const ngZone = inject(NgZone);
-    this.dataStream.subscribe((data) => {
-      this._data = data;
-      this._onRenderedDataChange();
-    });
-    this._viewport.renderedRangeStream.pipe(takeUntil(this._destroyed)).subscribe((range) => {
-      this._renderedRange = range;
-      if (this.viewChange.observers.length) {
-        ngZone.run(() => this.viewChange.next(this._renderedRange));
-      }
-      this._onRenderedDataChange();
-    });
-    this._viewport.attach(this);
-  }
-  measureRangeSize(range, orientation) {
-    if (range.start >= range.end) {
-      return 0;
-    }
-    if ((range.start < this._renderedRange.start || range.end > this._renderedRange.end) && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error(`Error: attempted to measure an item that isn't rendered.`);
-    }
-    const renderedStartIndex = range.start - this._renderedRange.start;
-    const rangeLen = range.end - range.start;
-    let firstNode;
-    let lastNode;
-    for (let i = 0; i < rangeLen; i++) {
-      const view = this._viewContainerRef.get(i + renderedStartIndex);
-      if (view && view.rootNodes.length) {
-        firstNode = lastNode = view.rootNodes[0];
-        break;
-      }
-    }
-    for (let i = rangeLen - 1; i > -1; i--) {
-      const view = this._viewContainerRef.get(i + renderedStartIndex);
-      if (view && view.rootNodes.length) {
-        lastNode = view.rootNodes[view.rootNodes.length - 1];
-        break;
-      }
-    }
-    return firstNode && lastNode ? getOffset(orientation, "end", lastNode) - getOffset(orientation, "start", firstNode) : 0;
-  }
-  ngDoCheck() {
-    if (this._differ && this._needsUpdate) {
-      const changes = this._differ.diff(this._renderedItems);
-      if (!changes) {
-        this._updateContext();
-      } else {
-        this._applyChanges(changes);
-      }
-      this._needsUpdate = false;
-    }
-  }
-  ngOnDestroy() {
-    this._viewport.detach();
-    this._dataSourceChanges.next(void 0);
-    this._dataSourceChanges.complete();
-    this.viewChange.complete();
-    this._destroyed.next();
-    this._destroyed.complete();
-    this._viewRepeater.detach();
-  }
-  _onRenderedDataChange() {
-    if (!this._renderedRange) {
-      return;
-    }
-    this._renderedItems = this._data.slice(this._renderedRange.start, this._renderedRange.end);
-    if (!this._differ) {
-      this._differ = this._differs.find(this._renderedItems).create((index, item) => {
-        return this.cdkVirtualForTrackBy ? this.cdkVirtualForTrackBy(index, item) : item;
-      });
-    }
-    this._needsUpdate = true;
-  }
-  _changeDataSource(oldDs, newDs) {
-    if (oldDs) {
-      oldDs.disconnect(this);
-    }
-    this._needsUpdate = true;
-    return newDs ? newDs.connect(this) : of();
-  }
-  _updateContext() {
-    const count = this._data.length;
-    let i = this._viewContainerRef.length;
-    while (i--) {
-      const view = this._viewContainerRef.get(i);
-      view.context.index = this._renderedRange.start + i;
-      view.context.count = count;
-      this._updateComputedContextProperties(view.context);
-      view.detectChanges();
-    }
-  }
-  _applyChanges(changes) {
-    this._viewRepeater.applyChanges(changes, this._viewContainerRef, (record, _adjustedPreviousIndex, currentIndex) => this._getEmbeddedViewArgs(record, currentIndex), (record) => record.item);
-    changes.forEachIdentityChange((record) => {
-      const view = this._viewContainerRef.get(record.currentIndex);
-      view.context.$implicit = record.item;
-    });
-    const count = this._data.length;
-    let i = this._viewContainerRef.length;
-    while (i--) {
-      const view = this._viewContainerRef.get(i);
-      view.context.index = this._renderedRange.start + i;
-      view.context.count = count;
-      this._updateComputedContextProperties(view.context);
-    }
-  }
-  _updateComputedContextProperties(context) {
-    context.first = context.index === 0;
-    context.last = context.index === context.count - 1;
-    context.even = context.index % 2 === 0;
-    context.odd = !context.even;
-  }
-  _getEmbeddedViewArgs(record, index) {
-    return {
-      templateRef: this._template,
-      context: {
-        $implicit: record.item,
-        cdkVirtualForOf: this._cdkVirtualForOf,
-        index: -1,
-        count: -1,
-        first: false,
-        last: false,
-        odd: false,
-        even: false
-      },
-      index
-    };
-  }
-  static ngTemplateContextGuard(directive, context) {
-    return true;
-  }
-  static \u0275fac = function CdkVirtualForOf_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkVirtualForOf)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkVirtualForOf,
-    selectors: [["", "cdkVirtualFor", "", "cdkVirtualForOf", ""]],
-    inputs: {
-      cdkVirtualForOf: "cdkVirtualForOf",
-      cdkVirtualForTrackBy: "cdkVirtualForTrackBy",
-      cdkVirtualForTemplate: "cdkVirtualForTemplate",
-      cdkVirtualForTemplateCacheSize: "cdkVirtualForTemplateCacheSize"
-    }
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualForOf, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkVirtualFor][cdkVirtualForOf]"
-    }]
-  }], () => [], {
-    cdkVirtualForOf: [{
-      type: Input
-    }],
-    cdkVirtualForTrackBy: [{
-      type: Input
-    }],
-    cdkVirtualForTemplate: [{
-      type: Input
-    }],
-    cdkVirtualForTemplateCacheSize: [{
-      type: Input
-    }]
-  });
-})();
-var CdkVirtualScrollableElement = class _CdkVirtualScrollableElement extends CdkVirtualScrollable {
-  constructor() {
-    super();
-  }
-  measureBoundingClientRectWithScrollOffset(from2) {
-    return this.getElementRef().nativeElement.getBoundingClientRect()[from2] - this.measureScrollOffset(from2);
-  }
-  static \u0275fac = function CdkVirtualScrollableElement_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkVirtualScrollableElement)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkVirtualScrollableElement,
-    selectors: [["", "cdkVirtualScrollingElement", ""]],
-    hostAttrs: [1, "cdk-virtual-scrollable"],
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: VIRTUAL_SCROLLABLE,
-      useExisting: _CdkVirtualScrollableElement
-    }]), \u0275\u0275InheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollableElement, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkVirtualScrollingElement]",
-      providers: [{
-        provide: VIRTUAL_SCROLLABLE,
-        useExisting: CdkVirtualScrollableElement
-      }],
-      host: {
-        "class": "cdk-virtual-scrollable"
-      }
-    }]
-  }], () => [], null);
-})();
-var CdkVirtualScrollableWindow = class _CdkVirtualScrollableWindow extends CdkVirtualScrollable {
-  constructor() {
-    super();
-    const document2 = inject(DOCUMENT);
-    this.elementRef = new ElementRef(document2.documentElement);
-    this._scrollElement = document2;
-  }
-  measureBoundingClientRectWithScrollOffset(from2) {
-    return this.getElementRef().nativeElement.getBoundingClientRect()[from2];
-  }
-  static \u0275fac = function CdkVirtualScrollableWindow_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkVirtualScrollableWindow)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkVirtualScrollableWindow,
-    selectors: [["cdk-virtual-scroll-viewport", "scrollWindow", ""]],
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: VIRTUAL_SCROLLABLE,
-      useExisting: _CdkVirtualScrollableWindow
-    }]), \u0275\u0275InheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkVirtualScrollableWindow, [{
-    type: Directive,
-    args: [{
-      selector: "cdk-virtual-scroll-viewport[scrollWindow]",
-      providers: [{
-        provide: VIRTUAL_SCROLLABLE,
-        useExisting: CdkVirtualScrollableWindow
-      }]
-    }]
-  }], () => [], null);
-})();
-var CdkScrollableModule = class _CdkScrollableModule {
-  static \u0275fac = function CdkScrollableModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkScrollableModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _CdkScrollableModule,
-    imports: [CdkScrollable],
-    exports: [CdkScrollable]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkScrollableModule, [{
-    type: NgModule,
-    args: [{
-      exports: [CdkScrollable],
-      imports: [CdkScrollable]
-    }]
-  }], null, null);
-})();
-var ScrollingModule = class _ScrollingModule {
-  static \u0275fac = function ScrollingModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ScrollingModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _ScrollingModule,
-    imports: [BidiModule, CdkScrollableModule, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollableWindow, CdkVirtualScrollableElement],
-    exports: [BidiModule, CdkScrollableModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport, CdkVirtualScrollableWindow, CdkVirtualScrollableElement]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [BidiModule, CdkScrollableModule, BidiModule, CdkScrollableModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollingModule, [{
-    type: NgModule,
-    args: [{
-      imports: [BidiModule, CdkScrollableModule, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollableWindow, CdkVirtualScrollableElement],
-      exports: [BidiModule, CdkScrollableModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport, CdkVirtualScrollableWindow, CdkVirtualScrollableElement]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/portal.mjs
-function throwNullPortalError() {
-  throw Error("Must provide a portal to attach");
-}
-function throwPortalAlreadyAttachedError() {
-  throw Error("Host already has a portal attached");
-}
-function throwPortalOutletAlreadyDisposedError() {
-  throw Error("This PortalOutlet has already been disposed");
-}
-function throwUnknownPortalTypeError() {
-  throw Error("Attempting to attach an unknown Portal type. BasePortalOutlet accepts either a ComponentPortal or a TemplatePortal.");
-}
-function throwNullPortalOutletError() {
-  throw Error("Attempting to attach a portal to a null PortalOutlet");
-}
-function throwNoPortalAttachedError() {
-  throw Error("Attempting to detach a portal that is not attached to a host");
-}
-var Portal = class {
-  _attachedHost = null;
-  attach(host) {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      if (host == null) {
-        throwNullPortalOutletError();
-      }
-      if (host.hasAttached()) {
-        throwPortalAlreadyAttachedError();
-      }
-    }
-    this._attachedHost = host;
-    return host.attach(this);
-  }
-  detach() {
-    let host = this._attachedHost;
-    if (host != null) {
-      this._attachedHost = null;
-      host.detach();
-    } else if (typeof ngDevMode === "undefined" || ngDevMode) {
-      throwNoPortalAttachedError();
-    }
-  }
-  get isAttached() {
-    return this._attachedHost != null;
-  }
-  setAttachedHost(host) {
-    this._attachedHost = host;
-  }
-};
-var ComponentPortal = class extends Portal {
-  component;
-  viewContainerRef;
-  injector;
-  projectableNodes;
-  constructor(component, viewContainerRef, injector, projectableNodes) {
-    super();
-    this.component = component;
-    this.viewContainerRef = viewContainerRef;
-    this.injector = injector;
-    this.projectableNodes = projectableNodes;
-  }
-};
-var TemplatePortal = class extends Portal {
-  templateRef;
-  viewContainerRef;
-  context;
-  injector;
-  constructor(templateRef, viewContainerRef, context, injector) {
-    super();
-    this.templateRef = templateRef;
-    this.viewContainerRef = viewContainerRef;
-    this.context = context;
-    this.injector = injector;
-  }
-  get origin() {
-    return this.templateRef.elementRef;
-  }
-  attach(host, context = this.context) {
-    this.context = context;
-    return super.attach(host);
-  }
-  detach() {
-    this.context = void 0;
-    return super.detach();
-  }
-};
-var DomPortal = class extends Portal {
-  element;
-  constructor(element) {
-    super();
-    this.element = element instanceof ElementRef ? element.nativeElement : element;
-  }
-};
-var BasePortalOutlet = class {
-  _attachedPortal = null;
-  _disposeFn = null;
-  _isDisposed = false;
-  hasAttached() {
-    return !!this._attachedPortal;
-  }
-  attach(portal) {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      if (!portal) {
-        throwNullPortalError();
-      }
-      if (this.hasAttached()) {
-        throwPortalAlreadyAttachedError();
-      }
-      if (this._isDisposed) {
-        throwPortalOutletAlreadyDisposedError();
-      }
-    }
-    if (portal instanceof ComponentPortal) {
-      this._attachedPortal = portal;
-      return this.attachComponentPortal(portal);
-    } else if (portal instanceof TemplatePortal) {
-      this._attachedPortal = portal;
-      return this.attachTemplatePortal(portal);
-    } else if (this.attachDomPortal && portal instanceof DomPortal) {
-      this._attachedPortal = portal;
-      return this.attachDomPortal(portal);
-    }
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      throwUnknownPortalTypeError();
-    }
-  }
-  attachDomPortal = null;
-  detach() {
-    if (this._attachedPortal) {
-      this._attachedPortal.setAttachedHost(null);
-      this._attachedPortal = null;
-    }
-    this._invokeDisposeFn();
-  }
-  dispose() {
-    if (this.hasAttached()) {
-      this.detach();
-    }
-    this._invokeDisposeFn();
-    this._isDisposed = true;
-  }
-  setDisposeFn(fn) {
-    this._disposeFn = fn;
-  }
-  _invokeDisposeFn() {
-    if (this._disposeFn) {
-      this._disposeFn();
-      this._disposeFn = null;
-    }
-  }
-};
-var DomPortalOutlet = class extends BasePortalOutlet {
-  outletElement;
-  _appRef;
-  _defaultInjector;
-  constructor(outletElement, _appRef, _defaultInjector) {
-    super();
-    this.outletElement = outletElement;
-    this._appRef = _appRef;
-    this._defaultInjector = _defaultInjector;
-  }
-  attachComponentPortal(portal) {
-    let componentRef;
-    if (portal.viewContainerRef) {
-      const injector = portal.injector || portal.viewContainerRef.injector;
-      const ngModuleRef = injector.get(NgModuleRef$1, null, {
-        optional: true
-      }) || void 0;
-      componentRef = portal.viewContainerRef.createComponent(portal.component, {
-        index: portal.viewContainerRef.length,
-        injector,
-        ngModuleRef,
-        projectableNodes: portal.projectableNodes || void 0
-      });
-      this.setDisposeFn(() => componentRef.destroy());
-    } else {
-      if ((typeof ngDevMode === "undefined" || ngDevMode) && !this._appRef) {
-        throw Error("Cannot attach component portal to outlet without an ApplicationRef.");
-      }
-      const appRef = this._appRef;
-      const elementInjector = portal.injector || this._defaultInjector || Injector.NULL;
-      const environmentInjector = elementInjector.get(EnvironmentInjector, appRef.injector);
-      componentRef = createComponent(portal.component, {
-        elementInjector,
-        environmentInjector,
-        projectableNodes: portal.projectableNodes || void 0
-      });
-      appRef.attachView(componentRef.hostView);
-      this.setDisposeFn(() => {
-        if (appRef.viewCount > 0) {
-          appRef.detachView(componentRef.hostView);
-        }
-        componentRef.destroy();
-      });
-    }
-    this.outletElement.appendChild(this._getComponentRootNode(componentRef));
-    this._attachedPortal = portal;
-    return componentRef;
-  }
-  attachTemplatePortal(portal) {
-    let viewContainer = portal.viewContainerRef;
-    let viewRef = viewContainer.createEmbeddedView(portal.templateRef, portal.context, {
-      injector: portal.injector
-    });
-    viewRef.rootNodes.forEach((rootNode) => this.outletElement.appendChild(rootNode));
-    viewRef.detectChanges();
-    this.setDisposeFn(() => {
-      let index = viewContainer.indexOf(viewRef);
-      if (index !== -1) {
-        viewContainer.remove(index);
-      }
-    });
-    this._attachedPortal = portal;
-    return viewRef;
-  }
-  attachDomPortal = (portal) => {
-    const element = portal.element;
-    if (!element.parentNode && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("DOM portal content must be attached to a parent node.");
-    }
-    const anchorNode = this.outletElement.ownerDocument.createComment("dom-portal");
-    element.parentNode.insertBefore(anchorNode, element);
-    this.outletElement.appendChild(element);
-    this._attachedPortal = portal;
-    super.setDisposeFn(() => {
-      if (anchorNode.parentNode) {
-        anchorNode.parentNode.replaceChild(element, anchorNode);
-      }
-    });
-  };
-  dispose() {
-    super.dispose();
-    this.outletElement.remove();
-  }
-  _getComponentRootNode(componentRef) {
-    return componentRef.hostView.rootNodes[0];
-  }
-};
-var CdkPortal = class _CdkPortal extends TemplatePortal {
-  constructor() {
-    const templateRef = inject(TemplateRef);
-    const viewContainerRef = inject(ViewContainerRef);
-    super(templateRef, viewContainerRef);
-  }
-  static \u0275fac = function CdkPortal_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkPortal)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkPortal,
-    selectors: [["", "cdkPortal", ""]],
-    exportAs: ["cdkPortal"],
-    features: [\u0275\u0275InheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkPortal, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkPortal]",
-      exportAs: "cdkPortal"
-    }]
-  }], () => [], null);
-})();
-var CdkPortalOutlet = class _CdkPortalOutlet extends BasePortalOutlet {
-  _moduleRef = inject(NgModuleRef$1, {
-    optional: true
-  });
-  _document = inject(DOCUMENT);
-  _viewContainerRef = inject(ViewContainerRef);
-  _isInitialized = false;
-  _attachedRef = null;
-  constructor() {
-    super();
-  }
-  get portal() {
-    return this._attachedPortal;
-  }
-  set portal(portal) {
-    if (this.hasAttached() && !portal && !this._isInitialized) {
-      return;
-    }
-    if (this.hasAttached()) {
-      super.detach();
-    }
-    if (portal) {
-      super.attach(portal);
-    }
-    this._attachedPortal = portal || null;
-  }
-  attached = new EventEmitter();
-  get attachedRef() {
-    return this._attachedRef;
-  }
-  ngOnInit() {
-    this._isInitialized = true;
-  }
-  ngOnDestroy() {
-    super.dispose();
-    this._attachedRef = this._attachedPortal = null;
-  }
-  attachComponentPortal(portal) {
-    portal.setAttachedHost(this);
-    const viewContainerRef = portal.viewContainerRef != null ? portal.viewContainerRef : this._viewContainerRef;
-    const ref = viewContainerRef.createComponent(portal.component, {
-      index: viewContainerRef.length,
-      injector: portal.injector || viewContainerRef.injector,
-      projectableNodes: portal.projectableNodes || void 0,
-      ngModuleRef: this._moduleRef || void 0
-    });
-    if (viewContainerRef !== this._viewContainerRef) {
-      this._getRootNode().appendChild(ref.hostView.rootNodes[0]);
-    }
-    super.setDisposeFn(() => ref.destroy());
-    this._attachedPortal = portal;
-    this._attachedRef = ref;
-    this.attached.emit(ref);
-    return ref;
-  }
-  attachTemplatePortal(portal) {
-    portal.setAttachedHost(this);
-    const viewRef = this._viewContainerRef.createEmbeddedView(portal.templateRef, portal.context, {
-      injector: portal.injector
-    });
-    super.setDisposeFn(() => this._viewContainerRef.clear());
-    this._attachedPortal = portal;
-    this._attachedRef = viewRef;
-    this.attached.emit(viewRef);
-    return viewRef;
-  }
-  attachDomPortal = (portal) => {
-    const element = portal.element;
-    if (!element.parentNode && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("DOM portal content must be attached to a parent node.");
-    }
-    const anchorNode = this._document.createComment("dom-portal");
-    portal.setAttachedHost(this);
-    element.parentNode.insertBefore(anchorNode, element);
-    this._getRootNode().appendChild(element);
-    this._attachedPortal = portal;
-    super.setDisposeFn(() => {
-      if (anchorNode.parentNode) {
-        anchorNode.parentNode.replaceChild(element, anchorNode);
-      }
-    });
-  };
-  _getRootNode() {
-    const nativeElement = this._viewContainerRef.element.nativeElement;
-    return nativeElement.nodeType === nativeElement.ELEMENT_NODE ? nativeElement : nativeElement.parentNode;
-  }
-  static \u0275fac = function CdkPortalOutlet_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkPortalOutlet)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkPortalOutlet,
-    selectors: [["", "cdkPortalOutlet", ""]],
-    inputs: {
-      portal: [0, "cdkPortalOutlet", "portal"]
-    },
-    outputs: {
-      attached: "attached"
-    },
-    exportAs: ["cdkPortalOutlet"],
-    features: [\u0275\u0275InheritDefinitionFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkPortalOutlet, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkPortalOutlet]",
-      exportAs: "cdkPortalOutlet"
-    }]
-  }], () => [], {
-    portal: [{
-      type: Input,
-      args: ["cdkPortalOutlet"]
-    }],
-    attached: [{
-      type: Output
-    }]
-  });
-})();
-var PortalModule = class _PortalModule {
-  static \u0275fac = function PortalModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PortalModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _PortalModule,
-    imports: [CdkPortal, CdkPortalOutlet],
-    exports: [CdkPortal, CdkPortalOutlet]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({});
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PortalModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CdkPortal, CdkPortalOutlet],
-      exports: [CdkPortal, CdkPortalOutlet]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_keycodes-chunk.mjs
-var TAB = 9;
-var ENTER = 13;
-var SHIFT = 16;
-var CONTROL = 17;
-var ALT = 18;
-var ESCAPE = 27;
-var SPACE = 32;
-var PAGE_UP = 33;
-var PAGE_DOWN = 34;
-var END = 35;
-var HOME = 36;
-var LEFT_ARROW = 37;
-var UP_ARROW = 38;
-var RIGHT_ARROW = 39;
-var DOWN_ARROW = 40;
-var ZERO = 48;
-var NINE = 57;
-var A = 65;
-var Z = 90;
-var META = 91;
-var MAC_META = 224;
-
-// node_modules/@angular/cdk/fesm2022/keycodes.mjs
-function hasModifierKey(event2, ...modifiers) {
-  if (modifiers.length) {
-    return modifiers.some((modifier) => event2[modifier]);
-  }
-  return event2.altKey || event2.shiftKey || event2.ctrlKey || event2.metaKey;
-}
-
-// node_modules/@angular/cdk/fesm2022/_overlay-module-chunk.mjs
-var scrollBehaviorSupported2 = supportsScrollBehavior();
-function createBlockScrollStrategy(injector) {
-  return new BlockScrollStrategy(injector.get(ViewportRuler), injector.get(DOCUMENT));
-}
-var BlockScrollStrategy = class {
-  _viewportRuler;
-  _previousHTMLStyles = {
-    top: "",
-    left: ""
-  };
-  _previousScrollPosition;
-  _isEnabled = false;
-  _document;
-  constructor(_viewportRuler, document2) {
-    this._viewportRuler = _viewportRuler;
-    this._document = document2;
-  }
-  attach() {
-  }
-  enable() {
-    if (this._canBeEnabled()) {
-      const root = this._document.documentElement;
-      this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
-      this._previousHTMLStyles.left = root.style.left || "";
-      this._previousHTMLStyles.top = root.style.top || "";
-      root.style.left = coerceCssPixelValue(-this._previousScrollPosition.left);
-      root.style.top = coerceCssPixelValue(-this._previousScrollPosition.top);
-      root.classList.add("cdk-global-scrollblock");
-      this._isEnabled = true;
-    }
-  }
-  disable() {
-    if (this._isEnabled) {
-      const html = this._document.documentElement;
-      const body = this._document.body;
-      const htmlStyle = html.style;
-      const bodyStyle = body.style;
-      const previousHtmlScrollBehavior = htmlStyle.scrollBehavior || "";
-      const previousBodyScrollBehavior = bodyStyle.scrollBehavior || "";
-      this._isEnabled = false;
-      htmlStyle.left = this._previousHTMLStyles.left;
-      htmlStyle.top = this._previousHTMLStyles.top;
-      html.classList.remove("cdk-global-scrollblock");
-      if (scrollBehaviorSupported2) {
-        htmlStyle.scrollBehavior = bodyStyle.scrollBehavior = "auto";
-      }
-      window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-      if (scrollBehaviorSupported2) {
-        htmlStyle.scrollBehavior = previousHtmlScrollBehavior;
-        bodyStyle.scrollBehavior = previousBodyScrollBehavior;
-      }
-    }
-  }
-  _canBeEnabled() {
-    const html = this._document.documentElement;
-    if (html.classList.contains("cdk-global-scrollblock") || this._isEnabled) {
-      return false;
-    }
-    const rootElement = this._document.documentElement;
-    const viewport = this._viewportRuler.getViewportSize();
-    return rootElement.scrollHeight > viewport.height || rootElement.scrollWidth > viewport.width;
-  }
-};
-function getMatScrollStrategyAlreadyAttachedError() {
-  return Error(`Scroll strategy has already been attached.`);
-}
-function createCloseScrollStrategy(injector, config) {
-  return new CloseScrollStrategy(injector.get(ScrollDispatcher), injector.get(NgZone), injector.get(ViewportRuler), config);
-}
-var CloseScrollStrategy = class {
-  _scrollDispatcher;
-  _ngZone;
-  _viewportRuler;
-  _config;
-  _scrollSubscription = null;
-  _overlayRef;
-  _initialScrollPosition;
-  constructor(_scrollDispatcher, _ngZone, _viewportRuler, _config) {
-    this._scrollDispatcher = _scrollDispatcher;
-    this._ngZone = _ngZone;
-    this._viewportRuler = _viewportRuler;
-    this._config = _config;
-  }
-  attach(overlayRef) {
-    if (this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw getMatScrollStrategyAlreadyAttachedError();
-    }
-    this._overlayRef = overlayRef;
-  }
-  enable() {
-    if (this._scrollSubscription) {
-      return;
-    }
-    const stream = this._scrollDispatcher.scrolled(0).pipe(filter((scrollable) => {
-      return !scrollable || !this._overlayRef.overlayElement.contains(scrollable.getElementRef().nativeElement);
-    }));
-    if (this._config && this._config.threshold && this._config.threshold > 1) {
-      this._initialScrollPosition = this._viewportRuler.getViewportScrollPosition().top;
-      this._scrollSubscription = stream.subscribe(() => {
-        const scrollPosition = this._viewportRuler.getViewportScrollPosition().top;
-        if (Math.abs(scrollPosition - this._initialScrollPosition) > this._config.threshold) {
-          this._detach();
-        } else {
-          this._overlayRef.updatePosition();
-        }
-      });
-    } else {
-      this._scrollSubscription = stream.subscribe(this._detach);
-    }
-  }
-  disable() {
-    if (this._scrollSubscription) {
-      this._scrollSubscription.unsubscribe();
-      this._scrollSubscription = null;
-    }
-  }
-  detach() {
-    this.disable();
-    this._overlayRef = null;
-  }
-  _detach = () => {
-    this.disable();
-    if (this._overlayRef.hasAttached()) {
-      this._ngZone.run(() => this._overlayRef.detach());
-    }
-  };
-};
-var NoopScrollStrategy = class {
-  enable() {
-  }
-  disable() {
-  }
-  attach() {
-  }
-};
-function isElementScrolledOutsideView(element, scrollContainers) {
-  return scrollContainers.some((containerBounds) => {
-    const outsideAbove = element.bottom < containerBounds.top;
-    const outsideBelow = element.top > containerBounds.bottom;
-    const outsideLeft = element.right < containerBounds.left;
-    const outsideRight = element.left > containerBounds.right;
-    return outsideAbove || outsideBelow || outsideLeft || outsideRight;
-  });
-}
-function isElementClippedByScrolling(element, scrollContainers) {
-  return scrollContainers.some((scrollContainerRect) => {
-    const clippedAbove = element.top < scrollContainerRect.top;
-    const clippedBelow = element.bottom > scrollContainerRect.bottom;
-    const clippedLeft = element.left < scrollContainerRect.left;
-    const clippedRight = element.right > scrollContainerRect.right;
-    return clippedAbove || clippedBelow || clippedLeft || clippedRight;
-  });
-}
-function createRepositionScrollStrategy(injector, config) {
-  return new RepositionScrollStrategy(injector.get(ScrollDispatcher), injector.get(ViewportRuler), injector.get(NgZone), config);
-}
-var RepositionScrollStrategy = class {
-  _scrollDispatcher;
-  _viewportRuler;
-  _ngZone;
-  _config;
-  _scrollSubscription = null;
-  _overlayRef;
-  constructor(_scrollDispatcher, _viewportRuler, _ngZone, _config) {
-    this._scrollDispatcher = _scrollDispatcher;
-    this._viewportRuler = _viewportRuler;
-    this._ngZone = _ngZone;
-    this._config = _config;
-  }
-  attach(overlayRef) {
-    if (this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw getMatScrollStrategyAlreadyAttachedError();
-    }
-    this._overlayRef = overlayRef;
-  }
-  enable() {
-    if (!this._scrollSubscription) {
-      const throttle = this._config ? this._config.scrollThrottle : 0;
-      this._scrollSubscription = this._scrollDispatcher.scrolled(throttle).subscribe(() => {
-        this._overlayRef.updatePosition();
-        if (this._config && this._config.autoClose) {
-          const overlayRect = this._overlayRef.overlayElement.getBoundingClientRect();
-          const {
-            width,
-            height
-          } = this._viewportRuler.getViewportSize();
-          const parentRects = [{
-            width,
-            height,
-            bottom: height,
-            right: width,
-            top: 0,
-            left: 0
-          }];
-          if (isElementScrolledOutsideView(overlayRect, parentRects)) {
-            this.disable();
-            this._ngZone.run(() => this._overlayRef.detach());
-          }
-        }
-      });
-    }
-  }
-  disable() {
-    if (this._scrollSubscription) {
-      this._scrollSubscription.unsubscribe();
-      this._scrollSubscription = null;
-    }
-  }
-  detach() {
-    this.disable();
-    this._overlayRef = null;
-  }
-};
-var ScrollStrategyOptions = class _ScrollStrategyOptions {
-  _injector = inject(Injector);
-  constructor() {
-  }
-  noop = () => new NoopScrollStrategy();
-  close = (config) => createCloseScrollStrategy(this._injector, config);
-  block = () => createBlockScrollStrategy(this._injector);
-  reposition = (config) => createRepositionScrollStrategy(this._injector, config);
-  static \u0275fac = function ScrollStrategyOptions_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ScrollStrategyOptions)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _ScrollStrategyOptions,
-    factory: _ScrollStrategyOptions.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ScrollStrategyOptions, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var OverlayConfig = class {
-  positionStrategy;
-  scrollStrategy = new NoopScrollStrategy();
-  panelClass = "";
-  hasBackdrop = false;
-  backdropClass = "cdk-overlay-dark-backdrop";
-  disableAnimations;
-  width;
-  height;
-  minWidth;
-  minHeight;
-  maxWidth;
-  maxHeight;
-  direction;
-  disposeOnNavigation = false;
-  usePopover;
-  constructor(config) {
-    if (config) {
-      const configKeys = Object.keys(config);
-      for (const key of configKeys) {
-        if (config[key] !== void 0) {
-          this[key] = config[key];
-        }
-      }
-    }
-  }
-};
-var ConnectedOverlayPositionChange = class {
-  connectionPair;
-  scrollableViewProperties;
-  constructor(connectionPair, scrollableViewProperties) {
-    this.connectionPair = connectionPair;
-    this.scrollableViewProperties = scrollableViewProperties;
-  }
-};
-function validateVerticalPosition(property, value) {
-  if (value !== "top" && value !== "bottom" && value !== "center") {
-    throw Error(`ConnectedPosition: Invalid ${property} "${value}". Expected "top", "bottom" or "center".`);
-  }
-}
-function validateHorizontalPosition(property, value) {
-  if (value !== "start" && value !== "end" && value !== "center") {
-    throw Error(`ConnectedPosition: Invalid ${property} "${value}". Expected "start", "end" or "center".`);
-  }
-}
-var BaseOverlayDispatcher = class _BaseOverlayDispatcher {
-  _attachedOverlays = [];
-  _document = inject(DOCUMENT);
-  _isAttached = false;
-  constructor() {
-  }
-  ngOnDestroy() {
-    this.detach();
-  }
-  add(overlayRef) {
-    this.remove(overlayRef);
-    this._attachedOverlays.push(overlayRef);
-  }
-  remove(overlayRef) {
-    const index = this._attachedOverlays.indexOf(overlayRef);
-    if (index > -1) {
-      this._attachedOverlays.splice(index, 1);
-    }
-    if (this._attachedOverlays.length === 0) {
-      this.detach();
-    }
-  }
-  static \u0275fac = function BaseOverlayDispatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BaseOverlayDispatcher)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _BaseOverlayDispatcher,
-    factory: _BaseOverlayDispatcher.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BaseOverlayDispatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var OverlayKeyboardDispatcher = class _OverlayKeyboardDispatcher extends BaseOverlayDispatcher {
-  _ngZone = inject(NgZone);
-  _renderer = inject(RendererFactory2).createRenderer(null, null);
-  _cleanupKeydown;
-  add(overlayRef) {
-    super.add(overlayRef);
-    if (!this._isAttached) {
-      this._ngZone.runOutsideAngular(() => {
-        this._cleanupKeydown = this._renderer.listen("body", "keydown", this._keydownListener);
-      });
-      this._isAttached = true;
-    }
-  }
-  detach() {
-    if (this._isAttached) {
-      this._cleanupKeydown?.();
-      this._isAttached = false;
-    }
-  }
-  _keydownListener = (event2) => {
-    const overlays = this._attachedOverlays;
-    for (let i = overlays.length - 1; i > -1; i--) {
-      if (overlays[i]._keydownEvents.observers.length > 0) {
-        this._ngZone.run(() => overlays[i]._keydownEvents.next(event2));
-        break;
-      }
-    }
-  };
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275OverlayKeyboardDispatcher_BaseFactory;
-    return function OverlayKeyboardDispatcher_Factory(__ngFactoryType__) {
-      return (\u0275OverlayKeyboardDispatcher_BaseFactory || (\u0275OverlayKeyboardDispatcher_BaseFactory = \u0275\u0275getInheritedFactory(_OverlayKeyboardDispatcher)))(__ngFactoryType__ || _OverlayKeyboardDispatcher);
-    };
-  })();
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _OverlayKeyboardDispatcher,
-    factory: _OverlayKeyboardDispatcher.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayKeyboardDispatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var OverlayOutsideClickDispatcher = class _OverlayOutsideClickDispatcher extends BaseOverlayDispatcher {
-  _platform = inject(Platform);
-  _ngZone = inject(NgZone);
-  _renderer = inject(RendererFactory2).createRenderer(null, null);
-  _cursorOriginalValue;
-  _cursorStyleIsSet = false;
-  _pointerDownEventTarget = null;
-  _cleanups;
-  add(overlayRef) {
-    super.add(overlayRef);
-    if (!this._isAttached) {
-      const body = this._document.body;
-      const eventOptions = {
-        capture: true
-      };
-      const renderer = this._renderer;
-      this._cleanups = this._ngZone.runOutsideAngular(() => [renderer.listen(body, "pointerdown", this._pointerDownListener, eventOptions), renderer.listen(body, "click", this._clickListener, eventOptions), renderer.listen(body, "auxclick", this._clickListener, eventOptions), renderer.listen(body, "contextmenu", this._clickListener, eventOptions)]);
-      if (this._platform.IOS && !this._cursorStyleIsSet) {
-        this._cursorOriginalValue = body.style.cursor;
-        body.style.cursor = "pointer";
-        this._cursorStyleIsSet = true;
-      }
-      this._isAttached = true;
-    }
-  }
-  detach() {
-    if (this._isAttached) {
-      this._cleanups?.forEach((cleanup) => cleanup());
-      this._cleanups = void 0;
-      if (this._platform.IOS && this._cursorStyleIsSet) {
-        this._document.body.style.cursor = this._cursorOriginalValue;
-        this._cursorStyleIsSet = false;
-      }
-      this._isAttached = false;
-    }
-  }
-  _pointerDownListener = (event2) => {
-    this._pointerDownEventTarget = _getEventTarget(event2);
-  };
-  _clickListener = (event2) => {
-    const target = _getEventTarget(event2);
-    const origin = event2.type === "click" && this._pointerDownEventTarget ? this._pointerDownEventTarget : target;
-    this._pointerDownEventTarget = null;
-    const overlays = this._attachedOverlays.slice();
-    for (let i = overlays.length - 1; i > -1; i--) {
-      const overlayRef = overlays[i];
-      if (overlayRef._outsidePointerEvents.observers.length < 1 || !overlayRef.hasAttached()) {
-        continue;
-      }
-      if (containsPierceShadowDom(overlayRef.overlayElement, target) || containsPierceShadowDom(overlayRef.overlayElement, origin)) {
-        break;
-      }
-      const outsidePointerEvents = overlayRef._outsidePointerEvents;
-      if (this._ngZone) {
-        this._ngZone.run(() => outsidePointerEvents.next(event2));
-      } else {
-        outsidePointerEvents.next(event2);
-      }
-    }
-  };
-  static \u0275fac = /* @__PURE__ */ (() => {
-    let \u0275OverlayOutsideClickDispatcher_BaseFactory;
-    return function OverlayOutsideClickDispatcher_Factory(__ngFactoryType__) {
-      return (\u0275OverlayOutsideClickDispatcher_BaseFactory || (\u0275OverlayOutsideClickDispatcher_BaseFactory = \u0275\u0275getInheritedFactory(_OverlayOutsideClickDispatcher)))(__ngFactoryType__ || _OverlayOutsideClickDispatcher);
-    };
-  })();
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _OverlayOutsideClickDispatcher,
-    factory: _OverlayOutsideClickDispatcher.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayOutsideClickDispatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-function containsPierceShadowDom(parent, child) {
-  const supportsShadowRoot = typeof ShadowRoot !== "undefined" && ShadowRoot;
-  let current = child;
-  while (current) {
-    if (current === parent) {
-      return true;
-    }
-    current = supportsShadowRoot && current instanceof ShadowRoot ? current.host : current.parentNode;
-  }
-  return false;
-}
-var _CdkOverlayStyleLoader = class __CdkOverlayStyleLoader {
-  static \u0275fac = function _CdkOverlayStyleLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __CdkOverlayStyleLoader)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: __CdkOverlayStyleLoader,
-    selectors: [["ng-component"]],
-    hostAttrs: ["cdk-overlay-style-loader", ""],
-    decls: 0,
-    vars: 0,
-    template: function _CdkOverlayStyleLoader_Template(rf, ctx) {
-    },
-    styles: [".cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed}@layer cdk-overlay{.cdk-overlay-container{z-index:1000}}.cdk-overlay-container:empty{display:none}.cdk-global-overlay-wrapper{display:flex;position:absolute}@layer cdk-overlay{.cdk-global-overlay-wrapper{z-index:1000}}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%}@layer cdk-overlay{.cdk-overlay-pane{z-index:1000}}.cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:rgba(0,0,0,0);opacity:0;touch-action:manipulation}@layer cdk-overlay{.cdk-overlay-backdrop{z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}}@media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}.cdk-overlay-backdrop-showing{opacity:1}@media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}@layer cdk-overlay{.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}}.cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}.cdk-overlay-backdrop-noop-animation{transition:none}.cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px}@layer cdk-overlay{.cdk-overlay-connected-position-bounding-box{z-index:1000}}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}.cdk-overlay-popover{background:none;border:none;padding:0;outline:0;overflow:visible;position:fixed;pointer-events:none;white-space:normal;color:inherit;text-decoration:none;width:100%;height:100%;inset:auto;top:0;left:0}.cdk-overlay-popover::backdrop{display:none}.cdk-overlay-popover .cdk-overlay-backdrop{position:fixed;z-index:auto}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_CdkOverlayStyleLoader, [{
-    type: Component,
-    args: [{
-      template: "",
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      encapsulation: ViewEncapsulation.None,
-      host: {
-        "cdk-overlay-style-loader": ""
-      },
-      styles: [".cdk-overlay-container,.cdk-global-overlay-wrapper{pointer-events:none;top:0;left:0;height:100%;width:100%}.cdk-overlay-container{position:fixed}@layer cdk-overlay{.cdk-overlay-container{z-index:1000}}.cdk-overlay-container:empty{display:none}.cdk-global-overlay-wrapper{display:flex;position:absolute}@layer cdk-overlay{.cdk-global-overlay-wrapper{z-index:1000}}.cdk-overlay-pane{position:absolute;pointer-events:auto;box-sizing:border-box;display:flex;max-width:100%;max-height:100%}@layer cdk-overlay{.cdk-overlay-pane{z-index:1000}}.cdk-overlay-backdrop{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:auto;-webkit-tap-highlight-color:rgba(0,0,0,0);opacity:0;touch-action:manipulation}@layer cdk-overlay{.cdk-overlay-backdrop{z-index:1000;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}}@media(prefers-reduced-motion){.cdk-overlay-backdrop{transition-duration:1ms}}.cdk-overlay-backdrop-showing{opacity:1}@media(forced-colors: active){.cdk-overlay-backdrop-showing{opacity:.6}}@layer cdk-overlay{.cdk-overlay-dark-backdrop{background:rgba(0,0,0,.32)}}.cdk-overlay-transparent-backdrop{transition:visibility 1ms linear,opacity 1ms linear;visibility:hidden;opacity:1}.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing,.cdk-high-contrast-active .cdk-overlay-transparent-backdrop{opacity:0;visibility:visible}.cdk-overlay-backdrop-noop-animation{transition:none}.cdk-overlay-connected-position-bounding-box{position:absolute;display:flex;flex-direction:column;min-width:1px;min-height:1px}@layer cdk-overlay{.cdk-overlay-connected-position-bounding-box{z-index:1000}}.cdk-global-scrollblock{position:fixed;width:100%;overflow-y:scroll}.cdk-overlay-popover{background:none;border:none;padding:0;outline:0;overflow:visible;position:fixed;pointer-events:none;white-space:normal;color:inherit;text-decoration:none;width:100%;height:100%;inset:auto;top:0;left:0}.cdk-overlay-popover::backdrop{display:none}.cdk-overlay-popover .cdk-overlay-backdrop{position:fixed;z-index:auto}\n"]
-    }]
-  }], null, null);
-})();
-var OverlayContainer = class _OverlayContainer {
-  _platform = inject(Platform);
-  _containerElement;
-  _document = inject(DOCUMENT);
-  _styleLoader = inject(_CdkPrivateStyleLoader);
-  constructor() {
-  }
-  ngOnDestroy() {
-    this._containerElement?.remove();
-  }
-  getContainerElement() {
-    this._loadStyles();
-    if (!this._containerElement) {
-      this._createContainer();
-    }
-    return this._containerElement;
-  }
-  _createContainer() {
-    const containerClass = "cdk-overlay-container";
-    if (this._platform.isBrowser || _isTestEnvironment()) {
-      const oppositePlatformContainers = this._document.querySelectorAll(`.${containerClass}[platform="server"], .${containerClass}[platform="test"]`);
-      for (let i = 0; i < oppositePlatformContainers.length; i++) {
-        oppositePlatformContainers[i].remove();
-      }
-    }
-    const container = this._document.createElement("div");
-    container.classList.add(containerClass);
-    if (_isTestEnvironment()) {
-      container.setAttribute("platform", "test");
-    } else if (!this._platform.isBrowser) {
-      container.setAttribute("platform", "server");
-    }
-    this._document.body.appendChild(container);
-    this._containerElement = container;
-  }
-  _loadStyles() {
-    this._styleLoader.load(_CdkOverlayStyleLoader);
-  }
-  static \u0275fac = function OverlayContainer_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _OverlayContainer)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _OverlayContainer,
-    factory: _OverlayContainer.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayContainer, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var BackdropRef = class {
-  _renderer;
-  _ngZone;
-  element;
-  _cleanupClick;
-  _cleanupTransitionEnd;
-  _fallbackTimeout;
-  constructor(document2, _renderer, _ngZone, onClick) {
-    this._renderer = _renderer;
-    this._ngZone = _ngZone;
-    this.element = document2.createElement("div");
-    this.element.classList.add("cdk-overlay-backdrop");
-    this._cleanupClick = _renderer.listen(this.element, "click", onClick);
-  }
-  detach() {
-    this._ngZone.runOutsideAngular(() => {
-      const element = this.element;
-      clearTimeout(this._fallbackTimeout);
-      this._cleanupTransitionEnd?.();
-      this._cleanupTransitionEnd = this._renderer.listen(element, "transitionend", this.dispose);
-      this._fallbackTimeout = setTimeout(this.dispose, 500);
-      element.style.pointerEvents = "none";
-      element.classList.remove("cdk-overlay-backdrop-showing");
-    });
-  }
-  dispose = () => {
-    clearTimeout(this._fallbackTimeout);
-    this._cleanupClick?.();
-    this._cleanupTransitionEnd?.();
-    this._cleanupClick = this._cleanupTransitionEnd = this._fallbackTimeout = void 0;
-    this.element.remove();
-  };
-};
-function isElement(value) {
-  return value && value.nodeType === 1;
-}
-var OverlayRef = class {
-  _portalOutlet;
-  _host;
-  _pane;
-  _config;
-  _ngZone;
-  _keyboardDispatcher;
-  _document;
-  _location;
-  _outsideClickDispatcher;
-  _animationsDisabled;
-  _injector;
-  _renderer;
-  _backdropClick = new Subject();
-  _attachments = new Subject();
-  _detachments = new Subject();
-  _positionStrategy;
-  _scrollStrategy;
-  _locationChanges = Subscription.EMPTY;
-  _backdropRef = null;
-  _detachContentMutationObserver;
-  _detachContentAfterRenderRef;
-  _disposed = false;
-  _previousHostParent;
-  _keydownEvents = new Subject();
-  _outsidePointerEvents = new Subject();
-  _afterNextRenderRef;
-  constructor(_portalOutlet, _host, _pane, _config, _ngZone, _keyboardDispatcher, _document2, _location, _outsideClickDispatcher, _animationsDisabled = false, _injector, _renderer) {
-    this._portalOutlet = _portalOutlet;
-    this._host = _host;
-    this._pane = _pane;
-    this._config = _config;
-    this._ngZone = _ngZone;
-    this._keyboardDispatcher = _keyboardDispatcher;
-    this._document = _document2;
-    this._location = _location;
-    this._outsideClickDispatcher = _outsideClickDispatcher;
-    this._animationsDisabled = _animationsDisabled;
-    this._injector = _injector;
-    this._renderer = _renderer;
-    if (_config.scrollStrategy) {
-      this._scrollStrategy = _config.scrollStrategy;
-      this._scrollStrategy.attach(this);
-    }
-    this._positionStrategy = _config.positionStrategy;
-  }
-  get overlayElement() {
-    return this._pane;
-  }
-  get backdropElement() {
-    return this._backdropRef?.element || null;
-  }
-  get hostElement() {
-    return this._host;
-  }
-  attach(portal) {
-    if (this._disposed) {
-      return null;
-    }
-    this._attachHost();
-    const attachResult = this._portalOutlet.attach(portal);
-    this._positionStrategy?.attach(this);
-    this._updateStackingOrder();
-    this._updateElementSize();
-    this._updateElementDirection();
-    if (this._scrollStrategy) {
-      this._scrollStrategy.enable();
-    }
-    this._afterNextRenderRef?.destroy();
-    this._afterNextRenderRef = afterNextRender(() => {
-      if (this.hasAttached()) {
-        this.updatePosition();
-      }
-    }, {
-      injector: this._injector
-    });
-    this._togglePointerEvents(true);
-    if (this._config.hasBackdrop) {
-      this._attachBackdrop();
-    }
-    if (this._config.panelClass) {
-      this._toggleClasses(this._pane, this._config.panelClass, true);
-    }
-    this._attachments.next();
-    this._completeDetachContent();
-    this._keyboardDispatcher.add(this);
-    if (this._config.disposeOnNavigation) {
-      this._locationChanges = this._location.subscribe(() => this.dispose());
-    }
-    this._outsideClickDispatcher.add(this);
-    if (typeof attachResult?.onDestroy === "function") {
-      attachResult.onDestroy(() => {
-        if (this.hasAttached()) {
-          this._ngZone.runOutsideAngular(() => Promise.resolve().then(() => this.detach()));
-        }
-      });
-    }
-    return attachResult;
-  }
-  detach() {
-    if (!this.hasAttached()) {
-      return;
-    }
-    this.detachBackdrop();
-    this._togglePointerEvents(false);
-    if (this._positionStrategy && this._positionStrategy.detach) {
-      this._positionStrategy.detach();
-    }
-    if (this._scrollStrategy) {
-      this._scrollStrategy.disable();
-    }
-    const detachmentResult = this._portalOutlet.detach();
-    this._detachments.next();
-    this._completeDetachContent();
-    this._keyboardDispatcher.remove(this);
-    this._detachContentWhenEmpty();
-    this._locationChanges.unsubscribe();
-    this._outsideClickDispatcher.remove(this);
-    return detachmentResult;
-  }
-  dispose() {
-    if (this._disposed) {
-      return;
-    }
-    const isAttached = this.hasAttached();
-    if (this._positionStrategy) {
-      this._positionStrategy.dispose();
-    }
-    this._disposeScrollStrategy();
-    this._backdropRef?.dispose();
-    this._locationChanges.unsubscribe();
-    this._keyboardDispatcher.remove(this);
-    this._portalOutlet.dispose();
-    this._attachments.complete();
-    this._backdropClick.complete();
-    this._keydownEvents.complete();
-    this._outsidePointerEvents.complete();
-    this._outsideClickDispatcher.remove(this);
-    this._host?.remove();
-    this._afterNextRenderRef?.destroy();
-    this._previousHostParent = this._pane = this._host = this._backdropRef = null;
-    if (isAttached) {
-      this._detachments.next();
-    }
-    this._detachments.complete();
-    this._completeDetachContent();
-    this._disposed = true;
-  }
-  hasAttached() {
-    return this._portalOutlet.hasAttached();
-  }
-  backdropClick() {
-    return this._backdropClick;
-  }
-  attachments() {
-    return this._attachments;
-  }
-  detachments() {
-    return this._detachments;
-  }
-  keydownEvents() {
-    return this._keydownEvents;
-  }
-  outsidePointerEvents() {
-    return this._outsidePointerEvents;
-  }
-  getConfig() {
-    return this._config;
-  }
-  updatePosition() {
-    if (this._positionStrategy) {
-      this._positionStrategy.apply();
-    }
-  }
-  updatePositionStrategy(strategy) {
-    if (strategy === this._positionStrategy) {
-      return;
-    }
-    if (this._positionStrategy) {
-      this._positionStrategy.dispose();
-    }
-    this._positionStrategy = strategy;
-    if (this.hasAttached()) {
-      strategy.attach(this);
-      this.updatePosition();
-    }
-  }
-  updateSize(sizeConfig) {
-    this._config = __spreadValues(__spreadValues({}, this._config), sizeConfig);
-    this._updateElementSize();
-  }
-  setDirection(dir) {
-    this._config = __spreadProps(__spreadValues({}, this._config), {
-      direction: dir
-    });
-    this._updateElementDirection();
-  }
-  addPanelClass(classes) {
-    if (this._pane) {
-      this._toggleClasses(this._pane, classes, true);
-    }
-  }
-  removePanelClass(classes) {
-    if (this._pane) {
-      this._toggleClasses(this._pane, classes, false);
-    }
-  }
-  getDirection() {
-    const direction = this._config.direction;
-    if (!direction) {
-      return "ltr";
-    }
-    return typeof direction === "string" ? direction : direction.value;
-  }
-  updateScrollStrategy(strategy) {
-    if (strategy === this._scrollStrategy) {
-      return;
-    }
-    this._disposeScrollStrategy();
-    this._scrollStrategy = strategy;
-    if (this.hasAttached()) {
-      strategy.attach(this);
-      strategy.enable();
-    }
-  }
-  _updateElementDirection() {
-    this._host.setAttribute("dir", this.getDirection());
-  }
-  _updateElementSize() {
-    if (!this._pane) {
-      return;
-    }
-    const style = this._pane.style;
-    style.width = coerceCssPixelValue(this._config.width);
-    style.height = coerceCssPixelValue(this._config.height);
-    style.minWidth = coerceCssPixelValue(this._config.minWidth);
-    style.minHeight = coerceCssPixelValue(this._config.minHeight);
-    style.maxWidth = coerceCssPixelValue(this._config.maxWidth);
-    style.maxHeight = coerceCssPixelValue(this._config.maxHeight);
-  }
-  _togglePointerEvents(enablePointer) {
-    this._pane.style.pointerEvents = enablePointer ? "" : "none";
-  }
-  _attachHost() {
-    if (!this._host.parentElement) {
-      const customInsertionPoint = this._config.usePopover ? this._positionStrategy?.getPopoverInsertionPoint?.() : null;
-      if (isElement(customInsertionPoint)) {
-        customInsertionPoint.after(this._host);
-      } else if (customInsertionPoint?.type === "parent") {
-        customInsertionPoint.element.appendChild(this._host);
-      } else {
-        this._previousHostParent?.appendChild(this._host);
-      }
-    }
-    if (this._config.usePopover) {
-      try {
-        this._host["showPopover"]();
-      } catch {
-      }
-    }
-  }
-  _attachBackdrop() {
-    const showingClass = "cdk-overlay-backdrop-showing";
-    this._backdropRef?.dispose();
-    this._backdropRef = new BackdropRef(this._document, this._renderer, this._ngZone, (event2) => {
-      this._backdropClick.next(event2);
-    });
-    if (this._animationsDisabled) {
-      this._backdropRef.element.classList.add("cdk-overlay-backdrop-noop-animation");
-    }
-    if (this._config.backdropClass) {
-      this._toggleClasses(this._backdropRef.element, this._config.backdropClass, true);
-    }
-    if (this._config.usePopover) {
-      this._host.prepend(this._backdropRef.element);
-    } else {
-      this._host.parentElement.insertBefore(this._backdropRef.element, this._host);
-    }
-    if (!this._animationsDisabled && typeof requestAnimationFrame !== "undefined") {
-      this._ngZone.runOutsideAngular(() => {
-        requestAnimationFrame(() => this._backdropRef?.element.classList.add(showingClass));
-      });
-    } else {
-      this._backdropRef.element.classList.add(showingClass);
-    }
-  }
-  _updateStackingOrder() {
-    if (!this._config.usePopover && this._host.nextSibling) {
-      this._host.parentNode.appendChild(this._host);
-    }
-  }
-  detachBackdrop() {
-    if (this._animationsDisabled) {
-      this._backdropRef?.dispose();
-      this._backdropRef = null;
-    } else {
-      this._backdropRef?.detach();
-    }
-  }
-  _toggleClasses(element, cssClasses, isAdd) {
-    const classes = coerceArray(cssClasses || []).filter((c) => !!c);
-    if (classes.length) {
-      isAdd ? element.classList.add(...classes) : element.classList.remove(...classes);
-    }
-  }
-  _detachContentWhenEmpty() {
-    let rethrow = false;
-    try {
-      this._detachContentAfterRenderRef = afterNextRender(() => {
-        rethrow = true;
-        this._detachContent();
-      }, {
-        injector: this._injector
-      });
-    } catch (e) {
-      if (rethrow) {
-        throw e;
-      }
-      this._detachContent();
-    }
-    if (globalThis.MutationObserver && this._pane) {
-      this._detachContentMutationObserver ||= new globalThis.MutationObserver(() => {
-        this._detachContent();
-      });
-      this._detachContentMutationObserver.observe(this._pane, {
-        childList: true
-      });
-    }
-  }
-  _detachContent() {
-    if (!this._pane || !this._host || this._pane.children.length === 0) {
-      if (this._pane && this._config.panelClass) {
-        this._toggleClasses(this._pane, this._config.panelClass, false);
-      }
-      if (this._host && this._host.parentElement) {
-        this._previousHostParent = this._host.parentElement;
-        this._host.remove();
-      }
-      this._completeDetachContent();
-    }
-  }
-  _completeDetachContent() {
-    this._detachContentAfterRenderRef?.destroy();
-    this._detachContentAfterRenderRef = void 0;
-    this._detachContentMutationObserver?.disconnect();
-  }
-  _disposeScrollStrategy() {
-    const scrollStrategy = this._scrollStrategy;
-    scrollStrategy?.disable();
-    scrollStrategy?.detach?.();
-  }
-};
-var boundingBoxClass = "cdk-overlay-connected-position-bounding-box";
-var cssUnitPattern = /([A-Za-z%]+)$/;
-function createFlexibleConnectedPositionStrategy(injector, origin) {
-  return new FlexibleConnectedPositionStrategy(origin, injector.get(ViewportRuler), injector.get(DOCUMENT), injector.get(Platform), injector.get(OverlayContainer));
-}
-var FlexibleConnectedPositionStrategy = class {
-  _viewportRuler;
-  _document;
-  _platform;
-  _overlayContainer;
-  _overlayRef;
-  _isInitialRender = false;
-  _lastBoundingBoxSize = {
-    width: 0,
-    height: 0
-  };
-  _isPushed = false;
-  _canPush = true;
-  _growAfterOpen = false;
-  _hasFlexibleDimensions = true;
-  _positionLocked = false;
-  _originRect;
-  _overlayRect;
-  _viewportRect;
-  _containerRect;
-  _viewportMargin = 0;
-  _scrollables = [];
-  _preferredPositions = [];
-  _origin;
-  _pane;
-  _isDisposed = false;
-  _boundingBox = null;
-  _lastPosition = null;
-  _lastScrollVisibility = null;
-  _positionChanges = new Subject();
-  _resizeSubscription = Subscription.EMPTY;
-  _offsetX = 0;
-  _offsetY = 0;
-  _transformOriginSelector;
-  _appliedPanelClasses = [];
-  _previousPushAmount = null;
-  _popoverLocation = "global";
-  positionChanges = this._positionChanges;
-  get positions() {
-    return this._preferredPositions;
-  }
-  constructor(connectedTo, _viewportRuler, _document2, _platform, _overlayContainer) {
-    this._viewportRuler = _viewportRuler;
-    this._document = _document2;
-    this._platform = _platform;
-    this._overlayContainer = _overlayContainer;
-    this.setOrigin(connectedTo);
-  }
-  attach(overlayRef) {
-    if (this._overlayRef && overlayRef !== this._overlayRef && (typeof ngDevMode === "undefined" || ngDevMode)) {
-      throw Error("This position strategy is already attached to an overlay");
-    }
-    this._validatePositions();
-    overlayRef.hostElement.classList.add(boundingBoxClass);
-    this._overlayRef = overlayRef;
-    this._boundingBox = overlayRef.hostElement;
-    this._pane = overlayRef.overlayElement;
-    this._isDisposed = false;
-    this._isInitialRender = true;
-    this._lastPosition = null;
-    this._resizeSubscription.unsubscribe();
-    this._resizeSubscription = this._viewportRuler.change().subscribe(() => {
-      this._isInitialRender = true;
-      this.apply();
-    });
-  }
-  apply() {
-    if (this._isDisposed || !this._platform.isBrowser) {
-      return;
-    }
-    if (!this._isInitialRender && this._positionLocked && this._lastPosition) {
-      this.reapplyLastPosition();
-      return;
-    }
-    this._clearPanelClasses();
-    this._resetOverlayElementStyles();
-    this._resetBoundingBoxStyles();
-    this._viewportRect = this._getNarrowedViewportRect();
-    this._originRect = this._getOriginRect();
-    this._overlayRect = this._pane.getBoundingClientRect();
-    this._containerRect = this._getContainerRect();
-    const originRect = this._originRect;
-    const overlayRect = this._overlayRect;
-    const viewportRect = this._viewportRect;
-    const containerRect = this._containerRect;
-    const flexibleFits = [];
-    let fallback;
-    for (let pos of this._preferredPositions) {
-      let originPoint = this._getOriginPoint(originRect, containerRect, pos);
-      let overlayPoint = this._getOverlayPoint(originPoint, overlayRect, pos);
-      let overlayFit = this._getOverlayFit(overlayPoint, overlayRect, viewportRect, pos);
-      if (overlayFit.isCompletelyWithinViewport) {
-        this._isPushed = false;
-        this._applyPosition(pos, originPoint);
-        return;
-      }
-      if (this._canFitWithFlexibleDimensions(overlayFit, overlayPoint, viewportRect)) {
-        flexibleFits.push({
-          position: pos,
-          origin: originPoint,
-          overlayRect,
-          boundingBoxRect: this._calculateBoundingBoxRect(originPoint, pos)
-        });
-        continue;
-      }
-      if (!fallback || fallback.overlayFit.visibleArea < overlayFit.visibleArea) {
-        fallback = {
-          overlayFit,
-          overlayPoint,
-          originPoint,
-          position: pos,
-          overlayRect
-        };
-      }
-    }
-    if (flexibleFits.length) {
-      let bestFit = null;
-      let bestScore = -1;
-      for (const fit of flexibleFits) {
-        const score = fit.boundingBoxRect.width * fit.boundingBoxRect.height * (fit.position.weight || 1);
-        if (score > bestScore) {
-          bestScore = score;
-          bestFit = fit;
-        }
-      }
-      this._isPushed = false;
-      this._applyPosition(bestFit.position, bestFit.origin);
-      return;
-    }
-    if (this._canPush) {
-      this._isPushed = true;
-      this._applyPosition(fallback.position, fallback.originPoint);
-      return;
-    }
-    this._applyPosition(fallback.position, fallback.originPoint);
-  }
-  detach() {
-    this._clearPanelClasses();
-    this._lastPosition = null;
-    this._previousPushAmount = null;
-    this._resizeSubscription.unsubscribe();
-  }
-  dispose() {
-    if (this._isDisposed) {
-      return;
-    }
-    if (this._boundingBox) {
-      extendStyles(this._boundingBox.style, {
-        top: "",
-        left: "",
-        right: "",
-        bottom: "",
-        height: "",
-        width: "",
-        alignItems: "",
-        justifyContent: ""
-      });
-    }
-    if (this._pane) {
-      this._resetOverlayElementStyles();
-    }
-    if (this._overlayRef) {
-      this._overlayRef.hostElement.classList.remove(boundingBoxClass);
-    }
-    this.detach();
-    this._positionChanges.complete();
-    this._overlayRef = this._boundingBox = null;
-    this._isDisposed = true;
-  }
-  reapplyLastPosition() {
-    if (this._isDisposed || !this._platform.isBrowser) {
-      return;
-    }
-    const lastPosition = this._lastPosition;
-    if (lastPosition) {
-      this._originRect = this._getOriginRect();
-      this._overlayRect = this._pane.getBoundingClientRect();
-      this._viewportRect = this._getNarrowedViewportRect();
-      this._containerRect = this._getContainerRect();
-      this._applyPosition(lastPosition, this._getOriginPoint(this._originRect, this._containerRect, lastPosition));
-    } else {
-      this.apply();
-    }
-  }
-  withScrollableContainers(scrollables) {
-    this._scrollables = scrollables;
-    return this;
-  }
-  withPositions(positions) {
-    this._preferredPositions = positions;
-    if (positions.indexOf(this._lastPosition) === -1) {
-      this._lastPosition = null;
-    }
-    this._validatePositions();
-    return this;
-  }
-  withViewportMargin(margin) {
-    this._viewportMargin = margin;
-    return this;
-  }
-  withFlexibleDimensions(flexibleDimensions = true) {
-    this._hasFlexibleDimensions = flexibleDimensions;
-    return this;
-  }
-  withGrowAfterOpen(growAfterOpen = true) {
-    this._growAfterOpen = growAfterOpen;
-    return this;
-  }
-  withPush(canPush = true) {
-    this._canPush = canPush;
-    return this;
-  }
-  withLockedPosition(isLocked = true) {
-    this._positionLocked = isLocked;
-    return this;
-  }
-  setOrigin(origin) {
-    this._origin = origin;
-    return this;
-  }
-  withDefaultOffsetX(offset2) {
-    this._offsetX = offset2;
-    return this;
-  }
-  withDefaultOffsetY(offset2) {
-    this._offsetY = offset2;
-    return this;
-  }
-  withTransformOriginOn(selector) {
-    this._transformOriginSelector = selector;
-    return this;
-  }
-  withPopoverLocation(location) {
-    this._popoverLocation = location;
-    return this;
-  }
-  getPopoverInsertionPoint() {
-    if (this._popoverLocation === "global") {
-      return null;
-    } else if (this._popoverLocation !== "inline") {
-      return this._popoverLocation;
-    }
-    if (this._origin instanceof ElementRef) {
-      return this._origin.nativeElement;
-    } else if (isElement(this._origin)) {
-      return this._origin;
-    } else {
-      return null;
-    }
-  }
-  _getOriginPoint(originRect, containerRect, pos) {
-    let x;
-    if (pos.originX == "center") {
-      x = originRect.left + originRect.width / 2;
-    } else {
-      const startX = this._isRtl() ? originRect.right : originRect.left;
-      const endX = this._isRtl() ? originRect.left : originRect.right;
-      x = pos.originX == "start" ? startX : endX;
-    }
-    if (containerRect.left < 0) {
-      x -= containerRect.left;
-    }
-    let y;
-    if (pos.originY == "center") {
-      y = originRect.top + originRect.height / 2;
-    } else {
-      y = pos.originY == "top" ? originRect.top : originRect.bottom;
-    }
-    if (containerRect.top < 0) {
-      y -= containerRect.top;
-    }
-    return {
-      x,
-      y
-    };
-  }
-  _getOverlayPoint(originPoint, overlayRect, pos) {
-    let overlayStartX;
-    if (pos.overlayX == "center") {
-      overlayStartX = -overlayRect.width / 2;
-    } else if (pos.overlayX === "start") {
-      overlayStartX = this._isRtl() ? -overlayRect.width : 0;
-    } else {
-      overlayStartX = this._isRtl() ? 0 : -overlayRect.width;
-    }
-    let overlayStartY;
-    if (pos.overlayY == "center") {
-      overlayStartY = -overlayRect.height / 2;
-    } else {
-      overlayStartY = pos.overlayY == "top" ? 0 : -overlayRect.height;
-    }
-    return {
-      x: originPoint.x + overlayStartX,
-      y: originPoint.y + overlayStartY
-    };
-  }
-  _getOverlayFit(point, rawOverlayRect, viewport, position) {
-    const overlay = getRoundedBoundingClientRect(rawOverlayRect);
-    let {
-      x,
-      y
-    } = point;
-    let offsetX = this._getOffset(position, "x");
-    let offsetY = this._getOffset(position, "y");
-    if (offsetX) {
-      x += offsetX;
-    }
-    if (offsetY) {
-      y += offsetY;
-    }
-    let leftOverflow = 0 - x;
-    let rightOverflow = x + overlay.width - viewport.width;
-    let topOverflow = 0 - y;
-    let bottomOverflow = y + overlay.height - viewport.height;
-    let visibleWidth = this._subtractOverflows(overlay.width, leftOverflow, rightOverflow);
-    let visibleHeight = this._subtractOverflows(overlay.height, topOverflow, bottomOverflow);
-    let visibleArea = visibleWidth * visibleHeight;
-    return {
-      visibleArea,
-      isCompletelyWithinViewport: overlay.width * overlay.height === visibleArea,
-      fitsInViewportVertically: visibleHeight === overlay.height,
-      fitsInViewportHorizontally: visibleWidth == overlay.width
-    };
-  }
-  _canFitWithFlexibleDimensions(fit, point, viewport) {
-    if (this._hasFlexibleDimensions) {
-      const availableHeight = viewport.bottom - point.y;
-      const availableWidth = viewport.right - point.x;
-      const minHeight = getPixelValue(this._overlayRef.getConfig().minHeight);
-      const minWidth = getPixelValue(this._overlayRef.getConfig().minWidth);
-      const verticalFit = fit.fitsInViewportVertically || minHeight != null && minHeight <= availableHeight;
-      const horizontalFit = fit.fitsInViewportHorizontally || minWidth != null && minWidth <= availableWidth;
-      return verticalFit && horizontalFit;
-    }
-    return false;
-  }
-  _pushOverlayOnScreen(start, rawOverlayRect, scrollPosition) {
-    if (this._previousPushAmount && this._positionLocked) {
-      return {
-        x: start.x + this._previousPushAmount.x,
-        y: start.y + this._previousPushAmount.y
-      };
-    }
-    const overlay = getRoundedBoundingClientRect(rawOverlayRect);
-    const viewport = this._viewportRect;
-    const overflowRight = Math.max(start.x + overlay.width - viewport.width, 0);
-    const overflowBottom = Math.max(start.y + overlay.height - viewport.height, 0);
-    const overflowTop = Math.max(viewport.top - scrollPosition.top - start.y, 0);
-    const overflowLeft = Math.max(viewport.left - scrollPosition.left - start.x, 0);
-    let pushX = 0;
-    let pushY = 0;
-    if (overlay.width <= viewport.width) {
-      pushX = overflowLeft || -overflowRight;
-    } else {
-      pushX = start.x < this._getViewportMarginStart() ? viewport.left - scrollPosition.left - start.x : 0;
-    }
-    if (overlay.height <= viewport.height) {
-      pushY = overflowTop || -overflowBottom;
-    } else {
-      pushY = start.y < this._getViewportMarginTop() ? viewport.top - scrollPosition.top - start.y : 0;
-    }
-    this._previousPushAmount = {
-      x: pushX,
-      y: pushY
-    };
-    return {
-      x: start.x + pushX,
-      y: start.y + pushY
-    };
-  }
-  _applyPosition(position, originPoint) {
-    this._setTransformOrigin(position);
-    this._setOverlayElementStyles(originPoint, position);
-    this._setBoundingBoxStyles(originPoint, position);
-    if (position.panelClass) {
-      this._addPanelClasses(position.panelClass);
-    }
-    if (this._positionChanges.observers.length) {
-      const scrollVisibility = this._getScrollVisibility();
-      if (position !== this._lastPosition || !this._lastScrollVisibility || !compareScrollVisibility(this._lastScrollVisibility, scrollVisibility)) {
-        const changeEvent = new ConnectedOverlayPositionChange(position, scrollVisibility);
-        this._positionChanges.next(changeEvent);
-      }
-      this._lastScrollVisibility = scrollVisibility;
-    }
-    this._lastPosition = position;
-    this._isInitialRender = false;
-  }
-  _setTransformOrigin(position) {
-    if (!this._transformOriginSelector) {
-      return;
-    }
-    const elements = this._boundingBox.querySelectorAll(this._transformOriginSelector);
-    let xOrigin;
-    let yOrigin = position.overlayY;
-    if (position.overlayX === "center") {
-      xOrigin = "center";
-    } else if (this._isRtl()) {
-      xOrigin = position.overlayX === "start" ? "right" : "left";
-    } else {
-      xOrigin = position.overlayX === "start" ? "left" : "right";
-    }
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].style.transformOrigin = `${xOrigin} ${yOrigin}`;
-    }
-  }
-  _calculateBoundingBoxRect(origin, position) {
-    const viewport = this._viewportRect;
-    const isRtl = this._isRtl();
-    let height, top, bottom;
-    if (position.overlayY === "top") {
-      top = origin.y;
-      height = viewport.height - top + this._getViewportMarginBottom();
-    } else if (position.overlayY === "bottom") {
-      bottom = viewport.height - origin.y + this._getViewportMarginTop() + this._getViewportMarginBottom();
-      height = viewport.height - bottom + this._getViewportMarginTop();
-    } else {
-      const smallestDistanceToViewportEdge = Math.min(viewport.bottom - origin.y + viewport.top, origin.y);
-      const previousHeight = this._lastBoundingBoxSize.height;
-      height = smallestDistanceToViewportEdge * 2;
-      top = origin.y - smallestDistanceToViewportEdge;
-      if (height > previousHeight && !this._isInitialRender && !this._growAfterOpen) {
-        top = origin.y - previousHeight / 2;
-      }
-    }
-    const isBoundedByRightViewportEdge = position.overlayX === "start" && !isRtl || position.overlayX === "end" && isRtl;
-    const isBoundedByLeftViewportEdge = position.overlayX === "end" && !isRtl || position.overlayX === "start" && isRtl;
-    let width, left, right;
-    if (isBoundedByLeftViewportEdge) {
-      right = viewport.width - origin.x + this._getViewportMarginStart() + this._getViewportMarginEnd();
-      width = origin.x - this._getViewportMarginStart();
-    } else if (isBoundedByRightViewportEdge) {
-      left = origin.x;
-      width = viewport.right - origin.x - this._getViewportMarginEnd();
-    } else {
-      const smallestDistanceToViewportEdge = Math.min(viewport.right - origin.x + viewport.left, origin.x);
-      const previousWidth = this._lastBoundingBoxSize.width;
-      width = smallestDistanceToViewportEdge * 2;
-      left = origin.x - smallestDistanceToViewportEdge;
-      if (width > previousWidth && !this._isInitialRender && !this._growAfterOpen) {
-        left = origin.x - previousWidth / 2;
-      }
-    }
-    return {
-      top,
-      left,
-      bottom,
-      right,
-      width,
-      height
-    };
-  }
-  _setBoundingBoxStyles(origin, position) {
-    const boundingBoxRect = this._calculateBoundingBoxRect(origin, position);
-    if (!this._isInitialRender && !this._growAfterOpen) {
-      boundingBoxRect.height = Math.min(boundingBoxRect.height, this._lastBoundingBoxSize.height);
-      boundingBoxRect.width = Math.min(boundingBoxRect.width, this._lastBoundingBoxSize.width);
-    }
-    const styles = {};
-    if (this._hasExactPosition()) {
-      styles.top = styles.left = "0";
-      styles.bottom = styles.right = "auto";
-      styles.maxHeight = styles.maxWidth = "";
-      styles.width = styles.height = "100%";
-    } else {
-      const maxHeight = this._overlayRef.getConfig().maxHeight;
-      const maxWidth = this._overlayRef.getConfig().maxWidth;
-      styles.width = coerceCssPixelValue(boundingBoxRect.width);
-      styles.height = coerceCssPixelValue(boundingBoxRect.height);
-      styles.top = coerceCssPixelValue(boundingBoxRect.top) || "auto";
-      styles.bottom = coerceCssPixelValue(boundingBoxRect.bottom) || "auto";
-      styles.left = coerceCssPixelValue(boundingBoxRect.left) || "auto";
-      styles.right = coerceCssPixelValue(boundingBoxRect.right) || "auto";
-      if (position.overlayX === "center") {
-        styles.alignItems = "center";
-      } else {
-        styles.alignItems = position.overlayX === "end" ? "flex-end" : "flex-start";
-      }
-      if (position.overlayY === "center") {
-        styles.justifyContent = "center";
-      } else {
-        styles.justifyContent = position.overlayY === "bottom" ? "flex-end" : "flex-start";
-      }
-      if (maxHeight) {
-        styles.maxHeight = coerceCssPixelValue(maxHeight);
-      }
-      if (maxWidth) {
-        styles.maxWidth = coerceCssPixelValue(maxWidth);
-      }
-    }
-    this._lastBoundingBoxSize = boundingBoxRect;
-    extendStyles(this._boundingBox.style, styles);
-  }
-  _resetBoundingBoxStyles() {
-    extendStyles(this._boundingBox.style, {
-      top: "0",
-      left: "0",
-      right: "0",
-      bottom: "0",
-      height: "",
-      width: "",
-      alignItems: "",
-      justifyContent: ""
-    });
-  }
-  _resetOverlayElementStyles() {
-    extendStyles(this._pane.style, {
-      top: "",
-      left: "",
-      bottom: "",
-      right: "",
-      position: "",
-      transform: ""
-    });
-  }
-  _setOverlayElementStyles(originPoint, position) {
-    const styles = {};
-    const hasExactPosition = this._hasExactPosition();
-    const hasFlexibleDimensions = this._hasFlexibleDimensions;
-    const config = this._overlayRef.getConfig();
-    if (hasExactPosition) {
-      const scrollPosition = this._viewportRuler.getViewportScrollPosition();
-      extendStyles(styles, this._getExactOverlayY(position, originPoint, scrollPosition));
-      extendStyles(styles, this._getExactOverlayX(position, originPoint, scrollPosition));
-    } else {
-      styles.position = "static";
-    }
-    let transformString = "";
-    let offsetX = this._getOffset(position, "x");
-    let offsetY = this._getOffset(position, "y");
-    if (offsetX) {
-      transformString += `translateX(${offsetX}px) `;
-    }
-    if (offsetY) {
-      transformString += `translateY(${offsetY}px)`;
-    }
-    styles.transform = transformString.trim();
-    if (config.maxHeight) {
-      if (hasExactPosition) {
-        styles.maxHeight = coerceCssPixelValue(config.maxHeight);
-      } else if (hasFlexibleDimensions) {
-        styles.maxHeight = "";
-      }
-    }
-    if (config.maxWidth) {
-      if (hasExactPosition) {
-        styles.maxWidth = coerceCssPixelValue(config.maxWidth);
-      } else if (hasFlexibleDimensions) {
-        styles.maxWidth = "";
-      }
-    }
-    extendStyles(this._pane.style, styles);
-  }
-  _getExactOverlayY(position, originPoint, scrollPosition) {
-    let styles = {
-      top: "",
-      bottom: ""
-    };
-    let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position);
-    if (this._isPushed) {
-      overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition);
-    }
-    if (position.overlayY === "bottom") {
-      const documentHeight = this._document.documentElement.clientHeight;
-      styles.bottom = `${documentHeight - (overlayPoint.y + this._overlayRect.height)}px`;
-    } else {
-      styles.top = coerceCssPixelValue(overlayPoint.y);
-    }
-    return styles;
-  }
-  _getExactOverlayX(position, originPoint, scrollPosition) {
-    let styles = {
-      left: "",
-      right: ""
-    };
-    let overlayPoint = this._getOverlayPoint(originPoint, this._overlayRect, position);
-    if (this._isPushed) {
-      overlayPoint = this._pushOverlayOnScreen(overlayPoint, this._overlayRect, scrollPosition);
-    }
-    let horizontalStyleProperty;
-    if (this._isRtl()) {
-      horizontalStyleProperty = position.overlayX === "end" ? "left" : "right";
-    } else {
-      horizontalStyleProperty = position.overlayX === "end" ? "right" : "left";
-    }
-    if (horizontalStyleProperty === "right") {
-      const documentWidth = this._document.documentElement.clientWidth;
-      styles.right = `${documentWidth - (overlayPoint.x + this._overlayRect.width)}px`;
-    } else {
-      styles.left = coerceCssPixelValue(overlayPoint.x);
-    }
-    return styles;
-  }
-  _getScrollVisibility() {
-    const originBounds = this._getOriginRect();
-    const overlayBounds = this._pane.getBoundingClientRect();
-    const scrollContainerBounds = this._scrollables.map((scrollable) => {
-      return scrollable.getElementRef().nativeElement.getBoundingClientRect();
-    });
-    return {
-      isOriginClipped: isElementClippedByScrolling(originBounds, scrollContainerBounds),
-      isOriginOutsideView: isElementScrolledOutsideView(originBounds, scrollContainerBounds),
-      isOverlayClipped: isElementClippedByScrolling(overlayBounds, scrollContainerBounds),
-      isOverlayOutsideView: isElementScrolledOutsideView(overlayBounds, scrollContainerBounds)
-    };
-  }
-  _subtractOverflows(length, ...overflows) {
-    return overflows.reduce((currentValue, currentOverflow) => {
-      return currentValue - Math.max(currentOverflow, 0);
-    }, length);
-  }
-  _getNarrowedViewportRect() {
-    const width = this._document.documentElement.clientWidth;
-    const height = this._document.documentElement.clientHeight;
-    const scrollPosition = this._viewportRuler.getViewportScrollPosition();
-    return {
-      top: scrollPosition.top + this._getViewportMarginTop(),
-      left: scrollPosition.left + this._getViewportMarginStart(),
-      right: scrollPosition.left + width - this._getViewportMarginEnd(),
-      bottom: scrollPosition.top + height - this._getViewportMarginBottom(),
-      width: width - this._getViewportMarginStart() - this._getViewportMarginEnd(),
-      height: height - this._getViewportMarginTop() - this._getViewportMarginBottom()
-    };
-  }
-  _isRtl() {
-    return this._overlayRef.getDirection() === "rtl";
-  }
-  _hasExactPosition() {
-    return !this._hasFlexibleDimensions || this._isPushed;
-  }
-  _getOffset(position, axis) {
-    if (axis === "x") {
-      return position.offsetX == null ? this._offsetX : position.offsetX;
-    }
-    return position.offsetY == null ? this._offsetY : position.offsetY;
-  }
-  _validatePositions() {
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      if (!this._preferredPositions.length) {
-        throw Error("FlexibleConnectedPositionStrategy: At least one position is required.");
-      }
-      this._preferredPositions.forEach((pair) => {
-        validateHorizontalPosition("originX", pair.originX);
-        validateVerticalPosition("originY", pair.originY);
-        validateHorizontalPosition("overlayX", pair.overlayX);
-        validateVerticalPosition("overlayY", pair.overlayY);
-      });
-    }
-  }
-  _addPanelClasses(cssClasses) {
-    if (this._pane) {
-      coerceArray(cssClasses).forEach((cssClass) => {
-        if (cssClass !== "" && this._appliedPanelClasses.indexOf(cssClass) === -1) {
-          this._appliedPanelClasses.push(cssClass);
-          this._pane.classList.add(cssClass);
-        }
-      });
-    }
-  }
-  _clearPanelClasses() {
-    if (this._pane) {
-      this._appliedPanelClasses.forEach((cssClass) => {
-        this._pane.classList.remove(cssClass);
-      });
-      this._appliedPanelClasses = [];
-    }
-  }
-  _getViewportMarginStart() {
-    if (typeof this._viewportMargin === "number") return this._viewportMargin;
-    return this._viewportMargin?.start ?? 0;
-  }
-  _getViewportMarginEnd() {
-    if (typeof this._viewportMargin === "number") return this._viewportMargin;
-    return this._viewportMargin?.end ?? 0;
-  }
-  _getViewportMarginTop() {
-    if (typeof this._viewportMargin === "number") return this._viewportMargin;
-    return this._viewportMargin?.top ?? 0;
-  }
-  _getViewportMarginBottom() {
-    if (typeof this._viewportMargin === "number") return this._viewportMargin;
-    return this._viewportMargin?.bottom ?? 0;
-  }
-  _getOriginRect() {
-    const origin = this._origin;
-    if (origin instanceof ElementRef) {
-      return origin.nativeElement.getBoundingClientRect();
-    }
-    if (origin instanceof Element) {
-      return origin.getBoundingClientRect();
-    }
-    const width = origin.width || 0;
-    const height = origin.height || 0;
-    return {
-      top: origin.y,
-      bottom: origin.y + height,
-      left: origin.x,
-      right: origin.x + width,
-      height,
-      width
-    };
-  }
-  _getContainerRect() {
-    const isInlinePopover = this._overlayRef.getConfig().usePopover && this._popoverLocation !== "global";
-    const element = this._overlayContainer.getContainerElement();
-    if (isInlinePopover) {
-      element.style.display = "block";
-    }
-    const dimensions = element.getBoundingClientRect();
-    if (isInlinePopover) {
-      element.style.display = "";
-    }
-    return dimensions;
-  }
-};
-function extendStyles(destination, source) {
-  for (let key in source) {
-    if (source.hasOwnProperty(key)) {
-      destination[key] = source[key];
-    }
-  }
-  return destination;
-}
-function getPixelValue(input2) {
-  if (typeof input2 !== "number" && input2 != null) {
-    const [value, units] = input2.split(cssUnitPattern);
-    return !units || units === "px" ? parseFloat(value) : null;
-  }
-  return input2 || null;
-}
-function getRoundedBoundingClientRect(clientRect) {
-  return {
-    top: Math.floor(clientRect.top),
-    right: Math.floor(clientRect.right),
-    bottom: Math.floor(clientRect.bottom),
-    left: Math.floor(clientRect.left),
-    width: Math.floor(clientRect.width),
-    height: Math.floor(clientRect.height)
-  };
-}
-function compareScrollVisibility(a, b) {
-  if (a === b) {
-    return true;
-  }
-  return a.isOriginClipped === b.isOriginClipped && a.isOriginOutsideView === b.isOriginOutsideView && a.isOverlayClipped === b.isOverlayClipped && a.isOverlayOutsideView === b.isOverlayOutsideView;
-}
-var STANDARD_DROPDOWN_BELOW_POSITIONS = [{
-  originX: "start",
-  originY: "bottom",
-  overlayX: "start",
-  overlayY: "top"
-}, {
-  originX: "start",
-  originY: "top",
-  overlayX: "start",
-  overlayY: "bottom"
-}, {
-  originX: "end",
-  originY: "bottom",
-  overlayX: "end",
-  overlayY: "top"
-}, {
-  originX: "end",
-  originY: "top",
-  overlayX: "end",
-  overlayY: "bottom"
-}];
-var STANDARD_DROPDOWN_ADJACENT_POSITIONS = [{
-  originX: "end",
-  originY: "top",
-  overlayX: "start",
-  overlayY: "top"
-}, {
-  originX: "end",
-  originY: "bottom",
-  overlayX: "start",
-  overlayY: "bottom"
-}, {
-  originX: "start",
-  originY: "top",
-  overlayX: "end",
-  overlayY: "top"
-}, {
-  originX: "start",
-  originY: "bottom",
-  overlayX: "end",
-  overlayY: "bottom"
-}];
-var wrapperClass = "cdk-global-overlay-wrapper";
-function createGlobalPositionStrategy(_injector) {
-  return new GlobalPositionStrategy();
-}
-var GlobalPositionStrategy = class {
-  _overlayRef;
-  _cssPosition = "static";
-  _topOffset = "";
-  _bottomOffset = "";
-  _alignItems = "";
-  _xPosition = "";
-  _xOffset = "";
-  _width = "";
-  _height = "";
-  _isDisposed = false;
-  attach(overlayRef) {
-    const config = overlayRef.getConfig();
-    this._overlayRef = overlayRef;
-    if (this._width && !config.width) {
-      overlayRef.updateSize({
-        width: this._width
-      });
-    }
-    if (this._height && !config.height) {
-      overlayRef.updateSize({
-        height: this._height
-      });
-    }
-    overlayRef.hostElement.classList.add(wrapperClass);
-    this._isDisposed = false;
-  }
-  top(value = "") {
-    this._bottomOffset = "";
-    this._topOffset = value;
-    this._alignItems = "flex-start";
-    return this;
-  }
-  left(value = "") {
-    this._xOffset = value;
-    this._xPosition = "left";
-    return this;
-  }
-  bottom(value = "") {
-    this._topOffset = "";
-    this._bottomOffset = value;
-    this._alignItems = "flex-end";
-    return this;
-  }
-  right(value = "") {
-    this._xOffset = value;
-    this._xPosition = "right";
-    return this;
-  }
-  start(value = "") {
-    this._xOffset = value;
-    this._xPosition = "start";
-    return this;
-  }
-  end(value = "") {
-    this._xOffset = value;
-    this._xPosition = "end";
-    return this;
-  }
-  width(value = "") {
-    if (this._overlayRef) {
-      this._overlayRef.updateSize({
-        width: value
-      });
-    } else {
-      this._width = value;
-    }
-    return this;
-  }
-  height(value = "") {
-    if (this._overlayRef) {
-      this._overlayRef.updateSize({
-        height: value
-      });
-    } else {
-      this._height = value;
-    }
-    return this;
-  }
-  centerHorizontally(offset2 = "") {
-    this.left(offset2);
-    this._xPosition = "center";
-    return this;
-  }
-  centerVertically(offset2 = "") {
-    this.top(offset2);
-    this._alignItems = "center";
-    return this;
-  }
-  apply() {
-    if (!this._overlayRef || !this._overlayRef.hasAttached()) {
-      return;
-    }
-    const styles = this._overlayRef.overlayElement.style;
-    const parentStyles = this._overlayRef.hostElement.style;
-    const config = this._overlayRef.getConfig();
-    const {
-      width,
-      height,
-      maxWidth,
-      maxHeight
-    } = config;
-    const shouldBeFlushHorizontally = (width === "100%" || width === "100vw") && (!maxWidth || maxWidth === "100%" || maxWidth === "100vw");
-    const shouldBeFlushVertically = (height === "100%" || height === "100vh") && (!maxHeight || maxHeight === "100%" || maxHeight === "100vh");
-    const xPosition = this._xPosition;
-    const xOffset = this._xOffset;
-    const isRtl = this._overlayRef.getConfig().direction === "rtl";
-    let marginLeft = "";
-    let marginRight = "";
-    let justifyContent = "";
-    if (shouldBeFlushHorizontally) {
-      justifyContent = "flex-start";
-    } else if (xPosition === "center") {
-      justifyContent = "center";
-      if (isRtl) {
-        marginRight = xOffset;
-      } else {
-        marginLeft = xOffset;
-      }
-    } else if (isRtl) {
-      if (xPosition === "left" || xPosition === "end") {
-        justifyContent = "flex-end";
-        marginLeft = xOffset;
-      } else if (xPosition === "right" || xPosition === "start") {
-        justifyContent = "flex-start";
-        marginRight = xOffset;
-      }
-    } else if (xPosition === "left" || xPosition === "start") {
-      justifyContent = "flex-start";
-      marginLeft = xOffset;
-    } else if (xPosition === "right" || xPosition === "end") {
-      justifyContent = "flex-end";
-      marginRight = xOffset;
-    }
-    styles.position = this._cssPosition;
-    styles.marginLeft = shouldBeFlushHorizontally ? "0" : marginLeft;
-    styles.marginTop = shouldBeFlushVertically ? "0" : this._topOffset;
-    styles.marginBottom = this._bottomOffset;
-    styles.marginRight = shouldBeFlushHorizontally ? "0" : marginRight;
-    parentStyles.justifyContent = justifyContent;
-    parentStyles.alignItems = shouldBeFlushVertically ? "flex-start" : this._alignItems;
-  }
-  dispose() {
-    if (this._isDisposed || !this._overlayRef) {
-      return;
-    }
-    const styles = this._overlayRef.overlayElement.style;
-    const parent = this._overlayRef.hostElement;
-    const parentStyles = parent.style;
-    parent.classList.remove(wrapperClass);
-    parentStyles.justifyContent = parentStyles.alignItems = styles.marginTop = styles.marginBottom = styles.marginLeft = styles.marginRight = styles.position = "";
-    this._overlayRef = null;
-    this._isDisposed = true;
-  }
-};
-var OverlayPositionBuilder = class _OverlayPositionBuilder {
-  _injector = inject(Injector);
-  constructor() {
-  }
-  global() {
-    return createGlobalPositionStrategy();
-  }
-  flexibleConnectedTo(origin) {
-    return createFlexibleConnectedPositionStrategy(this._injector, origin);
-  }
-  static \u0275fac = function OverlayPositionBuilder_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _OverlayPositionBuilder)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _OverlayPositionBuilder,
-    factory: _OverlayPositionBuilder.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayPositionBuilder, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var OVERLAY_DEFAULT_CONFIG = new InjectionToken("OVERLAY_DEFAULT_CONFIG");
-function createOverlayRef(injector, config) {
-  injector.get(_CdkPrivateStyleLoader).load(_CdkOverlayStyleLoader);
-  const overlayContainer = injector.get(OverlayContainer);
-  const doc = injector.get(DOCUMENT);
-  const idGenerator = injector.get(_IdGenerator);
-  const appRef = injector.get(ApplicationRef);
-  const directionality = injector.get(Directionality);
-  const renderer = injector.get(Renderer2, null, {
-    optional: true
-  }) || injector.get(RendererFactory2).createRenderer(null, null);
-  const overlayConfig = new OverlayConfig(config);
-  const defaultUsePopover = injector.get(OVERLAY_DEFAULT_CONFIG, null, {
-    optional: true
-  })?.usePopover ?? true;
-  overlayConfig.direction = overlayConfig.direction || directionality.value;
-  if (!("showPopover" in doc.body)) {
-    overlayConfig.usePopover = false;
-  } else {
-    overlayConfig.usePopover = config?.usePopover ?? defaultUsePopover;
-  }
-  const pane = doc.createElement("div");
-  const host = doc.createElement("div");
-  pane.id = idGenerator.getId("cdk-overlay-");
-  pane.classList.add("cdk-overlay-pane");
-  host.appendChild(pane);
-  if (overlayConfig.usePopover) {
-    host.setAttribute("popover", "manual");
-    host.classList.add("cdk-overlay-popover");
-  }
-  const customInsertionPoint = overlayConfig.usePopover ? overlayConfig.positionStrategy?.getPopoverInsertionPoint?.() : null;
-  if (isElement(customInsertionPoint)) {
-    customInsertionPoint.after(host);
-  } else if (customInsertionPoint?.type === "parent") {
-    customInsertionPoint.element.appendChild(host);
-  } else {
-    overlayContainer.getContainerElement().appendChild(host);
-  }
-  return new OverlayRef(new DomPortalOutlet(pane, appRef, injector), host, pane, overlayConfig, injector.get(NgZone), injector.get(OverlayKeyboardDispatcher), doc, injector.get(Location), injector.get(OverlayOutsideClickDispatcher), config?.disableAnimations ?? injector.get(ANIMATION_MODULE_TYPE, null, {
-    optional: true
-  }) === "NoopAnimations", injector.get(EnvironmentInjector), renderer);
-}
-var Overlay = class _Overlay {
-  scrollStrategies = inject(ScrollStrategyOptions);
-  _positionBuilder = inject(OverlayPositionBuilder);
-  _injector = inject(Injector);
-  constructor() {
-  }
-  create(config) {
-    return createOverlayRef(this._injector, config);
-  }
-  position() {
-    return this._positionBuilder;
-  }
-  static \u0275fac = function Overlay_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Overlay)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _Overlay,
-    factory: _Overlay.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Overlay, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var defaultPositionList = [{
-  originX: "start",
-  originY: "bottom",
-  overlayX: "start",
-  overlayY: "top"
-}, {
-  originX: "start",
-  originY: "top",
-  overlayX: "start",
-  overlayY: "bottom"
-}, {
-  originX: "end",
-  originY: "top",
-  overlayX: "end",
-  overlayY: "bottom"
-}, {
-  originX: "end",
-  originY: "bottom",
-  overlayX: "end",
-  overlayY: "top"
-}];
-var CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY = new InjectionToken("cdk-connected-overlay-scroll-strategy", {
-  providedIn: "root",
-  factory: () => {
-    const injector = inject(Injector);
-    return () => createRepositionScrollStrategy(injector);
-  }
-});
-var CdkOverlayOrigin = class _CdkOverlayOrigin {
-  elementRef = inject(ElementRef);
-  constructor() {
-  }
-  static \u0275fac = function CdkOverlayOrigin_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkOverlayOrigin)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkOverlayOrigin,
-    selectors: [["", "cdk-overlay-origin", ""], ["", "overlay-origin", ""], ["", "cdkOverlayOrigin", ""]],
-    exportAs: ["cdkOverlayOrigin"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkOverlayOrigin, [{
-    type: Directive,
-    args: [{
-      selector: "[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]",
-      exportAs: "cdkOverlayOrigin"
-    }]
-  }], () => [], null);
-})();
-var CDK_CONNECTED_OVERLAY_DEFAULT_CONFIG = new InjectionToken("cdk-connected-overlay-default-config");
-var CdkConnectedOverlay = class _CdkConnectedOverlay {
-  _dir = inject(Directionality, {
-    optional: true
-  });
-  _injector = inject(Injector);
-  _overlayRef;
-  _templatePortal;
-  _backdropSubscription = Subscription.EMPTY;
-  _attachSubscription = Subscription.EMPTY;
-  _detachSubscription = Subscription.EMPTY;
-  _positionSubscription = Subscription.EMPTY;
-  _offsetX;
-  _offsetY;
-  _position;
-  _scrollStrategyFactory = inject(CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY);
-  _ngZone = inject(NgZone);
-  origin;
-  positions;
-  positionStrategy;
-  get offsetX() {
-    return this._offsetX;
-  }
-  set offsetX(offsetX) {
-    this._offsetX = offsetX;
-    if (this._position) {
-      this._updatePositionStrategy(this._position);
-    }
-  }
-  get offsetY() {
-    return this._offsetY;
-  }
-  set offsetY(offsetY) {
-    this._offsetY = offsetY;
-    if (this._position) {
-      this._updatePositionStrategy(this._position);
-    }
-  }
-  width;
-  height;
-  minWidth;
-  minHeight;
-  backdropClass;
-  panelClass;
-  viewportMargin = 0;
-  scrollStrategy;
-  open = false;
-  disableClose = false;
-  transformOriginSelector;
-  hasBackdrop = false;
-  lockPosition = false;
-  flexibleDimensions = false;
-  growAfterOpen = false;
-  push = false;
-  disposeOnNavigation = false;
-  usePopover;
-  matchWidth = false;
-  set _config(value) {
-    if (typeof value !== "string") {
-      this._assignConfig(value);
-    }
-  }
-  backdropClick = new EventEmitter();
-  positionChange = new EventEmitter();
-  attach = new EventEmitter();
-  detach = new EventEmitter();
-  overlayKeydown = new EventEmitter();
-  overlayOutsideClick = new EventEmitter();
-  constructor() {
-    const templateRef = inject(TemplateRef);
-    const viewContainerRef = inject(ViewContainerRef);
-    const defaultConfig = inject(CDK_CONNECTED_OVERLAY_DEFAULT_CONFIG, {
-      optional: true
-    });
-    const globalConfig = inject(OVERLAY_DEFAULT_CONFIG, {
-      optional: true
-    });
-    this.usePopover = globalConfig?.usePopover === false ? null : "global";
-    this._templatePortal = new TemplatePortal(templateRef, viewContainerRef);
-    this.scrollStrategy = this._scrollStrategyFactory();
-    if (defaultConfig) {
-      this._assignConfig(defaultConfig);
-    }
-  }
-  get overlayRef() {
-    return this._overlayRef;
-  }
-  get dir() {
-    return this._dir ? this._dir.value : "ltr";
-  }
-  ngOnDestroy() {
-    this._attachSubscription.unsubscribe();
-    this._detachSubscription.unsubscribe();
-    this._backdropSubscription.unsubscribe();
-    this._positionSubscription.unsubscribe();
-    this._overlayRef?.dispose();
-  }
-  ngOnChanges(changes) {
-    if (this._position) {
-      this._updatePositionStrategy(this._position);
-      this._overlayRef?.updateSize({
-        width: this._getWidth(),
-        minWidth: this.minWidth,
-        height: this.height,
-        minHeight: this.minHeight
-      });
-      if (changes["origin"] && this.open) {
-        this._position.apply();
-      }
-    }
-    if (changes["open"]) {
-      this.open ? this.attachOverlay() : this.detachOverlay();
-    }
-  }
-  _createOverlay() {
-    if (!this.positions || !this.positions.length) {
-      this.positions = defaultPositionList;
-    }
-    const overlayRef = this._overlayRef = createOverlayRef(this._injector, this._buildConfig());
-    this._attachSubscription = overlayRef.attachments().subscribe(() => this.attach.emit());
-    this._detachSubscription = overlayRef.detachments().subscribe(() => this.detach.emit());
-    overlayRef.keydownEvents().subscribe((event2) => {
-      this.overlayKeydown.next(event2);
-      if (event2.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event2)) {
-        event2.preventDefault();
-        this.detachOverlay();
-      }
-    });
-    this._overlayRef.outsidePointerEvents().subscribe((event2) => {
-      const origin = this._getOriginElement();
-      const target = _getEventTarget(event2);
-      if (!origin || origin !== target && !origin.contains(target)) {
-        this.overlayOutsideClick.next(event2);
-      }
-    });
-  }
-  _buildConfig() {
-    const positionStrategy = this._position = this.positionStrategy || this._createPositionStrategy();
-    const overlayConfig = new OverlayConfig({
-      direction: this._dir || "ltr",
-      positionStrategy,
-      scrollStrategy: this.scrollStrategy,
-      hasBackdrop: this.hasBackdrop,
-      disposeOnNavigation: this.disposeOnNavigation,
-      usePopover: !!this.usePopover
-    });
-    if (this.height || this.height === 0) {
-      overlayConfig.height = this.height;
-    }
-    if (this.minWidth || this.minWidth === 0) {
-      overlayConfig.minWidth = this.minWidth;
-    }
-    if (this.minHeight || this.minHeight === 0) {
-      overlayConfig.minHeight = this.minHeight;
-    }
-    if (this.backdropClass) {
-      overlayConfig.backdropClass = this.backdropClass;
-    }
-    if (this.panelClass) {
-      overlayConfig.panelClass = this.panelClass;
-    }
-    return overlayConfig;
-  }
-  _updatePositionStrategy(positionStrategy) {
-    const positions = this.positions.map((currentPosition) => ({
-      originX: currentPosition.originX,
-      originY: currentPosition.originY,
-      overlayX: currentPosition.overlayX,
-      overlayY: currentPosition.overlayY,
-      offsetX: currentPosition.offsetX || this.offsetX,
-      offsetY: currentPosition.offsetY || this.offsetY,
-      panelClass: currentPosition.panelClass || void 0
-    }));
-    return positionStrategy.setOrigin(this._getOrigin()).withPositions(positions).withFlexibleDimensions(this.flexibleDimensions).withPush(this.push).withGrowAfterOpen(this.growAfterOpen).withViewportMargin(this.viewportMargin).withLockedPosition(this.lockPosition).withTransformOriginOn(this.transformOriginSelector).withPopoverLocation(this.usePopover === null ? "global" : this.usePopover);
-  }
-  _createPositionStrategy() {
-    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this._getOrigin());
-    this._updatePositionStrategy(strategy);
-    return strategy;
-  }
-  _getOrigin() {
-    if (this.origin instanceof CdkOverlayOrigin) {
-      return this.origin.elementRef;
-    } else {
-      return this.origin;
-    }
-  }
-  _getOriginElement() {
-    if (this.origin instanceof CdkOverlayOrigin) {
-      return this.origin.elementRef.nativeElement;
-    }
-    if (this.origin instanceof ElementRef) {
-      return this.origin.nativeElement;
-    }
-    if (typeof Element !== "undefined" && this.origin instanceof Element) {
-      return this.origin;
-    }
-    return null;
-  }
-  _getWidth() {
-    if (this.width) {
-      return this.width;
-    }
-    return this.matchWidth ? this._getOriginElement()?.getBoundingClientRect?.().width : void 0;
-  }
-  attachOverlay() {
-    if (!this._overlayRef) {
-      this._createOverlay();
-    }
-    const ref = this._overlayRef;
-    ref.getConfig().hasBackdrop = this.hasBackdrop;
-    ref.updateSize({
-      width: this._getWidth()
-    });
-    if (!ref.hasAttached()) {
-      ref.attach(this._templatePortal);
-    }
-    if (this.hasBackdrop) {
-      this._backdropSubscription = ref.backdropClick().subscribe((event2) => this.backdropClick.emit(event2));
-    } else {
-      this._backdropSubscription.unsubscribe();
-    }
-    this._positionSubscription.unsubscribe();
-    if (this.positionChange.observers.length > 0) {
-      this._positionSubscription = this._position.positionChanges.pipe(takeWhile(() => this.positionChange.observers.length > 0)).subscribe((position) => {
-        this._ngZone.run(() => this.positionChange.emit(position));
-        if (this.positionChange.observers.length === 0) {
-          this._positionSubscription.unsubscribe();
-        }
-      });
-    }
-    this.open = true;
-  }
-  detachOverlay() {
-    this._overlayRef?.detach();
-    this._backdropSubscription.unsubscribe();
-    this._positionSubscription.unsubscribe();
-    this.open = false;
-  }
-  _assignConfig(config) {
-    this.origin = config.origin ?? this.origin;
-    this.positions = config.positions ?? this.positions;
-    this.positionStrategy = config.positionStrategy ?? this.positionStrategy;
-    this.offsetX = config.offsetX ?? this.offsetX;
-    this.offsetY = config.offsetY ?? this.offsetY;
-    this.width = config.width ?? this.width;
-    this.height = config.height ?? this.height;
-    this.minWidth = config.minWidth ?? this.minWidth;
-    this.minHeight = config.minHeight ?? this.minHeight;
-    this.backdropClass = config.backdropClass ?? this.backdropClass;
-    this.panelClass = config.panelClass ?? this.panelClass;
-    this.viewportMargin = config.viewportMargin ?? this.viewportMargin;
-    this.scrollStrategy = config.scrollStrategy ?? this.scrollStrategy;
-    this.disableClose = config.disableClose ?? this.disableClose;
-    this.transformOriginSelector = config.transformOriginSelector ?? this.transformOriginSelector;
-    this.hasBackdrop = config.hasBackdrop ?? this.hasBackdrop;
-    this.lockPosition = config.lockPosition ?? this.lockPosition;
-    this.flexibleDimensions = config.flexibleDimensions ?? this.flexibleDimensions;
-    this.growAfterOpen = config.growAfterOpen ?? this.growAfterOpen;
-    this.push = config.push ?? this.push;
-    this.disposeOnNavigation = config.disposeOnNavigation ?? this.disposeOnNavigation;
-    this.usePopover = config.usePopover ?? this.usePopover;
-    this.matchWidth = config.matchWidth ?? this.matchWidth;
-  }
-  static \u0275fac = function CdkConnectedOverlay_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkConnectedOverlay)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkConnectedOverlay,
-    selectors: [["", "cdk-connected-overlay", ""], ["", "connected-overlay", ""], ["", "cdkConnectedOverlay", ""]],
-    inputs: {
-      origin: [0, "cdkConnectedOverlayOrigin", "origin"],
-      positions: [0, "cdkConnectedOverlayPositions", "positions"],
-      positionStrategy: [0, "cdkConnectedOverlayPositionStrategy", "positionStrategy"],
-      offsetX: [0, "cdkConnectedOverlayOffsetX", "offsetX"],
-      offsetY: [0, "cdkConnectedOverlayOffsetY", "offsetY"],
-      width: [0, "cdkConnectedOverlayWidth", "width"],
-      height: [0, "cdkConnectedOverlayHeight", "height"],
-      minWidth: [0, "cdkConnectedOverlayMinWidth", "minWidth"],
-      minHeight: [0, "cdkConnectedOverlayMinHeight", "minHeight"],
-      backdropClass: [0, "cdkConnectedOverlayBackdropClass", "backdropClass"],
-      panelClass: [0, "cdkConnectedOverlayPanelClass", "panelClass"],
-      viewportMargin: [0, "cdkConnectedOverlayViewportMargin", "viewportMargin"],
-      scrollStrategy: [0, "cdkConnectedOverlayScrollStrategy", "scrollStrategy"],
-      open: [0, "cdkConnectedOverlayOpen", "open"],
-      disableClose: [0, "cdkConnectedOverlayDisableClose", "disableClose"],
-      transformOriginSelector: [0, "cdkConnectedOverlayTransformOriginOn", "transformOriginSelector"],
-      hasBackdrop: [2, "cdkConnectedOverlayHasBackdrop", "hasBackdrop", booleanAttribute],
-      lockPosition: [2, "cdkConnectedOverlayLockPosition", "lockPosition", booleanAttribute],
-      flexibleDimensions: [2, "cdkConnectedOverlayFlexibleDimensions", "flexibleDimensions", booleanAttribute],
-      growAfterOpen: [2, "cdkConnectedOverlayGrowAfterOpen", "growAfterOpen", booleanAttribute],
-      push: [2, "cdkConnectedOverlayPush", "push", booleanAttribute],
-      disposeOnNavigation: [2, "cdkConnectedOverlayDisposeOnNavigation", "disposeOnNavigation", booleanAttribute],
-      usePopover: [0, "cdkConnectedOverlayUsePopover", "usePopover"],
-      matchWidth: [2, "cdkConnectedOverlayMatchWidth", "matchWidth", booleanAttribute],
-      _config: [0, "cdkConnectedOverlay", "_config"]
-    },
-    outputs: {
-      backdropClick: "backdropClick",
-      positionChange: "positionChange",
-      attach: "attach",
-      detach: "detach",
-      overlayKeydown: "overlayKeydown",
-      overlayOutsideClick: "overlayOutsideClick"
-    },
-    exportAs: ["cdkConnectedOverlay"],
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkConnectedOverlay, [{
-    type: Directive,
-    args: [{
-      selector: "[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]",
-      exportAs: "cdkConnectedOverlay"
-    }]
-  }], () => [], {
-    origin: [{
-      type: Input,
-      args: ["cdkConnectedOverlayOrigin"]
-    }],
-    positions: [{
-      type: Input,
-      args: ["cdkConnectedOverlayPositions"]
-    }],
-    positionStrategy: [{
-      type: Input,
-      args: ["cdkConnectedOverlayPositionStrategy"]
-    }],
-    offsetX: [{
-      type: Input,
-      args: ["cdkConnectedOverlayOffsetX"]
-    }],
-    offsetY: [{
-      type: Input,
-      args: ["cdkConnectedOverlayOffsetY"]
-    }],
-    width: [{
-      type: Input,
-      args: ["cdkConnectedOverlayWidth"]
-    }],
-    height: [{
-      type: Input,
-      args: ["cdkConnectedOverlayHeight"]
-    }],
-    minWidth: [{
-      type: Input,
-      args: ["cdkConnectedOverlayMinWidth"]
-    }],
-    minHeight: [{
-      type: Input,
-      args: ["cdkConnectedOverlayMinHeight"]
-    }],
-    backdropClass: [{
-      type: Input,
-      args: ["cdkConnectedOverlayBackdropClass"]
-    }],
-    panelClass: [{
-      type: Input,
-      args: ["cdkConnectedOverlayPanelClass"]
-    }],
-    viewportMargin: [{
-      type: Input,
-      args: ["cdkConnectedOverlayViewportMargin"]
-    }],
-    scrollStrategy: [{
-      type: Input,
-      args: ["cdkConnectedOverlayScrollStrategy"]
-    }],
-    open: [{
-      type: Input,
-      args: ["cdkConnectedOverlayOpen"]
-    }],
-    disableClose: [{
-      type: Input,
-      args: ["cdkConnectedOverlayDisableClose"]
-    }],
-    transformOriginSelector: [{
-      type: Input,
-      args: ["cdkConnectedOverlayTransformOriginOn"]
-    }],
-    hasBackdrop: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayHasBackdrop",
-        transform: booleanAttribute
-      }]
-    }],
-    lockPosition: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayLockPosition",
-        transform: booleanAttribute
-      }]
-    }],
-    flexibleDimensions: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayFlexibleDimensions",
-        transform: booleanAttribute
-      }]
-    }],
-    growAfterOpen: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayGrowAfterOpen",
-        transform: booleanAttribute
-      }]
-    }],
-    push: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayPush",
-        transform: booleanAttribute
-      }]
-    }],
-    disposeOnNavigation: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayDisposeOnNavigation",
-        transform: booleanAttribute
-      }]
-    }],
-    usePopover: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayUsePopover"
-      }]
-    }],
-    matchWidth: [{
-      type: Input,
-      args: [{
-        alias: "cdkConnectedOverlayMatchWidth",
-        transform: booleanAttribute
-      }]
-    }],
-    _config: [{
-      type: Input,
-      args: ["cdkConnectedOverlay"]
-    }],
-    backdropClick: [{
-      type: Output
-    }],
-    positionChange: [{
-      type: Output
-    }],
-    attach: [{
-      type: Output
-    }],
-    detach: [{
-      type: Output
-    }],
-    overlayKeydown: [{
-      type: Output
-    }],
-    overlayOutsideClick: [{
-      type: Output
-    }]
-  });
-})();
-var OverlayModule = class _OverlayModule {
-  static \u0275fac = function OverlayModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _OverlayModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _OverlayModule,
-    imports: [BidiModule, PortalModule, ScrollingModule, CdkConnectedOverlay, CdkOverlayOrigin],
-    exports: [CdkConnectedOverlay, CdkOverlayOrigin, ScrollingModule]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    providers: [Overlay],
-    imports: [BidiModule, PortalModule, ScrollingModule, ScrollingModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(OverlayModule, [{
-    type: NgModule,
-    args: [{
-      imports: [BidiModule, PortalModule, ScrollingModule, CdkConnectedOverlay, CdkOverlayOrigin],
-      exports: [CdkConnectedOverlay, CdkOverlayOrigin, ScrollingModule],
-      providers: [Overlay]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_fake-event-detection-chunk.mjs
-function isFakeMousedownFromScreenReader(event2) {
-  return event2.buttons === 0 || event2.detail === 0;
-}
-function isFakeTouchstartFromScreenReader(event2) {
-  const touch = event2.touches && event2.touches[0] || event2.changedTouches && event2.changedTouches[0];
-  return !!touch && touch.identifier === -1 && (touch.radiusX == null || touch.radiusX === 1) && (touch.radiusY == null || touch.radiusY === 1);
-}
-
-// node_modules/@angular/cdk/fesm2022/_passive-listeners-chunk.mjs
-var supportsPassiveEvents;
-function supportsPassiveEventListeners() {
-  if (supportsPassiveEvents == null && typeof window !== "undefined") {
-    try {
-      window.addEventListener("test", null, Object.defineProperty({}, "passive", {
-        get: () => supportsPassiveEvents = true
-      }));
-    } finally {
-      supportsPassiveEvents = supportsPassiveEvents || false;
-    }
-  }
-  return supportsPassiveEvents;
-}
-function normalizePassiveListenerOptions(options) {
-  return supportsPassiveEventListeners() ? options : !!options.capture;
-}
-
-// node_modules/@angular/cdk/fesm2022/_focus-monitor-chunk.mjs
-var INPUT_MODALITY_DETECTOR_OPTIONS = new InjectionToken("cdk-input-modality-detector-options");
-var INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS = {
-  ignoreKeys: [ALT, CONTROL, MAC_META, META, SHIFT]
-};
-var TOUCH_BUFFER_MS = 650;
-var modalityEventListenerOptions = {
-  passive: true,
-  capture: true
-};
-var InputModalityDetector = class _InputModalityDetector {
-  _platform = inject(Platform);
-  _listenerCleanups;
-  modalityDetected;
-  modalityChanged;
-  get mostRecentModality() {
-    return this._modality.value;
-  }
-  _mostRecentTarget = null;
-  _modality = new BehaviorSubject(null);
-  _options;
-  _lastTouchMs = 0;
-  _onKeydown = (event2) => {
-    if (this._options?.ignoreKeys?.some((keyCode) => keyCode === event2.keyCode)) {
-      return;
-    }
-    this._modality.next("keyboard");
-    this._mostRecentTarget = _getEventTarget(event2);
-  };
-  _onMousedown = (event2) => {
-    if (Date.now() - this._lastTouchMs < TOUCH_BUFFER_MS) {
-      return;
-    }
-    this._modality.next(isFakeMousedownFromScreenReader(event2) ? "keyboard" : "mouse");
-    this._mostRecentTarget = _getEventTarget(event2);
-  };
-  _onTouchstart = (event2) => {
-    if (isFakeTouchstartFromScreenReader(event2)) {
-      this._modality.next("keyboard");
-      return;
-    }
-    this._lastTouchMs = Date.now();
-    this._modality.next("touch");
-    this._mostRecentTarget = _getEventTarget(event2);
-  };
-  constructor() {
-    const ngZone = inject(NgZone);
-    const document2 = inject(DOCUMENT);
-    const options = inject(INPUT_MODALITY_DETECTOR_OPTIONS, {
-      optional: true
-    });
-    this._options = __spreadValues(__spreadValues({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
-    this.modalityDetected = this._modality.pipe(skip(1));
-    this.modalityChanged = this.modalityDetected.pipe(distinctUntilChanged());
-    if (this._platform.isBrowser) {
-      const renderer = inject(RendererFactory2).createRenderer(null, null);
-      this._listenerCleanups = ngZone.runOutsideAngular(() => {
-        return [renderer.listen(document2, "keydown", this._onKeydown, modalityEventListenerOptions), renderer.listen(document2, "mousedown", this._onMousedown, modalityEventListenerOptions), renderer.listen(document2, "touchstart", this._onTouchstart, modalityEventListenerOptions)];
-      });
-    }
-  }
-  ngOnDestroy() {
-    this._modality.complete();
-    this._listenerCleanups?.forEach((cleanup) => cleanup());
-  }
-  static \u0275fac = function InputModalityDetector_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _InputModalityDetector)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _InputModalityDetector,
-    factory: _InputModalityDetector.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InputModalityDetector, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var FocusMonitorDetectionMode;
-(function(FocusMonitorDetectionMode2) {
-  FocusMonitorDetectionMode2[FocusMonitorDetectionMode2["IMMEDIATE"] = 0] = "IMMEDIATE";
-  FocusMonitorDetectionMode2[FocusMonitorDetectionMode2["EVENTUAL"] = 1] = "EVENTUAL";
-})(FocusMonitorDetectionMode || (FocusMonitorDetectionMode = {}));
-var FOCUS_MONITOR_DEFAULT_OPTIONS = new InjectionToken("cdk-focus-monitor-default-options");
-var captureEventListenerOptions = normalizePassiveListenerOptions({
-  passive: true,
-  capture: true
-});
-var FocusMonitor = class _FocusMonitor {
-  _ngZone = inject(NgZone);
-  _platform = inject(Platform);
-  _inputModalityDetector = inject(InputModalityDetector);
-  _origin = null;
-  _lastFocusOrigin = null;
-  _windowFocused = false;
-  _windowFocusTimeoutId;
-  _originTimeoutId;
-  _originFromTouchInteraction = false;
-  _elementInfo = /* @__PURE__ */ new Map();
-  _monitoredElementCount = 0;
-  _rootNodeFocusListenerCount = /* @__PURE__ */ new Map();
-  _detectionMode;
-  _windowFocusListener = () => {
-    this._windowFocused = true;
-    this._windowFocusTimeoutId = setTimeout(() => this._windowFocused = false);
-  };
-  _document = inject(DOCUMENT);
-  _stopInputModalityDetector = new Subject();
-  constructor() {
-    const options = inject(FOCUS_MONITOR_DEFAULT_OPTIONS, {
-      optional: true
-    });
-    this._detectionMode = options?.detectionMode || FocusMonitorDetectionMode.IMMEDIATE;
-  }
-  _rootNodeFocusAndBlurListener = (event2) => {
-    const target = _getEventTarget(event2);
-    for (let element = target; element; element = element.parentElement) {
-      if (event2.type === "focus") {
-        this._onFocus(event2, element);
-      } else {
-        this._onBlur(event2, element);
-      }
-    }
-  };
-  monitor(element, checkChildren = false) {
-    const nativeElement = coerceElement(element);
-    if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
-      return of();
-    }
-    const rootNode = _getShadowRoot(nativeElement) || this._document;
-    const cachedInfo = this._elementInfo.get(nativeElement);
-    if (cachedInfo) {
-      if (checkChildren) {
-        cachedInfo.checkChildren = true;
-      }
-      return cachedInfo.subject;
-    }
-    const info = {
-      checkChildren,
-      subject: new Subject(),
-      rootNode
-    };
-    this._elementInfo.set(nativeElement, info);
-    this._registerGlobalListeners(info);
-    return info.subject;
-  }
-  stopMonitoring(element) {
-    const nativeElement = coerceElement(element);
-    const elementInfo = this._elementInfo.get(nativeElement);
-    if (elementInfo) {
-      elementInfo.subject.complete();
-      this._setClasses(nativeElement);
-      this._elementInfo.delete(nativeElement);
-      this._removeGlobalListeners(elementInfo);
-    }
-  }
-  focusVia(element, origin, options) {
-    const nativeElement = coerceElement(element);
-    const focusedElement = this._document.activeElement;
-    if (nativeElement === focusedElement) {
-      this._getClosestElementsInfo(nativeElement).forEach(([currentElement, info]) => this._originChanged(currentElement, origin, info));
-    } else {
-      this._setOrigin(origin);
-      if (typeof nativeElement.focus === "function") {
-        nativeElement.focus(options);
-      }
-    }
-  }
-  ngOnDestroy() {
-    this._elementInfo.forEach((_info, element) => this.stopMonitoring(element));
-  }
-  _getWindow() {
-    return this._document.defaultView || window;
-  }
-  _getFocusOrigin(focusEventTarget) {
-    if (this._origin) {
-      if (this._originFromTouchInteraction) {
-        return this._shouldBeAttributedToTouch(focusEventTarget) ? "touch" : "program";
-      } else {
-        return this._origin;
-      }
-    }
-    if (this._windowFocused && this._lastFocusOrigin) {
-      return this._lastFocusOrigin;
-    }
-    if (focusEventTarget && this._isLastInteractionFromInputLabel(focusEventTarget)) {
-      return "mouse";
-    }
-    return "program";
-  }
-  _shouldBeAttributedToTouch(focusEventTarget) {
-    return this._detectionMode === FocusMonitorDetectionMode.EVENTUAL || !!focusEventTarget?.contains(this._inputModalityDetector._mostRecentTarget);
-  }
-  _setClasses(element, origin) {
-    element.classList.toggle("cdk-focused", !!origin);
-    element.classList.toggle("cdk-touch-focused", origin === "touch");
-    element.classList.toggle("cdk-keyboard-focused", origin === "keyboard");
-    element.classList.toggle("cdk-mouse-focused", origin === "mouse");
-    element.classList.toggle("cdk-program-focused", origin === "program");
-  }
-  _setOrigin(origin, isFromInteraction = false) {
-    this._ngZone.runOutsideAngular(() => {
-      this._origin = origin;
-      this._originFromTouchInteraction = origin === "touch" && isFromInteraction;
-      if (this._detectionMode === FocusMonitorDetectionMode.IMMEDIATE) {
-        clearTimeout(this._originTimeoutId);
-        const ms = this._originFromTouchInteraction ? TOUCH_BUFFER_MS : 1;
-        this._originTimeoutId = setTimeout(() => this._origin = null, ms);
-      }
-    });
-  }
-  _onFocus(event2, element) {
-    const elementInfo = this._elementInfo.get(element);
-    const focusEventTarget = _getEventTarget(event2);
-    if (!elementInfo || !elementInfo.checkChildren && element !== focusEventTarget) {
-      return;
-    }
-    this._originChanged(element, this._getFocusOrigin(focusEventTarget), elementInfo);
-  }
-  _onBlur(event2, element) {
-    const elementInfo = this._elementInfo.get(element);
-    if (!elementInfo || elementInfo.checkChildren && event2.relatedTarget instanceof Node && element.contains(event2.relatedTarget)) {
-      return;
-    }
-    this._setClasses(element);
-    this._emitOrigin(elementInfo, null);
-  }
-  _emitOrigin(info, origin) {
-    if (info.subject.observers.length) {
-      this._ngZone.run(() => info.subject.next(origin));
-    }
-  }
-  _registerGlobalListeners(elementInfo) {
-    if (!this._platform.isBrowser) {
-      return;
-    }
-    const rootNode = elementInfo.rootNode;
-    const rootNodeFocusListeners = this._rootNodeFocusListenerCount.get(rootNode) || 0;
-    if (!rootNodeFocusListeners) {
-      this._ngZone.runOutsideAngular(() => {
-        rootNode.addEventListener("focus", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
-        rootNode.addEventListener("blur", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
-      });
-    }
-    this._rootNodeFocusListenerCount.set(rootNode, rootNodeFocusListeners + 1);
-    if (++this._monitoredElementCount === 1) {
-      this._ngZone.runOutsideAngular(() => {
-        const window2 = this._getWindow();
-        window2.addEventListener("focus", this._windowFocusListener);
-      });
-      this._inputModalityDetector.modalityDetected.pipe(takeUntil(this._stopInputModalityDetector)).subscribe((modality) => {
-        this._setOrigin(modality, true);
-      });
-    }
-  }
-  _removeGlobalListeners(elementInfo) {
-    const rootNode = elementInfo.rootNode;
-    if (this._rootNodeFocusListenerCount.has(rootNode)) {
-      const rootNodeFocusListeners = this._rootNodeFocusListenerCount.get(rootNode);
-      if (rootNodeFocusListeners > 1) {
-        this._rootNodeFocusListenerCount.set(rootNode, rootNodeFocusListeners - 1);
-      } else {
-        rootNode.removeEventListener("focus", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
-        rootNode.removeEventListener("blur", this._rootNodeFocusAndBlurListener, captureEventListenerOptions);
-        this._rootNodeFocusListenerCount.delete(rootNode);
-      }
-    }
-    if (!--this._monitoredElementCount) {
-      const window2 = this._getWindow();
-      window2.removeEventListener("focus", this._windowFocusListener);
-      this._stopInputModalityDetector.next();
-      clearTimeout(this._windowFocusTimeoutId);
-      clearTimeout(this._originTimeoutId);
-    }
-  }
-  _originChanged(element, origin, elementInfo) {
-    this._setClasses(element, origin);
-    this._emitOrigin(elementInfo, origin);
-    this._lastFocusOrigin = origin;
-  }
-  _getClosestElementsInfo(element) {
-    const results = [];
-    this._elementInfo.forEach((info, currentElement) => {
-      if (currentElement === element || info.checkChildren && currentElement.contains(element)) {
-        results.push([currentElement, info]);
-      }
-    });
-    return results;
-  }
-  _isLastInteractionFromInputLabel(focusEventTarget) {
-    const {
-      _mostRecentTarget: mostRecentTarget,
-      mostRecentModality
-    } = this._inputModalityDetector;
-    if (mostRecentModality !== "mouse" || !mostRecentTarget || mostRecentTarget === focusEventTarget || focusEventTarget.nodeName !== "INPUT" && focusEventTarget.nodeName !== "TEXTAREA" || focusEventTarget.disabled) {
-      return false;
-    }
-    const labels = focusEventTarget.labels;
-    if (labels) {
-      for (let i = 0; i < labels.length; i++) {
-        if (labels[i].contains(mostRecentTarget)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  static \u0275fac = function FocusMonitor_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _FocusMonitor)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _FocusMonitor,
-    factory: _FocusMonitor.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusMonitor, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkMonitorFocus = class _CdkMonitorFocus {
-  _elementRef = inject(ElementRef);
-  _focusMonitor = inject(FocusMonitor);
-  _monitorSubscription;
-  _focusOrigin = null;
-  cdkFocusChange = new EventEmitter();
-  constructor() {
-  }
-  get focusOrigin() {
-    return this._focusOrigin;
-  }
-  ngAfterViewInit() {
-    const element = this._elementRef.nativeElement;
-    this._monitorSubscription = this._focusMonitor.monitor(element, element.nodeType === 1 && element.hasAttribute("cdkMonitorSubtreeFocus")).subscribe((origin) => {
-      this._focusOrigin = origin;
-      this.cdkFocusChange.emit(origin);
-    });
-  }
-  ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._elementRef);
-    this._monitorSubscription?.unsubscribe();
-  }
-  static \u0275fac = function CdkMonitorFocus_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkMonitorFocus)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkMonitorFocus,
-    selectors: [["", "cdkMonitorElementFocus", ""], ["", "cdkMonitorSubtreeFocus", ""]],
-    outputs: {
-      cdkFocusChange: "cdkFocusChange"
-    },
-    exportAs: ["cdkMonitorFocus"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkMonitorFocus, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]",
-      exportAs: "cdkMonitorFocus"
-    }]
-  }], () => [], {
-    cdkFocusChange: [{
-      type: Output
-    }]
-  });
-})();
-
 // node_modules/@angular/cdk/fesm2022/_typeahead-chunk.mjs
 var DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS = 200;
 var Typeahead = class {
@@ -23785,10 +25571,10 @@ var Typeahead = class {
   setItems(items) {
     this._items = items;
   }
-  handleKey(event2) {
-    const keyCode = event2.keyCode;
-    if (event2.key && event2.key.length === 1) {
-      this._letterKeyStream.next(event2.key.toLocaleUpperCase());
+  handleKey(event) {
+    const keyCode = event.keyCode;
+    if (event.key && event.key.length === 1) {
+      this._letterKeyStream.next(event.key.toLocaleUpperCase());
     } else if (keyCode >= A && keyCode <= Z || keyCode >= ZERO && keyCode <= NINE) {
       this._letterKeyStream.next(String.fromCharCode(keyCode));
     }
@@ -23914,11 +25700,11 @@ var ListKeyManager = class {
       this.change.next(this._activeItemIndex());
     }
   }
-  onKeydown(event2) {
-    const keyCode = event2.keyCode;
+  onKeydown(event) {
+    const keyCode = event.keyCode;
     const modifiers = ["altKey", "ctrlKey", "metaKey", "shiftKey"];
     const isModifierAllowed = modifiers.every((modifier) => {
-      return !event2[modifier] || this._allowedModifierKeys.indexOf(modifier) > -1;
+      return !event[modifier] || this._allowedModifierKeys.indexOf(modifier) > -1;
     });
     switch (keyCode) {
       case TAB:
@@ -23984,13 +25770,13 @@ var ListKeyManager = class {
           return;
         }
       default:
-        if (isModifierAllowed || hasModifierKey(event2, "shiftKey")) {
-          this._typeahead?.handleKey(event2);
+        if (isModifierAllowed || hasModifierKey(event, "shiftKey")) {
+          this._typeahead?.handleKey(event);
         }
         return;
     }
     this._typeahead?.reset();
-    event2.preventDefault();
+    event.preventDefault();
   }
   get activeItemIndex() {
     return this._activeItemIndex();
@@ -24468,11 +26254,11 @@ var TargetMenuAim = class _TargetMenuAim {
     this._cleanupMousemove?.();
     this._cleanupMousemove = this._ngZone.runOutsideAngular(() => {
       let eventIndex = 0;
-      return this._renderer.listen(this._menu.nativeElement, "mousemove", (event2) => {
+      return this._renderer.listen(this._menu.nativeElement, "mousemove", (event) => {
         if (eventIndex % MOUSE_MOVE_SAMPLE_FREQUENCY === 0) {
           this._points.push({
-            x: event2.clientX,
-            y: event2.clientY
+            x: event.clientX,
+            y: event.clientY
           });
           if (this._points.length > NUM_POINTS) {
             this._points.shift();
@@ -24522,12 +26308,12 @@ var CdkTargetMenuAim = class _CdkTargetMenuAim {
     }]
   }], null, null);
 })();
-function eventDispatchesNativeClick(elementRef, event2) {
-  if (!event2.isTrusted) {
+function eventDispatchesNativeClick(elementRef, event) {
+  if (!event.isTrusted) {
     return false;
   }
   const el = elementRef.nativeElement;
-  const keyCode = event2.keyCode;
+  const keyCode = event.keyCode;
   if (el.nodeName === "BUTTON" && !el.disabled) {
     return keyCode === ENTER || keyCode === SPACE;
   }
@@ -24598,29 +26384,29 @@ var CdkMenuTrigger = class _CdkMenuTrigger extends CdkMenuTriggerBase {
     this._cleanupMouseenter();
     super.ngOnDestroy();
   }
-  _toggleOnKeydown(event2) {
+  _toggleOnKeydown(event) {
     const isParentVertical = this._parentMenu?.orientation === "vertical";
-    switch (event2.keyCode) {
+    switch (event.keyCode) {
       case SPACE:
       case ENTER:
-        if (!hasModifierKey(event2) && !eventDispatchesNativeClick(this._elementRef, event2)) {
+        if (!hasModifierKey(event) && !eventDispatchesNativeClick(this._elementRef, event)) {
           this.toggle();
           this.childMenu?.focusFirstItem("keyboard");
         }
         break;
       case RIGHT_ARROW:
-        if (!hasModifierKey(event2)) {
+        if (!hasModifierKey(event)) {
           if (this._parentMenu && isParentVertical && this._directionality?.value !== "rtl") {
-            event2.preventDefault();
+            event.preventDefault();
             this.open();
             this.childMenu?.focusFirstItem("keyboard");
           }
         }
         break;
       case LEFT_ARROW:
-        if (!hasModifierKey(event2)) {
+        if (!hasModifierKey(event)) {
           if (this._parentMenu && isParentVertical && this._directionality?.value === "rtl") {
-            event2.preventDefault();
+            event.preventDefault();
             this.open();
             this.childMenu?.focusFirstItem("keyboard");
           }
@@ -24628,11 +26414,11 @@ var CdkMenuTrigger = class _CdkMenuTrigger extends CdkMenuTriggerBase {
         break;
       case DOWN_ARROW:
       case UP_ARROW:
-        if (!hasModifierKey(event2)) {
+        if (!hasModifierKey(event)) {
           if (!isParentVertical) {
-            event2.preventDefault();
+            event.preventDefault();
             this.open();
-            event2.keyCode === DOWN_ARROW ? this.childMenu?.focusFirstItem("keyboard") : this.childMenu?.focusLastItem("keyboard");
+            event.keyCode === DOWN_ARROW ? this.childMenu?.focusFirstItem("keyboard") : this.childMenu?.focusLastItem("keyboard");
           }
         }
         break;
@@ -24704,8 +26490,8 @@ var CdkMenuTrigger = class _CdkMenuTrigger extends CdkMenuTriggerBase {
   }
   _subscribeToOutsideClicks() {
     if (this.overlayRef) {
-      this.overlayRef.outsidePointerEvents().pipe(takeUntil(this.stopOutsideClicksListener)).subscribe((event2) => {
-        const target = _getEventTarget(event2);
+      this.overlayRef.outsidePointerEvents().pipe(takeUntil(this.stopOutsideClicksListener)).subscribe((event) => {
+        const target = _getEventTarget(event);
         const element = this._elementRef.nativeElement;
         if (target !== element && !element.contains(target)) {
           if (!this.isElementInsideMenuStack(target)) {
@@ -24899,54 +26685,54 @@ var CdkMenuItem = class _CdkMenuItem {
       this._tabindex = -1;
     }
   }
-  _setTabIndex(event2) {
+  _setTabIndex(event) {
     if (this.disabled) {
       return;
     }
-    if (!event2 || !this._menuStack.isEmpty()) {
+    if (!event || !this._menuStack.isEmpty()) {
       this._tabindex = 0;
     }
   }
-  _handleClick(event2) {
+  _handleClick(event) {
     if (this.disabled) {
-      event2.preventDefault();
-      event2.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
     } else {
       this.trigger();
     }
   }
-  _onKeydown(event2) {
-    switch (event2.keyCode) {
+  _onKeydown(event) {
+    switch (event.keyCode) {
       case SPACE:
       case ENTER:
-        if (!hasModifierKey(event2) && !eventDispatchesNativeClick(this._elementRef, event2)) {
+        if (!hasModifierKey(event) && !eventDispatchesNativeClick(this._elementRef, event)) {
           const nodeName = this._elementRef.nativeElement.nodeName;
           if (nodeName !== "A" && nodeName !== "BUTTON") {
-            event2.preventDefault();
+            event.preventDefault();
           }
           this.trigger({
-            keepOpen: event2.keyCode === SPACE && !this.closeOnSpacebarTrigger
+            keepOpen: event.keyCode === SPACE && !this.closeOnSpacebarTrigger
           });
         }
         break;
       case RIGHT_ARROW:
-        if (!hasModifierKey(event2)) {
+        if (!hasModifierKey(event)) {
           if (this._parentMenu && this._isParentVertical()) {
             if (this._dir?.value !== "rtl") {
-              this._forwardArrowPressed(event2);
+              this._forwardArrowPressed(event);
             } else {
-              this._backArrowPressed(event2);
+              this._backArrowPressed(event);
             }
           }
         }
         break;
       case LEFT_ARROW:
-        if (!hasModifierKey(event2)) {
+        if (!hasModifierKey(event)) {
           if (this._parentMenu && this._isParentVertical()) {
             if (this._dir?.value !== "rtl") {
-              this._backArrowPressed(event2);
+              this._backArrowPressed(event);
             } else {
-              this._forwardArrowPressed(event2);
+              this._forwardArrowPressed(event);
             }
           }
         }
@@ -24956,19 +26742,19 @@ var CdkMenuItem = class _CdkMenuItem {
   _isStandaloneItem() {
     return !this._parentMenu;
   }
-  _backArrowPressed(event2) {
+  _backArrowPressed(event) {
     const parentMenu = this._parentMenu;
     if (this._menuStack.hasInlineMenu() || this._menuStack.length() > 1) {
-      event2.preventDefault();
+      event.preventDefault();
       this._menuStack.close(parentMenu, {
         focusNextOnEmpty: this._menuStack.inlineMenuOrientation() === "horizontal" ? FocusNext.previousItem : FocusNext.currentItem,
         focusParentTrigger: true
       });
     }
   }
-  _forwardArrowPressed(event2) {
+  _forwardArrowPressed(event) {
     if (!this.hasMenu && this._menuStack.inlineMenuOrientation() === "horizontal") {
-      event2.preventDefault();
+      event.preventDefault();
       this._menuStack.closeAll({
         focusNextOnEmpty: FocusNext.nextItem,
         focusParentTrigger: true
@@ -25329,20 +27115,20 @@ var CdkMenu = class _CdkMenu extends CdkMenuBase {
     super.ngOnDestroy();
     this.closed.complete();
   }
-  _handleKeyEvent(event2) {
+  _handleKeyEvent(event) {
     const keyManager = this.keyManager;
-    switch (event2.keyCode) {
+    switch (event.keyCode) {
       case LEFT_ARROW:
       case RIGHT_ARROW:
-        if (!hasModifierKey(event2)) {
-          event2.preventDefault();
+        if (!hasModifierKey(event)) {
+          event.preventDefault();
           keyManager.setFocusOrigin("keyboard");
-          keyManager.onKeydown(event2);
+          keyManager.onKeydown(event);
         }
         break;
       case ESCAPE:
-        if (!hasModifierKey(event2)) {
-          event2.preventDefault();
+        if (!hasModifierKey(event)) {
+          event.preventDefault();
           this.menuStack.close(this, {
             focusNextOnEmpty: FocusNext.currentItem,
             focusParentTrigger: true
@@ -25350,14 +27136,14 @@ var CdkMenu = class _CdkMenu extends CdkMenuBase {
         }
         break;
       case TAB:
-        if (!hasModifierKey(event2, "altKey", "metaKey", "ctrlKey")) {
+        if (!hasModifierKey(event, "altKey", "metaKey", "ctrlKey")) {
           this.menuStack.closeAll({
             focusParentTrigger: true
           });
         }
         break;
       default:
-        keyManager.onKeydown(event2);
+        keyManager.onKeydown(event);
     }
   }
   _toggleMenuFocus(focusNext) {
@@ -25380,7 +27166,7 @@ var CdkMenu = class _CdkMenu extends CdkMenuBase {
     }
   }
   _subscribeToMenuStackEmptied() {
-    this.menuStack.emptied.pipe(takeUntil(this.destroyed)).subscribe((event2) => this._toggleMenuFocus(event2));
+    this.menuStack.emptied.pipe(takeUntil(this.destroyed)).subscribe((event) => this._toggleMenuFocus(event));
   }
   static \u0275fac = function CdkMenu_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _CdkMenu)();
@@ -25446,21 +27232,21 @@ var CdkMenuBar = class _CdkMenuBar extends CdkMenuBase {
     super.ngAfterContentInit();
     this._subscribeToMenuStackEmptied();
   }
-  _handleKeyEvent(event2) {
+  _handleKeyEvent(event) {
     const keyManager = this.keyManager;
-    switch (event2.keyCode) {
+    switch (event.keyCode) {
       case UP_ARROW:
       case DOWN_ARROW:
       case LEFT_ARROW:
       case RIGHT_ARROW:
-        if (!hasModifierKey(event2)) {
-          const horizontalArrows = event2.keyCode === LEFT_ARROW || event2.keyCode === RIGHT_ARROW;
+        if (!hasModifierKey(event)) {
+          const horizontalArrows = event.keyCode === LEFT_ARROW || event.keyCode === RIGHT_ARROW;
           if (horizontalArrows) {
-            event2.preventDefault();
+            event.preventDefault();
             const prevIsOpen = keyManager.activeItem?.isMenuOpen();
             keyManager.activeItem?.getMenuTrigger()?.close();
             keyManager.setFocusOrigin("keyboard");
-            keyManager.onKeydown(event2);
+            keyManager.onKeydown(event);
             if (prevIsOpen) {
               keyManager.activeItem?.getMenuTrigger()?.open();
             }
@@ -25468,18 +27254,18 @@ var CdkMenuBar = class _CdkMenuBar extends CdkMenuBase {
         }
         break;
       case ESCAPE:
-        if (!hasModifierKey(event2)) {
-          event2.preventDefault();
+        if (!hasModifierKey(event)) {
+          event.preventDefault();
           keyManager.activeItem?.getMenuTrigger()?.close();
         }
         break;
       case TAB:
-        if (!hasModifierKey(event2, "altKey", "metaKey", "ctrlKey")) {
+        if (!hasModifierKey(event, "altKey", "metaKey", "ctrlKey")) {
           keyManager.activeItem?.getMenuTrigger()?.close();
         }
         break;
       default:
-        keyManager.onKeydown(event2);
+        keyManager.onKeydown(event);
     }
   }
   _toggleOpenMenu(focusNext) {
@@ -25504,7 +27290,7 @@ var CdkMenuBar = class _CdkMenuBar extends CdkMenuBase {
     }
   }
   _subscribeToMenuStackEmptied() {
-    this.menuStack?.emptied.pipe(takeUntil(this.destroyed)).subscribe((event2) => this._toggleOpenMenu(event2));
+    this.menuStack?.emptied.pipe(takeUntil(this.destroyed)).subscribe((event) => this._toggleOpenMenu(event));
   }
   static \u0275fac = /* @__PURE__ */ (() => {
     let \u0275CdkMenuBar_BaseFactory;
@@ -25745,18 +27531,18 @@ var CdkContextMenuTrigger = class _CdkContextMenuTrigger extends CdkMenuTriggerB
   close() {
     this.menuStack.closeAll();
   }
-  _openOnContextMenu(event2) {
+  _openOnContextMenu(event) {
     if (!this.disabled) {
-      event2.preventDefault();
-      event2.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
       this._menuTracker.update(this);
-      this._open(event2, {
-        x: event2.clientX,
-        y: event2.clientY
+      this._open(event, {
+        x: event.clientX,
+        y: event.clientY
       });
-      if (event2.button === 2) {
+      if (event.button === 2) {
         this.childMenu?.focusFirstItem("mouse");
-      } else if (event2.button === 0) {
+      } else if (event.button === 0) {
         this.childMenu?.focusFirstItem("keyboard");
       } else {
         this.childMenu?.focusFirstItem("program");
@@ -25796,10 +27582,10 @@ var CdkContextMenuTrigger = class _CdkContextMenuTrigger extends CdkMenuTriggerB
         const [auxClicks, nonAuxClicks] = partition(outsideClicks, ({
           type
         }) => type === "auxclick");
-        outsideClicks = merge(nonAuxClicks.pipe(skipWhile((event2, index) => userEvent.ctrlKey && index === 0 && event2.ctrlKey)), auxClicks.pipe(skip(1)));
+        outsideClicks = merge(nonAuxClicks.pipe(skipWhile((event, index) => userEvent.ctrlKey && index === 0 && event.ctrlKey)), auxClicks.pipe(skip(1)));
       }
-      outsideClicks.pipe(takeUntil(this.stopOutsideClicksListener)).subscribe((event2) => {
-        if (!this.isElementInsideMenuStack(_getEventTarget(event2))) {
+      outsideClicks.pipe(takeUntil(this.stopOutsideClicksListener)).subscribe((event) => {
+        if (!this.isElementInsideMenuStack(_getEventTarget(event))) {
           this.menuStack.closeAll();
         }
       });
@@ -26365,9 +28151,9 @@ var CdkListbox = class _CdkListbox {
   };
   _onChange = () => {
   };
-  _optionClicked = defer(() => this.options.changes.pipe(startWith(this.options), switchMap((options) => merge(...options.map((option) => option._clicked.pipe(map((event2) => ({
+  _optionClicked = defer(() => this.options.changes.pipe(startWith(this.options), switchMap((options) => merge(...options.map((option) => option._clicked.pipe(map((event) => ({
     option,
-    event: event2
+    event
   }))))))));
   _dir = inject(Directionality, {
     optional: true
@@ -26401,8 +28187,8 @@ var CdkListbox = class _CdkListbox {
       option
     }) => !option.disabled), takeUntil(this.destroyed)).subscribe(({
       option,
-      event: event2
-    }) => this._handleOptionClicked(option, event2));
+      event
+    }) => this._handleOptionClicked(option, event));
   }
   ngOnDestroy() {
     this._cleanupWindowBlur?.();
@@ -26529,64 +28315,64 @@ var CdkListbox = class _CdkListbox {
       this._focusActiveOption();
     }
   }
-  _handleKeydown(event2) {
+  _handleKeydown(event) {
     if (this.disabled) {
       return;
     }
     const {
       keyCode
-    } = event2;
+    } = event;
     const previousActiveIndex = this.listKeyManager.activeItemIndex;
     const ctrlKeys = ["ctrlKey", "metaKey"];
-    if (this.multiple && keyCode === A && hasModifierKey(event2, ...ctrlKeys)) {
+    if (this.multiple && keyCode === A && hasModifierKey(event, ...ctrlKeys)) {
       this.triggerRange(null, 0, this.options.length - 1, this.options.length !== this.value.length);
-      event2.preventDefault();
+      event.preventDefault();
       return;
     }
-    if (this.multiple && (keyCode === SPACE || keyCode === ENTER) && hasModifierKey(event2, "shiftKey")) {
+    if (this.multiple && (keyCode === SPACE || keyCode === ENTER) && hasModifierKey(event, "shiftKey")) {
       if (this.listKeyManager.activeItem && this.listKeyManager.activeItemIndex != null) {
         this.triggerRange(this.listKeyManager.activeItem, this._getLastTriggeredIndex() ?? this.listKeyManager.activeItemIndex, this.listKeyManager.activeItemIndex, !this.listKeyManager.activeItem.isSelected());
       }
-      event2.preventDefault();
+      event.preventDefault();
       return;
     }
-    if (this.multiple && keyCode === HOME && hasModifierKey(event2, ...ctrlKeys) && hasModifierKey(event2, "shiftKey")) {
+    if (this.multiple && keyCode === HOME && hasModifierKey(event, ...ctrlKeys) && hasModifierKey(event, "shiftKey")) {
       const trigger = this.listKeyManager.activeItem;
       if (trigger) {
         const from2 = this.listKeyManager.activeItemIndex;
         this.listKeyManager.setFirstItemActive();
         this.triggerRange(trigger, from2, this.listKeyManager.activeItemIndex, !trigger.isSelected());
       }
-      event2.preventDefault();
+      event.preventDefault();
       return;
     }
-    if (this.multiple && keyCode === END && hasModifierKey(event2, ...ctrlKeys) && hasModifierKey(event2, "shiftKey")) {
+    if (this.multiple && keyCode === END && hasModifierKey(event, ...ctrlKeys) && hasModifierKey(event, "shiftKey")) {
       const trigger = this.listKeyManager.activeItem;
       if (trigger) {
         const from2 = this.listKeyManager.activeItemIndex;
         this.listKeyManager.setLastItemActive();
         this.triggerRange(trigger, from2, this.listKeyManager.activeItemIndex, !trigger.isSelected());
       }
-      event2.preventDefault();
+      event.preventDefault();
       return;
     }
     if (keyCode === SPACE || keyCode === ENTER) {
       this.triggerOption(this.listKeyManager.activeItem);
-      event2.preventDefault();
+      event.preventDefault();
       return;
     }
     const isNavKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW || keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW || keyCode === HOME || keyCode === END;
-    this.listKeyManager.onKeydown(event2);
-    if (isNavKey && event2.shiftKey && previousActiveIndex !== this.listKeyManager.activeItemIndex) {
+    this.listKeyManager.onKeydown(event);
+    if (isNavKey && event.shiftKey && previousActiveIndex !== this.listKeyManager.activeItemIndex) {
       this.triggerOption(this.listKeyManager.activeItem);
     }
   }
   _handleFocusIn() {
     this._hasFocus = true;
   }
-  _handleFocusOut(event2) {
+  _handleFocusOut(event) {
     this._previousActiveOption = this.listKeyManager.activeItem;
-    const otherElement = event2.relatedTarget;
+    const otherElement = event.relatedTarget;
     if (this.element !== otherElement && !this.element.contains(otherElement)) {
       this._onTouched();
       this._hasFocus = false;
@@ -26667,10 +28453,10 @@ var CdkListbox = class _CdkListbox {
     }
     return cache.get(value);
   }
-  _handleOptionClicked(option, event2) {
-    event2.preventDefault();
+  _handleOptionClicked(option, event) {
+    event.preventDefault();
     this.listKeyManager.setActiveItem(option);
-    if (event2.shiftKey && this.multiple) {
+    if (event.shiftKey && this.multiple) {
       this.triggerRange(option, this._getLastTriggeredIndex() ?? this.listKeyManager.activeItemIndex, this.listKeyManager.activeItemIndex, !option.isSelected());
     } else {
       this.triggerOption(option);
@@ -26901,1156 +28687,6 @@ var CdkListboxModule = class _CdkListboxModule {
       exports: [...EXPORTED_DECLARATIONS]
     }]
   }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/private.mjs
-var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
-  static \u0275fac = function _VisuallyHiddenLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __VisuallyHiddenLoader)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: __VisuallyHiddenLoader,
-    selectors: [["ng-component"]],
-    exportAs: ["cdkVisuallyHidden"],
-    decls: 0,
-    vars: 0,
-    template: function _VisuallyHiddenLoader_Template(rf, ctx) {
-    },
-    styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_VisuallyHiddenLoader, [{
-    type: Component,
-    args: [{
-      exportAs: "cdkVisuallyHidden",
-      encapsulation: ViewEncapsulation.None,
-      template: "",
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      styles: [".cdk-visually-hidden{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;outline:0;-webkit-appearance:none;-moz-appearance:none;left:0}[dir=rtl] .cdk-visually-hidden{left:auto;right:0}\n"]
-    }]
-  }], null, null);
-})();
-var policy;
-function getPolicy() {
-  if (policy === void 0) {
-    policy = null;
-    if (typeof window !== "undefined") {
-      const ttWindow = window;
-      if (ttWindow.trustedTypes !== void 0) {
-        policy = ttWindow.trustedTypes.createPolicy("angular#components", {
-          createHTML: (s2) => s2
-        });
-      }
-    }
-  }
-  return policy;
-}
-function trustedHTMLFromString(html) {
-  return getPolicy()?.createHTML(html) || html;
-}
-function _setInnerHtml(element, html, sanitizer) {
-  const cleanHtml = sanitizer.sanitize(SecurityContext.HTML, html);
-  if (cleanHtml === null && (typeof ngDevMode === "undefined" || ngDevMode)) {
-    throw new Error(`Could not sanitize HTML: ${html}`);
-  }
-  element.innerHTML = trustedHTMLFromString(cleanHtml || "");
-}
-
-// node_modules/@angular/cdk/fesm2022/_breakpoints-observer-chunk.mjs
-var mediaQueriesForWebkitCompatibility = /* @__PURE__ */ new Set();
-var mediaQueryStyleNode;
-var MediaMatcher = class _MediaMatcher {
-  _platform = inject(Platform);
-  _nonce = inject(CSP_NONCE, {
-    optional: true
-  });
-  _matchMedia;
-  constructor() {
-    this._matchMedia = this._platform.isBrowser && window.matchMedia ? window.matchMedia.bind(window) : noopMatchMedia;
-  }
-  matchMedia(query) {
-    if (this._platform.WEBKIT || this._platform.BLINK) {
-      createEmptyStyleRule(query, this._nonce);
-    }
-    return this._matchMedia(query);
-  }
-  static \u0275fac = function MediaMatcher_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MediaMatcher)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _MediaMatcher,
-    factory: _MediaMatcher.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MediaMatcher, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function createEmptyStyleRule(query, nonce) {
-  if (mediaQueriesForWebkitCompatibility.has(query)) {
-    return;
-  }
-  try {
-    if (!mediaQueryStyleNode) {
-      mediaQueryStyleNode = document.createElement("style");
-      if (nonce) {
-        mediaQueryStyleNode.setAttribute("nonce", nonce);
-      }
-      mediaQueryStyleNode.setAttribute("type", "text/css");
-      document.head.appendChild(mediaQueryStyleNode);
-    }
-    if (mediaQueryStyleNode.sheet) {
-      mediaQueryStyleNode.sheet.insertRule(`@media ${query} {body{ }}`, 0);
-      mediaQueriesForWebkitCompatibility.add(query);
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
-function noopMatchMedia(query) {
-  return {
-    matches: query === "all" || query === "",
-    media: query,
-    addListener: () => {
-    },
-    removeListener: () => {
-    }
-  };
-}
-var BreakpointObserver = class _BreakpointObserver {
-  _mediaMatcher = inject(MediaMatcher);
-  _zone = inject(NgZone);
-  _queries = /* @__PURE__ */ new Map();
-  _destroySubject = new Subject();
-  constructor() {
-  }
-  ngOnDestroy() {
-    this._destroySubject.next();
-    this._destroySubject.complete();
-  }
-  isMatched(value) {
-    const queries = splitQueries(coerceArray(value));
-    return queries.some((mediaQuery) => this._registerQuery(mediaQuery).mql.matches);
-  }
-  observe(value) {
-    const queries = splitQueries(coerceArray(value));
-    const observables = queries.map((query) => this._registerQuery(query).observable);
-    let stateObservable = combineLatest(observables);
-    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
-    return stateObservable.pipe(map((breakpointStates) => {
-      const response = {
-        matches: false,
-        breakpoints: {}
-      };
-      breakpointStates.forEach(({
-        matches,
-        query
-      }) => {
-        response.matches = response.matches || matches;
-        response.breakpoints[query] = matches;
-      });
-      return response;
-    }));
-  }
-  _registerQuery(query) {
-    if (this._queries.has(query)) {
-      return this._queries.get(query);
-    }
-    const mql = this._mediaMatcher.matchMedia(query);
-    const queryObservable = new Observable((observer) => {
-      const handler = (e) => this._zone.run(() => observer.next(e));
-      mql.addListener(handler);
-      return () => {
-        mql.removeListener(handler);
-      };
-    }).pipe(startWith(mql), map(({
-      matches
-    }) => ({
-      query,
-      matches
-    })), takeUntil(this._destroySubject));
-    const output2 = {
-      observable: queryObservable,
-      mql
-    };
-    this._queries.set(query, output2);
-    return output2;
-  }
-  static \u0275fac = function BreakpointObserver_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BreakpointObserver)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _BreakpointObserver,
-    factory: _BreakpointObserver.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BreakpointObserver, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function splitQueries(queries) {
-  return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
-}
-
-// node_modules/@angular/cdk/fesm2022/observers.mjs
-function shouldIgnoreRecord(record) {
-  if (record.type === "characterData" && record.target instanceof Comment) {
-    return true;
-  }
-  if (record.type === "childList") {
-    for (let i = 0; i < record.addedNodes.length; i++) {
-      if (!(record.addedNodes[i] instanceof Comment)) {
-        return false;
-      }
-    }
-    for (let i = 0; i < record.removedNodes.length; i++) {
-      if (!(record.removedNodes[i] instanceof Comment)) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return false;
-}
-var MutationObserverFactory = class _MutationObserverFactory {
-  create(callback) {
-    return typeof MutationObserver === "undefined" ? null : new MutationObserver(callback);
-  }
-  static \u0275fac = function MutationObserverFactory_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MutationObserverFactory)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _MutationObserverFactory,
-    factory: _MutationObserverFactory.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MutationObserverFactory, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var ContentObserver = class _ContentObserver {
-  _mutationObserverFactory = inject(MutationObserverFactory);
-  _observedElements = /* @__PURE__ */ new Map();
-  _ngZone = inject(NgZone);
-  constructor() {
-  }
-  ngOnDestroy() {
-    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
-  }
-  observe(elementOrRef) {
-    const element = coerceElement(elementOrRef);
-    return new Observable((observer) => {
-      const stream = this._observeElement(element);
-      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
-        this._ngZone.run(() => {
-          observer.next(records);
-        });
-      });
-      return () => {
-        subscription.unsubscribe();
-        this._unobserveElement(element);
-      };
-    });
-  }
-  _observeElement(element) {
-    return this._ngZone.runOutsideAngular(() => {
-      if (!this._observedElements.has(element)) {
-        const stream = new Subject();
-        const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
-        if (observer) {
-          observer.observe(element, {
-            characterData: true,
-            childList: true,
-            subtree: true
-          });
-        }
-        this._observedElements.set(element, {
-          observer,
-          stream,
-          count: 1
-        });
-      } else {
-        this._observedElements.get(element).count++;
-      }
-      return this._observedElements.get(element).stream;
-    });
-  }
-  _unobserveElement(element) {
-    if (this._observedElements.has(element)) {
-      this._observedElements.get(element).count--;
-      if (!this._observedElements.get(element).count) {
-        this._cleanupObserver(element);
-      }
-    }
-  }
-  _cleanupObserver(element) {
-    if (this._observedElements.has(element)) {
-      const {
-        observer,
-        stream
-      } = this._observedElements.get(element);
-      if (observer) {
-        observer.disconnect();
-      }
-      stream.complete();
-      this._observedElements.delete(element);
-    }
-  }
-  static \u0275fac = function ContentObserver_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ContentObserver)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _ContentObserver,
-    factory: _ContentObserver.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContentObserver, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkObserveContent = class _CdkObserveContent {
-  _contentObserver = inject(ContentObserver);
-  _elementRef = inject(ElementRef);
-  event = new EventEmitter();
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value) {
-    this._disabled = value;
-    this._disabled ? this._unsubscribe() : this._subscribe();
-  }
-  _disabled = false;
-  get debounce() {
-    return this._debounce;
-  }
-  set debounce(value) {
-    this._debounce = coerceNumberProperty(value);
-    this._subscribe();
-  }
-  _debounce;
-  _currentSubscription = null;
-  constructor() {
-  }
-  ngAfterContentInit() {
-    if (!this._currentSubscription && !this.disabled) {
-      this._subscribe();
-    }
-  }
-  ngOnDestroy() {
-    this._unsubscribe();
-  }
-  _subscribe() {
-    this._unsubscribe();
-    const stream = this._contentObserver.observe(this._elementRef);
-    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
-  }
-  _unsubscribe() {
-    this._currentSubscription?.unsubscribe();
-  }
-  static \u0275fac = function CdkObserveContent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkObserveContent)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkObserveContent,
-    selectors: [["", "cdkObserveContent", ""]],
-    inputs: {
-      disabled: [2, "cdkObserveContentDisabled", "disabled", booleanAttribute],
-      debounce: "debounce"
-    },
-    outputs: {
-      event: "cdkObserveContent"
-    },
-    exportAs: ["cdkObserveContent"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkObserveContent, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkObserveContent]",
-      exportAs: "cdkObserveContent"
-    }]
-  }], () => [], {
-    event: [{
-      type: Output,
-      args: ["cdkObserveContent"]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        alias: "cdkObserveContentDisabled",
-        transform: booleanAttribute
-      }]
-    }],
-    debounce: [{
-      type: Input
-    }]
-  });
-})();
-var ObserversModule = class _ObserversModule {
-  static \u0275fac = function ObserversModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ObserversModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _ObserversModule,
-    imports: [CdkObserveContent],
-    exports: [CdkObserveContent]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    providers: [MutationObserverFactory]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ObserversModule, [{
-    type: NgModule,
-    args: [{
-      imports: [CdkObserveContent],
-      exports: [CdkObserveContent],
-      providers: [MutationObserverFactory]
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/cdk/fesm2022/_a11y-module-chunk.mjs
-var InteractivityChecker = class _InteractivityChecker {
-  _platform = inject(Platform);
-  constructor() {
-  }
-  isDisabled(element) {
-    return element.hasAttribute("disabled");
-  }
-  isVisible(element) {
-    return hasGeometry(element) && getComputedStyle(element).visibility === "visible";
-  }
-  isTabbable(element) {
-    if (!this._platform.isBrowser) {
-      return false;
-    }
-    const frameElement = getFrameElement(getWindow(element));
-    if (frameElement) {
-      if (getTabIndexValue(frameElement) === -1) {
-        return false;
-      }
-      if (!this.isVisible(frameElement)) {
-        return false;
-      }
-    }
-    let nodeName = element.nodeName.toLowerCase();
-    let tabIndexValue = getTabIndexValue(element);
-    if (element.hasAttribute("contenteditable")) {
-      return tabIndexValue !== -1;
-    }
-    if (nodeName === "iframe" || nodeName === "object") {
-      return false;
-    }
-    if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
-      return false;
-    }
-    if (nodeName === "audio") {
-      if (!element.hasAttribute("controls")) {
-        return false;
-      }
-      return tabIndexValue !== -1;
-    }
-    if (nodeName === "video") {
-      if (tabIndexValue === -1) {
-        return false;
-      }
-      if (tabIndexValue !== null) {
-        return true;
-      }
-      return this._platform.FIREFOX || element.hasAttribute("controls");
-    }
-    return element.tabIndex >= 0;
-  }
-  isFocusable(element, config) {
-    return isPotentiallyFocusable(element) && !this.isDisabled(element) && (config?.ignoreVisibility || this.isVisible(element));
-  }
-  static \u0275fac = function InteractivityChecker_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _InteractivityChecker)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _InteractivityChecker,
-    factory: _InteractivityChecker.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(InteractivityChecker, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-function getFrameElement(window2) {
-  try {
-    return window2.frameElement;
-  } catch {
-    return null;
-  }
-}
-function hasGeometry(element) {
-  return !!(element.offsetWidth || element.offsetHeight || typeof element.getClientRects === "function" && element.getClientRects().length);
-}
-function isNativeFormElement(element) {
-  let nodeName = element.nodeName.toLowerCase();
-  return nodeName === "input" || nodeName === "select" || nodeName === "button" || nodeName === "textarea";
-}
-function isHiddenInput(element) {
-  return isInputElement(element) && element.type == "hidden";
-}
-function isAnchorWithHref(element) {
-  return isAnchorElement(element) && element.hasAttribute("href");
-}
-function isInputElement(element) {
-  return element.nodeName.toLowerCase() == "input";
-}
-function isAnchorElement(element) {
-  return element.nodeName.toLowerCase() == "a";
-}
-function hasValidTabIndex(element) {
-  if (!element.hasAttribute("tabindex") || element.tabIndex === void 0) {
-    return false;
-  }
-  let tabIndex = element.getAttribute("tabindex");
-  return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
-}
-function getTabIndexValue(element) {
-  if (!hasValidTabIndex(element)) {
-    return null;
-  }
-  const tabIndex = parseInt(element.getAttribute("tabindex") || "", 10);
-  return isNaN(tabIndex) ? -1 : tabIndex;
-}
-function isPotentiallyTabbableIOS(element) {
-  let nodeName = element.nodeName.toLowerCase();
-  let inputType = nodeName === "input" && element.type;
-  return inputType === "text" || inputType === "password" || nodeName === "select" || nodeName === "textarea";
-}
-function isPotentiallyFocusable(element) {
-  if (isHiddenInput(element)) {
-    return false;
-  }
-  return isNativeFormElement(element) || isAnchorWithHref(element) || element.hasAttribute("contenteditable") || hasValidTabIndex(element);
-}
-function getWindow(node) {
-  return node.ownerDocument && node.ownerDocument.defaultView || window;
-}
-var FocusTrap = class {
-  _element;
-  _checker;
-  _ngZone;
-  _document;
-  _injector;
-  _startAnchor = null;
-  _endAnchor = null;
-  _hasAttached = false;
-  startAnchorListener = () => this.focusLastTabbableElement();
-  endAnchorListener = () => this.focusFirstTabbableElement();
-  get enabled() {
-    return this._enabled;
-  }
-  set enabled(value) {
-    this._enabled = value;
-    if (this._startAnchor && this._endAnchor) {
-      this._toggleAnchorTabIndex(value, this._startAnchor);
-      this._toggleAnchorTabIndex(value, this._endAnchor);
-    }
-  }
-  _enabled = true;
-  constructor(_element, _checker, _ngZone, _document2, deferAnchors = false, _injector) {
-    this._element = _element;
-    this._checker = _checker;
-    this._ngZone = _ngZone;
-    this._document = _document2;
-    this._injector = _injector;
-    if (!deferAnchors) {
-      this.attachAnchors();
-    }
-  }
-  destroy() {
-    const startAnchor = this._startAnchor;
-    const endAnchor = this._endAnchor;
-    if (startAnchor) {
-      startAnchor.removeEventListener("focus", this.startAnchorListener);
-      startAnchor.remove();
-    }
-    if (endAnchor) {
-      endAnchor.removeEventListener("focus", this.endAnchorListener);
-      endAnchor.remove();
-    }
-    this._startAnchor = this._endAnchor = null;
-    this._hasAttached = false;
-  }
-  attachAnchors() {
-    if (this._hasAttached) {
-      return true;
-    }
-    this._ngZone.runOutsideAngular(() => {
-      if (!this._startAnchor) {
-        this._startAnchor = this._createAnchor();
-        this._startAnchor.addEventListener("focus", this.startAnchorListener);
-      }
-      if (!this._endAnchor) {
-        this._endAnchor = this._createAnchor();
-        this._endAnchor.addEventListener("focus", this.endAnchorListener);
-      }
-    });
-    if (this._element.parentNode) {
-      this._element.parentNode.insertBefore(this._startAnchor, this._element);
-      this._element.parentNode.insertBefore(this._endAnchor, this._element.nextSibling);
-      this._hasAttached = true;
-    }
-    return this._hasAttached;
-  }
-  focusInitialElementWhenReady(options) {
-    return new Promise((resolve) => {
-      this._executeOnStable(() => resolve(this.focusInitialElement(options)));
-    });
-  }
-  focusFirstTabbableElementWhenReady(options) {
-    return new Promise((resolve) => {
-      this._executeOnStable(() => resolve(this.focusFirstTabbableElement(options)));
-    });
-  }
-  focusLastTabbableElementWhenReady(options) {
-    return new Promise((resolve) => {
-      this._executeOnStable(() => resolve(this.focusLastTabbableElement(options)));
-    });
-  }
-  _getRegionBoundary(bound) {
-    const markers = this._element.querySelectorAll(`[cdk-focus-region-${bound}], [cdkFocusRegion${bound}], [cdk-focus-${bound}]`);
-    if (typeof ngDevMode === "undefined" || ngDevMode) {
-      for (let i = 0; i < markers.length; i++) {
-        if (markers[i].hasAttribute(`cdk-focus-${bound}`)) {
-          console.warn(`Found use of deprecated attribute 'cdk-focus-${bound}', use 'cdkFocusRegion${bound}' instead. The deprecated attribute will be removed in 8.0.0.`, markers[i]);
-        } else if (markers[i].hasAttribute(`cdk-focus-region-${bound}`)) {
-          console.warn(`Found use of deprecated attribute 'cdk-focus-region-${bound}', use 'cdkFocusRegion${bound}' instead. The deprecated attribute will be removed in 8.0.0.`, markers[i]);
-        }
-      }
-    }
-    if (bound == "start") {
-      return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
-    }
-    return markers.length ? markers[markers.length - 1] : this._getLastTabbableElement(this._element);
-  }
-  focusInitialElement(options) {
-    const redirectToElement = this._element.querySelector(`[cdk-focus-initial], [cdkFocusInitial]`);
-    if (redirectToElement) {
-      if ((typeof ngDevMode === "undefined" || ngDevMode) && redirectToElement.hasAttribute(`cdk-focus-initial`)) {
-        console.warn(`Found use of deprecated attribute 'cdk-focus-initial', use 'cdkFocusInitial' instead. The deprecated attribute will be removed in 8.0.0`, redirectToElement);
-      }
-      if ((typeof ngDevMode === "undefined" || ngDevMode) && !this._checker.isFocusable(redirectToElement)) {
-        console.warn(`Element matching '[cdkFocusInitial]' is not focusable.`, redirectToElement);
-      }
-      if (!this._checker.isFocusable(redirectToElement)) {
-        const focusableChild = this._getFirstTabbableElement(redirectToElement);
-        focusableChild?.focus(options);
-        return !!focusableChild;
-      }
-      redirectToElement.focus(options);
-      return true;
-    }
-    return this.focusFirstTabbableElement(options);
-  }
-  focusFirstTabbableElement(options) {
-    const redirectToElement = this._getRegionBoundary("start");
-    if (redirectToElement) {
-      redirectToElement.focus(options);
-    }
-    return !!redirectToElement;
-  }
-  focusLastTabbableElement(options) {
-    const redirectToElement = this._getRegionBoundary("end");
-    if (redirectToElement) {
-      redirectToElement.focus(options);
-    }
-    return !!redirectToElement;
-  }
-  hasAttached() {
-    return this._hasAttached;
-  }
-  _getFirstTabbableElement(root) {
-    if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-      return root;
-    }
-    const children = root.children;
-    for (let i = 0; i < children.length; i++) {
-      const tabbableChild = children[i].nodeType === this._document.ELEMENT_NODE ? this._getFirstTabbableElement(children[i]) : null;
-      if (tabbableChild) {
-        return tabbableChild;
-      }
-    }
-    return null;
-  }
-  _getLastTabbableElement(root) {
-    if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-      return root;
-    }
-    const children = root.children;
-    for (let i = children.length - 1; i >= 0; i--) {
-      const tabbableChild = children[i].nodeType === this._document.ELEMENT_NODE ? this._getLastTabbableElement(children[i]) : null;
-      if (tabbableChild) {
-        return tabbableChild;
-      }
-    }
-    return null;
-  }
-  _createAnchor() {
-    const anchor = this._document.createElement("div");
-    this._toggleAnchorTabIndex(this._enabled, anchor);
-    anchor.classList.add("cdk-visually-hidden");
-    anchor.classList.add("cdk-focus-trap-anchor");
-    anchor.setAttribute("aria-hidden", "true");
-    return anchor;
-  }
-  _toggleAnchorTabIndex(isEnabled, anchor) {
-    isEnabled ? anchor.setAttribute("tabindex", "0") : anchor.removeAttribute("tabindex");
-  }
-  toggleAnchors(enabled) {
-    if (this._startAnchor && this._endAnchor) {
-      this._toggleAnchorTabIndex(enabled, this._startAnchor);
-      this._toggleAnchorTabIndex(enabled, this._endAnchor);
-    }
-  }
-  _executeOnStable(fn) {
-    if (this._injector) {
-      afterNextRender(fn, {
-        injector: this._injector
-      });
-    } else {
-      setTimeout(fn);
-    }
-  }
-};
-var FocusTrapFactory = class _FocusTrapFactory {
-  _checker = inject(InteractivityChecker);
-  _ngZone = inject(NgZone);
-  _document = inject(DOCUMENT);
-  _injector = inject(Injector);
-  constructor() {
-    inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
-  }
-  create(element, deferCaptureElements = false) {
-    return new FocusTrap(element, this._checker, this._ngZone, this._document, deferCaptureElements, this._injector);
-  }
-  static \u0275fac = function FocusTrapFactory_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _FocusTrapFactory)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _FocusTrapFactory,
-    factory: _FocusTrapFactory.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FocusTrapFactory, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkTrapFocus = class _CdkTrapFocus {
-  _elementRef = inject(ElementRef);
-  _focusTrapFactory = inject(FocusTrapFactory);
-  focusTrap = void 0;
-  _previouslyFocusedElement = null;
-  get enabled() {
-    return this.focusTrap?.enabled || false;
-  }
-  set enabled(value) {
-    if (this.focusTrap) {
-      this.focusTrap.enabled = value;
-    }
-  }
-  autoCapture = false;
-  constructor() {
-    const platform = inject(Platform);
-    if (platform.isBrowser) {
-      this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
-    }
-  }
-  ngOnDestroy() {
-    this.focusTrap?.destroy();
-    if (this._previouslyFocusedElement) {
-      this._previouslyFocusedElement.focus();
-      this._previouslyFocusedElement = null;
-    }
-  }
-  ngAfterContentInit() {
-    this.focusTrap?.attachAnchors();
-    if (this.autoCapture) {
-      this._captureFocus();
-    }
-  }
-  ngDoCheck() {
-    if (this.focusTrap && !this.focusTrap.hasAttached()) {
-      this.focusTrap.attachAnchors();
-    }
-  }
-  ngOnChanges(changes) {
-    const autoCaptureChange = changes["autoCapture"];
-    if (autoCaptureChange && !autoCaptureChange.firstChange && this.autoCapture && this.focusTrap?.hasAttached()) {
-      this._captureFocus();
-    }
-  }
-  _captureFocus() {
-    this._previouslyFocusedElement = _getFocusedElementPierceShadowDom();
-    this.focusTrap?.focusInitialElementWhenReady();
-  }
-  static \u0275fac = function CdkTrapFocus_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkTrapFocus)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkTrapFocus,
-    selectors: [["", "cdkTrapFocus", ""]],
-    inputs: {
-      enabled: [2, "cdkTrapFocus", "enabled", booleanAttribute],
-      autoCapture: [2, "cdkTrapFocusAutoCapture", "autoCapture", booleanAttribute]
-    },
-    exportAs: ["cdkTrapFocus"],
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkTrapFocus, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkTrapFocus]",
-      exportAs: "cdkTrapFocus"
-    }]
-  }], () => [], {
-    enabled: [{
-      type: Input,
-      args: [{
-        alias: "cdkTrapFocus",
-        transform: booleanAttribute
-      }]
-    }],
-    autoCapture: [{
-      type: Input,
-      args: [{
-        alias: "cdkTrapFocusAutoCapture",
-        transform: booleanAttribute
-      }]
-    }]
-  });
-})();
-var LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken("liveAnnouncerElement", {
-  providedIn: "root",
-  factory: () => null
-});
-var LIVE_ANNOUNCER_DEFAULT_OPTIONS = new InjectionToken("LIVE_ANNOUNCER_DEFAULT_OPTIONS");
-var uniqueIds = 0;
-var LiveAnnouncer = class _LiveAnnouncer {
-  _ngZone = inject(NgZone);
-  _defaultOptions = inject(LIVE_ANNOUNCER_DEFAULT_OPTIONS, {
-    optional: true
-  });
-  _liveElement;
-  _document = inject(DOCUMENT);
-  _sanitizer = inject(DomSanitizer);
-  _previousTimeout;
-  _currentPromise;
-  _currentResolve;
-  constructor() {
-    const elementToken = inject(LIVE_ANNOUNCER_ELEMENT_TOKEN, {
-      optional: true
-    });
-    this._liveElement = elementToken || this._createLiveElement();
-  }
-  announce(message, ...args) {
-    const defaultOptions = this._defaultOptions;
-    let politeness;
-    let duration;
-    if (args.length === 1 && typeof args[0] === "number") {
-      duration = args[0];
-    } else {
-      [politeness, duration] = args;
-    }
-    this.clear();
-    clearTimeout(this._previousTimeout);
-    if (!politeness) {
-      politeness = defaultOptions && defaultOptions.politeness ? defaultOptions.politeness : "polite";
-    }
-    if (duration == null && defaultOptions) {
-      duration = defaultOptions.duration;
-    }
-    this._liveElement.setAttribute("aria-live", politeness);
-    if (this._liveElement.id) {
-      this._exposeAnnouncerToModals(this._liveElement.id);
-    }
-    return this._ngZone.runOutsideAngular(() => {
-      if (!this._currentPromise) {
-        this._currentPromise = new Promise((resolve) => this._currentResolve = resolve);
-      }
-      clearTimeout(this._previousTimeout);
-      this._previousTimeout = setTimeout(() => {
-        if (!message || typeof message === "string") {
-          this._liveElement.textContent = message;
-        } else {
-          _setInnerHtml(this._liveElement, message, this._sanitizer);
-        }
-        if (typeof duration === "number") {
-          this._previousTimeout = setTimeout(() => this.clear(), duration);
-        }
-        this._currentResolve?.();
-        this._currentPromise = this._currentResolve = void 0;
-      }, 100);
-      return this._currentPromise;
-    });
-  }
-  clear() {
-    if (this._liveElement) {
-      this._liveElement.textContent = "";
-    }
-  }
-  ngOnDestroy() {
-    clearTimeout(this._previousTimeout);
-    this._liveElement?.remove();
-    this._liveElement = null;
-    this._currentResolve?.();
-    this._currentPromise = this._currentResolve = void 0;
-  }
-  _createLiveElement() {
-    const elementClass = "cdk-live-announcer-element";
-    const previousElements = this._document.getElementsByClassName(elementClass);
-    const liveEl = this._document.createElement("div");
-    for (let i = 0; i < previousElements.length; i++) {
-      previousElements[i].remove();
-    }
-    liveEl.classList.add(elementClass);
-    liveEl.classList.add("cdk-visually-hidden");
-    liveEl.setAttribute("aria-atomic", "true");
-    liveEl.setAttribute("aria-live", "polite");
-    liveEl.id = `cdk-live-announcer-${uniqueIds++}`;
-    this._document.body.appendChild(liveEl);
-    return liveEl;
-  }
-  _exposeAnnouncerToModals(id) {
-    const modals = this._document.querySelectorAll('body > .cdk-overlay-container [aria-modal="true"]');
-    for (let i = 0; i < modals.length; i++) {
-      const modal = modals[i];
-      const ariaOwns = modal.getAttribute("aria-owns");
-      if (!ariaOwns) {
-        modal.setAttribute("aria-owns", id);
-      } else if (ariaOwns.indexOf(id) === -1) {
-        modal.setAttribute("aria-owns", ariaOwns + " " + id);
-      }
-    }
-  }
-  static \u0275fac = function LiveAnnouncer_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _LiveAnnouncer)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _LiveAnnouncer,
-    factory: _LiveAnnouncer.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LiveAnnouncer, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var CdkAriaLive = class _CdkAriaLive {
-  _elementRef = inject(ElementRef);
-  _liveAnnouncer = inject(LiveAnnouncer);
-  _contentObserver = inject(ContentObserver);
-  _ngZone = inject(NgZone);
-  get politeness() {
-    return this._politeness;
-  }
-  set politeness(value) {
-    this._politeness = value === "off" || value === "assertive" ? value : "polite";
-    if (this._politeness === "off") {
-      if (this._subscription) {
-        this._subscription.unsubscribe();
-        this._subscription = void 0;
-      }
-    } else if (!this._subscription) {
-      this._subscription = this._ngZone.runOutsideAngular(() => {
-        return this._contentObserver.observe(this._elementRef).subscribe(() => {
-          const elementText = this._elementRef.nativeElement.textContent;
-          if (elementText !== this._previousAnnouncedText) {
-            this._liveAnnouncer.announce(elementText, this._politeness, this.duration);
-            this._previousAnnouncedText = elementText;
-          }
-        });
-      });
-    }
-  }
-  _politeness = "polite";
-  duration;
-  _previousAnnouncedText;
-  _subscription;
-  constructor() {
-    inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
-  }
-  ngOnDestroy() {
-    this._subscription?.unsubscribe();
-  }
-  static \u0275fac = function CdkAriaLive_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CdkAriaLive)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _CdkAriaLive,
-    selectors: [["", "cdkAriaLive", ""]],
-    inputs: {
-      politeness: [0, "cdkAriaLive", "politeness"],
-      duration: [0, "cdkAriaLiveDuration", "duration"]
-    },
-    exportAs: ["cdkAriaLive"]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkAriaLive, [{
-    type: Directive,
-    args: [{
-      selector: "[cdkAriaLive]",
-      exportAs: "cdkAriaLive"
-    }]
-  }], () => [], {
-    politeness: [{
-      type: Input,
-      args: ["cdkAriaLive"]
-    }],
-    duration: [{
-      type: Input,
-      args: ["cdkAriaLiveDuration"]
-    }]
-  });
-})();
-var HighContrastMode;
-(function(HighContrastMode2) {
-  HighContrastMode2[HighContrastMode2["NONE"] = 0] = "NONE";
-  HighContrastMode2[HighContrastMode2["BLACK_ON_WHITE"] = 1] = "BLACK_ON_WHITE";
-  HighContrastMode2[HighContrastMode2["WHITE_ON_BLACK"] = 2] = "WHITE_ON_BLACK";
-})(HighContrastMode || (HighContrastMode = {}));
-var BLACK_ON_WHITE_CSS_CLASS = "cdk-high-contrast-black-on-white";
-var WHITE_ON_BLACK_CSS_CLASS = "cdk-high-contrast-white-on-black";
-var HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS = "cdk-high-contrast-active";
-var HighContrastModeDetector = class _HighContrastModeDetector {
-  _platform = inject(Platform);
-  _hasCheckedHighContrastMode = false;
-  _document = inject(DOCUMENT);
-  _breakpointSubscription;
-  constructor() {
-    this._breakpointSubscription = inject(BreakpointObserver).observe("(forced-colors: active)").subscribe(() => {
-      if (this._hasCheckedHighContrastMode) {
-        this._hasCheckedHighContrastMode = false;
-        this._applyBodyHighContrastModeCssClasses();
-      }
-    });
-  }
-  getHighContrastMode() {
-    if (!this._platform.isBrowser) {
-      return HighContrastMode.NONE;
-    }
-    const testElement = this._document.createElement("div");
-    testElement.style.backgroundColor = "rgb(1,2,3)";
-    testElement.style.position = "absolute";
-    this._document.body.appendChild(testElement);
-    const documentWindow = this._document.defaultView || window;
-    const computedStyle = documentWindow && documentWindow.getComputedStyle ? documentWindow.getComputedStyle(testElement) : null;
-    const computedColor = (computedStyle && computedStyle.backgroundColor || "").replace(/ /g, "");
-    testElement.remove();
-    switch (computedColor) {
-      case "rgb(0,0,0)":
-      case "rgb(45,50,54)":
-      case "rgb(32,32,32)":
-        return HighContrastMode.WHITE_ON_BLACK;
-      case "rgb(255,255,255)":
-      case "rgb(255,250,239)":
-        return HighContrastMode.BLACK_ON_WHITE;
-    }
-    return HighContrastMode.NONE;
-  }
-  ngOnDestroy() {
-    this._breakpointSubscription.unsubscribe();
-  }
-  _applyBodyHighContrastModeCssClasses() {
-    if (!this._hasCheckedHighContrastMode && this._platform.isBrowser && this._document.body) {
-      const bodyClasses = this._document.body.classList;
-      bodyClasses.remove(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, BLACK_ON_WHITE_CSS_CLASS, WHITE_ON_BLACK_CSS_CLASS);
-      this._hasCheckedHighContrastMode = true;
-      const mode = this.getHighContrastMode();
-      if (mode === HighContrastMode.BLACK_ON_WHITE) {
-        bodyClasses.add(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, BLACK_ON_WHITE_CSS_CLASS);
-      } else if (mode === HighContrastMode.WHITE_ON_BLACK) {
-        bodyClasses.add(HIGH_CONTRAST_MODE_ACTIVE_CSS_CLASS, WHITE_ON_BLACK_CSS_CLASS);
-      }
-    }
-  }
-  static \u0275fac = function HighContrastModeDetector_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _HighContrastModeDetector)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _HighContrastModeDetector,
-    factory: _HighContrastModeDetector.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(HighContrastModeDetector, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-var A11yModule = class _A11yModule {
-  constructor() {
-    inject(HighContrastModeDetector)._applyBodyHighContrastModeCssClasses();
-  }
-  static \u0275fac = function A11yModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _A11yModule)();
-  };
-  static \u0275mod = /* @__PURE__ */ \u0275\u0275defineNgModule({
-    type: _A11yModule,
-    imports: [ObserversModule, CdkAriaLive, CdkTrapFocus, CdkMonitorFocus],
-    exports: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]
-  });
-  static \u0275inj = /* @__PURE__ */ \u0275\u0275defineInjector({
-    imports: [ObserversModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(A11yModule, [{
-    type: NgModule,
-    args: [{
-      imports: [ObserversModule, CdkAriaLive, CdkTrapFocus, CdkMonitorFocus],
-      exports: [CdkAriaLive, CdkTrapFocus, CdkMonitorFocus]
-    }]
-  }], () => [], null);
 })();
 
 // node_modules/@angular/cdk/fesm2022/a11y.mjs
@@ -28287,8 +28923,8 @@ var EventListenerFocusTrapInertStrategy = class {
     focusTrap._document.removeEventListener("focus", this._listener, true);
     this._listener = null;
   }
-  _trapFocus(focusTrap, event2) {
-    const target = event2.target;
+  _trapFocus(focusTrap, event) {
+    const target = event.target;
     const focusTrapRoot = focusTrap._element;
     if (target && !focusTrapRoot.contains(target) && !target.closest?.("div.cdk-overlay-pane")) {
       setTimeout(() => {
@@ -28376,6 +29012,73 @@ var ConfigurableFocusTrapFactory = class _ConfigurableFocusTrapFactory {
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ConfigurableFocusTrapFactory, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [], null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/overlay.mjs
+var FullscreenOverlayContainer = class _FullscreenOverlayContainer extends OverlayContainer {
+  _renderer = inject(RendererFactory2).createRenderer(null, null);
+  _fullScreenEventName;
+  _cleanupFullScreenListener;
+  constructor() {
+    super();
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this._cleanupFullScreenListener?.();
+  }
+  _createContainer() {
+    const eventName = this._getEventName();
+    super._createContainer();
+    this._adjustParentForFullscreenChange();
+    if (eventName) {
+      this._cleanupFullScreenListener?.();
+      this._cleanupFullScreenListener = this._renderer.listen("document", eventName, () => {
+        this._adjustParentForFullscreenChange();
+      });
+    }
+  }
+  _adjustParentForFullscreenChange() {
+    if (this._containerElement) {
+      const fullscreenElement = this.getFullscreenElement();
+      const parent = fullscreenElement || this._document.body;
+      parent.appendChild(this._containerElement);
+    }
+  }
+  _getEventName() {
+    if (!this._fullScreenEventName) {
+      const _document2 = this._document;
+      if (_document2.fullscreenEnabled) {
+        this._fullScreenEventName = "fullscreenchange";
+      } else if (_document2.webkitFullscreenEnabled) {
+        this._fullScreenEventName = "webkitfullscreenchange";
+      } else if (_document2.mozFullScreenEnabled) {
+        this._fullScreenEventName = "mozfullscreenchange";
+      } else if (_document2.msFullscreenEnabled) {
+        this._fullScreenEventName = "MSFullscreenChange";
+      }
+    }
+    return this._fullScreenEventName;
+  }
+  getFullscreenElement() {
+    const _document2 = this._document;
+    return _document2.fullscreenElement || _document2.webkitFullscreenElement || _document2.mozFullScreenElement || _document2.msFullscreenElement || null;
+  }
+  static \u0275fac = function FullscreenOverlayContainer_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _FullscreenOverlayContainer)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _FullscreenOverlayContainer,
+    factory: _FullscreenOverlayContainer.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FullscreenOverlayContainer, [{
     type: Injectable,
     args: [{
       providedIn: "root"
@@ -37393,8 +38096,8 @@ var ParentPositionTracker = class {
       });
     });
   }
-  handleScroll(event2) {
-    const target = _getEventTarget(event2);
+  handleScroll(event) {
+    const target = _getEventTarget(event);
     const cachedPosition = this.positions.get(target);
     if (!cachedPosition) {
       return null;
@@ -37565,14 +38268,14 @@ var DragDropRegistry = class _DragDropRegistry {
       this._cleanupDocumentTouchmove?.();
     }
   }
-  startDragging(drag, event2) {
+  startDragging(drag, event) {
     if (this._activeDragInstances().indexOf(drag) > -1) {
       return;
     }
     this._styleLoader.load(_ResetsLoader);
     this._activeDragInstances.update((instances) => [...instances, drag]);
     if (this._activeDragInstances().length === 1) {
-      const isTouchEvent2 = event2.type.startsWith("touch");
+      const isTouchEvent2 = event.type.startsWith("touch");
       const endEventHandler = (e) => this.pointerUp.next(e);
       const toBind = [["scroll", (e) => this._scroll.next(e), capturingEventOptions], ["selectstart", this._preventDefaultWhileDragging, activeCapturingEventOptions$1]];
       if (isTouchEvent2) {
@@ -37609,9 +38312,9 @@ var DragDropRegistry = class _DragDropRegistry {
     if (shadowRoot && shadowRoot !== this._document) {
       streams.push(new Observable((observer) => {
         return this._ngZone.runOutsideAngular(() => {
-          const cleanup = this._renderer.listen(shadowRoot, "scroll", (event2) => {
+          const cleanup = this._renderer.listen(shadowRoot, "scroll", (event) => {
             if (this._activeDragInstances().length) {
-              observer.next(event2);
+              observer.next(event);
             }
           }, capturingEventOptions);
           return () => {
@@ -37640,17 +38343,17 @@ var DragDropRegistry = class _DragDropRegistry {
     this.pointerMove.complete();
     this.pointerUp.complete();
   }
-  _preventDefaultWhileDragging = (event2) => {
+  _preventDefaultWhileDragging = (event) => {
     if (this._activeDragInstances().length > 0) {
-      event2.preventDefault();
+      event.preventDefault();
     }
   };
-  _persistentTouchmoveListener = (event2) => {
+  _persistentTouchmoveListener = (event) => {
     if (this._activeDragInstances().length > 0) {
       if (this._activeDragInstances().some(this._draggingPredicate)) {
-        event2.preventDefault();
+        event.preventDefault();
       }
-      this.pointerMove.next(event2);
+      this.pointerMove.next(event);
     }
   };
   _clearGlobalListeners() {
@@ -38105,42 +38808,42 @@ var DragRef = class {
     this._placeholderRef?.destroy();
     this._placeholder = this._anchor = this._placeholderRef = null;
   }
-  _pointerDown = (event2) => {
+  _pointerDown = (event) => {
     this.beforeStarted.next();
     if (this._handles.length) {
-      const targetHandle = this._getTargetHandle(event2);
+      const targetHandle = this._getTargetHandle(event);
       if (targetHandle && !this._disabledHandles.has(targetHandle) && !this.disabled) {
-        this._initializeDragSequence(targetHandle, event2);
+        this._initializeDragSequence(targetHandle, event);
       }
     } else if (!this.disabled) {
-      this._initializeDragSequence(this._rootElement, event2);
+      this._initializeDragSequence(this._rootElement, event);
     }
   };
-  _pointerMove = (event2) => {
-    const pointerPosition = this._getPointerPositionOnPage(event2);
+  _pointerMove = (event) => {
+    const pointerPosition = this._getPointerPositionOnPage(event);
     if (!this._hasStartedDragging()) {
       const distanceX = Math.abs(pointerPosition.x - this._pickupPositionOnPage.x);
       const distanceY = Math.abs(pointerPosition.y - this._pickupPositionOnPage.y);
       const isOverThreshold = distanceX + distanceY >= this._config.dragStartThreshold;
       if (isOverThreshold) {
-        const isDelayElapsed = Date.now() >= this._dragStartTime + this._getDragStartDelay(event2);
+        const isDelayElapsed = Date.now() >= this._dragStartTime + this._getDragStartDelay(event);
         const container = this._dropContainer;
         if (!isDelayElapsed) {
-          this._endDragSequence(event2);
+          this._endDragSequence(event);
           return;
         }
         if (!container || !container.isDragging() && !container.isReceiving()) {
-          if (event2.cancelable) {
-            event2.preventDefault();
+          if (event.cancelable) {
+            event.preventDefault();
           }
           this._hasStartedDragging.set(true);
-          this._ngZone.run(() => this._startDragSequence(event2));
+          this._ngZone.run(() => this._startDragSequence(event));
         }
       }
       return;
     }
-    if (event2.cancelable) {
-      event2.preventDefault();
+    if (event.cancelable) {
+      event.preventDefault();
     }
     const constrainedPointerPosition = this._getConstrainedPointerPosition(pointerPosition);
     this._hasMoved = true;
@@ -38160,17 +38863,17 @@ var DragRef = class {
         this._moveEvents.next({
           source: this,
           pointerPosition: constrainedPointerPosition,
-          event: event2,
+          event,
           distance: this._getDragDistance(constrainedPointerPosition),
           delta: this._pointerDirectionDelta
         });
       });
     }
   };
-  _pointerUp = (event2) => {
-    this._endDragSequence(event2);
+  _pointerUp = (event) => {
+    this._endDragSequence(event);
   };
-  _endDragSequence(event2) {
+  _endDragSequence(event) {
     if (!this._dragDropRegistry.isDragging(this)) {
       return;
     }
@@ -38185,33 +38888,33 @@ var DragRef = class {
     }
     this.released.next({
       source: this,
-      event: event2
+      event
     });
     if (this._dropContainer) {
       this._dropContainer._stopScrolling();
       this._animatePreviewToPlaceholder().then(() => {
-        this._cleanupDragArtifacts(event2);
+        this._cleanupDragArtifacts(event);
         this._cleanupCachedDimensions();
         this._dragDropRegistry.stopDragging(this);
       });
     } else {
       this._passiveTransform.x = this._activeTransform.x;
-      const pointerPosition = this._getPointerPositionOnPage(event2);
+      const pointerPosition = this._getPointerPositionOnPage(event);
       this._passiveTransform.y = this._activeTransform.y;
       this._ngZone.run(() => {
         this.ended.next({
           source: this,
           distance: this._getDragDistance(pointerPosition),
           dropPoint: pointerPosition,
-          event: event2
+          event
         });
       });
       this._cleanupCachedDimensions();
       this._dragDropRegistry.stopDragging(this);
     }
   }
-  _startDragSequence(event2) {
-    if (isTouchEvent(event2)) {
+  _startDragSequence(event) {
+    if (isTouchEvent(event)) {
       this._lastTouchEventTime = Date.now();
     }
     this._toggleNativeDragInteractions();
@@ -38235,7 +38938,7 @@ var DragRef = class {
       this._document.body.appendChild(parent.replaceChild(placeholder, element));
       this.started.next({
         source: this,
-        event: event2
+        event
       });
       dropContainer.start();
       this._initialContainer = dropContainer;
@@ -38243,25 +38946,25 @@ var DragRef = class {
     } else {
       this.started.next({
         source: this,
-        event: event2
+        event
       });
       this._initialContainer = this._initialIndex = void 0;
     }
     this._parentPositions.cache(dropContainer ? dropContainer.getScrollableParents() : []);
   }
-  _initializeDragSequence(referenceElement, event2) {
+  _initializeDragSequence(referenceElement, event) {
     if (this._parentDragRef) {
-      event2.stopPropagation();
+      event.stopPropagation();
     }
     const isDragging = this.isDragging();
-    const isTouchSequence = isTouchEvent(event2);
-    const isAuxiliaryMouseButton = !isTouchSequence && event2.button !== 0;
+    const isTouchSequence = isTouchEvent(event);
+    const isAuxiliaryMouseButton = !isTouchSequence && event.button !== 0;
     const rootElement = this._rootElement;
-    const target = _getEventTarget(event2);
+    const target = _getEventTarget(event);
     const isSyntheticEvent = !isTouchSequence && this._lastTouchEventTime && this._lastTouchEventTime + MOUSE_EVENT_IGNORE_TIME > Date.now();
-    const isFakeEvent = isTouchSequence ? isFakeTouchstartFromScreenReader(event2) : isFakeMousedownFromScreenReader(event2);
-    if (target && target.draggable && event2.type === "mousedown") {
-      event2.preventDefault();
+    const isFakeEvent = isTouchSequence ? isFakeTouchstartFromScreenReader(event) : isFakeMousedownFromScreenReader(event);
+    if (target && target.draggable && event.type === "mousedown") {
+      event.preventDefault();
     }
     if (isDragging || isAuxiliaryMouseButton || isSyntheticEvent || isFakeEvent) {
       return;
@@ -38285,8 +38988,8 @@ var DragRef = class {
     this._pickupPositionInElement = previewTemplate && previewTemplate.template && !previewTemplate.matchSize ? {
       x: 0,
       y: 0
-    } : this._getPointerPositionInElement(this._initialDomRect, referenceElement, event2);
-    const pointerPosition = this._pickupPositionOnPage = this._lastKnownPointerPosition = this._getPointerPositionOnPage(event2);
+    } : this._getPointerPositionInElement(this._initialDomRect, referenceElement, event);
+    const pointerPosition = this._pickupPositionOnPage = this._lastKnownPointerPosition = this._getPointerPositionOnPage(event);
     this._pointerDirectionDelta = {
       x: 0,
       y: 0
@@ -38296,9 +38999,9 @@ var DragRef = class {
       y: pointerPosition.y
     };
     this._dragStartTime = Date.now();
-    this._dragDropRegistry.startDragging(this, event2);
+    this._dragDropRegistry.startDragging(this, event);
   }
-  _cleanupDragArtifacts(event2) {
+  _cleanupDragArtifacts(event) {
     toggleVisibility(this._rootElement, true, dragImportantProperties);
     this._marker.parentNode.replaceChild(this._rootElement, this._marker);
     this._destroyPreview();
@@ -38307,14 +39010,14 @@ var DragRef = class {
     this._ngZone.run(() => {
       const container = this._dropContainer;
       const currentIndex = container.getItemIndex(this);
-      const pointerPosition = this._getPointerPositionOnPage(event2);
+      const pointerPosition = this._getPointerPositionOnPage(event);
       const distance = this._getDragDistance(pointerPosition);
       const isPointerOverContainer = container._isOverContainer(pointerPosition.x, pointerPosition.y);
       this.ended.next({
         source: this,
         distance,
         dropPoint: pointerPosition,
-        event: event2
+        event
       });
       this.dropped.next({
         item: this,
@@ -38325,9 +39028,9 @@ var DragRef = class {
         isPointerOverContainer,
         distance,
         dropPoint: pointerPosition,
-        event: event2
+        event
       });
-      container.drop(this, currentIndex, this._initialIndex, this._initialContainer, isPointerOverContainer, distance, pointerPosition, event2);
+      container.drop(this, currentIndex, this._initialIndex, this._initialContainer, isPointerOverContainer, distance, pointerPosition, event);
       this._dropContainer = this._initialContainer;
     });
   }
@@ -38384,8 +39087,8 @@ var DragRef = class {
     }
     return this._ngZone.runOutsideAngular(() => {
       return new Promise((resolve) => {
-        const handler = (event2) => {
-          if (!event2 || this._preview && _getEventTarget(event2) === this._preview.element && event2.propertyName === "transform") {
+        const handler = (event) => {
+          if (!event || this._preview && _getEventTarget(event) === this._preview.element && event.propertyName === "transform") {
             cleanupListener();
             resolve();
             clearTimeout(timeout);
@@ -38411,10 +39114,10 @@ var DragRef = class {
     placeholder.classList.add(PLACEHOLDER_CLASS);
     return placeholder;
   }
-  _getPointerPositionInElement(elementRect, referenceElement, event2) {
+  _getPointerPositionInElement(elementRect, referenceElement, event) {
     const handleElement = referenceElement === this._rootElement ? null : referenceElement;
     const referenceRect = handleElement ? handleElement.getBoundingClientRect() : elementRect;
-    const point = isTouchEvent(event2) ? event2.targetTouches[0] : event2;
+    const point = isTouchEvent(event) ? event.targetTouches[0] : event;
     const scrollPosition = this._getViewportScrollPosition();
     const x = point.pageX - referenceRect.left - scrollPosition.left;
     const y = point.pageY - referenceRect.top - scrollPosition.top;
@@ -38423,12 +39126,12 @@ var DragRef = class {
       y: referenceRect.top - elementRect.top + y
     };
   }
-  _getPointerPositionOnPage(event2) {
+  _getPointerPositionOnPage(event) {
     const scrollPosition = this._getViewportScrollPosition();
-    const point = isTouchEvent(event2) ? event2.touches[0] || event2.changedTouches[0] || {
+    const point = isTouchEvent(event) ? event.touches[0] || event.changedTouches[0] || {
       pageX: 0,
       pageY: 0
-    } : event2;
+    } : event;
     const x = point.pageX - scrollPosition.left;
     const y = point.pageY - scrollPosition.top;
     if (this._ownerSVGElement) {
@@ -38589,19 +39292,19 @@ var DragRef = class {
       });
     }
   }
-  _getDragStartDelay(event2) {
+  _getDragStartDelay(event) {
     const value = this.dragStartDelay;
     if (typeof value === "number") {
       return value;
-    } else if (isTouchEvent(event2)) {
+    } else if (isTouchEvent(event)) {
       return value.touch;
     }
     return value ? value.mouse : 0;
   }
-  _updateOnScroll(event2) {
-    const scrollDifference = this._parentPositions.handleScroll(event2);
+  _updateOnScroll(event) {
+    const scrollDifference = this._parentPositions.handleScroll(event);
     if (scrollDifference) {
-      const target = _getEventTarget(event2);
+      const target = _getEventTarget(event);
       if (this._boundaryRect && target !== this._boundaryElement && target.contains(this._boundaryElement)) {
         adjustDomRect(this._boundaryRect, scrollDifference.top, scrollDifference.left);
       }
@@ -38640,19 +39343,19 @@ var DragRef = class {
     }
     return this._previewRect;
   }
-  _nativeDragStart = (event2) => {
+  _nativeDragStart = (event) => {
     if (this._handles.length) {
-      const targetHandle = this._getTargetHandle(event2);
+      const targetHandle = this._getTargetHandle(event);
       if (targetHandle && !this._disabledHandles.has(targetHandle) && !this.disabled) {
-        event2.preventDefault();
+        event.preventDefault();
       }
     } else if (!this.disabled) {
-      event2.preventDefault();
+      event.preventDefault();
     }
   };
-  _getTargetHandle(event2) {
+  _getTargetHandle(event) {
     return this._handles.find((handle) => {
-      return event2.target && (event2.target === handle || handle.contains(event2.target));
+      return event.target && (event.target === handle || handle.contains(event.target));
     });
   }
   _conditionallyInsertAnchor(newContainer, exitContainer, nextItemElement) {
@@ -38675,11 +39378,11 @@ var DragRef = class {
 function clamp$1(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
-function isTouchEvent(event2) {
-  return event2.type[0] === "t";
+function isTouchEvent(event) {
+  return event.type[0] === "t";
 }
-function shadowDomSelectStart(event2) {
-  event2.preventDefault();
+function shadowDomSelectStart(event) {
+  event.preventDefault();
 }
 function moveItemInArray(array, fromIndex, toIndex) {
   const from2 = clamp(fromIndex, array.length - 1);
@@ -39177,7 +39880,7 @@ var DropListRef = class {
       container: this
     });
   }
-  drop(item, currentIndex, previousIndex, previousContainer, isPointerOverContainer, distance, dropPoint, event2 = {}) {
+  drop(item, currentIndex, previousIndex, previousContainer, isPointerOverContainer, distance, dropPoint, event = {}) {
     this._reset();
     this.dropped.next({
       item,
@@ -39188,7 +39891,7 @@ var DropListRef = class {
       isPointerOverContainer,
       distance,
       dropPoint,
-      event: event2
+      event
     });
   }
   withItems(items) {
@@ -39422,9 +40125,9 @@ var DropListRef = class {
     });
   }
   _listenToScrollEvents() {
-    this._viewportScrollSubscription = this._dragDropRegistry.scrolled(this._getShadowRoot()).subscribe((event2) => {
+    this._viewportScrollSubscription = this._dragDropRegistry.scrolled(this._getShadowRoot()).subscribe((event) => {
       if (this.isDragging()) {
-        const scrollDifference = this._parentPositions.handleScroll(event2);
+        const scrollDifference = this._parentPositions.handleScroll(event);
         if (scrollDifference) {
           this._sortStrategy.updateOnScroll(scrollDifference.top, scrollDifference.left);
         }
@@ -40288,26 +40991,26 @@ var CdkDropList = class _CdkDropList {
       this._syncItemsWithRef(this.getSortedItems().map((item) => item._dragRef));
       this._changeDetectorRef.markForCheck();
     });
-    ref.entered.subscribe((event2) => {
+    ref.entered.subscribe((event) => {
       this.entered.emit({
         container: this,
-        item: event2.item.data,
-        currentIndex: event2.currentIndex
+        item: event.item.data,
+        currentIndex: event.currentIndex
       });
     });
-    ref.exited.subscribe((event2) => {
+    ref.exited.subscribe((event) => {
       this.exited.emit({
         container: this,
-        item: event2.item.data
+        item: event.item.data
       });
       this._changeDetectorRef.markForCheck();
     });
-    ref.sorted.subscribe((event2) => {
+    ref.sorted.subscribe((event) => {
       this.sorted.emit({
-        previousIndex: event2.previousIndex,
-        currentIndex: event2.currentIndex,
+        previousIndex: event.previousIndex,
+        currentIndex: event.currentIndex,
         container: this,
-        item: event2.item.data
+        item: event.item.data
       });
     });
     ref.dropped.subscribe((dropEvent) => {
@@ -40614,73 +41317,6 @@ var DragDropModule = class _DragDropModule {
   }], null, null);
 })();
 
-// node_modules/@angular/cdk/fesm2022/overlay.mjs
-var FullscreenOverlayContainer = class _FullscreenOverlayContainer extends OverlayContainer {
-  _renderer = inject(RendererFactory2).createRenderer(null, null);
-  _fullScreenEventName;
-  _cleanupFullScreenListener;
-  constructor() {
-    super();
-  }
-  ngOnDestroy() {
-    super.ngOnDestroy();
-    this._cleanupFullScreenListener?.();
-  }
-  _createContainer() {
-    const eventName = this._getEventName();
-    super._createContainer();
-    this._adjustParentForFullscreenChange();
-    if (eventName) {
-      this._cleanupFullScreenListener?.();
-      this._cleanupFullScreenListener = this._renderer.listen("document", eventName, () => {
-        this._adjustParentForFullscreenChange();
-      });
-    }
-  }
-  _adjustParentForFullscreenChange() {
-    if (this._containerElement) {
-      const fullscreenElement = this.getFullscreenElement();
-      const parent = fullscreenElement || this._document.body;
-      parent.appendChild(this._containerElement);
-    }
-  }
-  _getEventName() {
-    if (!this._fullScreenEventName) {
-      const _document2 = this._document;
-      if (_document2.fullscreenEnabled) {
-        this._fullScreenEventName = "fullscreenchange";
-      } else if (_document2.webkitFullscreenEnabled) {
-        this._fullScreenEventName = "webkitfullscreenchange";
-      } else if (_document2.mozFullScreenEnabled) {
-        this._fullScreenEventName = "mozfullscreenchange";
-      } else if (_document2.msFullscreenEnabled) {
-        this._fullScreenEventName = "MSFullscreenChange";
-      }
-    }
-    return this._fullScreenEventName;
-  }
-  getFullscreenElement() {
-    const _document2 = this._document;
-    return _document2.fullscreenElement || _document2.webkitFullscreenElement || _document2.mozFullScreenElement || _document2.msFullscreenElement || null;
-  }
-  static \u0275fac = function FullscreenOverlayContainer_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _FullscreenOverlayContainer)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _FullscreenOverlayContainer,
-    factory: _FullscreenOverlayContainer.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FullscreenOverlayContainer, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], () => [], null);
-})();
-
 // node_modules/@clinicaloffice/mpage-developer/fesm2022/clinicaloffice-mpage-developer.mjs
 var _c03 = ["*"];
 var _c13 = () => ["checkbox", "color", "number", "range"];
@@ -40696,7 +41332,7 @@ function MpageInputComponent_Conditional_2_Template(rf, ctx) {
 function MpageInputComponent_Conditional_4_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 12);
+    \u0275\u0275elementStart(0, "button", 13);
     \u0275\u0275listener("click", function MpageInputComponent_Conditional_4_Conditional_0_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r0 = \u0275\u0275nextContext(2);
@@ -40727,7 +41363,7 @@ function MpageInputComponent_Conditional_4_Conditional_1_Template(rf, ctx) {
 }
 function MpageInputComponent_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageInputComponent_Conditional_4_Conditional_0_Template, 3, 2, "button", 11)(1, MpageInputComponent_Conditional_4_Conditional_1_Template, 3, 1, "span");
+    \u0275\u0275conditionalCreate(0, MpageInputComponent_Conditional_4_Conditional_0_Template, 3, 2, "button", 12)(1, MpageInputComponent_Conditional_4_Conditional_1_Template, 3, 1, "span");
   }
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
@@ -40737,7 +41373,7 @@ function MpageInputComponent_Conditional_4_Template(rf, ctx) {
 function MpageInputComponent_Case_5_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 13);
+    \u0275\u0275elementStart(0, "input", 14);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_5_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r3);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40760,7 +41396,7 @@ function MpageInputComponent_Case_5_Template(rf, ctx) {
 function MpageInputComponent_Case_6_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "textarea", 14);
+    \u0275\u0275elementStart(0, "textarea", 15);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_6_Template_textarea_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r4);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40783,7 +41419,7 @@ function MpageInputComponent_Case_6_Template(rf, ctx) {
 function MpageInputComponent_Case_7_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 4)(1, "input", 15);
+    \u0275\u0275elementStart(0, "div", 5)(1, "input", 16);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_7_Template_input_ngModelChange_1_listener($event) {
       \u0275\u0275restoreView(_r5);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40812,7 +41448,7 @@ function MpageInputComponent_Case_7_Template(rf, ctx) {
 function MpageInputComponent_Case_8_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 16);
+    \u0275\u0275elementStart(0, "input", 17);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_8_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r6);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40835,7 +41471,7 @@ function MpageInputComponent_Case_8_Template(rf, ctx) {
 function MpageInputComponent_Case_9_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 17);
+    \u0275\u0275elementStart(0, "input", 18);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_9_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r7);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40858,7 +41494,7 @@ function MpageInputComponent_Case_9_Template(rf, ctx) {
 function MpageInputComponent_Case_10_Template(rf, ctx) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 18);
+    \u0275\u0275elementStart(0, "input", 19);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_10_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r8);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40881,7 +41517,7 @@ function MpageInputComponent_Case_10_Template(rf, ctx) {
 function MpageInputComponent_Case_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 19);
+    \u0275\u0275elementStart(0, "input", 20);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_11_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r9);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40904,7 +41540,7 @@ function MpageInputComponent_Case_11_Template(rf, ctx) {
 function MpageInputComponent_Case_12_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 20);
+    \u0275\u0275elementStart(0, "input", 21);
     \u0275\u0275twoWayListener("ngModelChange", function MpageInputComponent_Case_12_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r10);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40928,7 +41564,7 @@ function MpageInputComponent_Case_12_Template(rf, ctx) {
 function MpageInputComponent_Conditional_13_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 12);
+    \u0275\u0275elementStart(0, "button", 13);
     \u0275\u0275listener("click", function MpageInputComponent_Conditional_13_Conditional_0_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r11);
       const ctx_r0 = \u0275\u0275nextContext(2);
@@ -40959,7 +41595,7 @@ function MpageInputComponent_Conditional_13_Conditional_1_Template(rf, ctx) {
 }
 function MpageInputComponent_Conditional_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageInputComponent_Conditional_13_Conditional_0_Template, 3, 2, "button", 11)(1, MpageInputComponent_Conditional_13_Conditional_1_Template, 3, 1, "span");
+    \u0275\u0275conditionalCreate(0, MpageInputComponent_Conditional_13_Conditional_0_Template, 3, 2, "button", 12)(1, MpageInputComponent_Conditional_13_Conditional_1_Template, 3, 1, "span");
   }
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
@@ -40969,7 +41605,7 @@ function MpageInputComponent_Conditional_13_Template(rf, ctx) {
 function MpageInputComponent_Conditional_14_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 21);
+    \u0275\u0275elementStart(0, "button", 22);
     \u0275\u0275listener("click", function MpageInputComponent_Conditional_14_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r12);
       const ctx_r0 = \u0275\u0275nextContext();
@@ -40990,141 +41626,145 @@ var _c4 = (a0, a1) => ({
   "title": a1,
   "className": ""
 });
-function MpageSelectComponent_Conditional_2_Template(rf, ctx) {
+function MpageSelectComponent_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275textInterpolate1(" ", ctx_r0.label(), " ");
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.label(), " ");
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_1_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 9);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageSelectComponent_ng_template_9_Conditional_1_Template_mpage_input_ngModelChange_0_listener($event) {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r0.searchValue, $event) || (ctx_r0.searchValue = $event);
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "mpage-input", 11);
+    \u0275\u0275twoWayListener("ngModelChange", function MpageSelectComponent_ng_template_10_Conditional_1_Template_mpage_input_ngModelChange_0_listener($event) {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      \u0275\u0275twoWayBindingSet(ctx_r1.searchValue, $event) || (ctx_r1.searchValue = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275listener("prefixClick", function MpageSelectComponent_ng_template_9_Conditional_1_Template_mpage_input_prefixClick_0_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.toggleSearchMode());
+    \u0275\u0275listener("prefixClick", function MpageSelectComponent_ng_template_10_Conditional_1_Template_mpage_input_prefixClick_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.toggleSearchMode());
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275styleMap(\u0275\u0275pureFunction0(5, _c3));
-    \u0275\u0275twoWayProperty("ngModel", ctx_r0.searchValue);
-    \u0275\u0275property("prefix", \u0275\u0275pureFunction2(6, _c4, ctx_r0.wildCardSearchMode() ? "all_inclusive" : "start", ctx_r0.wildCardSearchMode() ? "contains" : "starts with"))("name", ctx_r0.name());
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchValue);
+    \u0275\u0275property("prefix", \u0275\u0275pureFunction2(6, _c4, ctx_r1.wildCardSearchMode() ? "all_inclusive" : "start", ctx_r1.wildCardSearchMode() ? "contains" : "starts with"))("name", ctx_r1.name());
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_3_Conditional_0_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_3_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 12);
-    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_9_Conditional_3_Conditional_0_Template_button_click_0_listener($event) {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r0 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r0.selectAll($event));
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 14);
+    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_10_Conditional_3_Conditional_0_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.selectAll($event));
     });
     \u0275\u0275elementStart(1, "mpage-icon");
     \u0275\u0275text(2, "select_all");
     \u0275\u0275elementEnd()();
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_3_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_9_Conditional_3_Conditional_0_Template, 3, 0, "button", 10);
-    \u0275\u0275elementStart(1, "button", 11);
-    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_9_Conditional_3_Template_button_click_1_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.clearAll());
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_10_Conditional_3_Conditional_0_Template, 3, 0, "button", 12);
+    \u0275\u0275elementStart(1, "button", 13);
+    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_10_Conditional_3_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.clearAll());
     });
     \u0275\u0275elementStart(2, "mpage-icon");
     \u0275\u0275text(3, "clear_all");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275conditional(!ctx_r0.allOption() && !ctx_r0.hideSelectAll() ? 0 : -1);
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275conditional(!ctx_r1.allOption() && !ctx_r1.hideSelectAll() ? 0 : -1);
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_4_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "span");
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r0.cclMessage());
+    \u0275\u0275textInterpolate(ctx_r1.cclMessage());
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_Conditional_1_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 14);
+    \u0275\u0275elementStart(0, "li", 10);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("cdkOption", ctx_r0.allValue());
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("cdkOption", ctx_r1.allValue());
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r0.allLabel() + "\xA0");
+    \u0275\u0275textInterpolate(ctx_r1.allLabel() + "\xA0");
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Conditional_0_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_7_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 14);
+    \u0275\u0275elementStart(0, "li", 10);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(4);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275property("cdkOption", 0);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r0.noOptionLabel() + "\xA0");
+    \u0275\u0275textInterpolate(ctx_r1.noOptionLabel() + "\xA0");
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Conditional_1_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
+    const _r7 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "li", 15);
-    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Conditional_1_Template_li_click_0_listener() {
-      \u0275\u0275restoreView(_r6);
-      const close_r7 = \u0275\u0275nextContext(3).close;
-      return \u0275\u0275resetView(close_r7());
+    \u0275\u0275listener("keydown", function MpageSelectComponent_ng_template_10_Conditional_7_Conditional_1_Template_li_keydown_0_listener($event) {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.toggleOverlay($event));
+    })("click", function MpageSelectComponent_ng_template_10_Conditional_7_Conditional_1_Template_li_click_0_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.toggleOverlay());
     });
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(4);
+    const ctx_r1 = \u0275\u0275nextContext(3);
     \u0275\u0275property("cdkOption", 0);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1("", ctx_r0.noOptionLabel() + "\xA0", " ");
+    \u0275\u0275textInterpolate1("", ctx_r1.noOptionLabel() + "\xA0", " ");
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Conditional_0_Template, 2, 2, "li", 14)(1, MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Conditional_1_Template, 2, 2, "li", 14);
+    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_10_Conditional_7_Conditional_0_Template, 2, 2, "li", 10)(1, MpageSelectComponent_ng_template_10_Conditional_7_Conditional_1_Template, 2, 2, "li", 10);
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(3);
-    \u0275\u0275conditional(ctx_r0.multiple() ? 0 : 1);
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275conditional(ctx_r1.multiple() ? 0 : 1);
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_0_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_For_9_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "li", 14);
+    \u0275\u0275elementStart(0, "li", 10);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -41135,14 +41775,18 @@ function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_0_Te
     \u0275\u0275textInterpolate(item_r8.value);
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_1_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_For_9_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "li", 15);
-    \u0275\u0275listener("click", function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_1_Template_li_click_0_listener() {
+    \u0275\u0275listener("keydown", function MpageSelectComponent_ng_template_10_For_9_Conditional_1_Template_li_keydown_0_listener($event) {
       \u0275\u0275restoreView(_r9);
-      const close_r7 = \u0275\u0275nextContext(3).close;
-      return \u0275\u0275resetView(close_r7());
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.toggleOverlay($event));
+    })("click", function MpageSelectComponent_ng_template_10_For_9_Conditional_1_Template_li_click_0_listener() {
+      \u0275\u0275restoreView(_r9);
+      const ctx_r1 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r1.toggleOverlay());
     });
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
@@ -41154,71 +41798,59 @@ function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_1_Te
     \u0275\u0275textInterpolate(item_r8.value);
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_For_4_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_For_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_0_Template, 2, 2, "li", 14)(1, MpageSelectComponent_ng_template_9_Conditional_5_For_4_Conditional_1_Template, 2, 2, "li", 14);
+    \u0275\u0275conditionalCreate(0, MpageSelectComponent_ng_template_10_For_9_Conditional_0_Template, 2, 2, "li", 10)(1, MpageSelectComponent_ng_template_10_For_9_Conditional_1_Template, 2, 2, "li", 10);
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(3);
-    \u0275\u0275conditional(ctx_r0.multiple() ? 0 : 1);
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275conditional(ctx_r1.multiple() ? 0 : 1);
   }
 }
-function MpageSelectComponent_ng_template_9_Conditional_5_Template(rf, ctx) {
+function MpageSelectComponent_ng_template_10_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "ul", 13);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageSelectComponent_ng_template_9_Conditional_5_Template_ul_ngModelChange_0_listener($event) {
-      \u0275\u0275restoreView(_r5);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r0.model, $event) || (ctx_r0.model = $event);
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 7);
+    \u0275\u0275conditionalCreate(1, MpageSelectComponent_ng_template_10_Conditional_1_Template, 1, 9, "mpage-input", 8);
+    \u0275\u0275elementStart(2, "div");
+    \u0275\u0275conditionalCreate(3, MpageSelectComponent_ng_template_10_Conditional_3_Template, 4, 1);
+    \u0275\u0275conditionalCreate(4, MpageSelectComponent_ng_template_10_Conditional_4_Template, 2, 1, "span");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "ul", 9);
+    \u0275\u0275twoWayListener("ngModelChange", function MpageSelectComponent_ng_template_10_Template_ul_ngModelChange_5_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r1.model, $event) || (ctx_r1.model = $event);
       return \u0275\u0275resetView($event);
     });
-    \u0275\u0275listener("ngModelChange", function MpageSelectComponent_ng_template_9_Conditional_5_Template_ul_ngModelChange_0_listener($event) {
-      \u0275\u0275restoreView(_r5);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.emitChange($event));
+    \u0275\u0275listener("ngModelChange", function MpageSelectComponent_ng_template_10_Template_ul_ngModelChange_5_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.emitChange($event));
     });
-    \u0275\u0275conditionalCreate(1, MpageSelectComponent_ng_template_9_Conditional_5_Conditional_1_Template, 2, 2, "li", 14);
-    \u0275\u0275conditionalCreate(2, MpageSelectComponent_ng_template_9_Conditional_5_Conditional_2_Template, 2, 1);
-    \u0275\u0275repeaterCreate(3, MpageSelectComponent_ng_template_9_Conditional_5_For_4_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(6, MpageSelectComponent_ng_template_10_Conditional_6_Template, 2, 2, "li", 10);
+    \u0275\u0275conditionalCreate(7, MpageSelectComponent_ng_template_10_Conditional_7_Template, 2, 1);
+    \u0275\u0275repeaterCreate(8, MpageSelectComponent_ng_template_10_For_9_Template, 2, 1, null, null, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("cdkListboxMultiple", ctx_r0.multiple());
-    \u0275\u0275twoWayProperty("ngModel", ctx_r0.model);
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngStyle", ctx_r1.style())("ngClass", ctx_r1.class() + " co-default-field")("cdkTrapFocusAutoCapture", true);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.multiple() && ctx_r0.allOption() ? 1 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.noOption() || ctx_r0.isZeroNumeric() ? 2 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r0.filteredSelectValues());
-  }
-}
-function MpageSelectComponent_ng_template_9_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 6);
-    \u0275\u0275conditionalCreate(1, MpageSelectComponent_ng_template_9_Conditional_1_Template, 1, 9, "mpage-input", 7);
-    \u0275\u0275elementStart(2, "div");
-    \u0275\u0275conditionalCreate(3, MpageSelectComponent_ng_template_9_Conditional_3_Template, 4, 1);
-    \u0275\u0275conditionalCreate(4, MpageSelectComponent_ng_template_9_Conditional_4_Template, 2, 1, "span");
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(5, MpageSelectComponent_ng_template_9_Conditional_5_Template, 5, 4, "ul", 8);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(ctx_r0.style());
-    \u0275\u0275classMap(ctx_r0.class() + " co-default-field");
-    \u0275\u0275property("cdkTrapFocusAutoCapture", true);
-    \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.searchable() ? 1 : -1);
+    \u0275\u0275conditional(ctx_r1.searchable() ? 1 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r0.multiple() ? 3 : -1);
+    \u0275\u0275conditional(ctx_r1.multiple() ? 3 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.cclMessage() !== "" ? 4 : -1);
+    \u0275\u0275conditional(ctx_r1.cclMessage() !== "" ? 4 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.hasOptions() ? 5 : -1);
+    \u0275\u0275property("cdkListboxMultiple", ctx_r1.multiple());
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.model);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.multiple() && ctx_r1.allOption() ? 6 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275conditional(ctx_r1.noOption() ? 7 : -1);
+    \u0275\u0275advance();
+    \u0275\u0275repeater(ctx_r1.filteredSelectValues());
   }
 }
 function UserLoginComponent_Conditional_7_Template(rf, ctx) {
@@ -41247,7 +41879,7 @@ function MpageConfirmComponent_Conditional_1_Conditional_6_Template(rf, ctx) {
     \u0275\u0275listener("click", function MpageConfirmComponent_Conditional_1_Conditional_6_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.dialogRef.close("true"));
+      return \u0275\u0275resetView(ctx_r0.dialogRef.close(true));
     });
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
@@ -41266,7 +41898,7 @@ function MpageConfirmComponent_Conditional_1_Conditional_7_Template(rf, ctx) {
     \u0275\u0275listener("click", function MpageConfirmComponent_Conditional_1_Conditional_7_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r3);
       const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.dialogRef.close("false"));
+      return \u0275\u0275resetView(ctx_r0.dialogRef.close(false));
     });
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
@@ -41292,7 +41924,7 @@ function MpageConfirmComponent_Conditional_1_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(ctx_r0.titleStyle);
+    \u0275\u0275property("ngStyle", ctx_r0.titleStyle);
     \u0275\u0275advance();
     \u0275\u0275conditional(ctx_r0.dialogData.icon !== "" ? 1 : -1);
     \u0275\u0275advance();
@@ -41374,7 +42006,7 @@ function MpageRadioComponent_Conditional_2_Template(rf, ctx) {
 function MpageRadioComponent_Conditional_4_For_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "input", 2);
+    \u0275\u0275elementStart(0, "input", 3);
     \u0275\u0275twoWayListener("ngModelChange", function MpageRadioComponent_Conditional_4_For_1_Template_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r2);
       const ctx_r0 = \u0275\u0275nextContext(2);
@@ -41387,7 +42019,7 @@ function MpageRadioComponent_Conditional_4_For_1_Template(rf, ctx) {
       return \u0275\u0275resetView(ctx_r0.emitChange($event));
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(1, "label", 3);
+    \u0275\u0275elementStart(1, "label", 4);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
   }
@@ -41419,122 +42051,109 @@ function MpageRadioComponent_Conditional_5_Template(rf, ctx) {
   }
 }
 var _c6 = () => ["between", "notbetween"];
-function MpageDateRangePickerComponent_Conditional_2_Template(rf, ctx) {
+function MpageDateRangePickerComponent_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275textInterpolate1(" ", ctx_r0.label(), " ");
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.label(), " ");
   }
 }
-function MpageDateRangePickerComponent_ng_template_9_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-select", 11);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_9_Conditional_1_Template_mpage_select_ngModelChange_0_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r0.range, $event) || (ctx_r0.range = $event);
-      return \u0275\u0275resetView($event);
-    });
-    \u0275\u0275listener("ngModelChange", function MpageDateRangePickerComponent_ng_template_9_Conditional_1_Template_mpage_select_ngModelChange_0_listener($event) {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.updateRange($event));
-    });
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("values", ctx_r0._rangeTypes);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r0.range);
-    \u0275\u0275property("searchable", false);
-  }
-}
-function MpageDateRangePickerComponent_ng_template_9_Conditional_2_Template(rf, ctx) {
+function MpageDateRangePickerComponent_ng_template_10_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "mpage-input", 12);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_9_Conditional_2_Template_mpage_input_ngModelChange_0_listener($event) {
+    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_10_Conditional_2_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r4);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r0.fromDate, $event) || (ctx_r0.fromDate = $event);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      \u0275\u0275twoWayBindingSet(ctx_r1.fromDate, $event) || (ctx_r1.fromDate = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("label", ctx_r0.fromLabel())("type", ctx_r0.dateType());
-    \u0275\u0275twoWayProperty("ngModel", ctx_r0.fromDate);
-    \u0275\u0275property("required", ctx_r0.required());
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("label", ctx_r1.fromLabel())("type", ctx_r1.dateType());
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.fromDate);
+    \u0275\u0275property("required", ctx_r1.required());
   }
 }
-function MpageDateRangePickerComponent_ng_template_9_Conditional_3_Template(rf, ctx) {
+function MpageDateRangePickerComponent_ng_template_10_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "mpage-input", 13);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_9_Conditional_3_Template_mpage_input_ngModelChange_0_listener($event) {
+    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_10_Conditional_3_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r5);
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r0.toDate, $event) || (ctx_r0.toDate = $event);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      \u0275\u0275twoWayBindingSet(ctx_r1.toDate, $event) || (ctx_r1.toDate = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext(2);
-    \u0275\u0275property("type", ctx_r0.dateType());
-    \u0275\u0275twoWayProperty("ngModel", ctx_r0.toDate);
-    \u0275\u0275property("required", ctx_r0.required());
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("type", ctx_r1.dateType());
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.toDate);
+    \u0275\u0275property("required", ctx_r1.required());
   }
 }
-function MpageDateRangePickerComponent_ng_template_9_Conditional_4_Template(rf, ctx) {
+function MpageDateRangePickerComponent_ng_template_10_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div");
     \u0275\u0275text(1, "* Invalid Date Value(s) *");
     \u0275\u0275elementEnd();
   }
 }
-function MpageDateRangePickerComponent_ng_template_9_Template(rf, ctx) {
+function MpageDateRangePickerComponent_ng_template_10_Template(rf, ctx) {
   if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 6);
-    \u0275\u0275conditionalCreate(1, MpageDateRangePickerComponent_ng_template_9_Conditional_1_Template, 1, 3, "mpage-select", 7);
-    \u0275\u0275conditionalCreate(2, MpageDateRangePickerComponent_ng_template_9_Conditional_2_Template, 1, 4, "mpage-input", 8);
-    \u0275\u0275conditionalCreate(3, MpageDateRangePickerComponent_ng_template_9_Conditional_3_Template, 1, 3, "mpage-input", 9);
-    \u0275\u0275conditionalCreate(4, MpageDateRangePickerComponent_ng_template_9_Conditional_4_Template, 2, 0, "div");
-    \u0275\u0275elementStart(5, "button", 10);
-    \u0275\u0275listener("click", function MpageDateRangePickerComponent_ng_template_9_Template_button_click_5_listener() {
-      const close_r6 = \u0275\u0275restoreView(_r2).close;
-      const ctx_r0 = \u0275\u0275nextContext();
-      ctx_r0.emitChange();
-      return \u0275\u0275resetView(close_r6());
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 7)(1, "mpage-select", 8);
+    \u0275\u0275twoWayListener("ngModelChange", function MpageDateRangePickerComponent_ng_template_10_Template_mpage_select_ngModelChange_1_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      \u0275\u0275twoWayBindingSet(ctx_r1.range, $event) || (ctx_r1.range = $event);
+      return \u0275\u0275resetView($event);
+    });
+    \u0275\u0275listener("ngModelChange", function MpageDateRangePickerComponent_ng_template_10_Template_mpage_select_ngModelChange_1_listener($event) {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.updateRange($event));
+    });
+    \u0275\u0275elementEnd();
+    \u0275\u0275conditionalCreate(2, MpageDateRangePickerComponent_ng_template_10_Conditional_2_Template, 1, 4, "mpage-input", 9);
+    \u0275\u0275conditionalCreate(3, MpageDateRangePickerComponent_ng_template_10_Conditional_3_Template, 1, 3, "mpage-input", 10);
+    \u0275\u0275conditionalCreate(4, MpageDateRangePickerComponent_ng_template_10_Conditional_4_Template, 2, 0, "div");
+    \u0275\u0275elementStart(5, "button", 11);
+    \u0275\u0275listener("click", function MpageDateRangePickerComponent_ng_template_10_Template_button_click_5_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.emitChange());
     });
     \u0275\u0275text(6, "Apply Changes");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(ctx_r0.style());
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("ngStyle", ctx_r1.style());
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0._rangeTypes.length > 1 ? 1 : -1);
+    \u0275\u0275property("values", ctx_r1.rangeTypes);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.range);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.range !== "none" ? 2 : -1);
+    \u0275\u0275conditional(ctx_r1.range !== "none" ? 2 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(ctx_r0.inList(ctx_r0.range, \u0275\u0275pureFunction0(7, _c6)) ? 3 : -1);
+    \u0275\u0275conditional(ctx_r1.inList(ctx_r1.range, \u0275\u0275pureFunction0(7, _c6)) ? 3 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(!ctx_r0.passedCheck() ? 4 : -1);
+    \u0275\u0275conditional(!ctx_r1.passedCheck() ? 4 : -1);
     \u0275\u0275advance();
-    \u0275\u0275property("disabled", !ctx_r0.passedCheck());
+    \u0275\u0275property("disabled", !ctx_r1.passedCheck());
   }
 }
 var _forTrack0 = ($index, $item) => $item.column;
 function MpageTableComponent_Conditional_0_Conditional_1_For_12_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 16);
+    \u0275\u0275elementStart(0, "button", 15);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_For_12_Template_button_click_0_listener() {
       const tb_r5 = \u0275\u0275restoreView(_r4).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(3);
@@ -41556,21 +42175,21 @@ function MpageTableComponent_Conditional_0_Conditional_1_For_12_Template(rf, ctx
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 22)(1, "mpage-select", 26);
+    \u0275\u0275elementStart(0, "div", 21)(1, "mpage-select", 25);
     \u0275\u0275twoWayListener("ngModelChange", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template_mpage_select_ngModelChange_1_listener($event) {
       const columnSort_r8 = \u0275\u0275restoreView(_r7).$implicit;
       \u0275\u0275twoWayBindingSet(columnSort_r8.column, $event) || (columnSort_r8.column = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "mpage-radio-group", 27);
+    \u0275\u0275elementStart(2, "mpage-radio-group", 26);
     \u0275\u0275twoWayListener("ngModelChange", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template_mpage_radio_group_ngModelChange_2_listener($event) {
       const columnSort_r8 = \u0275\u0275restoreView(_r7).$implicit;
       \u0275\u0275twoWayBindingSet(columnSort_r8.sortDirection, $event) || (columnSort_r8.sortDirection = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "button", 28);
+    \u0275\u0275elementStart(3, "button", 27);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template_button_click_3_listener() {
       const columnSort_r8 = \u0275\u0275restoreView(_r7).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(5);
@@ -41593,7 +42212,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 }
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275elementStart(0, "div", 19);
     \u0275\u0275text(1, " Warning: Column name must be unique and not blank. ");
     \u0275\u0275elementEnd();
   }
@@ -41603,7 +42222,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_15_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 29);
+    \u0275\u0275elementStart(0, "button", 28);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_15_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r9);
       const ctx_r2 = \u0275\u0275nextContext(5);
@@ -41620,7 +42239,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_16_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 30);
+    \u0275\u0275elementStart(0, "button", 29);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_16_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r10);
       const ctx_r2 = \u0275\u0275nextContext(5);
@@ -41638,10 +42257,10 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 17)(1, "h3");
+    \u0275\u0275elementStart(0, "div", 16)(1, "h3");
     \u0275\u0275text(2, "Field Sorting");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 18)(4, "button", 19);
+    \u0275\u0275elementStart(3, "div", 17)(4, "button", 18);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext(4);
@@ -41650,22 +42269,22 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
     \u0275\u0275elementStart(5, "mpage-icon");
     \u0275\u0275text(6, "settings_backup_restore");
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(7, "p", 20);
+    \u0275\u0275elementStart(7, "p", 19);
     \u0275\u0275text(8, " Please fill in your sort requirements below. You can have up to 4 levels of sorting and you can re-arrange your sort order by dragging and dropping items in the list. ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "div", 21);
+    \u0275\u0275elementStart(9, "div", 20);
     \u0275\u0275listener("cdkDropListDropped", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Template_div_cdkDropListDropped_9_listener($event) {
       \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r2.dropColumnSort($event));
     });
-    \u0275\u0275repeaterCreate(10, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template, 6, 4, "div", 22, _forTrack0);
+    \u0275\u0275repeaterCreate(10, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_For_11_Template, 6, 4, "div", 21, _forTrack0);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(12, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_12_Template, 2, 0, "div", 20);
+    \u0275\u0275conditionalCreate(12, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_12_Template, 2, 0, "div", 19);
     \u0275\u0275conditionalCreate(13, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_13_Template, 0, 0);
-    \u0275\u0275elementStart(14, "div", 23);
-    \u0275\u0275conditionalCreate(15, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_15_Template, 2, 1, "button", 24);
-    \u0275\u0275conditionalCreate(16, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_16_Template, 2, 1, "button", 25);
+    \u0275\u0275elementStart(14, "div", 22);
+    \u0275\u0275conditionalCreate(15, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_15_Template, 2, 1, "button", 23);
+    \u0275\u0275conditionalCreate(16, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_1_Conditional_16_Template, 2, 1, "button", 24);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -41700,28 +42319,28 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 22)(1, "mpage-input", 32);
+    \u0275\u0275elementStart(0, "div", 21)(1, "mpage-input", 31);
     \u0275\u0275twoWayListener("ngModelChange", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template_mpage_input_ngModelChange_1_listener($event) {
       const column_r13 = \u0275\u0275restoreView(_r12).$implicit;
       \u0275\u0275twoWayBindingSet(column_r13.label, $event) || (column_r13.label = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(2, "mpage-input", 33);
+    \u0275\u0275elementStart(2, "mpage-input", 32);
     \u0275\u0275twoWayListener("ngModelChange", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template_mpage_input_ngModelChange_2_listener($event) {
       const column_r13 = \u0275\u0275restoreView(_r12).$implicit;
       \u0275\u0275twoWayBindingSet(column_r13.visible, $event) || (column_r13.visible = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "mpage-input", 34);
+    \u0275\u0275elementStart(3, "mpage-input", 33);
     \u0275\u0275twoWayListener("ngModelChange", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template_mpage_input_ngModelChange_3_listener($event) {
       const column_r13 = \u0275\u0275restoreView(_r12).$implicit;
       \u0275\u0275twoWayBindingSet(column_r13.sticky, $event) || (column_r13.sticky = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "button", 35);
+    \u0275\u0275elementStart(4, "button", 34);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template_button_click_4_listener() {
       const column_r13 = \u0275\u0275restoreView(_r12).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(5);
@@ -41749,10 +42368,10 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
 function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 17)(1, "h3");
+    \u0275\u0275elementStart(0, "div", 16)(1, "h3");
     \u0275\u0275text(2, "Field Layout");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 18)(4, "button", 31);
+    \u0275\u0275elementStart(3, "div", 17)(4, "button", 30);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r11);
       const ctx_r2 = \u0275\u0275nextContext(4);
@@ -41761,16 +42380,16 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditio
     \u0275\u0275elementStart(5, "mpage-icon");
     \u0275\u0275text(6, "settings_backup_restore");
     \u0275\u0275elementEnd()()()();
-    \u0275\u0275elementStart(7, "p", 20);
+    \u0275\u0275elementStart(7, "p", 19);
     \u0275\u0275text(8, " Drag and drop columns into your desired position. ");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(9, "div", 21);
+    \u0275\u0275elementStart(9, "div", 20);
     \u0275\u0275listener("cdkDropListDropped", function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_Template_div_cdkDropListDropped_9_listener($event) {
       \u0275\u0275restoreView(_r11);
       const ctx_r2 = \u0275\u0275nextContext(4);
       return \u0275\u0275resetView(ctx_r2.dropColumn($event));
     });
-    \u0275\u0275repeaterCreate(10, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template, 9, 5, "div", 22, _forTrack0);
+    \u0275\u0275repeaterCreate(10, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Conditional_2_For_11_Template, 9, 5, "div", 21, _forTrack0);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -41797,7 +42416,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Template
 function MpageTableComponent_Conditional_0_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 10)(1, "div", 11)(2, "button", 12);
+    \u0275\u0275elementStart(0, "div", 2)(1, "div", 10)(2, "button", 11);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Template_button_click_2_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -41806,7 +42425,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Template(rf, ctx) {
     \u0275\u0275elementStart(3, "mpage-icon");
     \u0275\u0275text(4, "filter_none");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(5, "button", 13);
+    \u0275\u0275elementStart(5, "button", 12);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Template_button_click_5_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -41815,7 +42434,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Template(rf, ctx) {
     \u0275\u0275elementStart(6, "mpage-icon");
     \u0275\u0275text(7, "sort_by_alpha");
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(8, "button", 14);
+    \u0275\u0275elementStart(8, "button", 13);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_Conditional_1_Template_button_click_8_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -41824,14 +42443,14 @@ function MpageTableComponent_Conditional_0_Conditional_1_Template(rf, ctx) {
     \u0275\u0275elementStart(9, "mpage-icon");
     \u0275\u0275text(10, "settings");
     \u0275\u0275elementEnd()();
-    \u0275\u0275repeaterCreate(11, MpageTableComponent_Conditional_0_Conditional_1_For_12_Template, 3, 2, "button", 15, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(11, MpageTableComponent_Conditional_0_Conditional_1_For_12_Template, 3, 2, "button", 14, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(13, MpageTableComponent_Conditional_0_Conditional_1_Conditional_13_Template, 3, 2, "div");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.height());
+    \u0275\u0275property("ngStyle", ctx_r2.height());
     \u0275\u0275advance(11);
     \u0275\u0275repeater(ctx_r2.defaultParams().extraToolbarButtons);
     \u0275\u0275advance(2);
@@ -41841,7 +42460,7 @@ function MpageTableComponent_Conditional_0_Conditional_1_Template(rf, ctx) {
 function MpageTableComponent_Conditional_0_For_5_th_1_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r16 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-icon", 43);
+    \u0275\u0275elementStart(0, "mpage-icon", 42);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_For_5_th_1_Conditional_4_Template_mpage_icon_click_0_listener() {
       \u0275\u0275restoreView(_r16);
       const column_r15 = \u0275\u0275nextContext(2).$implicit;
@@ -41861,7 +42480,7 @@ function MpageTableComponent_Conditional_0_For_5_th_1_Conditional_4_Template(rf,
 function MpageTableComponent_Conditional_0_For_5_th_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "th", 38)(1, "div", 39)(2, "div", 40);
+    \u0275\u0275elementStart(0, "th", 37)(1, "div", 38)(2, "div", 39);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_For_5_th_1_Template_div_click_2_listener() {
       \u0275\u0275restoreView(_r14);
       const column_r15 = \u0275\u0275nextContext().$implicit;
@@ -41870,8 +42489,8 @@ function MpageTableComponent_Conditional_0_For_5_th_1_Template(rf, ctx) {
     });
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(4, MpageTableComponent_Conditional_0_For_5_th_1_Conditional_4_Template, 2, 1, "mpage-icon", 41);
-    \u0275\u0275elementStart(5, "div", 42);
+    \u0275\u0275conditionalCreate(4, MpageTableComponent_Conditional_0_For_5_th_1_Conditional_4_Template, 2, 1, "mpage-icon", 40);
+    \u0275\u0275elementStart(5, "div", 41);
     \u0275\u0275listener("mousedown", function MpageTableComponent_Conditional_0_For_5_th_1_Template_div_mousedown_5_listener($event) {
       \u0275\u0275restoreView(_r14);
       const column_r15 = \u0275\u0275nextContext().$implicit;
@@ -41883,9 +42502,7 @@ function MpageTableComponent_Conditional_0_For_5_th_1_Template(rf, ctx) {
   if (rf & 2) {
     const column_r15 = \u0275\u0275nextContext().$implicit;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r15));
-    \u0275\u0275classMap(ctx_r2.defaultParams().allowColumnSort ? "co-table-sort-header" : "");
-    \u0275\u0275property("hidden", !ctx_r2.isVisible(column_r15));
+    \u0275\u0275property("ngStyle", ctx_r2.columnStyle(column_r15))("hidden", !ctx_r2.isVisible(column_r15))("ngClass", ctx_r2.defaultParams().allowColumnSort ? "co-table-sort-header" : "");
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate1(" ", ctx_r2.columnLabel(column_r15), " ");
     \u0275\u0275advance();
@@ -41893,20 +42510,6 @@ function MpageTableComponent_Conditional_0_For_5_th_1_Template(rf, ctx) {
   }
 }
 function MpageTableComponent_Conditional_0_For_5_td_2_Case_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 46);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const element_r18 = \u0275\u0275nextContext().$implicit;
-    const column_r15 = \u0275\u0275nextContext().$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r2.icon(element_r18[column_r15]));
-  }
-}
-function MpageTableComponent_Conditional_0_For_5_td_2_Case_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
@@ -41917,7 +42520,7 @@ function MpageTableComponent_Conditional_0_For_5_td_2_Case_4_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", ctx_r2.formattedDate(element_r18[column_r15], "DtTm"), " ");
   }
 }
-function MpageTableComponent_Conditional_0_For_5_td_2_Case_5_Template(rf, ctx) {
+function MpageTableComponent_Conditional_0_For_5_td_2_Case_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
@@ -41928,7 +42531,7 @@ function MpageTableComponent_Conditional_0_For_5_td_2_Case_5_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", ctx_r2.formattedDate(element_r18[column_r15], "Date"), " ");
   }
 }
-function MpageTableComponent_Conditional_0_For_5_td_2_Case_6_Template(rf, ctx) {
+function MpageTableComponent_Conditional_0_For_5_td_2_Case_5_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
@@ -41941,17 +42544,17 @@ function MpageTableComponent_Conditional_0_For_5_td_2_Case_6_Template(rf, ctx) {
 function MpageTableComponent_Conditional_0_For_5_td_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r17 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "td", 44);
+    \u0275\u0275elementStart(0, "td", 43);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_For_5_td_2_Template_td_click_0_listener() {
       const element_r18 = \u0275\u0275restoreView(_r17).$implicit;
       const column_r15 = \u0275\u0275nextContext().$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r2.colClick(column_r15, element_r18[column_r15], element_r18));
     });
-    \u0275\u0275elementStart(1, "div", 39)(2, "div", 45);
-    \u0275\u0275conditionalCreate(3, MpageTableComponent_Conditional_0_For_5_td_2_Case_3_Template, 2, 1, "span", 46)(4, MpageTableComponent_Conditional_0_For_5_td_2_Case_4_Template, 1, 1)(5, MpageTableComponent_Conditional_0_For_5_td_2_Case_5_Template, 1, 1)(6, MpageTableComponent_Conditional_0_For_5_td_2_Case_6_Template, 1, 1);
+    \u0275\u0275elementStart(1, "div", 38)(2, "div", 44);
+    \u0275\u0275conditionalCreate(3, MpageTableComponent_Conditional_0_For_5_td_2_Case_3_Template, 1, 1)(4, MpageTableComponent_Conditional_0_For_5_td_2_Case_4_Template, 1, 1)(5, MpageTableComponent_Conditional_0_For_5_td_2_Case_5_Template, 1, 1);
     \u0275\u0275elementEnd();
-    \u0275\u0275element(7, "div", 47);
+    \u0275\u0275element(6, "div", 45);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -41959,16 +42562,15 @@ function MpageTableComponent_Conditional_0_For_5_td_2_Template(rf, ctx) {
     const element_r18 = ctx.$implicit;
     const column_r15 = \u0275\u0275nextContext().$implicit;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r15));
-    \u0275\u0275property("title", \u0275\u0275interpolate(ctx_r2.defaultParams().hoverValue && ctx_r2.columnType(column_r15) === "Text" ? element_r18[column_r15] : ""))("hidden", !ctx_r2.isVisible(column_r15));
+    \u0275\u0275property("title", \u0275\u0275interpolate(ctx_r2.defaultParams().hoverValue && ctx_r2.columnType(column_r15) === "Text" ? element_r18[column_r15] : ""))("ngStyle", ctx_r2.columnStyle(column_r15))("hidden", !ctx_r2.isVisible(column_r15));
     \u0275\u0275advance(3);
-    \u0275\u0275conditional((tmp_17_0 = ctx_r2.columnType(column_r15)) === "Icon" ? 3 : tmp_17_0 === "DtTm" ? 4 : tmp_17_0 === "Date" ? 5 : 6);
+    \u0275\u0275conditional((tmp_17_0 = ctx_r2.columnType(column_r15)) === "DtTm" ? 3 : tmp_17_0 === "Date" ? 4 : 5);
   }
 }
 function MpageTableComponent_Conditional_0_For_5_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainerStart(0, 5);
-    \u0275\u0275template(1, MpageTableComponent_Conditional_0_For_5_th_1_Template, 6, 7, "th", 36)(2, MpageTableComponent_Conditional_0_For_5_td_2_Template, 8, 6, "td", 37);
+    \u0275\u0275template(1, MpageTableComponent_Conditional_0_For_5_th_1_Template, 6, 5, "th", 35)(2, MpageTableComponent_Conditional_0_For_5_td_2_Template, 7, 5, "td", 36);
     \u0275\u0275elementContainerEnd();
   }
   if (rf & 2) {
@@ -41980,7 +42582,7 @@ function MpageTableComponent_Conditional_0_For_5_Template(rf, ctx) {
 function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r19 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 54);
+    \u0275\u0275elementStart(0, "mpage-input", 52);
     \u0275\u0275listener("ngModelChange", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r19);
       const column_r20 = \u0275\u0275nextContext(2).$implicit;
@@ -41994,9 +42596,9 @@ function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template(rf,
       return \u0275\u0275resetView(ctx_r2.filterData());
     })("keydown", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template_mpage_input_keydown_0_listener($event) {
       \u0275\u0275restoreView(_r19);
-      const \u0275$index_157_r21 = \u0275\u0275nextContext(2).$index;
+      const \u0275$index_153_r21 = \u0275\u0275nextContext(2).$index;
       const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.textFilter($event, \u0275$index_157_r21));
+      return \u0275\u0275resetView(ctx_r2.textFilter($event, \u0275$index_153_r21));
     })("clearClicked", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template_mpage_input_clearClicked_0_listener() {
       \u0275\u0275restoreView(_r19);
       const ctx_r2 = \u0275\u0275nextContext(4);
@@ -42007,14 +42609,13 @@ function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template(rf,
   if (rf & 2) {
     const column_r20 = \u0275\u0275nextContext(2).$implicit;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r20, true));
-    \u0275\u0275property("ngModel", ctx_r2.textFilterValue(column_r20, "value"))("prefix", \u0275\u0275pureFunction2(4, _c4, ctx_r2.textFilterValue(column_r20, "flag") ? "all_inclusive" : "start", ctx_r2.textFilterValue(column_r20, "flag") ? "contains" : "starts with"));
+    \u0275\u0275property("ngModel", ctx_r2.textFilterValue(column_r20, "value"))("ngStyle", ctx_r2.columnStyle(column_r20, true))("prefix", \u0275\u0275pureFunction2(3, _c4, ctx_r2.textFilterValue(column_r20, "flag") ? "all_inclusive" : "start", ctx_r2.textFilterValue(column_r20, "flag") ? "contains" : "starts with"));
   }
 }
 function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
     const _r22 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-select", 55);
+    \u0275\u0275elementStart(0, "mpage-select", 53);
     \u0275\u0275listener("ngModelChange", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_3_Template_mpage_select_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r22);
       const column_r20 = \u0275\u0275nextContext(2).$implicit;
@@ -42027,17 +42628,16 @@ function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_3_Template(rf,
   if (rf & 2) {
     const ctx_r22 = \u0275\u0275nextContext(2);
     const column_r20 = ctx_r22.$implicit;
-    const \u0275$index_157_r21 = ctx_r22.$index;
+    const \u0275$index_153_r21 = ctx_r22.$index;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r20, true));
-    \u0275\u0275property("ngModel", ctx_r2.filterSearchValues.get(column_r20))("values", ctx_r2.filters()[\u0275$index_157_r21].values)("multiple", true);
+    \u0275\u0275property("ngModel", ctx_r2.filterSearchValues.get(column_r20))("values", ctx_r2.filters()[\u0275$index_153_r21].values)("multiple", true)("ngStyle", ctx_r2.columnStyle(column_r20, true));
   }
 }
 function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r24 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-date-range-picker", 56);
-    \u0275\u0275listener("ngModelChange", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template_mpage_date_range_picker_ngModelChange_0_listener($event) {
+    \u0275\u0275elementStart(0, "lib-mpage-date-range-picker", 54);
+    \u0275\u0275listener("ngModelChange", function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template_lib_mpage_date_range_picker_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r24);
       const column_r20 = \u0275\u0275nextContext(2).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -42049,10 +42649,9 @@ function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template(rf,
   if (rf & 2) {
     const ctx_r22 = \u0275\u0275nextContext(2);
     const column_r20 = ctx_r22.$implicit;
-    const \u0275$index_157_r21 = ctx_r22.$index;
+    const \u0275$index_153_r21 = ctx_r22.$index;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r20, true));
-    \u0275\u0275property("ngModel", ctx_r2.filterSearchValues.get(column_r20))("includeTime", ctx_r2.filters()[\u0275$index_157_r21].type === "dttm");
+    \u0275\u0275property("ngModel", ctx_r2.filterSearchValues.get(column_r20))("ngStyle", ctx_r2.columnStyle(column_r20, true))("includeTime", ctx_r2.filters()[\u0275$index_153_r21].type === "dttm");
   }
 }
 function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_5_Template(rf, ctx) {
@@ -42062,26 +42661,25 @@ function MpageTableComponent_Conditional_0_For_7_th_1_Conditional_5_Template(rf,
 }
 function MpageTableComponent_Conditional_0_For_7_th_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "th", 49)(1, "div", 50);
-    \u0275\u0275conditionalCreate(2, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template, 1, 7, "mpage-input", 51)(3, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_3_Template, 1, 5, "mpage-select", 52)(4, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template, 1, 4, "mpage-date-range-picker", 53)(5, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_5_Template, 1, 0);
-    \u0275\u0275element(6, "div", 47);
+    \u0275\u0275elementStart(0, "th", 47)(1, "div", 48);
+    \u0275\u0275conditionalCreate(2, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_2_Template, 1, 6, "mpage-input", 49)(3, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_3_Template, 1, 4, "mpage-select", 50)(4, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_4_Template, 1, 3, "lib-mpage-date-range-picker", 51)(5, MpageTableComponent_Conditional_0_For_7_th_1_Conditional_5_Template, 1, 0);
+    \u0275\u0275element(6, "div", 45);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r22 = \u0275\u0275nextContext();
     const column_r20 = ctx_r22.$implicit;
-    const \u0275$index_157_r21 = ctx_r22.$index;
+    const \u0275$index_153_r21 = ctx_r22.$index;
     const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275styleMap(ctx_r2.columnStyle(column_r20));
-    \u0275\u0275property("hidden", !ctx_r2.isVisible(column_r20));
+    \u0275\u0275property("ngStyle", ctx_r2.columnStyle(column_r20))("hidden", !ctx_r2.isVisible(column_r20));
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.filters()[\u0275$index_157_r21].type === "text" ? 2 : ctx_r2.filters()[\u0275$index_157_r21].type === "list" ? 3 : ctx_r2.filters()[\u0275$index_157_r21].type === "date" || ctx_r2.filters()[\u0275$index_157_r21].type === "dttm" ? 4 : 5);
+    \u0275\u0275conditional(ctx_r2.filters()[\u0275$index_153_r21].type === "text" ? 2 : ctx_r2.filters()[\u0275$index_153_r21].type === "list" ? 3 : ctx_r2.filters()[\u0275$index_153_r21].type === "date" || ctx_r2.filters()[\u0275$index_153_r21].type === "dttm" ? 4 : 5);
   }
 }
 function MpageTableComponent_Conditional_0_For_7_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementContainerStart(0, 5);
-    \u0275\u0275template(1, MpageTableComponent_Conditional_0_For_7_th_1_Template, 7, 4, "th", 48);
+    \u0275\u0275template(1, MpageTableComponent_Conditional_0_For_7_th_1_Template, 7, 3, "th", 46);
     \u0275\u0275elementContainerEnd();
   }
   if (rf & 2) {
@@ -42093,7 +42691,7 @@ function MpageTableComponent_Conditional_0_For_7_Template(rf, ctx) {
 function MpageTableComponent_Conditional_0_tr_8_Template(rf, ctx) {
   if (rf & 1) {
     const _r25 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "tr", 57);
+    \u0275\u0275elementStart(0, "tr", 55);
     \u0275\u0275listener("mousemove", function MpageTableComponent_Conditional_0_tr_8_Template_tr_mousemove_0_listener($event) {
       \u0275\u0275restoreView(_r25);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -42112,7 +42710,7 @@ function MpageTableComponent_Conditional_0_tr_8_Template(rf, ctx) {
 }
 function MpageTableComponent_Conditional_0_tr_9_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "tr", 58);
+    \u0275\u0275element(0, "tr", 56);
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext(2);
@@ -42122,7 +42720,7 @@ function MpageTableComponent_Conditional_0_tr_9_Template(rf, ctx) {
 function MpageTableComponent_Conditional_0_tr_10_Template(rf, ctx) {
   if (rf & 1) {
     const _r26 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "tr", 59);
+    \u0275\u0275elementStart(0, "tr", 57);
     \u0275\u0275listener("click", function MpageTableComponent_Conditional_0_tr_10_Template_tr_click_0_listener() {
       const row_r27 = \u0275\u0275restoreView(_r26).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -42137,7 +42735,7 @@ function MpageTableComponent_Conditional_0_tr_10_Template(rf, ctx) {
   if (rf & 2) {
     \u0275\u0275nextContext(2);
     const contextMenuTemplate_r28 = \u0275\u0275reference(2);
-    \u0275\u0275property("coDropdown", contextMenuTemplate_r28)("rightClick", true);
+    \u0275\u0275property("cdkContextMenuTriggerFor", contextMenuTemplate_r28);
   }
 }
 function MpageTableComponent_Conditional_0_Conditional_11_Template(rf, ctx) {
@@ -42153,7 +42751,7 @@ function MpageTableComponent_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 1);
-    \u0275\u0275conditionalCreate(1, MpageTableComponent_Conditional_0_Conditional_1_Template, 14, 3, "div", 2);
+    \u0275\u0275conditionalCreate(1, MpageTableComponent_Conditional_0_Conditional_1_Template, 14, 2, "div", 2);
     \u0275\u0275elementStart(2, "div", 3)(3, "table", 4);
     \u0275\u0275listener("wheel", function MpageTableComponent_Conditional_0_Template_table_wheel_3_listener($event) {
       \u0275\u0275restoreView(_r1);
@@ -42162,7 +42760,7 @@ function MpageTableComponent_Conditional_0_Template(rf, ctx) {
     });
     \u0275\u0275repeaterCreate(4, MpageTableComponent_Conditional_0_For_5_Template, 3, 3, "ng-container", 5, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275repeaterCreate(6, MpageTableComponent_Conditional_0_For_7_Template, 2, 3, "ng-container", 5, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275template(8, MpageTableComponent_Conditional_0_tr_8_Template, 1, 0, "tr", 6)(9, MpageTableComponent_Conditional_0_tr_9_Template, 1, 1, "tr", 7)(10, MpageTableComponent_Conditional_0_tr_10_Template, 1, 2, "tr", 8);
+    \u0275\u0275template(8, MpageTableComponent_Conditional_0_tr_8_Template, 1, 0, "tr", 6)(9, MpageTableComponent_Conditional_0_tr_9_Template, 1, 1, "tr", 7)(10, MpageTableComponent_Conditional_0_tr_10_Template, 1, 1, "tr", 8);
     \u0275\u0275elementEnd()();
     \u0275\u0275conditionalCreate(11, MpageTableComponent_Conditional_0_Conditional_11_Template, 1, 3, "range-paginator", 9);
     \u0275\u0275elementEnd();
@@ -42190,16 +42788,14 @@ function MpageTableComponent_Conditional_0_Template(rf, ctx) {
 function MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r29 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "li", 63);
+    \u0275\u0275elementStart(0, "li", 61);
     \u0275\u0275listener("click", function MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_1_Template_li_click_0_listener() {
       \u0275\u0275restoreView(_r29);
       const menu_r30 = \u0275\u0275nextContext().$implicit;
-      const close_r31 = \u0275\u0275nextContext(2).close;
-      const ctx_r2 = \u0275\u0275nextContext();
-      ctx_r2.rowClick(ctx_r2.currentRow, menu_r30.idName ?? menu_r30.label);
-      return \u0275\u0275resetView(close_r31());
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.rowClick(ctx_r2.currentRow, menu_r30.idName ?? menu_r30.label));
     });
-    \u0275\u0275elementStart(1, "span", 17)(2, "mpage-icon");
+    \u0275\u0275elementStart(1, "span", 16)(2, "mpage-icon");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
     \u0275\u0275text(4);
@@ -42221,8 +42817,8 @@ function MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_2_Tem
 }
 function MpageTableComponent_ng_template_1_Conditional_0_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "ul", 61);
-    \u0275\u0275conditionalCreate(1, MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_1_Template, 5, 3, "li", 62)(2, MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_2_Template, 1, 0, "hr");
+    \u0275\u0275elementStart(0, "ul", 59);
+    \u0275\u0275conditionalCreate(1, MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_1_Template, 5, 3, "li", 60)(2, MpageTableComponent_ng_template_1_Conditional_0_For_2_Conditional_2_Template, 1, 0, "hr");
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -42233,8 +42829,8 @@ function MpageTableComponent_ng_template_1_Conditional_0_For_2_Template(rf, ctx)
 }
 function MpageTableComponent_ng_template_1_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 60);
-    \u0275\u0275repeaterCreate(1, MpageTableComponent_ng_template_1_Conditional_0_For_2_Template, 3, 1, "ul", 61, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275elementStart(0, "div", 58);
+    \u0275\u0275repeaterCreate(1, MpageTableComponent_ng_template_1_Conditional_0_For_2_Template, 3, 1, "ul", 59, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -42245,7 +42841,7 @@ function MpageTableComponent_ng_template_1_Conditional_0_Template(rf, ctx) {
 }
 function MpageTableComponent_ng_template_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageTableComponent_ng_template_1_Conditional_0_Template, 3, 0, "div", 60);
+    \u0275\u0275conditionalCreate(0, MpageTableComponent_ng_template_1_Conditional_0_Template, 3, 0, "div", 58);
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext();
@@ -42255,12 +42851,12 @@ function MpageTableComponent_ng_template_1_Template(rf, ctx) {
 function MpagePatientSearchComponent_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275element(0, "div", 12);
-    \u0275\u0275elementStart(1, "button", 13);
+    \u0275\u0275element(0, "div", 13);
+    \u0275\u0275elementStart(1, "button", 14);
     \u0275\u0275listener("click", function MpagePatientSearchComponent_Conditional_5_Template_button_click_1_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.dialogRef.close("false"));
+      return \u0275\u0275resetView(ctx_r1.dialogRef == null ? null : ctx_r1.dialogRef.close(false));
     });
     \u0275\u0275elementStart(2, "mpage-icon");
     \u0275\u0275text(3, "close");
@@ -42270,73 +42866,73 @@ function MpagePatientSearchComponent_Conditional_5_Template(rf, ctx) {
 function MpagePatientSearchComponent_Conditional_9_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 14);
+    \u0275\u0275elementStart(0, "mpage-input", 15);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_9_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r3);
       const ctx_r1 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r1.searchData().fullName, $event) || (ctx_r1.searchData().fullName = $event);
+      \u0275\u0275twoWayBindingSet(ctx_r1.data().fullName, $event) || (ctx_r1.data().fullName = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchData().fullName);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.data().fullName);
   }
 }
 function MpagePatientSearchComponent_Conditional_10_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 15);
+    \u0275\u0275elementStart(0, "mpage-input", 16);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_10_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r4);
       const ctx_r1 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r1.searchData().lastName, $event) || (ctx_r1.searchData().lastName = $event);
+      \u0275\u0275twoWayBindingSet(ctx_r1.data().lastName, $event) || (ctx_r1.data().lastName = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(1, "mpage-input", 16);
+    \u0275\u0275elementStart(1, "mpage-input", 17);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_10_Template_mpage_input_ngModelChange_1_listener($event) {
       \u0275\u0275restoreView(_r4);
       const ctx_r1 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r1.searchData().firstName, $event) || (ctx_r1.searchData().firstName = $event);
+      \u0275\u0275twoWayBindingSet(ctx_r1.data().firstName, $event) || (ctx_r1.data().firstName = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchData().lastName);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.data().lastName);
     \u0275\u0275advance();
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchData().firstName);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.data().firstName);
   }
 }
 function MpagePatientSearchComponent_Conditional_11_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 17);
+    \u0275\u0275elementStart(0, "mpage-input", 18);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_11_Template_mpage_input_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r5);
       const ctx_r1 = \u0275\u0275nextContext();
-      \u0275\u0275twoWayBindingSet(ctx_r1.searchData().birthDate, $event) || (ctx_r1.searchData().birthDate = $event);
+      \u0275\u0275twoWayBindingSet(ctx_r1.data().birthDate, $event) || (ctx_r1.data().birthDate = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchData().birthDate);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.data().birthDate);
     \u0275\u0275property("clearButton", false);
   }
 }
 function MpagePatientSearchComponent_Conditional_12_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-select", 20);
+    \u0275\u0275elementStart(0, "mpage-select", 21);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_12_Conditional_0_Template_mpage_select_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r6);
       const ctx_r1 = \u0275\u0275nextContext(2);
-      \u0275\u0275twoWayBindingSet(ctx_r1.searchData().sexCd, $event) || (ctx_r1.searchData().sexCd = $event);
+      \u0275\u0275twoWayBindingSet(ctx_r1.data().sexCd, $event) || (ctx_r1.data().sexCd = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
@@ -42344,14 +42940,14 @@ function MpagePatientSearchComponent_Conditional_12_Conditional_0_Template(rf, c
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275property("codeSet", 57);
-    \u0275\u0275twoWayProperty("ngModel", ctx_r1.searchData().sexCd);
+    \u0275\u0275twoWayProperty("ngModel", ctx_r1.data().sexCd);
     \u0275\u0275property("noOption", true);
   }
 }
 function MpagePatientSearchComponent_Conditional_12_For_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 21);
+    \u0275\u0275elementStart(0, "mpage-input", 22);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_12_For_2_Template_mpage_input_ngModelChange_0_listener($event) {
       const alias_r8 = \u0275\u0275restoreView(_r7).$implicit;
       \u0275\u0275twoWayBindingSet(alias_r8.alias, $event) || (alias_r8.alias = $event);
@@ -42370,7 +42966,7 @@ function MpagePatientSearchComponent_Conditional_12_For_2_Template(rf, ctx) {
 function MpagePatientSearchComponent_Conditional_12_For_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-input", 21);
+    \u0275\u0275elementStart(0, "mpage-input", 22);
     \u0275\u0275twoWayListener("ngModelChange", function MpagePatientSearchComponent_Conditional_12_For_4_Template_mpage_input_ngModelChange_0_listener($event) {
       const alias_r10 = \u0275\u0275restoreView(_r9).$implicit;
       \u0275\u0275twoWayBindingSet(alias_r10.alias, $event) || (alias_r10.alias = $event);
@@ -42388,23 +42984,23 @@ function MpagePatientSearchComponent_Conditional_12_For_4_Template(rf, ctx) {
 }
 function MpagePatientSearchComponent_Conditional_12_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpagePatientSearchComponent_Conditional_12_Conditional_0_Template, 1, 3, "mpage-select", 18);
-    \u0275\u0275repeaterCreate(1, MpagePatientSearchComponent_Conditional_12_For_2_Template, 1, 3, "mpage-input", 19, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275repeaterCreate(3, MpagePatientSearchComponent_Conditional_12_For_4_Template, 1, 3, "mpage-input", 19, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(0, MpagePatientSearchComponent_Conditional_12_Conditional_0_Template, 1, 3, "mpage-select", 19);
+    \u0275\u0275repeaterCreate(1, MpagePatientSearchComponent_Conditional_12_For_2_Template, 1, 3, "mpage-input", 20, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(3, MpagePatientSearchComponent_Conditional_12_For_4_Template, 1, 3, "mpage-input", 20, \u0275\u0275repeaterTrackByIdentity);
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275conditional(ctx_r1.sex() ? 0 : -1);
     \u0275\u0275advance();
-    \u0275\u0275repeater(ctx_r1.searchData().personAlias);
+    \u0275\u0275repeater(ctx_r1.data().personAlias);
     \u0275\u0275advance(2);
-    \u0275\u0275repeater(ctx_r1.searchData().encntrAlias);
+    \u0275\u0275repeater(ctx_r1.data().encntrAlias);
   }
 }
 function MpagePatientSearchComponent_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
     const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-table", 22);
+    \u0275\u0275elementStart(0, "mpage-table", 23);
     \u0275\u0275listener("clickRow", function MpagePatientSearchComponent_Conditional_20_Template_mpage_table_clickRow_0_listener($event) {
       \u0275\u0275restoreView(_r11);
       const ctx_r1 = \u0275\u0275nextContext();
@@ -42420,7 +43016,7 @@ function MpagePatientSearchComponent_Conditional_20_Template(rf, ctx) {
 function MpagePatientSearchComponent_Conditional_21_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r12 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-table", 24);
+    \u0275\u0275elementStart(0, "mpage-table", 25);
     \u0275\u0275listener("clickRow", function MpagePatientSearchComponent_Conditional_21_Conditional_1_Template_mpage_table_clickRow_0_listener($event) {
       \u0275\u0275restoreView(_r12);
       const ctx_r1 = \u0275\u0275nextContext(2);
@@ -42435,8 +43031,8 @@ function MpagePatientSearchComponent_Conditional_21_Conditional_1_Template(rf, c
 }
 function MpagePatientSearchComponent_Conditional_21_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 11);
-    \u0275\u0275conditionalCreate(1, MpagePatientSearchComponent_Conditional_21_Conditional_1_Template, 1, 2, "mpage-table", 23);
+    \u0275\u0275elementStart(0, "div", 12);
+    \u0275\u0275conditionalCreate(1, MpagePatientSearchComponent_Conditional_21_Conditional_1_Template, 1, 2, "mpage-table", 24);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -42450,7 +43046,7 @@ var _forTrack2 = ($index, $item) => $item.serviceName;
 function MpageLogComponent_Conditional_0_Conditional_7_Conditional_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-select", 10);
+    \u0275\u0275elementStart(0, "mpage-select", 9);
     \u0275\u0275twoWayListener("ngModelChange", function MpageLogComponent_Conditional_0_Conditional_7_Conditional_1_Template_mpage_select_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r4);
       const ctx_r2 = \u0275\u0275nextContext(3);
@@ -42469,7 +43065,7 @@ function MpageLogComponent_Conditional_0_Conditional_7_Conditional_1_Template(rf
 function MpageLogComponent_Conditional_0_Conditional_7_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "mpage-select", 10);
+    \u0275\u0275elementStart(0, "mpage-select", 9);
     \u0275\u0275twoWayListener("ngModelChange", function MpageLogComponent_Conditional_0_Conditional_7_Template_mpage_select_ngModelChange_0_listener($event) {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext(2);
@@ -42487,25 +43083,12 @@ function MpageLogComponent_Conditional_0_Conditional_7_Template(rf, ctx) {
     \u0275\u0275conditional(ctx_r2.options.position !== "full" ? 1 : -1);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_9_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_18_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "a", 5);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_9_Template_a_click_0_listener() {
+    \u0275\u0275elementStart(0, "a", 10);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_18_Template_a_click_0_listener() {
       \u0275\u0275restoreView(_r5);
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.view = "activity");
-    });
-    \u0275\u0275text(1, "Activity Log");
-    \u0275\u0275elementEnd();
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_17_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "a", 11);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_17_Template_a_click_0_listener() {
-      \u0275\u0275restoreView(_r6);
       const ctx_r2 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r2.assignPatient());
     });
@@ -42518,14 +43101,14 @@ function MpageLogComponent_Conditional_0_Conditional_17_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r2.patientName);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_For_4_Conditional_0_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_For_4_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "label", 14)(1, "input", 15);
-    \u0275\u0275twoWayListener("ngModelChange", function MpageLogComponent_Conditional_0_Conditional_19_For_4_Conditional_0_Template_input_ngModelChange_1_listener($event) {
-      \u0275\u0275restoreView(_r7);
-      const logType_r8 = \u0275\u0275nextContext().$implicit;
-      \u0275\u0275twoWayBindingSet(logType_r8.enabled, $event) || (logType_r8.enabled = $event);
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "label", 13)(1, "input", 14);
+    \u0275\u0275twoWayListener("ngModelChange", function MpageLogComponent_Conditional_0_Conditional_20_For_4_Conditional_0_Template_input_ngModelChange_1_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const logType_r7 = \u0275\u0275nextContext().$implicit;
+      \u0275\u0275twoWayBindingSet(logType_r7.enabled, $event) || (logType_r7.enabled = $event);
       return \u0275\u0275resetView($event);
     });
     \u0275\u0275elementEnd();
@@ -42535,78 +43118,78 @@ function MpageLogComponent_Conditional_0_Conditional_19_For_4_Conditional_0_Temp
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const logType_r8 = \u0275\u0275nextContext().$implicit;
+    const logType_r7 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance();
-    \u0275\u0275twoWayProperty("ngModel", logType_r8.enabled);
+    \u0275\u0275twoWayProperty("ngModel", logType_r7.enabled);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(4, 2, logType_r8.type));
+    \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(4, 2, logType_r7.type));
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_For_4_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_For_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Conditional_19_For_4_Conditional_0_Template, 5, 4, "label", 14);
+    \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Conditional_20_For_4_Conditional_0_Template, 5, 4, "label", 13);
   }
   if (rf & 2) {
-    const logType_r8 = ctx.$implicit;
+    const logType_r7 = ctx.$implicit;
     const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275conditional(logType_r8.type !== "debug" || ctx_r2.MPage.debugRawMessage ? 0 : -1);
+    \u0275\u0275conditional(logType_r7.type !== "debug" || ctx_r2.MPage.debugRawMessage ? 0 : -1);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_For_6_Conditional_4_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_For_6_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275text(0);
   }
   if (rf & 2) {
-    const logRow_r9 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275textInterpolate1(" [Queue Id: ", logRow_r9.processId, "] ");
+    const logRow_r8 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275textInterpolate1(" [Queue Id: ", logRow_r8.processId, "] ");
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_For_6_Conditional_5_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_For_6_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "span", 19);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_19_For_6_Conditional_5_Template_span_click_0_listener() {
-      \u0275\u0275restoreView(_r10);
-      const logRow_r9 = \u0275\u0275nextContext().$implicit;
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "span", 17);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_20_For_6_Conditional_5_Template_span_click_0_listener() {
+      \u0275\u0275restoreView(_r9);
+      const logRow_r8 = \u0275\u0275nextContext().$implicit;
       const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.debug(logRow_r9));
+      return \u0275\u0275resetView(ctx_r2.debug(logRow_r8));
     });
     \u0275\u0275text(1, "DEBUG");
     \u0275\u0275elementEnd();
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_For_6_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_For_6_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 16)(1, "span", 17);
+    \u0275\u0275elementStart(0, "div", 12)(1, "span", 15);
     \u0275\u0275text(2);
     \u0275\u0275pipe(3, "date");
-    \u0275\u0275conditionalCreate(4, MpageLogComponent_Conditional_0_Conditional_19_For_6_Conditional_4_Template, 1, 1);
-    \u0275\u0275conditionalCreate(5, MpageLogComponent_Conditional_0_Conditional_19_For_6_Conditional_5_Template, 2, 0, "span", 18);
+    \u0275\u0275conditionalCreate(4, MpageLogComponent_Conditional_0_Conditional_20_For_6_Conditional_4_Template, 1, 1);
+    \u0275\u0275conditionalCreate(5, MpageLogComponent_Conditional_0_Conditional_20_For_6_Conditional_5_Template, 2, 0, "span", 16);
     \u0275\u0275text(6);
     \u0275\u0275pipe(7, "titlecase");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const logRow_r9 = ctx.$implicit;
+    const logRow_r8 = ctx.$implicit;
     const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classMap(ctx_r2.logTypeClass(logRow_r9));
+    \u0275\u0275property("ngClass", ctx_r2.logTypeClass(logRow_r8));
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(3, 8, logRow_r9.timestamp, "HH:mm:ss"), " ");
+    \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind2(3, 7, logRow_r8.timestamp, "HH:mm:ss"), " ");
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(logRow_r9.processId >= 0 ? 4 : -1);
+    \u0275\u0275conditional(logRow_r8.processId >= 0 ? 4 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(logRow_r9.type === "payload" && logRow_r9.statusText === "initiated" ? 5 : -1);
+    \u0275\u0275conditional(logRow_r8.type === "payload" && logRow_r8.statusText === "initiated" ? 5 : -1);
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate3(" ", \u0275\u0275pipeBind1(7, 11, logRow_r9.type), ": ", logRow_r9.statusText, " ", logRow_r9.text, " ");
+    \u0275\u0275textInterpolate3(" ", \u0275\u0275pipeBind1(7, 10, logRow_r8.type), ": ", logRow_r8.statusText, " ", logRow_r8.text, " ");
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_19_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_20_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 9)(1, "div", 12);
+    \u0275\u0275elementStart(0, "div", 8)(1, "div", 11);
     \u0275\u0275text(2, " Filters: ");
-    \u0275\u0275repeaterCreate(3, MpageLogComponent_Conditional_0_Conditional_19_For_4_Template, 1, 1, null, null, _forTrack1);
+    \u0275\u0275repeaterCreate(3, MpageLogComponent_Conditional_0_Conditional_20_For_4_Template, 1, 1, null, null, _forTrack1);
     \u0275\u0275elementEnd();
-    \u0275\u0275repeaterCreate(5, MpageLogComponent_Conditional_0_Conditional_19_For_6_Template, 8, 13, "div", 13, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(5, MpageLogComponent_Conditional_0_Conditional_20_For_6_Template, 8, 12, "div", 12, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -42617,82 +43200,82 @@ function MpageLogComponent_Conditional_0_Conditional_19_Template(rf, ctx) {
     \u0275\u0275repeater(ctx_r2.filteredLogData);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_For_2_Conditional_4_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 26)(1, "mpage-icon");
+    \u0275\u0275elementStart(0, "span", 22)(1, "mpage-icon");
     \u0275\u0275text(2, "directions_run");
     \u0275\u0275elementEnd();
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const instance_r12 = \u0275\u0275nextContext().$implicit;
+    const instance_r11 = \u0275\u0275nextContext().$implicit;
     const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275classMap(ctx_r2.running(instance_r12.startTime));
+    \u0275\u0275property("ngClass", ctx_r2.running(instance_r11.startTime));
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate1(" ", ctx_r2.secondsSince(instance_r12.startTime, ctx_r2.timerTick()), " sec. ");
+    \u0275\u0275textInterpolate1(" ", ctx_r2.secondsSince(instance_r11.startTime, ctx_r2.timerTick()), " sec. ");
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_For_2_Conditional_5_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 25)(1, "mpage-icon");
+    \u0275\u0275elementStart(0, "span", 23)(1, "mpage-icon");
     \u0275\u0275text(2, "error");
     \u0275\u0275elementEnd()();
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_For_2_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_For_2_Template(rf, ctx) {
   if (rf & 1) {
-    const _r11 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_20_For_2_Template_div_click_0_listener() {
-      const instance_r12 = \u0275\u0275restoreView(_r11).$implicit;
+    const _r10 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 21);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_For_2_Template_div_click_0_listener() {
+      const instance_r11 = \u0275\u0275restoreView(_r10).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.assignLogContent(instance_r12.running || instance_r12.failedCall ? instance_r12.payload : instance_r12.result, true));
+      return \u0275\u0275resetView(ctx_r2.assignLogContent(instance_r11.running || instance_r11.failedCall ? instance_r11.payload : instance_r11.result, true));
     });
     \u0275\u0275elementStart(1, "span");
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275element(3, "span", 3);
-    \u0275\u0275conditionalCreate(4, MpageLogComponent_Conditional_0_Conditional_20_For_2_Conditional_4_Template, 4, 3, "span", 24);
-    \u0275\u0275conditionalCreate(5, MpageLogComponent_Conditional_0_Conditional_20_For_2_Conditional_5_Template, 3, 0, "span", 25);
+    \u0275\u0275element(3, "span", 2);
+    \u0275\u0275conditionalCreate(4, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_4_Template, 4, 2, "span", 22);
+    \u0275\u0275conditionalCreate(5, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_5_Template, 3, 0, "span", 23);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const instance_r12 = ctx.$implicit;
-    const \u0275$index_78_r13 = ctx.$index;
+    const instance_r11 = ctx.$implicit;
+    const \u0275$index_77_r12 = ctx.$index;
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("Instance ", \u0275$index_78_r13);
+    \u0275\u0275textInterpolate1("Instance ", \u0275$index_77_r12);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(instance_r12.running ? 4 : -1);
+    \u0275\u0275conditional(instance_r11.running ? 4 : -1);
     \u0275\u0275advance();
-    \u0275\u0275conditional(instance_r12.cclErrorReported || instance_r12.failedCall ? 5 : -1);
+    \u0275\u0275conditional(instance_r11.cclErrorReported || instance_r11.failedCall ? 5 : -1);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_For_3_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_Conditional_3_For_3_Template(rf, ctx) {
   if (rf & 1) {
-    const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 29);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_For_3_Template_div_click_0_listener() {
-      const queueItem_r15 = \u0275\u0275restoreView(_r14).$implicit;
+    const _r13 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 26);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_Conditional_3_For_3_Template_div_click_0_listener() {
+      const queueItem_r14 = \u0275\u0275restoreView(_r13).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(4);
-      return \u0275\u0275resetView(ctx_r2.assignLogContent(queueItem_r15));
+      return \u0275\u0275resetView(ctx_r2.assignLogContent(queueItem_r14));
     });
     \u0275\u0275elementStart(1, "span");
     \u0275\u0275text(2);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const \u0275$index_103_r16 = ctx.$index;
+    const \u0275$index_102_r15 = ctx.$index;
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate1("Queue ", \u0275$index_103_r16 + 1);
+    \u0275\u0275textInterpolate1("Queue ", \u0275$index_102_r15 + 1);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 27);
+    \u0275\u0275elementStart(0, "div", 24);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
-    \u0275\u0275repeaterCreate(2, MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_For_3_Template, 3, 1, "div", 28, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275repeaterCreate(2, MpageLogComponent_Conditional_0_Conditional_21_Conditional_3_For_3_Template, 3, 1, "div", 25, \u0275\u0275repeaterTrackByIdentity);
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext(3);
@@ -42702,13 +43285,13 @@ function MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_Template(r
     \u0275\u0275repeater(ctx_r2.MPage.queue);
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_20_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_21_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 20);
-    \u0275\u0275repeaterCreate(1, MpageLogComponent_Conditional_0_Conditional_20_For_2_Template, 6, 3, "div", 21, \u0275\u0275repeaterTrackByIdentity);
-    \u0275\u0275conditionalCreate(3, MpageLogComponent_Conditional_0_Conditional_20_Conditional_3_Template, 4, 1);
+    \u0275\u0275elementStart(0, "div", 18);
+    \u0275\u0275repeaterCreate(1, MpageLogComponent_Conditional_0_Conditional_21_For_2_Template, 6, 3, "div", 19, \u0275\u0275repeaterTrackByIdentity);
+    \u0275\u0275conditionalCreate(3, MpageLogComponent_Conditional_0_Conditional_21_Conditional_3_Template, 4, 1);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 22);
+    \u0275\u0275elementStart(4, "div", 20);
     \u0275\u0275text(5);
     \u0275\u0275pipe(6, "json");
     \u0275\u0275elementEnd();
@@ -42723,128 +43306,128 @@ function MpageLogComponent_Conditional_0_Conditional_20_Template(rf, ctx) {
     \u0275\u0275textInterpolate(\u0275\u0275pipeBind1(6, 2, ctx_r2.logContent()));
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_2_For_1_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_2_For_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r19 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 33);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_2_For_1_Template_div_click_0_listener() {
-      const entry_r20 = \u0275\u0275restoreView(_r19).$implicit;
-      const service_r18 = \u0275\u0275nextContext(3).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.assignLogContent(entry_r20, false, service_r18.serviceName));
-    });
-    \u0275\u0275elementStart(1, "span");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const entry_r20 = ctx.$implicit;
-    const \u0275$index_122_r21 = ctx.$index;
-    const service_r18 = \u0275\u0275nextContext(3).$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275property("title", ctx_r2.label(\u0275$index_122_r21, entry_r20, ctx_r2.logService.service(service_r18.serviceName)));
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r2.label(\u0275$index_122_r21, entry_r20, ctx_r2.logService.service(service_r18.serviceName)));
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_2_For_1_Template, 3, 2, "div", 32, \u0275\u0275repeaterTrackByIdentity);
-  }
-  if (rf & 2) {
-    const service_r18 = \u0275\u0275nextContext(2).$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275repeater(ctx_r2.logService.service(service_r18.serviceName).values());
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_3_For_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r22 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 23);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_3_For_1_Template_div_click_0_listener() {
-      const key_r23 = \u0275\u0275restoreView(_r22).$implicit;
-      const service_r18 = \u0275\u0275nextContext(3).$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.assignLogContent(ctx_r2.customService.get(key_r23), false, service_r18.serviceName));
-    });
-    \u0275\u0275elementStart(1, "span");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const key_r23 = ctx.$implicit;
-    const \u0275$index_129_r24 = ctx.$index;
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate2("[", \u0275$index_129_r24, "] ", key_r23);
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_3_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275repeaterCreate(0, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_3_For_1_Template, 3, 2, "div", 21, \u0275\u0275repeaterTrackByIdentity);
-  }
-  if (rf & 2) {
-    const service_r18 = \u0275\u0275nextContext(2).$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275repeater(ctx_r2.logService.service(service_r18.serviceName).keys());
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r17 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 31);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Template_div_click_0_listener() {
-      \u0275\u0275restoreView(_r17);
-      const service_r18 = \u0275\u0275nextContext().$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.expandService(service_r18.serviceName));
-    });
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-    \u0275\u0275conditionalCreate(2, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_2_Template, 2, 0)(3, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Conditional_3_Template, 2, 0);
-  }
-  if (rf & 2) {
-    const service_r18 = \u0275\u0275nextContext().$implicit;
-    const ctx_r2 = \u0275\u0275nextContext(3);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate2(" ", service_r18.serviceName, " (", service_r18.entries, ") ");
-    \u0275\u0275advance();
-    \u0275\u0275conditional(service_r18.entries > 0 && service_r18.serviceName !== "CustomService" && ctx_r2.expandedService(service_r18.serviceName) ? 2 : service_r18.entries > 0 && service_r18.serviceName === "CustomService" && ctx_r2.expandedService(service_r18.serviceName) ? 3 : -1);
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r25 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 34);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_1_Template_div_click_0_listener() {
-      \u0275\u0275restoreView(_r25);
-      const service_r18 = \u0275\u0275nextContext().$implicit;
-      const ctx_r2 = \u0275\u0275nextContext(3);
-      return \u0275\u0275resetView(ctx_r2.assignLogContent("The " + service_r18.serviceName + " does not have the correct configuration for either the values() method or the length() method; or you are missing the readonly serviceName variable in your class. lease consult the Clinical Office: MPage Edition documentation for full instructions on how to add your custom services to the mpage-log-component."));
-    });
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const service_r18 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", service_r18.serviceName, " (INVALID CONFIG) ");
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_For_2_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_0_Template, 4, 3)(1, MpageLogComponent_Conditional_0_Conditional_21_For_2_Conditional_1_Template, 2, 1, "div", 14);
-  }
-  if (rf & 2) {
-    const service_r18 = ctx.$implicit;
-    \u0275\u0275conditional(service_r18.validConfiguration ? 0 : 1);
-  }
-}
-function MpageLogComponent_Conditional_0_Conditional_21_Template(rf, ctx) {
-  if (rf & 1) {
+    const _r18 = \u0275\u0275getCurrentView();
     \u0275\u0275elementStart(0, "div", 30);
-    \u0275\u0275repeaterCreate(1, MpageLogComponent_Conditional_0_Conditional_21_For_2_Template, 2, 1, null, null, _forTrack2);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_2_For_1_Template_div_click_0_listener() {
+      const entry_r19 = \u0275\u0275restoreView(_r18).$implicit;
+      const service_r17 = \u0275\u0275nextContext(3).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.assignLogContent(entry_r19, false, service_r17.serviceName));
+    });
+    \u0275\u0275elementStart(1, "span");
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const entry_r19 = ctx.$implicit;
+    const \u0275$index_121_r20 = ctx.$index;
+    const service_r17 = \u0275\u0275nextContext(3).$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(3);
+    \u0275\u0275property("title", ctx_r2.label(\u0275$index_121_r20, entry_r19, ctx_r2.logService.service(service_r17.serviceName)));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r2.label(\u0275$index_121_r20, entry_r19, ctx_r2.logService.service(service_r17.serviceName)));
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275repeaterCreate(0, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_2_For_1_Template, 3, 2, "div", 29, \u0275\u0275repeaterTrackByIdentity);
+  }
+  if (rf & 2) {
+    const service_r17 = \u0275\u0275nextContext(2).$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(3);
+    \u0275\u0275repeater(ctx_r2.logService.service(service_r17.serviceName).values());
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_3_For_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r21 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 21);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_3_For_1_Template_div_click_0_listener() {
+      const key_r22 = \u0275\u0275restoreView(_r21).$implicit;
+      const service_r17 = \u0275\u0275nextContext(3).$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.assignLogContent(ctx_r2.customService.get(key_r22), false, service_r17.serviceName));
+    });
+    \u0275\u0275elementStart(1, "span");
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const key_r22 = ctx.$implicit;
+    const \u0275$index_128_r23 = ctx.$index;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate2("[", \u0275$index_128_r23, "] ", key_r22);
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_3_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275repeaterCreate(0, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_3_For_1_Template, 3, 2, "div", 19, \u0275\u0275repeaterTrackByIdentity);
+  }
+  if (rf & 2) {
+    const service_r17 = \u0275\u0275nextContext(2).$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(3);
+    \u0275\u0275repeater(ctx_r2.logService.service(service_r17.serviceName).keys());
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r16 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 28);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r16);
+      const service_r17 = \u0275\u0275nextContext().$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.expandService(service_r17.serviceName));
+    });
+    \u0275\u0275text(1);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 22);
+    \u0275\u0275conditionalCreate(2, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_2_Template, 2, 0)(3, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Conditional_3_Template, 2, 0);
+  }
+  if (rf & 2) {
+    const service_r17 = \u0275\u0275nextContext().$implicit;
+    const ctx_r2 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate2(" ", service_r17.serviceName, " (", service_r17.entries, ") ");
+    \u0275\u0275advance();
+    \u0275\u0275conditional(service_r17.entries > 0 && service_r17.serviceName !== "CustomService" && ctx_r2.expandedService(service_r17.serviceName) ? 2 : service_r17.entries > 0 && service_r17.serviceName === "CustomService" && ctx_r2.expandedService(service_r17.serviceName) ? 3 : -1);
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r24 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 31);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_1_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r24);
+      const service_r17 = \u0275\u0275nextContext().$implicit;
+      const ctx_r2 = \u0275\u0275nextContext(3);
+      return \u0275\u0275resetView(ctx_r2.assignLogContent("The " + service_r17.serviceName + " does not have the correct configuration for either the values() method or the length() method; or you are missing the readonly serviceName variable in your class. lease consult the Clinical Office: MPage Edition documentation for full instructions on how to add your custom services to the mpage-log-component."));
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const service_r17 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", service_r17.serviceName, " (INVALID CONFIG) ");
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_For_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_0_Template, 4, 3)(1, MpageLogComponent_Conditional_0_Conditional_22_For_2_Conditional_1_Template, 2, 1, "div", 13);
+  }
+  if (rf & 2) {
+    const service_r17 = ctx.$implicit;
+    \u0275\u0275conditional(service_r17.validConfiguration ? 0 : 1);
+  }
+}
+function MpageLogComponent_Conditional_0_Conditional_22_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 27);
+    \u0275\u0275repeaterCreate(1, MpageLogComponent_Conditional_0_Conditional_22_For_2_Template, 2, 1, null, null, _forTrack2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "div", 20);
     \u0275\u0275text(4);
     \u0275\u0275pipe(5, "json");
     \u0275\u0275elementEnd();
@@ -42857,7 +43440,7 @@ function MpageLogComponent_Conditional_0_Conditional_21_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", \u0275\u0275pipeBind1(5, 1, ctx_r2.logContent()), " ");
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_22_Conditional_17_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_23_Conditional_17_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "tr")(1, "td");
     \u0275\u0275text(2, "Person/Encounter:");
@@ -42869,12 +43452,12 @@ function MpageLogComponent_Conditional_0_Conditional_22_Conditional_17_Template(
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext(3);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate3("", ctx_r2.MPage.nameFullFormatted, " (PERSON_ID: ", ctx_r2.MPage.personId, ", ENCNTR_ID: ", ctx_r2.MPage.encntrId, ") ");
+    \u0275\u0275textInterpolate3("", ctx_r2.MPage.nameFullFormatted, " (PERSON_ID: ", ctx_r2.MPage.personId, ", ENCNTR_ID: ", ctx_r2.MPage.encntrId, ")");
   }
 }
-function MpageLogComponent_Conditional_0_Conditional_22_Template(rf, ctx) {
+function MpageLogComponent_Conditional_0_Conditional_23_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 9)(1, "table", 35)(2, "tr")(3, "td");
+    \u0275\u0275elementStart(0, "div", 8)(1, "table", 32)(2, "tr")(3, "td");
     \u0275\u0275text(4, "Node:");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(5, "td");
@@ -42892,7 +43475,7 @@ function MpageLogComponent_Conditional_0_Conditional_22_Template(rf, ctx) {
     \u0275\u0275elementStart(15, "td");
     \u0275\u0275text(16);
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(17, MpageLogComponent_Conditional_0_Conditional_22_Conditional_17_Template, 5, 3, "tr");
+    \u0275\u0275conditionalCreate(17, MpageLogComponent_Conditional_0_Conditional_23_Conditional_17_Template, 5, 3, "tr");
     \u0275\u0275elementStart(18, "tr")(19, "td");
     \u0275\u0275text(20, "User");
     \u0275\u0275elementEnd();
@@ -42935,11 +43518,11 @@ function MpageLogComponent_Conditional_0_Conditional_22_Template(rf, ctx) {
     \u0275\u0275advance();
     \u0275\u0275conditional(ctx_r2.MPage.mode === "CHART" ? 17 : -1);
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate3("", ctx_r2.MPage.prsnlName, " (PERSON_ID: ", ctx_r2.MPage.prsnlId, ", USERNAME: ", ctx_r2.MPage.username, ")");
+    \u0275\u0275textInterpolate3("", ctx_r2.MPage.prsnlName, " (PERSON_ID: ", ctx_r2.MPage.prsnlId, ", USERNAME: ", ctx_r2.MPage.username, ") ");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate2("", ctx_r2.MPage.position, " (POSITION_CD: ", ctx_r2.MPage.positionCd, ")");
+    \u0275\u0275textInterpolate2("", ctx_r2.MPage.position, " (POSITION_CD: ", ctx_r2.MPage.positionCd, ") ");
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate(ctx_r2.MPage.physicianInd ? "Yes" : "No");
+    \u0275\u0275textInterpolate1("", ctx_r2.MPage.physicianInd ? "Yes" : "No", " ");
     \u0275\u0275advance(5);
     \u0275\u0275textInterpolate(ctx_r2.userAgent);
     \u0275\u0275advance(5);
@@ -42949,63 +43532,67 @@ function MpageLogComponent_Conditional_0_Conditional_22_Template(rf, ctx) {
 function MpageLogComponent_Conditional_0_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 1)(1, "div", 2)(2, "span");
+    \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "span");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(4, "span");
     \u0275\u0275text(5);
     \u0275\u0275elementEnd();
-    \u0275\u0275element(6, "span", 3);
+    \u0275\u0275element(6, "span", 2);
     \u0275\u0275conditionalCreate(7, MpageLogComponent_Conditional_0_Conditional_7_Template, 2, 3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 4);
-    \u0275\u0275conditionalCreate(9, MpageLogComponent_Conditional_0_Conditional_9_Template, 2, 0, "a");
-    \u0275\u0275elementStart(10, "a", 5);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_10_listener() {
+    \u0275\u0275elementStart(8, "div", 3)(9, "a", 4);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_9_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.view = "activity");
+    });
+    \u0275\u0275text(10, "Activity Log");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "a", 4);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_11_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.view = "queue");
     });
-    \u0275\u0275text(11, "Data Queues");
+    \u0275\u0275text(12, "Data Queues");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "a", 5);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_12_listener() {
+    \u0275\u0275elementStart(13, "a", 4);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_13_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.view = "services");
     });
-    \u0275\u0275text(13, "Data Services");
+    \u0275\u0275text(14, "Data Services");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(14, "a", 5);
-    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_14_listener() {
+    \u0275\u0275elementStart(15, "a", 4);
+    \u0275\u0275listener("click", function MpageLogComponent_Conditional_0_Template_a_click_15_listener() {
       \u0275\u0275restoreView(_r1);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.view = "system");
     });
-    \u0275\u0275text(15, "System");
+    \u0275\u0275text(16, "System");
     \u0275\u0275elementEnd();
-    \u0275\u0275element(16, "span", 6);
-    \u0275\u0275conditionalCreate(17, MpageLogComponent_Conditional_0_Conditional_17_Template, 2, 1, "a", 7);
+    \u0275\u0275element(17, "span", 5);
+    \u0275\u0275conditionalCreate(18, MpageLogComponent_Conditional_0_Conditional_18_Template, 2, 1, "a", 6);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 8);
-    \u0275\u0275conditionalCreate(19, MpageLogComponent_Conditional_0_Conditional_19_Template, 7, 0, "div", 9)(20, MpageLogComponent_Conditional_0_Conditional_20_Template, 7, 4)(21, MpageLogComponent_Conditional_0_Conditional_21_Template, 6, 3)(22, MpageLogComponent_Conditional_0_Conditional_22_Template, 43, 12, "div", 9);
+    \u0275\u0275elementStart(19, "div", 7);
+    \u0275\u0275conditionalCreate(20, MpageLogComponent_Conditional_0_Conditional_20_Template, 7, 0, "div", 8)(21, MpageLogComponent_Conditional_0_Conditional_21_Template, 7, 4)(22, MpageLogComponent_Conditional_0_Conditional_22_Template, 6, 3)(23, MpageLogComponent_Conditional_0_Conditional_23_Template, 43, 12, "div", 8);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(ctx_r2.logCSS);
+    \u0275\u0275property("ngStyle", ctx_r2.logCSS);
     \u0275\u0275advance(3);
     \u0275\u0275textInterpolate1("Clinical Office: MPage Developer [", ctx_r2.MPage.version, "]");
     \u0275\u0275advance(2);
     \u0275\u0275textInterpolate2("[CCL Executes: ", ctx_r2.MPage.completedCCLExecutes(), ", Errors: ", ctx_r2.MPage.runTimeErrors(), "]");
     \u0275\u0275advance(2);
     \u0275\u0275conditional(ctx_r2.options.position !== "inline" ? 7 : -1);
+    \u0275\u0275advance(11);
+    \u0275\u0275conditional(ctx_r2.MPage.mode === "CHART" && !ctx_r2.MPage.inPowerChart ? 18 : -1);
     \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.MPage.logCount() > 0 ? 9 : -1);
-    \u0275\u0275advance(8);
-    \u0275\u0275conditional(ctx_r2.MPage.mode === "CHART" && !ctx_r2.MPage.inPowerChart ? 17 : -1);
-    \u0275\u0275advance(2);
-    \u0275\u0275conditional(ctx_r2.view === "activity" ? 19 : ctx_r2.view === "queue" ? 20 : ctx_r2.view === "services" ? 21 : ctx_r2.view === "system" ? 22 : -1);
+    \u0275\u0275conditional(ctx_r2.view === "activity" ? 20 : ctx_r2.view === "queue" ? 21 : ctx_r2.view === "services" ? 22 : ctx_r2.view === "system" ? 23 : -1);
   }
 }
 var _c7 = (a0) => ({
@@ -43089,9 +43676,7 @@ function MpageTreeComponent_ng_template_11_Template(rf, ctx) {
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275styleMap(ctx_r1.style());
-    \u0275\u0275classMap(ctx_r1.class() + " co-default-field");
-    \u0275\u0275property("cdkTrapFocusAutoCapture", true);
+    \u0275\u0275property("ngStyle", ctx_r1.style())("ngClass", ctx_r1.class() + " co-default-field")("cdkTrapFocusAutoCapture", true);
     \u0275\u0275advance(2);
     \u0275\u0275conditional(ctx_r1.searchable() ? 2 : -1);
     \u0275\u0275advance(5);
@@ -43101,7 +43686,7 @@ function MpageTreeComponent_ng_template_11_Template(rf, ctx) {
 function MpageTreeComponent_ng_template_12_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 18);
+    \u0275\u0275elementStart(0, "button", 19);
     \u0275\u0275listener("click", function MpageTreeComponent_ng_template_12_Conditional_2_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r8);
       const item_r9 = \u0275\u0275nextContext().item;
@@ -43146,7 +43731,7 @@ function MpageTreeComponent_ng_template_12_Conditional_8_For_2_Template(rf, ctx)
 }
 function MpageTreeComponent_ng_template_12_Conditional_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 17);
+    \u0275\u0275elementStart(0, "div", 18);
     \u0275\u0275repeaterCreate(1, MpageTreeComponent_ng_template_12_Conditional_8_For_2_Template, 1, 4, "ng-container", null, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275elementEnd();
   }
@@ -43174,12 +43759,12 @@ function MpageTreeComponent_ng_template_12_Template(rf, ctx) {
       return \u0275\u0275resetView(ctx_r1.itemChange(item_r9));
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "span");
+    \u0275\u0275elementStart(5, "span", 17);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
     \u0275\u0275conditionalCreate(7, MpageTreeComponent_ng_template_12_Conditional_7_Template, 1, 0);
     \u0275\u0275elementEnd()();
-    \u0275\u0275conditionalCreate(8, MpageTreeComponent_ng_template_12_Conditional_8_Template, 3, 0, "div", 17);
+    \u0275\u0275conditionalCreate(8, MpageTreeComponent_ng_template_12_Conditional_8_Template, 3, 0, "div", 18);
   }
   if (rf & 2) {
     const item_r9 = ctx.item;
@@ -43190,49 +43775,13 @@ function MpageTreeComponent_ng_template_12_Template(rf, ctx) {
     \u0275\u0275twoWayProperty("ngModel", item_r9["selected"]);
     \u0275\u0275property("coIndeterminate", item_r9["indeterminate"]);
     \u0275\u0275advance();
-    \u0275\u0275classMap(ctx_r1.styleItem(item_r9));
+    \u0275\u0275property("ngClass", ctx_r1.styleItem(item_r9));
     \u0275\u0275advance();
     \u0275\u0275textInterpolate(item_r9["display"]);
     \u0275\u0275advance();
     \u0275\u0275conditional(ctx_r1.loading() && ctx_r1.loadingId === item_r9["id"] ? 7 : -1);
     \u0275\u0275advance();
     \u0275\u0275conditional(item_r9["expanded"] ? 8 : -1);
-  }
-}
-function TabbedMenuComponent_For_2_Conditional_1_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "mpage-icon");
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const tab_r4 = \u0275\u0275nextContext().$implicit;
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate(tab_r4.icon);
-  }
-}
-function TabbedMenuComponent_For_2_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 2);
-    \u0275\u0275listener("click", function TabbedMenuComponent_For_2_Template_button_click_0_listener() {
-      const \u0275$index_3_r2 = \u0275\u0275restoreView(_r1).$index;
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.tabClicked(\u0275$index_3_r2));
-    });
-    \u0275\u0275conditionalCreate(1, TabbedMenuComponent_For_2_Conditional_1_Template, 2, 1, "mpage-icon");
-    \u0275\u0275text(2);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const tab_r4 = ctx.$implicit;
-    const \u0275$index_3_r2 = ctx.$index;
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275property("coButton", ctx_r2.buttonType())("color", ctx_r2.currentButtonColor(\u0275$index_3_r2))("title", tab_r4.hoverText ?? "");
-    \u0275\u0275advance();
-    \u0275\u0275conditional(tab_r4.icon ? 1 : -1);
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", tab_r4.label, " ");
   }
 }
 function _window() {
@@ -43334,6 +43883,10 @@ function stringWidth(stringValue, font) {
   }
   return 0;
 }
+function getCSSVariableValue(variableName) {
+  const root = document.documentElement;
+  return getComputedStyle(root).getPropertyValue(variableName).trim();
+}
 var MpageIconComponent = class _MpageIconComponent {
   static \u0275fac = function MpageIconComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MpageIconComponent)();
@@ -43365,7 +43918,7 @@ var MpageIconComponent = class _MpageIconComponent {
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [],
-      template: '<span class="material-icons"><ng-content /></span>',
+      template: '<span class="material-icons"><ng-content /></span>\r\n<!-- <span [ngClass]="class()"><ng-content /></span> -->\r\n',
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
   }], null, null);
@@ -43425,71 +43978,71 @@ var MpageInputComponent = class _MpageInputComponent {
   model;
   mPage = inject(MPageService);
   // Functional Variables
-  type = input("text", __spreadValues({}, ngDevMode ? {
+  type = input("text", ...ngDevMode ? [{
     debugName: "type"
-  } : {}));
-  skipUnicodeReplace = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  skipUnicodeReplace = input(false, ...ngDevMode ? [{
     debugName: "skipUnicodeReplace"
-  } : {}));
+  }] : []);
   clearClicked = output();
-  clearButton = input(true, __spreadValues({}, ngDevMode ? {
+  clearButton = input(true, ...ngDevMode ? [{
     debugName: "clearButton"
-  } : {}));
-  disabled = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  disabled = input(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
-  min = input(null, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  min = input(null, ...ngDevMode ? [{
     debugName: "min"
-  } : {}));
-  max = input(null, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  max = input(null, ...ngDevMode ? [{
     debugName: "max"
-  } : {}));
-  required = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  required = input(false, ...ngDevMode ? [{
     debugName: "required"
-  } : {}));
-  name = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  name = input("", ...ngDevMode ? [{
     debugName: "name"
-  } : {}));
+  }] : []);
   // Name tag for form field controls
   // Presentation Variables
-  style = input({}, __spreadValues({}, ngDevMode ? {
+  style = input({}, ...ngDevMode ? [{
     debugName: "style"
-  } : {}));
-  class = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  class = input("", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
-  title = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  title = input("", ...ngDevMode ? [{
     debugName: "title"
-  } : {}));
-  label = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  label = input("", ...ngDevMode ? [{
     debugName: "label"
-  } : {}));
-  rows = input(null, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  rows = input(null, ...ngDevMode ? [{
     debugName: "rows"
-  } : {}));
-  maxLength = input(0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  maxLength = input(0, ...ngDevMode ? [{
     debugName: "maxLength"
-  } : {}));
+  }] : []);
   prefix = input({
     icon: "",
     button: true,
     title: "",
     className: ""
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "prefix"
-  } : {}));
+  }] : []);
   prefixClick = output();
   suffix = input({
     icon: "",
     button: true,
     title: "",
     className: ""
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "suffix"
-  } : {}));
-  jsDate = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  jsDate = input(false, ...ngDevMode ? [{
     debugName: "jsDate"
-  } : {}));
+  }] : []);
   suffixClick = output();
   dateModel = "";
   /* Start of functions used to implement ngModel */
@@ -43514,7 +44067,7 @@ var MpageInputComponent = class _MpageInputComponent {
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
-  emitChange(event2) {
+  emitChange(event) {
     if (this.jsDate()) {
       this.writeValue(this.mPage.toJSDate(this.dateModel, this.type() === "datetime-local"));
     } else if (inList(this.type(), ["date", "datetime-local"])) {
@@ -43573,24 +44126,23 @@ var MpageInputComponent = class _MpageInputComponent {
       multi: true
     }])],
     decls: 15,
-    vars: 10,
-    consts: [[1, "co-field-label"], [1, "co-field-input"], ["type", "number", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "name", "maxlength", "min", "max", "disabled"], [3, "ngModel", "title", "name", "rows", "disabled", "maxlength"], [1, "flex", "flex-gap"], ["type", "range", 3, "ngModel", "name", "min", "max", "disabled"], ["type", "color", 1, "co-min-width", "co-input-color", 3, "ngModel", "disabled", "name"], ["type", "datetime-local", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "maxlength", "disabled", "name"], ["type", "date", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "maxlength", "disabled", "name"], ["autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "type", "ngModel", "title", "name", "maxlength", "disabled"], ["coButton", "icon", "tabindex", "-1", "title", "Clear value"], ["coButton", "icon", 3, "title"], ["coButton", "icon", 3, "click", "title"], ["type", "number", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "name", "maxlength", "min", "max", "disabled"], [3, "ngModelChange", "ngModel", "title", "name", "rows", "disabled", "maxlength"], ["type", "checkbox", 3, "ngModelChange", "ngModel", "disabled", "name"], ["type", "range", 3, "ngModelChange", "ngModel", "name", "min", "max", "disabled"], ["type", "color", 1, "co-min-width", "co-input-color", 3, "ngModelChange", "ngModel", "disabled", "name"], ["type", "datetime-local", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "maxlength", "disabled", "name"], ["type", "date", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "maxlength", "disabled", "name"], ["autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "type", "ngModel", "title", "name", "maxlength", "disabled"], ["coButton", "icon", "tabindex", "-1", "title", "Clear value", 3, "click"]],
+    vars: 8,
+    consts: [[3, "ngStyle", "ngClass"], [1, "co-field-label"], [1, "co-field-input"], ["type", "number", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "name", "maxlength", "min", "max", "disabled"], [3, "ngModel", "title", "name", "rows", "disabled", "maxlength"], [1, "flex", "flex-gap"], ["type", "range", 3, "ngModel", "name", "min", "max", "disabled"], ["type", "color", 1, "co-min-width", 3, "ngModel", "disabled", "name"], ["type", "datetime-local", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "maxlength", "disabled", "name"], ["type", "date", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModel", "title", "maxlength", "disabled", "name"], ["autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "type", "ngModel", "title", "name", "maxlength", "disabled"], ["coButton", "icon", "tabindex", "-1", "title", "Clear value"], ["coButton", "icon", 3, "title"], ["coButton", "icon", 3, "click", "title"], ["type", "number", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "name", "maxlength", "min", "max", "disabled"], [3, "ngModelChange", "ngModel", "title", "name", "rows", "disabled", "maxlength"], ["type", "checkbox", 3, "ngModelChange", "ngModel", "disabled", "name"], ["type", "range", 3, "ngModelChange", "ngModel", "name", "min", "max", "disabled"], ["type", "color", 1, "co-min-width", 3, "ngModelChange", "ngModel", "disabled", "name"], ["type", "datetime-local", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "maxlength", "disabled", "name"], ["type", "date", "autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "ngModel", "title", "maxlength", "disabled", "name"], ["autocomplete", "off", "aria-autocomplete", "none", "list", "noAccessToFill", 3, "ngModelChange", "type", "ngModel", "title", "name", "maxlength", "disabled"], ["coButton", "icon", "tabindex", "-1", "title", "Clear value", 3, "click"]],
     template: function MpageInputComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "div")(1, "div", 0);
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1);
         \u0275\u0275conditionalCreate(2, MpageInputComponent_Conditional_2_Template, 1, 1);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "div", 1);
+        \u0275\u0275elementStart(3, "div", 2);
         \u0275\u0275conditionalCreate(4, MpageInputComponent_Conditional_4_Template, 2, 1);
-        \u0275\u0275conditionalCreate(5, MpageInputComponent_Case_5_Template, 1, 7, "input", 2)(6, MpageInputComponent_Case_6_Template, 1, 6, "textarea", 3)(7, MpageInputComponent_Case_7_Template, 4, 4, "div", 4)(8, MpageInputComponent_Case_8_Template, 1, 5, "input", 5)(9, MpageInputComponent_Case_9_Template, 1, 3, "input", 6)(10, MpageInputComponent_Case_10_Template, 1, 5, "input", 7)(11, MpageInputComponent_Case_11_Template, 1, 5, "input", 8)(12, MpageInputComponent_Case_12_Template, 1, 6, "input", 9);
+        \u0275\u0275conditionalCreate(5, MpageInputComponent_Case_5_Template, 1, 7, "input", 3)(6, MpageInputComponent_Case_6_Template, 1, 6, "textarea", 4)(7, MpageInputComponent_Case_7_Template, 4, 4, "div", 5)(8, MpageInputComponent_Case_8_Template, 1, 5, "input", 6)(9, MpageInputComponent_Case_9_Template, 1, 3, "input", 7)(10, MpageInputComponent_Case_10_Template, 1, 5, "input", 8)(11, MpageInputComponent_Case_11_Template, 1, 5, "input", 9)(12, MpageInputComponent_Case_12_Template, 1, 6, "input", 10);
         \u0275\u0275conditionalCreate(13, MpageInputComponent_Conditional_13_Template, 2, 1);
-        \u0275\u0275conditionalCreate(14, MpageInputComponent_Conditional_14_Template, 3, 0, "button", 10);
+        \u0275\u0275conditionalCreate(14, MpageInputComponent_Conditional_14_Template, 3, 0, "button", 11);
         \u0275\u0275elementEnd()();
       }
       if (rf & 2) {
         let tmp_4_0;
-        \u0275\u0275styleMap(ctx.style());
-        \u0275\u0275classMap(ctx.requiredClass + " " + ctx.class() + " co-default-field");
+        \u0275\u0275property("ngStyle", ctx.style())("ngClass", ctx.requiredClass + " " + ctx.class() + " co-default-field");
         \u0275\u0275advance(2);
         \u0275\u0275conditional(ctx.label() !== "" ? 2 : -1);
         \u0275\u0275advance(2);
@@ -43600,10 +44152,10 @@ var MpageInputComponent = class _MpageInputComponent {
         \u0275\u0275advance(8);
         \u0275\u0275conditional(ctx.suffix().icon !== "" ? 13 : -1);
         \u0275\u0275advance();
-        \u0275\u0275conditional(ctx.model && ctx.clearButton() && !ctx.inList(ctx.type(), \u0275\u0275pureFunction0(9, _c13)) ? 14 : -1);
+        \u0275\u0275conditional(ctx.model && ctx.clearButton() && !ctx.inList(ctx.type(), \u0275\u0275pureFunction0(7, _c13)) ? 14 : -1);
       }
     },
-    dependencies: [FormsModule, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, NgControlStatus, MaxLengthValidator, MinValidator, MaxValidator, NgModel, MpageIconComponent, ButtonDirective],
+    dependencies: [NgStyle, FormsModule, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, NgControlStatus, MaxLengthValidator, MinValidator, MaxValidator, NgModel, NgClass, MpageIconComponent, ButtonDirective],
     styles: [_c2],
     changeDetection: 0
   });
@@ -43613,7 +44165,7 @@ var MpageInputComponent = class _MpageInputComponent {
     type: Component,
     args: [{
       selector: "mpage-input",
-      imports: [FormsModule, MpageIconComponent, ButtonDirective],
+      imports: [NgStyle, FormsModule, NgClass, MpageIconComponent, ButtonDirective],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
       providers: [{
@@ -43621,7 +44173,7 @@ var MpageInputComponent = class _MpageInputComponent {
         useExisting: forwardRef(() => MpageInputComponent),
         multi: true
       }],
-      template: `<div [style]="style()" [class]="requiredClass + ' ' + class() + ' co-default-field'">\r
+      template: `<div [ngStyle]="style()" [ngClass]="requiredClass + ' ' + class() + ' co-default-field'">\r
   <div class="co-field-label">\r
     @if (label() !== '') {\r
       {{ label() }}\r
@@ -43668,7 +44220,7 @@ var MpageInputComponent = class _MpageInputComponent {
       }\r
       @case ('color') {\r
         <input type="color" [(ngModel)]="model" (ngModelChange)="emitChange($event)" [disabled]="disabled()"\r
-               [name]="name()" class="co-min-width co-input-color">\r
+               [name]="name()" class="co-min-width">\r
       }\r
       @case ('datetime-local') {\r
         <input type="datetime-local" [(ngModel)]="dateModel" (ngModelChange)="emitChange($event)"\r
@@ -43717,156 +44269,7 @@ var MpageInputComponent = class _MpageInputComponent {
 `,
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
-  }], null, {
-    type: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "type",
-        required: false
-      }]
-    }],
-    skipUnicodeReplace: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "skipUnicodeReplace",
-        required: false
-      }]
-    }],
-    clearClicked: [{
-      type: Output,
-      args: ["clearClicked"]
-    }],
-    clearButton: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "clearButton",
-        required: false
-      }]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "disabled",
-        required: false
-      }]
-    }],
-    min: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "min",
-        required: false
-      }]
-    }],
-    max: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "max",
-        required: false
-      }]
-    }],
-    required: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "required",
-        required: false
-      }]
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "name",
-        required: false
-      }]
-    }],
-    style: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "style",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    title: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "title",
-        required: false
-      }]
-    }],
-    label: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "label",
-        required: false
-      }]
-    }],
-    rows: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "rows",
-        required: false
-      }]
-    }],
-    maxLength: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "maxLength",
-        required: false
-      }]
-    }],
-    prefix: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "prefix",
-        required: false
-      }]
-    }],
-    prefixClick: [{
-      type: Output,
-      args: ["prefixClick"]
-    }],
-    suffix: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "suffix",
-        required: false
-      }]
-    }],
-    jsDate: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "jsDate",
-        required: false
-      }]
-    }],
-    suffixClick: [{
-      type: Output,
-      args: ["suffixClick"]
-    }]
-  });
+  }], null, null);
 })();
 var CodeValueService = class _CodeValueService {
   serviceName = "CodeValueService";
@@ -44044,20 +44447,20 @@ var CustomService = class _CustomService {
     }
   }
   // Execute DM Info action. Valid action values are "r", "w", "d"
-  executeDmInfoAction(id, action, data, callback = void 0) {
+  executeDmInfoAction(sId, sAction = "r", dData, callback = void 0) {
     this.MPage.executeCCL({
       payload: {
-        clearPatientSource: true,
         customScript: {
           script: [{
             name: "1co5_mpage_dm_info:group1",
             run: "pre",
-            id,
+            id: sId,
             parameters: {
-              action,
-              data
+              action: sAction,
+              data: dData
             }
-          }]
+          }],
+          clearPatientSource: true
         }
       }
     }, 0, callback);
@@ -44069,19 +44472,19 @@ var CustomService = class _CustomService {
       scripts.push({
         name: "1co5_mpage_dm_info:group1",
         run: "pre",
-        id: action.id,
+        id: action.sId,
         parameters: {
-          action: action.action,
-          data: action.data
+          action: action.sAction,
+          data: action.dData
         }
       });
     });
     if (scripts.length > 0) {
       this.MPage.executeCCL({
         payload: {
-          clearPatientSource: true,
           customScript: {
-            script: scripts
+            script: scripts,
+            clearPatientSource: true
           }
         }
       }, 0, callback);
@@ -44116,131 +44519,6 @@ var CustomService = class _CustomService {
     }]
   }], null, null);
 })();
-var DropdownDirective = class _DropdownDirective {
-  el;
-  renderer;
-  templateRef;
-  context = {};
-  rightClick = false;
-  viewContainer = inject(ViewContainerRef);
-  rootNode;
-  visible = false;
-  pointerEvent;
-  listener;
-  rightClickListener;
-  constructor(el, renderer) {
-    this.el = el;
-    this.renderer = renderer;
-    this.listener = this.renderer.listen("document", "click", (event2) => {
-      if (!this.rightClick) {
-        const composedPath = event2.composedPath();
-        const clickedButton = composedPath.includes(this.el.nativeElement);
-        if (clickedButton) {
-          this.renderTemplate(!this.visible);
-        } else if (this.rootNode && !composedPath.includes(this.rootNode)) {
-          this.renderTemplate(false);
-        }
-      } else {
-        this.renderTemplate(false);
-      }
-    });
-    this.rightClickListener = this.renderer.listen("document", "contextmenu", (event2) => {
-      event2.preventDefault();
-      this.pointerEvent = event2;
-      if (this.rightClick) {
-        const composedPath = event2.composedPath();
-        this.renderTemplate(composedPath.includes(this.el.nativeElement));
-      } else {
-        this.renderTemplate(false);
-      }
-    });
-  }
-  ngOnChanges(changes) {
-    this.renderTemplate(this.visible);
-  }
-  ngOnDestroy() {
-    if (this.listener) {
-      this.listener();
-    }
-    if (this.rightClickListener) {
-      this.rightClickListener();
-    }
-  }
-  renderTemplate(visible) {
-    this.visible = visible;
-    this.viewContainer.clear();
-    if (this.templateRef && this.visible) {
-      const viewRef = this.viewContainer.createEmbeddedView(this.templateRef, __spreadProps(__spreadValues({}, this.context), {
-        close: () => {
-          this.visible = false;
-          this.renderTemplate(false);
-        }
-      }));
-      viewRef.detectChanges();
-      const rootNodes = viewRef.rootNodes;
-      rootNodes.forEach((node) => {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-          this.rootNode = node;
-          this.renderer.setStyle(node, "z-index", 9999);
-          this.renderer.setStyle(node, "position", "fixed");
-          this.renderer.setStyle(node, "max-width", "fit-content");
-          if (!this.rightClick) {
-            this.renderer.setStyle(node, "top", (this.el.nativeElement.getBoundingClientRect().bottom + node.offsetHeight > _window().window.innerHeight ? this.el.nativeElement.getBoundingClientRect().top - node.offsetHeight : this.el.nativeElement.getBoundingClientRect().bottom) + "px");
-            this.renderer.setStyle(node, "left", (this.el.nativeElement.getBoundingClientRect().left + node.offsetWidth > _window().window.innerWidth ? _window().window.innerWidth - node.offsetWidth - 24 : this.el.nativeElement.getBoundingClientRect().left) + "px", RendererStyleFlags2.Important);
-          } else {
-            console.log("*** POINTER EVENT ***", this.pointerEvent, "**** WINDOW ****", _window().window.innerWidth);
-            if (_window().window.innerHeight - this.pointerEvent.layerY - node.offsetHeight < 24) {
-              this.renderer.setStyle(node, "top", _window().window.innerHeight - 24 - node.offsetHeight + "px");
-            }
-            if (_window().window.innerWidth - this.pointerEvent.layerX - node.offsetWidth < 24) {
-              this.renderer.setStyle(node, "left", _window().window.innerWidth - 24 - node.offsetWidth + "px");
-            } else {
-              this.renderer.setStyle(node, "left", this.pointerEvent.layerX + "px");
-            }
-          }
-        }
-      });
-    }
-  }
-  static \u0275fac = function DropdownDirective_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _DropdownDirective)(\u0275\u0275directiveInject(ElementRef), \u0275\u0275directiveInject(Renderer2));
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _DropdownDirective,
-    selectors: [["", "coDropdown", ""]],
-    inputs: {
-      templateRef: [0, "coDropdown", "templateRef"],
-      context: [0, "templateContext", "context"],
-      rightClick: "rightClick"
-    },
-    features: [\u0275\u0275NgOnChangesFeature]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DropdownDirective, [{
-    type: Directive,
-    args: [{
-      selector: "[coDropdown]"
-    }]
-  }], () => [{
-    type: ElementRef
-  }, {
-    type: Renderer2
-  }], {
-    templateRef: [{
-      type: Input,
-      args: ["coDropdown"]
-    }],
-    context: [{
-      type: Input,
-      args: ["templateContext"]
-    }],
-    rightClick: [{
-      type: Input,
-      args: ["rightClick"]
-    }]
-  });
-})();
 var MpageSelectComponent = class _MpageSelectComponent {
   model;
   overlayOpen = false;
@@ -44248,31 +44526,30 @@ var MpageSelectComponent = class _MpageSelectComponent {
   customService = inject(CustomService);
   scriptId = "mpage_select_" + (/* @__PURE__ */ new Date()).getTime() + "_" + Math.ceil(Math.random() * 100);
   cclScript = "1co5_prsnl_search:group1";
-  loading = signal(false, __spreadValues({}, ngDevMode ? {
+  loading = signal(false, ...ngDevMode ? [{
     debugName: "loading"
-  } : {}));
+  }] : []);
   internalModelChange = false;
   firstRun = true;
   fullDataSetLoaded = false;
-  label = input("", __spreadValues({}, ngDevMode ? {
+  label = input("", ...ngDevMode ? [{
     debugName: "label"
-  } : {}));
-  disabled = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  disabled = input(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
-  required = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  required = input(false, ...ngDevMode ? [{
     debugName: "required"
-  } : {}));
-  name = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  name = input("", ...ngDevMode ? [{
     debugName: "name"
-  } : {}));
-  selectContent = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  selectContent = signal("", ...ngDevMode ? [{
     debugName: "selectContent"
-  } : {}));
+  }] : []);
   // Assign a predefined list of select value options
-  values = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "values"
-  } : {}), {
+  values = input(null, ...ngDevMode ? [{
+    debugName: "values",
     transform: (value) => {
       this.cclSearch = false;
       if (value.every((item) => typeof item === "string" || typeof item === "number")) {
@@ -44288,11 +44565,32 @@ var MpageSelectComponent = class _MpageSelectComponent {
         this.selectValues.set(value);
       }
     }
-  }));
+  }] : [{
+    transform: (value) => {
+      this.cclSearch = false;
+      if (value.every((item) => typeof item === "string" || typeof item === "number")) {
+        const newValues = [];
+        value.forEach((item) => {
+          newValues.push({
+            key: item,
+            value: item
+          });
+        });
+        this.selectValues.set(sort(newValues).asc());
+      } else {
+        this.selectValues.set(value);
+      }
+    }
+  }]);
+  /*
+  public parentValue = input(null, {
+    transform: (value: any) => {
+       }
+  })
+  */
   _codeSet = 0;
-  codeSet = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "codeSet"
-  } : {}), {
+  codeSet = input(null, ...ngDevMode ? [{
+    debugName: "codeSet",
     transform: (value) => {
       if (value > 0) {
         this._codeSet = value;
@@ -44311,20 +44609,42 @@ var MpageSelectComponent = class _MpageSelectComponent {
         }
       }
     }
-  }));
+  }] : [{
+    transform: (value) => {
+      if (value > 0) {
+        this._codeSet = value;
+        this.cclScript = "1co5_code_value_search:group1";
+        if (this.codeValueService.has(value)) {
+          const newValues = [];
+          this.codeValueService.getCodeSet(value).forEach((codeValue) => {
+            newValues.push({
+              key: codeValue.codeValue,
+              value: codeValue[this.valueType()]
+            });
+          });
+          this.selectValues.set(newValues);
+        } else {
+          this.cclSearch = true;
+        }
+      }
+    }
+  }]);
   // Assign a custom CCL script
-  script = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "script"
-  } : {}), {
+  script = input(null, ...ngDevMode ? [{
+    debugName: "script",
     transform: (value) => {
       this.cclSearch = true;
       this.cclScript = value;
     }
-  }));
+  }] : [{
+    transform: (value) => {
+      this.cclSearch = true;
+      this.cclScript = value;
+    }
+  }]);
   _scriptParams = {};
-  scriptParams = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "scriptParams"
-  } : {}), {
+  scriptParams = input(null, ...ngDevMode ? [{
+    debugName: "scriptParams",
     transform: (value) => {
       if (value) {
         this._scriptParams = value;
@@ -44333,81 +44653,90 @@ var MpageSelectComponent = class _MpageSelectComponent {
         this.runCCL();
       }
     }
-  }));
+  }] : [{
+    transform: (value) => {
+      if (value) {
+        this._scriptParams = value;
+        this.fullDataSetLoaded = false;
+        this.searchValue.set("");
+        this.runCCL();
+      }
+    }
+  }]);
   cclSearch = true;
   // Used to determine if coming from predefined list, code value or CCL
   allSelected = false;
-  cclMessage = signal("", __spreadValues({}, ngDevMode ? {
+  cclMessage = signal("", ...ngDevMode ? [{
     debugName: "cclMessage"
-  } : {}));
-  multiple = model(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  multiple = model(false, ...ngDevMode ? [{
     debugName: "multiple"
-  } : {}));
-  searchable = model(true, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchable = model(false, ...ngDevMode ? [{
     debugName: "searchable"
-  } : {}));
-  wildCardSearchMode = model(true, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  wildCardSearchMode = model(true, ...ngDevMode ? [{
     debugName: "wildCardSearchMode"
-  } : {}));
-  searchValue = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchValue = signal("", ...ngDevMode ? [{
     debugName: "searchValue"
-  } : {}));
-  searchLimit = input(100, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchLimit = input(100, ...ngDevMode ? [{
     debugName: "searchLimit"
-  } : {}));
+  }] : []);
   searchTimeOut;
-  searchEffect = effect(() => this.performSearch(this.searchValue()), __spreadValues({}, ngDevMode ? {
+  searchEffect = effect(() => this.performSearch(this.searchValue()), ...ngDevMode ? [{
     debugName: "searchEffect"
-  } : {}));
-  class = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  class = input("mpage-input-default-width", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
+  }] : []);
   //  public style: InputSignal<any> = input({});
-  allOption = input(false, __spreadValues({}, ngDevMode ? {
+  allOption = input(false, ...ngDevMode ? [{
     debugName: "allOption"
-  } : {}));
-  allValue = input(-1, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  allValue = input(-1, ...ngDevMode ? [{
     debugName: "allValue"
-  } : {}));
-  allLabel = input("All Values", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  allLabel = input("All Values", ...ngDevMode ? [{
     debugName: "allLabel"
-  } : {}));
-  noOption = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  noOption = input(false, ...ngDevMode ? [{
     debugName: "noOption"
-  } : {}));
-  noOptionLabel = input("No value", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  noOptionLabel = input("No value", ...ngDevMode ? [{
     debugName: "noOptionLabel"
-  } : {}));
-  hideSelectAll = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  hideSelectAll = input(false, ...ngDevMode ? [{
     debugName: "hideSelectAll"
-  } : {}));
-  valueType = input("display", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  valueType = input("display", ...ngDevMode ? [{
     debugName: "valueType"
-  } : {}));
-  codeSetLimitType = input("CDF_MEANING", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  codeSetLimitType = input("CDF_MEANING", ...ngDevMode ? [{
     debugName: "codeSetLimitType"
-  } : {}));
-  codeSetLimits = input([""], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  codeSetLimits = input([""], ...ngDevMode ? [{
     debugName: "codeSetLimits"
-  } : {}));
-  physicianInd = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  physicianInd = input(false, ...ngDevMode ? [{
     debugName: "physicianInd"
-  } : {}));
+  }] : []);
   el = inject(ElementRef);
-  selectValues = signal([], __spreadValues({}, ngDevMode ? {
+  selectValues = signal([], ...ngDevMode ? [{
     debugName: "selectValues"
-  } : {}));
+  }] : []);
   filteredSelectValues = computed(() => {
     if (this.searchValue() && !this.cclSearch) {
       return this.selectValues().filter((item) => {
-        return (this.wildCardSearchMode() ? item.value.toString().toLowerCase().indexOf(this.searchValue().toLowerCase()) !== -1 : item.value.toString().toLowerCase().indexOf(this.searchValue().toLowerCase()) === 0) || this.model && this.multiple() && this.model.indexOf(item.key) !== -1;
+        return (this.wildCardSearchMode() ? item.value.toString().toLowerCase().indexOf(this.searchValue().toLowerCase()) !== -1 : item.value.toString().toLowerCase().indexOf(this.searchValue().toLowerCase()) === 0) || this.multiple() && this.model.indexOf(item.key) !== -1;
       });
     } else {
       return this.selectValues();
     }
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "filteredSelectValues"
-  } : {}));
+  }] : []);
   // Flip between wildcard search mode
   toggleSearchMode() {
     this.wildCardSearchMode.set(!this.wildCardSearchMode());
@@ -44484,17 +44813,13 @@ var MpageSelectComponent = class _MpageSelectComponent {
       this.overlayOpen = false;
     }
   }
-  /*
-  public toggleOverlay(key: KeyboardEvent | undefined = undefined): void {
+  toggleOverlay(key = void 0) {
     if (!this.disabled()) {
-      if (key === undefined ||
-        ((!this.overlayOpen || !this.multiple()) && inList(key.code, ['Space', 'Enter'])) ||
-        (this.overlayOpen && key!.code === 'Escape')) {
+      if (key === void 0 || (!this.overlayOpen || !this.multiple()) && inList(key.code, ["Space", "Enter"]) || this.overlayOpen && key.code === "Escape") {
         this.overlayOpen = !this.overlayOpen;
       }
     }
   }
-  */
   // Set the width of the drop-down to be at least the same size and the parent
   style() {
     return {
@@ -44535,12 +44860,6 @@ var MpageSelectComponent = class _MpageSelectComponent {
   compareObjects(o1, o2) {
     return true;
   }
-  hasOptions() {
-    return this.filteredSelectValues().length > 0 || this.allOption();
-  }
-  isZeroNumeric() {
-    return typeof this.model === "number" && this.model === 0;
-  }
   registerOnChange(fn) {
     this.onChange = fn;
   }
@@ -44548,24 +44867,24 @@ var MpageSelectComponent = class _MpageSelectComponent {
     this.onTouched = fn;
   }
   // Emit changes to the model
-  emitChange(event2) {
+  emitChange(event) {
     this.internalModelChange = true;
     if (!this.multiple()) {
-      this.writeValue(event2[0]);
+      this.writeValue(event[0]);
     } else if (typeof this.model === "object") {
-      if (event2.indexOf(this.allValue()) !== -1 && !this.allSelected) {
+      if (event.indexOf(this.allValue()) !== -1 && !this.allSelected) {
         this.allSelected = true;
         this.writeValue([this.allValue()]);
       } else {
         this.allSelected = false;
-        this.writeValue(event2.filter((item) => item !== this.allValue()));
+        this.writeValue(event.filter((item) => item !== this.allValue()));
       }
     } else {
-      this.writeValue(event2);
+      this.writeValue(event);
     }
   }
   // Select all entries from list
-  selectAll(event2) {
+  selectAll(event) {
     this.writeValue([...this.noOption() ? [0] : [], ...this.filteredSelectValues().map((item) => item.key)]);
   }
   // Clear all entries from list
@@ -44618,37 +44937,53 @@ var MpageSelectComponent = class _MpageSelectComponent {
       multi: true
     }])],
     decls: 11,
-    vars: 9,
-    consts: [["coselect", ""], ["tabindex", "0", "id", "mpageSelect", 3, "coDropdown"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], ["cdkMenu", "", "cdkTrapFocus", "", 1, "co-select-template", 3, "cdkTrapFocusAutoCapture"], ["label", "Search", 3, "ngModel", "style", "prefix", "name"], ["cdkListbox", "", 1, "prevent-select", 3, "cdkListboxMultiple", "ngModel"], ["label", "Search", 3, "ngModelChange", "prefixClick", "ngModel", "prefix", "name"], ["coButton", "icon", "title", "Select all entries", "tabindex", "0"], ["coButton", "icon", "title", "Clear all entries", 3, "click"], ["coButton", "icon", "title", "Select all entries", "tabindex", "0", 3, "click"], ["cdkListbox", "", 1, "prevent-select", 3, "ngModelChange", "cdkListboxMultiple", "ngModel"], [3, "cdkOption"], [3, "click", "cdkOption"]],
+    vars: 8,
+    consts: [["trigger", "cdkOverlayOrigin"], ["cdkOverlayOrigin", "", "tabindex", "0", "id", "mpageSelect", 3, "click", "keydown", "ngClass"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title", "ngClass"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], ["cdkConnectedOverlay", "", "cdkConnectedOverlayPush", "true", 3, "detach", "overlayOutsideClick", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen"], ["cdkMenu", "", "cdkTrapFocus", "", 1, "co-select-template", 3, "ngStyle", "ngClass", "cdkTrapFocusAutoCapture"], ["label", "Search", 3, "ngModel", "style", "prefix", "name"], ["cdkListbox", "", 1, "prevent-select", 3, "ngModelChange", "cdkListboxMultiple", "ngModel"], [3, "cdkOption"], ["label", "Search", 3, "ngModelChange", "prefixClick", "ngModel", "prefix", "name"], ["coButton", "icon", "title", "Select all entries", "tabindex", "0"], ["coButton", "icon", "title", "Clear all entries", 3, "click"], ["coButton", "icon", "title", "Select all entries", "tabindex", "0", 3, "click"], [3, "keydown", "click", "cdkOption"]],
     template: function MpageSelectComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, MpageSelectComponent_Conditional_2_Template, 1, 1);
+        const _r1 = \u0275\u0275getCurrentView();
+        \u0275\u0275elementStart(0, "div", 1, 0);
+        \u0275\u0275listener("click", function MpageSelectComponent_Template_div_click_0_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.toggleOverlay());
+        })("keydown", function MpageSelectComponent_Template_div_keydown_0_listener($event) {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.toggleOverlay($event));
+        });
+        \u0275\u0275elementStart(2, "div", 2);
+        \u0275\u0275conditionalCreate(3, MpageSelectComponent_Conditional_3_Template, 1, 1);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "div", 3)(4, "div", 4);
-        \u0275\u0275text(5);
+        \u0275\u0275elementStart(4, "div", 3)(5, "div", 4);
+        \u0275\u0275text(6);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(6, "button", 5)(7, "mpage-icon");
-        \u0275\u0275text(8, "arrow_drop_down");
+        \u0275\u0275elementStart(7, "button", 5)(8, "mpage-icon");
+        \u0275\u0275text(9, "arrow_drop_down");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275template(9, MpageSelectComponent_ng_template_9_Template, 6, 9, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
+        \u0275\u0275template(10, MpageSelectComponent_ng_template_10_Template, 10, 10, "ng-template", 6);
+        \u0275\u0275listener("detach", function MpageSelectComponent_Template_ng_template_detach_10_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.overlayOpen = false);
+        })("overlayOutsideClick", function MpageSelectComponent_Template_ng_template_overlayOutsideClick_10_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.overlayOpen = false);
+        });
       }
       if (rf & 2) {
-        const coselect_r10 = \u0275\u0275reference(10);
-        \u0275\u0275classMap(ctx.requiredClass + " " + ctx.class() + " co-default-field");
-        \u0275\u0275property("coDropdown", coselect_r10);
+        const trigger_r10 = \u0275\u0275reference(1);
+        \u0275\u0275property("ngClass", ctx.requiredClass + " " + ctx.class() + " co-default-field");
+        \u0275\u0275advance(3);
+        \u0275\u0275conditional(ctx.label() !== "" ? 3 : -1);
         \u0275\u0275advance(2);
-        \u0275\u0275conditional(ctx.label() !== "" ? 2 : -1);
-        \u0275\u0275advance(2);
-        \u0275\u0275classMap(ctx.disabled() ? "disabled" : "");
-        \u0275\u0275property("title", ctx.selectContent());
+        \u0275\u0275property("title", ctx.selectContent())("ngClass", ctx.disabled() ? "disabled" : "");
         \u0275\u0275advance();
         \u0275\u0275textInterpolate(ctx.selectContent());
         \u0275\u0275advance();
         \u0275\u0275property("disabled", ctx.loading() || ctx.disabled());
+        \u0275\u0275advance(3);
+        \u0275\u0275property("cdkConnectedOverlayOrigin", trigger_r10)("cdkConnectedOverlayOpen", ctx.overlayOpen);
       }
     },
-    dependencies: [FormsModule, NgControlStatus, NgModel, MpageIconComponent, MpageInputComponent, CdkListbox, CdkOption, CdkMenu, CdkTrapFocus, ButtonDirective, DropdownDirective],
+    dependencies: [FormsModule, NgControlStatus, NgModel, NgClass, NgStyle, MpageIconComponent, MpageInputComponent, CdkListbox, CdkOption, CdkMenu, CdkTrapFocus, CdkOverlayOrigin, CdkConnectedOverlay, ButtonDirective],
     styles: [_c2],
     changeDetection: 0
   });
@@ -44658,7 +44993,7 @@ var MpageSelectComponent = class _MpageSelectComponent {
     type: Component,
     args: [{
       selector: "mpage-select",
-      imports: [FormsModule, MpageIconComponent, MpageInputComponent, CdkListbox, CdkOption, CdkListbox, CdkMenu, CdkTrapFocus, ButtonDirective, DropdownDirective],
+      imports: [FormsModule, NgClass, NgStyle, MpageIconComponent, MpageInputComponent, CdkListbox, CdkOption, CdkListbox, CdkMenu, CdkTrapFocus, CdkOverlayOrigin, CdkConnectedOverlay, ButtonDirective],
       providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => MpageSelectComponent),
@@ -44666,295 +45001,101 @@ var MpageSelectComponent = class _MpageSelectComponent {
       }],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
-      template: `<div [class]="requiredClass + ' ' + class() + ' co-default-field'" [coDropdown]="coselect"\r
-     tabindex="0" id="mpageSelect">\r
+      template: `<div [ngClass]="requiredClass + ' ' + class() + ' co-default-field'" cdkOverlayOrigin #trigger="cdkOverlayOrigin"\r
+  tabindex="0" id="mpageSelect" (click)="toggleOverlay()" (keydown)="toggleOverlay($event)">\r
   <div class="co-field-label">\r
     @if (label() !== '') {\r
-      {{ label() }}\r
+    {{ label() }}\r
     }\r
   </div>\r
 \r
   <div class="flex co-field-input">\r
-    <div class="co-select-field-input" [title]="selectContent()" [class]="disabled() ? 'disabled' : ''">{{\r
-        selectContent() }}</div>\r
-    <button coButton="icon" tabindex="-1" [disabled]="loading() || disabled()" >\r
+    <div class="co-select-field-input" [title]="selectContent()" [ngClass]="disabled() ? 'disabled' : ''">{{ selectContent() }}</div>\r
+    <button coButton="icon" tabindex="-1" [disabled]="loading() || disabled()">\r
       <mpage-icon>arrow_drop_down</mpage-icon>\r
     </button>\r
   </div>\r
 \r
 </div>\r
 \r
-<ng-template #coselect let-close="close">\r
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="overlayOpen"\r
+  cdkConnectedOverlayPush="true" (detach)="overlayOpen = false" (overlayOutsideClick)="overlayOpen = false">\r
 \r
-  <div class="co-select-template" cdkMenu [style]="style()" [class]="class() + ' co-default-field'" cdkTrapFocus\r
-       [cdkTrapFocusAutoCapture]="true">\r
+  <div class="co-select-template" cdkMenu [ngStyle]="style()" [ngClass]="class() + ' co-default-field'" cdkTrapFocus\r
+    [cdkTrapFocusAutoCapture]="true">\r
     @if (searchable()) {\r
-      <mpage-input [(ngModel)]="searchValue" label="Search" [style]="{border: 'var(--select-search-border)'}"\r
-                   [prefix]="{'icon': wildCardSearchMode() ? 'all_inclusive' : 'start', 'button':true,'title': wildCardSearchMode() ? 'contains' : 'starts with','className':''}"\r
-                   (prefixClick)="toggleSearchMode()" [name]="name()" />\r
+    <mpage-input [(ngModel)]="searchValue" label="Search" [style]="{border: 'var(--select-search-border)'}"\r
+      [prefix]="{'icon': wildCardSearchMode() ? 'all_inclusive' : 'start', 'button':true,'title': wildCardSearchMode() ? 'contains' : 'starts with','className':''}"\r
+      (prefixClick)="toggleSearchMode()" [name]="name()" />\r
     }\r
 \r
     <div>\r
       @if (multiple()) {\r
-        @if (!allOption() && !hideSelectAll()) {\r
-          <button coButton="icon" (click)="selectAll($event)" title="Select all entries" tabindex="0">\r
-            <mpage-icon>select_all</mpage-icon>\r
-          </button>\r
-        }\r
+      @if (!allOption() && !hideSelectAll()) {\r
+      <button coButton="icon" (click)="selectAll($event)" title="Select all entries" tabindex="0">\r
+        <mpage-icon>select_all</mpage-icon>\r
+      </button>\r
+      }\r
 \r
-        <button coButton="icon" (click)="clearAll()" title="Clear all entries">\r
-          <mpage-icon>clear_all</mpage-icon>\r
-        </button>\r
+      <button coButton="icon" (click)="clearAll()" title="Clear all entries">\r
+        <mpage-icon>clear_all</mpage-icon>\r
+      </button>\r
       }\r
 \r
       @if (this.cclMessage() !== '') {\r
-        <span>{{ this.cclMessage() }}</span>\r
+      <span>{{ this.cclMessage() }}</span>\r
       }\r
 \r
     </div>\r
 \r
 \r
-    @if(hasOptions()) {\r
-      <ul cdkListbox [cdkListboxMultiple]="multiple()" [(ngModel)]="model" (ngModelChange)="emitChange($event)"\r
-          class="prevent-select">\r
+    <ul cdkListbox [cdkListboxMultiple]="multiple()" \r
+      [(ngModel)]="model" (ngModelChange)="emitChange($event)"\r
+      class="prevent-select">\r
 \r
-        @if (multiple() && allOption()) {\r
-          <li [cdkOption]="allValue()">{{ allLabel() + '&nbsp;' }}</li>\r
-        }\r
+      @if (multiple() && allOption()) {\r
+      <li [cdkOption]="allValue()">{{ allLabel() + '&nbsp;' }}</li>\r
+      }\r
 \r
-        @if (noOption() || isZeroNumeric()) {\r
-          @if (multiple()) {\r
-            <li [cdkOption]="0">{{ noOptionLabel() + '&nbsp;' }}</li>\r
-          } @else {\r
-            <li [cdkOption]="0" (click)="close()">{{ noOptionLabel() + '&nbsp;' }}\r
-            </li>\r
-          }\r
-        }\r
+      @if (noOption()) {\r
+      @if (multiple()) {\r
+      <li [cdkOption]="0">{{ noOptionLabel() + '&nbsp;' }}</li>\r
+      } @else {\r
+      <!--          <li (keydown)="updateValue([0], $event)" [cdkOption]="0" cdkMenuItem>{{ noOptionLabel() }}</li> -->\r
+      <li [cdkOption]="0" (keydown)="toggleOverlay($event)" (click)="toggleOverlay()">{{ noOptionLabel() + '&nbsp;' }}\r
+      </li>\r
+      }\r
+      }\r
 \r
-        @for (item of filteredSelectValues(); track item) {\r
-          @if (multiple()) {\r
-            <li [cdkOption]="item.key">{{ item.value }}</li>\r
-          } @else {\r
-            <li [cdkOption]="item.key" (click)="close()">{{ item.value }}</li>\r
-          }\r
-        }\r
-      </ul>\r
-    }\r
+      @for (item of filteredSelectValues(); track item) {\r
+      @if (multiple()) {\r
+      <li [cdkOption]="item.key">{{ item.value }}</li>\r
+      } @else {\r
+      <!--          <li (keydown)="updateValue([item.key], $event)" [cdkOption]="item.key" cdkMenuItem>{{ item.value }}</li> -->\r
+      <li [cdkOption]="item.key" (keydown)="toggleOverlay($event)" (click)="toggleOverlay()">{{ item.value }}</li>\r
+      }\r
+      }\r
+    </ul>\r
 \r
   </div>\r
-</ng-template>\r
-`,
+</ng-template>`,
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
-  }], null, {
-    label: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "label",
-        required: false
-      }]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "disabled",
-        required: false
-      }]
-    }],
-    required: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "required",
-        required: false
-      }]
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "name",
-        required: false
-      }]
-    }],
-    values: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "values",
-        required: false
-      }]
-    }],
-    codeSet: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "codeSet",
-        required: false
-      }]
-    }],
-    script: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "script",
-        required: false
-      }]
-    }],
-    scriptParams: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "scriptParams",
-        required: false
-      }]
-    }],
-    multiple: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "multiple",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["multipleChange"]
-    }],
-    searchable: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "searchable",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["searchableChange"]
-    }],
-    wildCardSearchMode: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "wildCardSearchMode",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["wildCardSearchModeChange"]
-    }],
-    searchLimit: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "searchLimit",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    allOption: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "allOption",
-        required: false
-      }]
-    }],
-    allValue: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "allValue",
-        required: false
-      }]
-    }],
-    allLabel: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "allLabel",
-        required: false
-      }]
-    }],
-    noOption: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "noOption",
-        required: false
-      }]
-    }],
-    noOptionLabel: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "noOptionLabel",
-        required: false
-      }]
-    }],
-    hideSelectAll: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "hideSelectAll",
-        required: false
-      }]
-    }],
-    valueType: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "valueType",
-        required: false
-      }]
-    }],
-    codeSetLimitType: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "codeSetLimitType",
-        required: false
-      }]
-    }],
-    codeSetLimits: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "codeSetLimits",
-        required: false
-      }]
-    }],
-    physicianInd: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "physicianInd",
-        required: false
-      }]
-    }]
-  });
+  }], null, null);
 })();
 var UserLoginComponent = class _UserLoginComponent {
-  dialogRef;
-  data;
   mPage = inject(MPageService);
-  username = signal("", __spreadValues({}, ngDevMode ? {
+  dialogRef = inject(DialogRef);
+  data = inject(DIALOG_DATA);
+  username = signal("", ...ngDevMode ? [{
     debugName: "username"
-  } : {}));
-  password = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  password = signal("", ...ngDevMode ? [{
     debugName: "password"
-  } : {}));
-  domain = signal(this.mPage.userLoginDomain, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  domain = signal(this.mPage.userLoginDomain, ...ngDevMode ? [{
     debugName: "domain"
-  } : {}));
+  }] : []);
   login() {
     this.mPage.assignCredentials(this.username(), this.password(), this.domain());
     this.dialogRef.close();
@@ -44965,13 +45106,9 @@ var UserLoginComponent = class _UserLoginComponent {
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
     type: _UserLoginComponent,
     selectors: [["user-login"]],
-    inputs: {
-      dialogRef: "dialogRef",
-      data: "data"
-    },
     decls: 11,
-    vars: 9,
-    consts: [[1, "flex-column", "flex-gap"], [1, "flex", "flex-center-items"], ["label", "Cerner User Name", 3, "ngModelChange", "ngModel", "required"], ["label", "Password", "type", "password", 3, "ngModelChange", "ngModel", "required"], ["label", "Domain", 3, "ngModelChange", "ngModel", "values", "required", "searchable"], [1, "dialog-button-bar"], ["coButton", "raised", "color", "primary", 3, "click"]],
+    vars: 8,
+    consts: [[1, "co-dialog", "flex-column", "flex-gap"], [1, "flex", "flex-center-items"], ["label", "Cerner User Name", 3, "ngModelChange", "ngModel", "required"], ["label", "Password", "type", "password", 3, "ngModelChange", "ngModel", "required"], ["label", "Domain", 3, "ngModelChange", "ngModel", "values", "required"], [1, "dialog-button-bar"], ["coButton", "raised", "color", "primary", 3, "click"]],
     template: function UserLoginComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0)(1, "h2", 1);
@@ -45013,12 +45150,12 @@ var UserLoginComponent = class _UserLoginComponent {
         \u0275\u0275property("required", true);
         \u0275\u0275advance();
         \u0275\u0275twoWayProperty("ngModel", ctx.domain);
-        \u0275\u0275property("values", ctx.mPage.domains)("required", true)("searchable", false);
+        \u0275\u0275property("values", ctx.mPage.domains)("required", true);
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx.data.loginAttempts > 0 ? 7 : -1);
       }
     },
-    dependencies: [MpageInputComponent, MpageSelectComponent, ButtonDirective, FormsModule, NgControlStatus, RequiredValidator, NgModel],
+    dependencies: [MpageInputComponent, MpageSelectComponent, ButtonDirective, FormsModule, NgControlStatus, RequiredValidator, NgModel, DialogModule],
     encapsulation: 2,
     changeDetection: 0
   });
@@ -45028,51 +45165,48 @@ var UserLoginComponent = class _UserLoginComponent {
     type: Component,
     args: [{
       selector: "user-login",
-      imports: [MpageInputComponent, MpageSelectComponent, ButtonDirective, FormsModule],
+      imports: [MpageInputComponent, MpageSelectComponent, ButtonDirective, FormsModule, DialogModule],
       changeDetection: ChangeDetectionStrategy.OnPush,
       standalone: true,
-      template: '<div class="flex-column flex-gap">\r\n    <h2 class="flex flex-center-items">\r\n        Sign in to Cerner\r\n    </h2>\r\n    <hr />\r\n\r\n    <mpage-input label="Cerner User Name" [(ngModel)]="username" [required]="true" />\r\n    <mpage-input label="Password" [(ngModel)]="password" type="password" [required]="true" />\r\n    <mpage-select label="Domain" [(ngModel)]="domain" [values]="mPage.domains" [required]="true" [searchable]="false" />\r\n\r\n    @if (data.loginAttempts > 0) {\r\n    <p>Login failed. Please correct your values and try again.</p>\r\n    }\r\n\r\n    <div class="dialog-button-bar">\r\n        <button coButton="raised" color="primary" (click)="login()">Sign in</button>\r\n    </div>\r\n</div>\r\n'
+      template: '<div class="co-dialog flex-column flex-gap">\r\n    <h2 class="flex flex-center-items">\r\n        Sign in to Cerner\r\n    </h2>\r\n    <hr />\r\n\r\n    <mpage-input label="Cerner User Name" [(ngModel)]="username" [required]="true" />\r\n    <mpage-input label="Password" [(ngModel)]="password" type="password" [required]="true" />\r\n    <mpage-select label="Domain" [(ngModel)]="domain" [values]="mPage.domains" [required]="true" />\r\n\r\n    @if (data.loginAttempts > 0) {\r\n    <p>Login failed. Please correct your values and try again.</p>\r\n    }\r\n\r\n    <div class="dialog-button-bar">\r\n        <button coButton="raised" color="primary" (click)="login()">Sign in</button>\r\n    </div>\r\n</div>'
     }]
-  }], null, {
-    dialogRef: [{
-      type: Input
-    }],
-    data: [{
-      type: Input
-    }]
-  });
+  }], null, null);
 })();
 var SnackBarComponent = class _SnackBarComponent {
-  dialogRef;
-  data;
+  dialogRef = inject(DialogRef);
+  data = inject(DIALOG_DATA);
+  ngOnInit() {
+    if (this.data.delay > 0) {
+      setTimeout(() => {
+        this.dialogRef.close();
+      }, this.data.delay * 1e3);
+    }
+  }
   static \u0275fac = function SnackBarComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _SnackBarComponent)();
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
     type: _SnackBarComponent,
     selectors: [["lib-snack-bar"]],
-    inputs: {
-      dialogRef: "dialogRef",
-      data: "data"
-    },
     decls: 2,
-    vars: 3,
-    consts: [[3, "click"]],
+    vars: 2,
+    consts: [[1, "co-notification", 3, "click", "ngClass"]],
     template: function SnackBarComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275domElementStart(0, "div", 0);
-        \u0275\u0275domListener("click", function SnackBarComponent_Template_div_click_0_listener() {
+        \u0275\u0275elementStart(0, "div", 0);
+        \u0275\u0275listener("click", function SnackBarComponent_Template_div_click_0_listener() {
           return ctx.dialogRef.close();
         });
         \u0275\u0275text(1);
-        \u0275\u0275domElementEnd();
+        \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        \u0275\u0275classMap(ctx.data.class + " co-button-" + ctx.data.color + "-color");
+        \u0275\u0275property("ngClass", "co-button-" + ctx.data.color + "-color");
         \u0275\u0275advance();
         \u0275\u0275textInterpolate1(" ", ctx.data.message, "\n");
       }
     },
+    dependencies: [NgClass],
     encapsulation: 2,
     changeDetection: 0
   });
@@ -45082,35 +45216,31 @@ var SnackBarComponent = class _SnackBarComponent {
     type: Component,
     args: [{
       selector: "lib-snack-bar",
-      imports: [],
+      imports: [NgClass],
       changeDetection: ChangeDetectionStrategy.OnPush,
       standalone: true,
-      template: `<div (click)="dialogRef.close()" [class]="data.class + ' co-button-' + data.color + '-color'">\r
+      template: `<div (click)="dialogRef.close()" class="co-notification" [ngClass]="'co-button-' + data.color + '-color'">\r
     {{ data.message }}\r
 </div>\r
 `
     }]
-  }], null, {
-    dialogRef: [{
-      type: Input
-    }],
-    data: [{
-      type: Input
-    }]
-  });
+  }], null, null);
 })();
 var DefaultPayload = class {
   defaultPayload = /* @__PURE__ */ new Map();
-  // Setup all the default payload values that are used within the different data services. These are all done here
+  // Setup all of the default payload values that are used within the different data services. These are all done here
   // where they can be run in the constructor for the mPageService to allow user override.
   constructor() {
     this.defaultPayload.set("APO_ORG", {
-      clearPatientSource: true,
       organization: {
         aliases: true
       },
-      address: true,
-      phone: true
+      address: {
+        clearPatientSource: true
+      },
+      phone: {
+        clearPatientSource: true
+      }
     });
     this.defaultPayload.set("APO_ADDR", {
       address: true
@@ -45162,28 +45292,6 @@ var DefaultPayload = class {
         aliases: true
       }
     });
-    this.defaultPayload.set("PRSNL_MIN", {
-      prsnl: true
-    });
-    this.defaultPayload.set("PRSNL_ALL", {
-      prsnl: {
-        aliases: true,
-        credential: true,
-        prsnlGroup: true,
-        orgReltn: true,
-        prsnlPrsnlReltn: true
-      }
-    });
-    this.defaultPayload.set("PRSNL_ALL_PLUS", {
-      prsnl: {
-        aliases: true,
-        credential: true,
-        prsnlGroup: true,
-        orgReltn: true,
-        prsnlPrsnlReltn: true,
-        loadExtendedPersons: true
-      }
-    });
     this.defaultPayload.set("ENCOUNTER_MIN", {
       encounter: {
         aliases: true
@@ -45193,36 +45301,8 @@ var DefaultPayload = class {
       encounter: {
         aliases: true,
         encounterInfo: true,
-        encounterPlanReltn: true,
-        personReltn: true,
         prsnlReltn: true,
         locHist: true
-      }
-    });
-    this.defaultPayload.set("ENCOUNTER_ALL_PLUS", {
-      encounter: {
-        aliases: true,
-        encounterInfo: true,
-        encounterPlanReltn: true,
-        personReltn: true,
-        prsnlReltn: true,
-        locHist: true,
-        loadExtendedPersons: true
-      },
-      person: {
-        aliases: true,
-        patient: true,
-        names: true,
-        personInfo: true,
-        prsnlReltn: true,
-        personReltn: true,
-        personPlanReltn: true,
-        orgReltn: true,
-        personCodeReltn: true,
-        loadExtendedPersons: true
-      },
-      prsnl: {
-        aliases: true
       }
     });
     this.defaultPayload.set("ENCOUNTER_LIST_MIN", {
@@ -45328,7 +45408,7 @@ var MPageService = class _MPageService {
   mPageInstances = [];
   externalWindow = _window();
   dialog = inject(Dialog);
-  version = "v5.0.36";
+  version = "v5.0.0 (September 2025)";
   cclScript = "1co5_mpage_entry:group1";
   webUrl = "";
   contextRootValue = "";
@@ -45353,9 +45433,8 @@ var MPageService = class _MPageService {
       monthYearA11yLabel: "MMMM yyyy"
     }
   };
-  /*
-    public dateFormat: string = 'dd-MMM-yyyy';
-    public dateTimeFormat: string = 'dd-MMM-yyyy HH:mm'; */
+  dateFormat = "dd-MMM-yyyy";
+  dateTimeFormat = "dd-MMM-yyyy HH:mm";
   user = {
     userName: "",
     password: "",
@@ -45365,27 +45444,21 @@ var MPageService = class _MPageService {
   loginAttempts = 0;
   loggedIn = false;
   domains = [];
-  //  public loginLogo = "assets/login_logo.jpg";
-  //  private errorHandler = inject(ErrorHandlerService);
+  loginLogo = "assets/login_logo.jpg";
   activityLogEnabled = false;
-  activityLogData = signal([], __spreadValues({}, ngDevMode ? {
+  activityLogData = signal([], ...ngDevMode ? [{
     debugName: "activityLogData"
-  } : {}));
-  logCount = signal(0, __spreadValues({}, ngDevMode ? {
-    debugName: "logCount"
-  } : {}));
-  runTimeErrors = signal(0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  runTimeErrors = signal(0, ...ngDevMode ? [{
     debugName: "runTimeErrors"
-  } : {}));
-  completedCCLExecutes = signal(0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  completedCCLExecutes = signal(0, ...ngDevMode ? [{
     debugName: "completedCCLExecutes"
-  } : {}));
-  /*
-  private uniqueId = 0;
-     public get uniqueIdValue(): number {
+  }] : []);
+  uniqueId = 0;
+  get uniqueIdValue() {
     return this.uniqueId++;
   }
-   */
   // All Services Data Containers
   addresses = [];
   allergies = [];
@@ -45396,13 +45469,12 @@ var MPageService = class _MPageService {
   encounters = /* @__PURE__ */ new Map();
   organizations = [];
   persons = /* @__PURE__ */ new Map();
-  prsnl = /* @__PURE__ */ new Map();
   phones = [];
   problems = [];
   reference = /* @__PURE__ */ new Map();
-  referenceKeys = signal([], __spreadValues({}, ngDevMode ? {
+  referenceKeys = signal([], ...ngDevMode ? [{
     debugName: "referenceKeys"
-  } : {}));
+  }] : []);
   apoExecuted = false;
   // Used to store default payload values
   defaultPayload = new DefaultPayload().defaultPayload;
@@ -45577,7 +45649,7 @@ var MPageService = class _MPageService {
           this.putLog("Process ID " + nInstance + " CCL ERROR: (" + error.code + ") " + error.message, "error", nInstance);
           cclErrors += "<p>" + error.message + " (" + error.code + ")</p>";
         });
-        this.dialog.open(MpageConfirmComponent, {
+        const dialogRef = this.dialog.open(MpageConfirmComponent, {
           width: "80vw",
           data: {
             title: "CCL Script Error(s)",
@@ -45650,11 +45722,6 @@ var MPageService = class _MPageService {
               this.persons.set(person.personId, person);
             }
           }
-          if (data.hasOwnProperty("prsnl")) {
-            for (const prsnl of data.prsnl) {
-              this.prsnl.set(prsnl.personId, prsnl);
-            }
-          }
           if (data.hasOwnProperty("encounters")) {
             for (const encounter of data.encounters) {
               this.encounters.set(encounter.encntrId, encounter);
@@ -45670,7 +45737,6 @@ var MPageService = class _MPageService {
           this.pushReference("encounters", data, "Encounter");
           this.pushReference("organization", data, "Organization");
           this.pushReference("persons", data, "Person");
-          this.pushReference("prsnl", data, "Prsnl");
           this.pushReference("phone", data, "Phone");
           this.pushReference("problem", data, "Problem");
           if (data.hasOwnProperty("customPre")) {
@@ -45711,7 +45777,7 @@ var MPageService = class _MPageService {
             loginAttempts: this.loginAttempts
           }
         });
-        dialogRef.addEventListener("close", () => {
+        dialogRef.closed.subscribe((result) => {
           this.loginAttempts++;
           this.ping();
         });
@@ -45782,7 +45848,6 @@ var MPageService = class _MPageService {
   // Enter log data into the log
   putLog(text, type = "info", processId = -1, statusText = "") {
     if (this.activityLogEnabled && (type !== "debug" || this.debugRawMessage)) {
-      this.logCount.update((current) => current += 1);
       this.activityLogData.update((logData) => {
         if (logData.length > 99) {
           logData = logData.slice(-100);
@@ -45873,13 +45938,12 @@ var MPageService = class _MPageService {
     this.contextRootValue = value;
   }
   // Assign custom date formats
-  /*
-  public set customDateFormats(format: any) {
+  set customDateFormats(format) {
     if (format.display) {
       this.dateFormat = format.display.dateInput ?? this.dateFormat;
       this.dateTimeFormat = format.display.dateTimeLabel ?? format.display.dateTimeLabel;
     }
-     }*/
+  }
   // Assign the user object (Cannot Read Values outside of class)
   assignCredentials(userName, password, domain) {
     this.user = {
@@ -45952,16 +46016,18 @@ var MPageService = class _MPageService {
      * @link https://www.clinicaloffice.com
   */
   notifyUser(message, delay, position = "bottom", width = "20em", color = "primary") {
-    this.dialog.open(SnackBarComponent, {
+    const positionStrategy = position === "top" ? new GlobalPositionStrategy().centerHorizontally().top("0px") : position === "center" ? new GlobalPositionStrategy().centerHorizontally().centerVertically() : new GlobalPositionStrategy().centerHorizontally().bottom("0px");
+    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(SnackBarComponent, {
+      positionStrategy,
       width,
-      position,
-      class: "none",
+      hasBackdrop: false,
       data: {
         message,
-        color,
-        class: "co-notification"
+        delay,
+        color
       }
-    }, false, delay * 1e3);
+    });
   }
   static \u0275fac = function MPageService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MPageService)();
@@ -45986,32 +46052,30 @@ var AddressService = class _AddressService {
   logKeys = ["parentEntityId", "addressId"];
   overridePayload = void 0;
   // Empty Address
-  /*
-  public emptyAddress: IAddress = {
+  emptyAddress = {
     parentEntityId: 0,
-    parentEntityName: 'EMPTY',
+    parentEntityName: "EMPTY",
     addressId: 0,
-    addressType: '',
-    addressTypeMeaning: '',
+    addressType: "",
+    addressTypeMeaning: "",
     addressTypeSeq: 0,
     activeInd: 0,
-    begEffectiveDtTm: new Date(),
-    endEffectiveDtTm: new Date(),
-    streetAddr: '',
-    streetAddr2: '',
-    streetAddr3: '',
-    streetAddr4: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    county: '',
-    country: '',
+    begEffectiveDtTm: /* @__PURE__ */ new Date(),
+    endEffectiveDtTm: /* @__PURE__ */ new Date(),
+    streetAddr: "",
+    streetAddr2: "",
+    streetAddr3: "",
+    streetAddr4: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    county: "",
+    country: "",
     addressTypeCd: 0,
     stateCd: 0,
     countyCd: 0,
     countryCd: 0
   };
-      */
   get addresses() {
     return this.MPage.addresses;
   }
@@ -46034,7 +46098,8 @@ var AddressService = class _AddressService {
   }
   // Return a specific address by type
   get(addressType, parentEntityId = this.MPage.personId, parentEntityType = "PERSON") {
-    return this.addresses.find((address) => address.parentEntityId === parentEntityId && address.parentEntityName === parentEntityType.toUpperCase() && (address.addressType === addressType || address.addressTypeMeaning === addressType));
+    const addr = this.addresses.find((address) => address.parentEntityId === parentEntityId && address.parentEntityName === parentEntityType.toUpperCase() && (address.addressType === addressType || address.addressTypeMeaning === addressType));
+    return addr ?? this.emptyAddress;
   }
   // Helper for the putLog method
   putLog(text, type = "info", processId = -1, statusText = "") {
@@ -46210,53 +46275,52 @@ var DiagnosisService = class _DiagnosisService {
   putLog(text, type = "info", processId = -1, statusText = "") {
     this.MPage.putLog(text, type, processId, statusText);
   }
-  /*
-  private emptyDiagnosis(nEncntrId: number): IDiagnosis {
-       const emptyDiagnosis = {
+  emptyDiagnosis(nEncntrId) {
+    const emptyDiagnosis = {
       personId: 0,
       encntrId: nEncntrId,
       diagnosisId: 0,
       nomenclatureId: 0,
-      dxSourceString: '',
-      dxSourceIdentifier: '',
-      dxSourceVocab: '',
-      diagDtTm: new Date(),
-      diagType: '',
-      diagTypeMeaning: '',
-      diagnosticCategory: '',
+      dxSourceString: "",
+      dxSourceIdentifier: "",
+      dxSourceVocab: "",
+      diagDtTm: /* @__PURE__ */ new Date(),
+      diagType: "",
+      diagTypeMeaning: "",
+      diagnosticCategory: "",
       diagPriority: 0,
       diagPrsnlId: 0,
-      diagPrsnlName: '',
-      diagClass: '',
-      confidLevel: '',
-      attestationDtTm: new Date(),
-      diagFtDesc: '',
+      diagPrsnlName: "",
+      diagClass: "",
+      confidLevel: "",
+      attestationDtTm: /* @__PURE__ */ new Date(),
+      diagFtDesc: "",
       modNomenclatureId: 0,
-      modSourceString: '',
-      modSourceIdentifier: '',
-      modVocab: '',
-      diagNote: '',
-      conditionalQual: '',
-      clinicalService: '',
-      confirmationStatus: '',
-      classification: '',
-      severityClass: '',
-      certainty: '',
+      modSourceString: "",
+      modSourceIdentifier: "",
+      modVocab: "",
+      diagNote: "",
+      conditionalQual: "",
+      clinicalService: "",
+      confirmationStatus: "",
+      classification: "",
+      severityClass: "",
+      certainty: "",
       probability: 0,
-      diagnosisDisplay: '',
-      severityFtDesc: '',
+      diagnosisDisplay: "",
+      severityFtDesc: "",
       longBlobId: 0,
-      ranking: '',
-      severity: '',
+      ranking: "",
+      severity: "",
       diagnosisGroup: 0,
       clinicalDiagPriority: 0,
-      presentOnAdmit: '',
+      presentOnAdmit: "",
       hacInd: 0,
-      laterality: '',
+      laterality: "",
       originatingNomenclatureId: 0,
-      origDxSourceString: '',
+      origDxSourceString: "",
       origDxSourceIdentifier: 0,
-      origDxSourceVocab: '',
+      origDxSourceVocab: "",
       dxVocabCd: 0,
       diagTypeCd: 0,
       diagnosticCategoryCd: 0,
@@ -46275,12 +46339,13 @@ var DiagnosisService = class _DiagnosisService {
       lateralityCd: 0,
       origDxSourceVocabCd: 0
     };
-       return (emptyDiagnosis);
-     }*/
+    return emptyDiagnosis;
+  }
   // Returns a specific diagnosis demographic by encntrId.
-  get(nEncntrId = this.MPage.encntrId) {
+  get(nEncntrId = this.MPage.encntrId, payload = "DIAGNOSIS_FINAL") {
     nEncntrId = nEncntrId === 0 ? this.MPage.encntrId : nEncntrId;
-    return this.diagnoses.filter((diag) => diag.encntrId === nEncntrId);
+    const diagnosis = this.diagnoses.filter((diag) => diag.encntrId === nEncntrId);
+    return diagnosis.length > 0 ? diagnosis : [this.emptyDiagnosis(nEncntrId)];
   }
   // Clear all diagnosis for encntrId. If 0, remove all allergies
   clear(encntrId = this.MPage.encntrId) {
@@ -46301,72 +46366,6 @@ var DiagnosisService = class _DiagnosisService {
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DiagnosisService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
-var Dialog = class _Dialog {
-  appRef = inject(ApplicationRef);
-  injector = inject(EnvironmentInjector);
-  compInjector = inject(Injector);
-  renderer = inject(Renderer2);
-  el = inject(ElementRef);
-  open(componentType, config, modal = true, closeTimer = 0) {
-    const dialogElement = this.renderer.createElement("dialog");
-    dialogElement.setAttribute("class", config && config.containerClass ? config.containerClass : modal ? "co-modal-dialog-container" : "co-dialog-container");
-    this.renderer.appendChild(this.el.nativeElement, dialogElement);
-    const componentRef = createComponent(componentType, {
-      environmentInjector: this.injector,
-      elementInjector: this.compInjector
-    });
-    componentRef.location.nativeElement.classList.add(config && config.class ? config.class : "co-dialog");
-    componentRef.location.nativeElement.style.minWidth = config && config.minWidth ? config.minWidth : "unset";
-    componentRef.location.nativeElement.style.maxWidth = config && config.maxWidth ? config.maxWidth : "unset";
-    componentRef.location.nativeElement.style.width = config && config.width ? config.width : "unset";
-    componentRef.location.nativeElement.style.minHeight = config && config.minHeight ? config.minHeight : "unset";
-    componentRef.location.nativeElement.style.maxHeight = config && config.maxHeight ? config.maxHeight : "unset";
-    componentRef.location.nativeElement.style.height = config && config.height ? config.height : "unset";
-    if (!modal && config) {
-      componentRef.location.nativeElement.style.position = "fixed";
-      if (config.position === "top") componentRef.location.nativeElement.style.top = "0";
-      if (config.position === "bottom") componentRef.location.nativeElement.style.bottom = "0";
-    }
-    dialogElement.addEventListener("close", () => {
-      this.appRef.detachView(componentRef.hostView);
-      componentRef.destroy();
-      this.renderer.removeChild(this.el.nativeElement, dialogElement);
-    });
-    if (config) {
-      componentRef.setInput("dialogRef", dialogElement);
-      componentRef.setInput("data", config.data);
-    }
-    this.appRef.attachView(componentRef.hostView);
-    componentRef.changeDetectorRef.detectChanges();
-    dialogElement.appendChild(componentRef.location.nativeElement);
-    if (typeof dialogElement.showModal === "function") {
-      if (modal) dialogElement.showModal();
-      else {
-        if (closeTimer > 0) {
-          setTimeout(() => dialogElement.close(), closeTimer);
-        }
-        dialogElement.show();
-      }
-    }
-    return dialogElement;
-  }
-  static \u0275fac = function Dialog_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Dialog)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _Dialog,
-    factory: _Dialog.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Dialog, [{
     type: Injectable,
     args: [{
       providedIn: "root"
@@ -46408,11 +46407,11 @@ var EncounterService = class _EncounterService {
     this.MPage.putLog(text, type, processId, statusText);
   }
   // Executes the custom load list scripts
-  loadList(script, parameters, clearPatientSource, customId = "", typeList = [{
+  loadList(script, aParameters, bClearPatientSource, customId = "", aTypeList = [{
     codeSet: 0,
     type: "",
     typeCd: 0
-  }], payload = "ENCOUNTER_LIST_MIN", patientSource = [{
+  }], payload = "ENCOUNTER_LIST_MIN", aPatientSource = [{
     personId: 0,
     encntrId: 0
   }], callback = void 0) {
@@ -46423,28 +46422,28 @@ var EncounterService = class _EncounterService {
       pl = payload;
     }
     if (pl.hasOwnProperty("typeList")) {
-      for (let i = 0; i < typeList.length; i++) {
-        pl.typeList.push(typeList[i]);
+      for (let i = 0; i < aTypeList.length; i++) {
+        pl.typeList.push(aTypeList[i]);
       }
     } else {
       Object.assign(pl, {
-        typeList
+        typeList: aTypeList
       });
     }
     Object.assign(pl, {
-      clearPatientSource,
       customScript: {
         script: [{
           name: script,
           run: "pre",
           id: customId,
-          parameters
-        }]
+          parameters: aParameters
+        }],
+        clearPatientSource: bClearPatientSource
       }
     });
     this.MPage.executeCCL({
       payload: Object.assign({
-        patientSource
+        patientSource: aPatientSource
       }, pl)
     }, 0, callback);
   }
@@ -46457,58 +46456,66 @@ var EncounterService = class _EncounterService {
     }
     return false;
   }
-  // Returns a specific encounter by encntrId.
-  get(encntrId = this.MPage.encntrId) {
-    return this.encounters.get(encntrId);
+  // Returns a specific encounter by encntrId. If the encntrId does not exist, it gets loaded.
+  get(nEncntrId = this.MPage.encntrId, payload = "ENCOUNTER_MIN") {
+    if (nEncntrId !== 0) {
+      if (!this.encounters.has(nEncntrId)) {
+        this.encounters.set(nEncntrId, this.emptyEncounter(nEncntrId));
+        this.load(payload, [{
+          personId: 0,
+          encntrId: nEncntrId
+        }]);
+      }
+    }
+    return this.encounters.get(nEncntrId) ?? this.emptyEncounter(nEncntrId);
   }
   // Return an empty encounter object
-  /*
-  public emptyEncounter(personId: number = 0): IEncounter {
+  emptyEncounter(personId = 0) {
     return {
       encntrId: 0,
       personId: 0,
-      encntrClass: '',
-      encntrType: '',
-      encntrTypeClass: '',
-      encntrStatus: '',
-      preRegDtTm: new Date(),
+      encntrClass: "",
+      encntrType: "",
+      encntrTypeClass: "",
+      encntrStatus: "",
+      preRegDtTm: /* @__PURE__ */ new Date(),
       preRegPrsnlId: 0,
-      regDtTm: new Date(),
+      regDtTm: /* @__PURE__ */ new Date(),
       regPrsnlId: 0,
-      estArriveDtTm: new Date(),
-      estDepartDtTm: new Date(),
-      arriveDtTm: new Date(),
-      departDtTm: new Date(),
-      admitType: '',
-      admitSrc: '',
-      admitMode: '',
-      dischDisposition: '',
-      dischToLoctn: '',
-      readmit: '',
-      accommodation: '',
-      accommodationRequest: '',
-      ambulatoryCond: '',
-      courtesy: '',
-      isolation: '',
-      medService: '',
-      confidLevel: '',
-      vip: '',
-      location: '',
-      locFacility: '',
-      locBuilding: '',
-      locNurseUnit: '',
-      locRoom: '',
-      locBed: '',
-      dischDtTm: new Date(),
+      estArriveDtTm: /* @__PURE__ */ new Date(),
+      estDepartDtTm: /* @__PURE__ */ new Date(),
+      arriveDtTm: /* @__PURE__ */ new Date(),
+      departDtTm: /* @__PURE__ */ new Date(),
+      admitType: "",
+      admitSrc: "",
+      admitMode: "",
+      dischDisposition: "",
+      dischToLoctn: "",
+      readmit: "",
+      accommodation: "",
+      accommodationRequest: "",
+      ambulatoryCond: "",
+      courtesy: "",
+      isolation: "",
+      medService: "",
+      confidLevel: "",
+      vip: "",
+      location: "",
+      locFacility: "",
+      locBuilding: "",
+      locNurseUnit: "",
+      locRoom: "",
+      locBed: "",
+      dischDtTm: /* @__PURE__ */ new Date(),
       organizationId: 0,
-      reasonForVisit: '',
+      reasonForVisit: "",
       encntrFinancialId: 0,
-      financialClass: '',
-      trauma: '',
-      triage: '',
-      triageDtTm: new Date(),
-      visitorStatus: '',
-      inpatientAdmitDtTm: new Date(),
+      financialClass: "",
+      trauma: "",
+      triage: "",
+      triageDtTm: /* @__PURE__ */ new Date(),
+      visitorStatus: "",
+      inpatientAdmitDtTm: /* @__PURE__ */ new Date(),
       encntrClassCd: 0,
       encntrTypeCd: 0,
       encntrTypeClassCd: 0,
@@ -46541,11 +46548,9 @@ var EncounterService = class _EncounterService {
       aliases: [],
       prsnlReltn: [],
       encntrInfo: [],
-      encntrPlanReltn: [],
       locHist: []
-    }
+    };
   }
-  */
   // Returns a specific person alias
   getAlias(aliasType, encntrId = this.MPage.encntrId) {
     if (this.encounters.has(encntrId)) {
@@ -46557,7 +46562,17 @@ var EncounterService = class _EncounterService {
         }
       }
     }
-    return void 0;
+    return {
+      aliasPool: "",
+      aliasType: "",
+      aliasTypeMeaning: "",
+      alias: "",
+      aliasFormatted: "",
+      aliasSubType: "",
+      aliasPoolCd: 0,
+      encntrAliasTypeCd: 0,
+      encntrAliasSubTypeCd: 0
+    };
   }
   // Returns a specific encounter info record
   getEncntrInfo(infoType, encntrId = this.MPage.encntrId, internalSeq = 1, prioritySeq = 1) {
@@ -46570,55 +46585,23 @@ var EncounterService = class _EncounterService {
         }
       }
     }
-    return void 0;
-  }
-  // Returns a specific Person/Person Reltn record
-  getPersonReltn(reltnType, encntrId = this.MPage.encntrId, internalSeq, prioritySeq) {
-    encntrId = encntrId < 0 ? this.MPage.encntrId : encntrId;
-    if (this.encounters.has(encntrId)) {
-      const encounter = this.encounters.get(encntrId);
-      if (encounter && encounter.hasOwnProperty("personReltn")) {
-        const reltn = encounter.personReltn.filter((r) => (r.personReltnType === reltnType || r.personReltnTypeMeaning === reltnType) && (internalSeq === void 0 || r.internalSeq === internalSeq) && (prioritySeq === void 0 || r.prioritySeq === prioritySeq));
-        if (reltn.length > 0) {
-          return reltn[0];
-        }
-      }
-    }
-    return void 0;
-  }
-  // Returns a specific Person/Person Reltn record by id
-  getPersonReltnById(reltnType, relatedPersonId, encntrId = this.MPage.encntrId) {
-    encntrId = encntrId < 0 ? this.MPage.encntrId : encntrId;
-    if (this.encounters.has(encntrId)) {
-      const encounter = this.encounters.get(encntrId);
-      if (encounter && encounter.hasOwnProperty("personReltn")) {
-        const reltn = encounter.personReltn.filter((r) => (r.personReltnType === reltnType || r.personReltnTypeMeaning === reltnType) && r.relatedPersonId === relatedPersonId);
-        if (reltn.length > 0) {
-          return reltn[0];
-        }
-      }
-    }
-    return void 0;
-  }
-  // Returns person health plan records
-  getPlanReltn(encntrId = this.MPage.encntrId) {
-    if (this.encounters.has(encntrId)) {
-      const encounter = this.encounters.get(encntrId);
-      if (encounter.hasOwnProperty("encntrPlanReltn")) {
-        return encounter.encntrPlanReltn;
-      }
-    }
-    return [];
-  }
-  // Returns specific person health plan records
-  getPlanReltnByPriority(prioritySeq, encntrId = this.MPage.encntrId) {
-    if (this.encounters.has(encntrId)) {
-      const encounter = this.encounters.get(encntrId);
-      if (encounter.hasOwnProperty("encntrPlanReltn")) {
-        return encounter.encntrPlanReltn.find((plan) => plan.prioritySeq === prioritySeq);
-      }
-    }
-    return void 0;
+    return {
+      infoType: "",
+      infoTypeMeaning: "",
+      infoSubType: "",
+      infoSubTypeMeaning: "",
+      valueNumericInd: 0,
+      valueNumeric: 0,
+      valueDtTm: /* @__PURE__ */ new Date(),
+      chartableInd: 0,
+      prioritySeq: 0,
+      internalSeq: 0,
+      value: "",
+      longText: "",
+      infoTypeCd: 0,
+      infoSubTypeCd: 0,
+      valueCd: 0
+    };
   }
   // Returns a specific Prsnl Reltn record
   getPrsnlReltn(reltnType, encntrId = this.MPage.encntrId) {
@@ -46631,7 +46614,23 @@ var EncounterService = class _EncounterService {
         }
       }
     }
-    return void 0;
+    return {
+      reltnType: "",
+      reltnTypeMeaning: "",
+      personId: 0,
+      prioritySeq: 0,
+      internalSeq: 0,
+      prsnlType: "",
+      nameFullFormatted: "",
+      physicianInd: 0,
+      position: "",
+      nameLast: "",
+      nameFirst: "",
+      userName: "",
+      encntrPrsnlRCd: 0,
+      prsnlTypeCd: 0,
+      positionCd: 0
+    };
   }
   // Returns a specific location history record for an encounter at a specific date/time
   getLocationHistory(timeStamp, encntrId = this.MPage.encntrId) {
@@ -46644,7 +46643,44 @@ var EncounterService = class _EncounterService {
         }
       }
     }
-    return void 0;
+    return {
+      begEffectiveDtTm: /* @__PURE__ */ new Date(),
+      endEffectiveDtTm: /* @__PURE__ */ new Date(),
+      arriveDtTm: /* @__PURE__ */ new Date(),
+      arrivePrsnlId: 0,
+      departDtTm: /* @__PURE__ */ new Date(),
+      departPrsnlId: 0,
+      location: "",
+      locFacility: "",
+      locBuilding: "",
+      locNurseUnit: "",
+      locRoom: "",
+      locBed: "",
+      encntrType: "",
+      medService: "",
+      transactionDtTm: /* @__PURE__ */ new Date(),
+      activityDtTm: /* @__PURE__ */ new Date(),
+      accommodation: "",
+      accommodationRequest: "",
+      admitType: "",
+      isolation: "",
+      organizationId: 0,
+      encntrTypeClass: "",
+      locationCd: 0,
+      locationOrgId: 0,
+      locFacilityCd: 0,
+      locBuildingCd: 0,
+      locNurseUnitCd: 0,
+      locRoomCd: 0,
+      locBedCd: 0,
+      encntrTypeCd: 0,
+      medServiceCd: 0,
+      accommodationCd: 0,
+      accommodationRequestCd: 0,
+      admitTypeCd: 0,
+      isolationCd: 0,
+      encntrTypeClassCd: 0
+    };
   }
   static \u0275fac = function EncounterService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _EncounterService)();
@@ -46657,6 +46693,40 @@ var EncounterService = class _EncounterService {
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(EncounterService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var ErrorHandlerService = class _ErrorHandlerService extends ErrorHandler {
+  MPage = inject(MPageService);
+  handleError(error) {
+    const errorMessage = "*** RUNTIME ERROR " + (error.code ?? "") + " *** " + error.message;
+    if (error.code !== "100") {
+      this.MPage.runTimeErrors.set(this.MPage.runTimeErrors() + 1);
+      if (this.MPage.activityLogEnabled) {
+        this.MPage.putLog(errorMessage, "error");
+      } else {
+        alert(errorMessage);
+      }
+    }
+    super.handleError(error);
+  }
+  static \u0275fac = /* @__PURE__ */ (() => {
+    let \u0275ErrorHandlerService_BaseFactory;
+    return function ErrorHandlerService_Factory(__ngFactoryType__) {
+      return (\u0275ErrorHandlerService_BaseFactory || (\u0275ErrorHandlerService_BaseFactory = \u0275\u0275getInheritedFactory(_ErrorHandlerService)))(__ngFactoryType__ || _ErrorHandlerService);
+    };
+  })();
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
+    token: _ErrorHandlerService,
+    factory: _ErrorHandlerService.\u0275fac,
+    providedIn: "root"
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ErrorHandlerService, [{
     type: Injectable,
     args: [{
       providedIn: "root"
@@ -46739,7 +46809,7 @@ var OrganizationService = class _OrganizationService {
   }
   // Returns a specific organization by organizationId. If it hasn't been loaded, it gets loaded.
   get(orgId) {
-    return this.organizations.find((organization) => organization.organizationId === orgId);
+    return this.organizations.find((organization) => organization.organizationId === orgId) ?? this.emptyOrganization;
   }
   // Determines if organization has been loaded
   has(organizationId) {
@@ -46757,24 +46827,32 @@ var OrganizationService = class _OrganizationService {
         }
       }
     }
-    return void 0;
+    return {
+      aliasPool: "",
+      orgAliasType: "",
+      orgAliasTypeMeaning: "",
+      alias: "",
+      aliasFormatted: "",
+      orgAliasSubType: "",
+      aliasPoolCd: 0,
+      orgAliasTypeCd: 0,
+      orgAliasSubTypeCd: 0
+    };
   }
   // Returns a blank organization with the assigned Id
-  /*
-  public get emptyOrganization(): IOrganization {
+  get emptyOrganization() {
     return {
       organizationId: 0,
-      orgName: '',
-      federalTaxIdNbr: '',
-      orgStatus: '',
-      orgClass: '',
+      orgName: "",
+      federalTaxIdNbr: "",
+      orgStatus: "",
+      orgClass: "",
       externalInd: 0,
       orgStatusCd: 0,
       orgClassCd: 0,
       aliases: []
     };
   }
-   */
   // Helper for the putLog method
   putLog(text, type = "info", processId = -1, statusText = "") {
     this.MPage.putLog(text, type, processId, statusText);
@@ -46822,39 +46900,38 @@ var PersonService = class _PersonService {
     return this.persons.has(personId);
   }
   // Returns a specific person demographic by personId.
-  get(personId = this.MPage.personId) {
-    return this.persons.get(personId);
+  get(personId = this.MPage.personId, payload = "PERSON_MIN") {
+    return this.persons.get(personId) ?? this.emptyPerson(personId);
   }
   // Return an empty person object
-  /*
-  public emptyPerson(personId: number = 0): IPerson {
+  emptyPerson(personId = 0) {
     return {
       personId,
       logicalDomainId: 0,
-      nameFullFormatted: '',
-      nameLast: '',
-      nameFirst: '',
-      nameMiddle: '',
-      birthDtTm: new Date(),
-      age: '',
-      deceasedDtTm: new Date(),
-      lastEncntrDtTm: new Date(),
-      autopsy: '',
-      deceased: '',
-      ethnicGrp: '',
-      language: '',
-      maritalType: '',
-      race: '',
-      religion: '',
-      sex: '',
-      species: '',
-      confidLevel: '',
-      vip: '',
-      interpRequired: '',
-      livingWill: '',
+      nameFullFormatted: "",
+      nameLast: "",
+      nameFirst: "",
+      nameMiddle: "",
+      birthDtTm: /* @__PURE__ */ new Date(),
+      age: "",
+      deceasedDtTm: /* @__PURE__ */ new Date(),
+      lastEncntrDtTm: /* @__PURE__ */ new Date(),
+      autopsy: "",
+      deceased: "",
+      ethnicGrp: "",
+      language: "",
+      maritalType: "",
+      race: "",
+      religion: "",
+      sex: "",
+      species: "",
+      confidLevel: "",
+      vip: "",
+      interpRequired: "",
+      livingWill: "",
       gestAgeAtBirth: 0,
-      gestAgeMethod: '',
-      healthInfoAccessOffered: '',
+      gestAgeMethod: "",
+      healthInfoAccessOffered: "",
       autopsyCd: 0,
       deceasedCd: 0,
       ethnicGrpCd: 0,
@@ -46878,9 +46955,8 @@ var PersonService = class _PersonService {
       personOrgReltn: [],
       personInfo: [],
       personCodeReltn: []
-    }
+    };
   }
-      */
   // Helper for the putLog method
   putLog(text, type = "info", processId = -1, statusText = "") {
     this.MPage.putLog(text, type, processId, statusText);
@@ -46888,47 +46964,95 @@ var PersonService = class _PersonService {
   // Returns a specific person alias
   getAlias(aliasType, personId = this.MPage.personId) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("aliases")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("aliases")) {
         const alias = person.aliases.filter((a) => a.aliasType === aliasType || a.aliasTypeMeaning === aliasType);
         if (alias.length > 0) {
           return alias[0];
         }
       }
     }
-    return void 0;
+    return {
+      aliasPool: "",
+      aliasType: "",
+      aliasTypeMeaning: "",
+      alias: "",
+      aliasFormatted: "",
+      aliasSubType: "",
+      visitSeqNbr: 0,
+      healthCardProvince: "",
+      healthCardVerCode: "",
+      healthCardIssueDtTm: /* @__PURE__ */ new Date(),
+      healthCardExpiryDtTm: /* @__PURE__ */ new Date(),
+      healthCardType: "",
+      aliasPoolCd: 0,
+      personAliasTypeCd: 0,
+      personAliasSubTypeCd: 0
+    };
   }
   // Returns a specific person name record
   getName(nameType, personId = this.MPage.personId) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("names")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("names")) {
         const name = person.names.filter((n2) => n2.nameType === nameType || n2.nameTypeMeaning === nameType);
         if (name.length > 0) {
           return name[0];
         }
       }
     }
-    return void 0;
+    return {
+      nameType: "",
+      nameTypeMeaning: "",
+      begEffectiveDtTm: /* @__PURE__ */ new Date(),
+      endEffectiveDtTm: /* @__PURE__ */ new Date(),
+      nameFullFormatted: "",
+      nameFirst: "",
+      nameMiddle: "",
+      nameLast: "",
+      nameDegree: "",
+      nameTitle: "",
+      namePrefix: "",
+      nameSuffix: "",
+      nameInitials: "",
+      nameTypeSeq: 0,
+      nameTypeCd: 0
+    };
   }
   // Returns a specific person info record
   getPersonInfo(infoType, personId = this.MPage.personId, internalSeq = 1, prioritySeq = 1) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("personInfo")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("personInfo")) {
         const info = person.personInfo.filter((i) => (i.infoType === infoType || i.infoTypeMeaning === infoType || i.infoSubType === infoType || i.infoSubTypeMeaning === infoType) && (i.internalSeq === internalSeq || i.internalSeq <= internalSeq && internalSeq === 1) && (i.prioritySeq === prioritySeq || i.prioritySeq <= prioritySeq && prioritySeq === 1));
         if (info.length > 0) {
           return info[0];
         }
       }
     }
-    return void 0;
+    return {
+      infoType: "",
+      infoTypeMeaning: "",
+      infoSubType: "",
+      infoSubTypeMeaning: "",
+      valueNumericInd: 0,
+      valueNumeric: 0,
+      valueDtTm: /* @__PURE__ */ new Date(),
+      chartableInd: 0,
+      prioritySeq: 0,
+      internalSeq: 0,
+      value: "",
+      longText: "",
+      infoTypeCd: 0,
+      infoSubTypeCd: 0,
+      valueCd: 0
+    };
   }
   // Returns a specific set of person code value relations based on personId and CodeSet
-  getPersonCodeReltn(codeSet, personId = this.MPage.personId) {
+  getPersonCodeReltn(codeSet = 0, personId = this.MPage.personId) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("personCodeReltn")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("personCodeReltn")) {
         return codeSet === 0 ? person.personCodeReltn : person.personCodeReltn.filter((e) => e.codeSet === codeSet);
       }
     }
@@ -46944,55 +47068,87 @@ var PersonService = class _PersonService {
     }
     return [];
   }
-  // Returns person health plan records by plan id
-  getPlanReltnById(personPlanReltnId, personId = this.MPage.personId) {
-    if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person.hasOwnProperty("personPlanReltn")) {
-        return person.personPlanReltn.find((plan) => plan.personPlanReltnId === personPlanReltnId);
-      }
-    }
-    return void 0;
-  }
   // Returns a specific Prsnl Reltn record
   getPrsnlReltn(reltnType, personId = this.MPage.personId) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("prsnlReltn")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("prsnlReltn")) {
         const prsnl = person.prsnlReltn.filter((p) => p.reltnType === reltnType || p.reltnTypeMeaning === reltnType);
         if (prsnl.length > 0) {
           return prsnl[0];
         }
       }
     }
-    return void 0;
+    return {
+      reltnType: "",
+      reltnTypeMeaning: "",
+      personId: 0,
+      prioritySeq: 0,
+      prsnlType: "",
+      nameFullFormatted: "",
+      physicianInd: 0,
+      position: "",
+      nameLast: "",
+      nameFirst: "",
+      userName: "",
+      personPrsnlRCd: 0,
+      prsnlTypeCd: 0,
+      positionCd: 0
+    };
   }
   // Returns a specific Person/Person Reltn record
   getPersonReltn(reltnType, personId = this.MPage.personId, internalSeq, prioritySeq) {
     personId = personId < 0 ? this.MPage.personId : personId;
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("personReltn")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("personReltn")) {
         const reltn = person.personReltn.filter((r) => (r.personReltnType === reltnType || r.personReltnTypeMeaning === reltnType) && (internalSeq === void 0 || r.internalSeq === internalSeq) && (prioritySeq === void 0 || r.prioritySeq === prioritySeq));
         if (reltn.length > 0) {
           return reltn[0];
         }
       }
     }
-    return void 0;
+    return {
+      personReltnType: "",
+      personReltnTypeMeaning: "",
+      personReltn: "",
+      relatedPersonReltn: "",
+      personId: 0,
+      prioritySeq: 0,
+      internalSeq: 0,
+      nameFullFormatted: "",
+      nameLast: "",
+      nameFirst: "",
+      nameMiddle: "",
+      personReltnTypeCd: 0,
+      personReltnCd: 0,
+      relatedPersonReltnCd: 0
+    };
   }
   // Returns person organization relationships
   getPersonOrgReltn(reltnType, personId = this.MPage.personId, prioritySeq = 1) {
     if (this.persons.has(personId)) {
-      const person = this.persons.get(personId);
-      if (person && person.hasOwnProperty("personOrgReltn")) {
+      const person = this.persons.get(personId) ?? this.emptyPerson(personId);
+      if (person.hasOwnProperty("personOrgReltn")) {
         const org = person.personOrgReltn.filter((o) => (o.personOrgReltn === reltnType || o.personOrgReltnMeaning === reltnType) && (o.prioritySeq === prioritySeq || o.prioritySeq <= prioritySeq && prioritySeq === 1));
         if (org.length > 0) {
           return org[0];
         }
       }
     }
-    return void 0;
+    return {
+      personOrgReltnId: 0,
+      personOrgReltn: "",
+      personOrgReltnMeaning: "",
+      organizationId: 0,
+      emplType: "",
+      emplStatus: "",
+      orgName: "",
+      prioritySeq: 0,
+      personOrgReltnCd: 0,
+      emplTypeCd: 0,
+      emplStatusCd: 0
+    };
   }
   static \u0275fac = function PersonService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PersonService)();
@@ -47011,77 +47167,26 @@ var PersonService = class _PersonService {
     }]
   }], null, null);
 })();
-var PrsnlService = class _PrsnlService {
-  serviceName = "PrsnlService";
-  MPage = inject(MPageService);
-  logKeys = ["personId", "nameFullFormatted"];
-  overridePayload = void 0;
-  prsnl = this.MPage.prsnl;
-  // Return all values
-  values() {
-    return this.prsnl.values();
-  }
-  // Return number of entries
-  length() {
-    return this.prsnl.size;
-  }
-  // Retrieve patient record(s) from CCL
-  load(payload, prsnlSource, callback = void 0) {
-    this.MPage.load(payload, this.overridePayload, [], callback, {
-      prsnlSource
-    });
-  }
-  // Determine if prsnl record has been loaded or not
-  has(personId = this.MPage.personId) {
-    return this.prsnl.has(personId);
-  }
-  // Returns a specific person demographic by personId.
-  get(personId = this.MPage.personId) {
-    return this.prsnl.get(personId);
-  }
-  // Helper for the putLog method
-  putLog(text, type = "info", processId = -1, statusText = "") {
-    this.MPage.putLog(text, type, processId, statusText);
-  }
-  static \u0275fac = function PrsnlService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PrsnlService)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({
-    token: _PrsnlService,
-    factory: _PrsnlService.\u0275fac,
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PrsnlService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
-  }], null, null);
-})();
 var PhoneService = class _PhoneService {
   serviceName = "PhoneService";
   MPage = inject(MPageService);
   logKeys = ["parentEntityId", "phoneId"];
   overridePayload = void 0;
-  /*
-  public emptyPhone: IPhone = {
+  emptyPhone = {
     parentEntityId: 0,
-    parentEntityName: '',
+    parentEntityName: "",
     phoneId: 0,
-    phoneType: '',
-    phoneTypeMeaning: '',
+    phoneType: "",
+    phoneTypeMeaning: "",
     phoneTypeSeq: 0,
     activeInd: 0,
-    begEffectiveDtTm: new Date(),
-    endEffectiveDtTm: new Date(),
-    phoneNumber: '',
-    phoneFormatted: '',
-    extension: '',
+    begEffectiveDtTm: /* @__PURE__ */ new Date(),
+    endEffectiveDtTm: /* @__PURE__ */ new Date(),
+    phoneNumber: "",
+    phoneFormatted: "",
+    extension: "",
     phoneTypeCd: 0
   };
-      */
   get phones() {
     return this.MPage.phones;
   }
@@ -47104,7 +47209,8 @@ var PhoneService = class _PhoneService {
   }
   // Return a specific phone by type
   get(phoneType, parentEntityId = this.MPage.personId, parentEntityType = "PERSON") {
-    return this.phones.find((phone) => phone.parentEntityId === parentEntityId && phone.parentEntityName === parentEntityType.toUpperCase() && (phone.phoneType === phoneType || phone.phoneTypeMeaning === phoneType));
+    const ph = this.phones.find((phone) => phone.parentEntityId === parentEntityId && phone.parentEntityName === parentEntityType.toUpperCase() && (phone.phoneType === phoneType || phone.phoneTypeMeaning === phoneType));
+    return ph ?? this.emptyPhone;
   }
   // Helper for the putLog method
   putLog(text, type = "info", processId = -1, statusText = "") {
@@ -47155,54 +47261,53 @@ var ProblemService = class _ProblemService {
   }], callback = void 0) {
     this.MPage.load(payload, this.overridePayload, patientSource, callback);
   }
-  /*
-  private emptyProblem(nPersonId: number): IProblem {
-       const emptyProblem = {
+  emptyProblem(nPersonId) {
+    const emptyProblem = {
       personId: nPersonId,
       problemInstanceId: 0,
       problemId: 0,
       nomenclatureId: 0,
-      probSourceString: '',
+      probSourceString: "",
       probSourceIdentifier: 0,
-      probSourceVocab: '',
-      problemFtDesc: '',
-      estimatedResolutionDtTm: new Date(),
-      actualResolutionDtTm: new Date(),
-      classification: '',
-      persistence: '',
-      confirmationStatus: '',
-      lifeCycleStatus: '',
-      lifeCycleStatusMeaning: '',
-      lifeCycleDtTm: new Date(),
-      onsetDt: '',
-      onsetDtTm: new Date(),
-      ranking: '',
-      certainty: '',
+      probSourceVocab: "",
+      problemFtDesc: "",
+      estimatedResolutionDtTm: /* @__PURE__ */ new Date(),
+      actualResolutionDtTm: /* @__PURE__ */ new Date(),
+      classification: "",
+      persistence: "",
+      confirmationStatus: "",
+      lifeCycleStatus: "",
+      lifeCycleStatusMeaning: "",
+      lifeCycleDtTm: /* @__PURE__ */ new Date(),
+      onsetDt: "",
+      onsetDtTm: /* @__PURE__ */ new Date(),
+      ranking: "",
+      certainty: "",
       probability: 0,
-      personAware: '',
-      prognosis: '',
-      personAwarePrognosis: '',
-      familyAware: '',
+      personAware: "",
+      prognosis: "",
+      personAwarePrognosis: "",
+      familyAware: "",
       sensitivity: 0,
-      course: '',
-      cancelReason: '',
+      course: "",
+      cancelReason: "",
       onsetDtFlag: 0,
-      statusUpdtPrecision: '',
+      statusUpdtPrecision: "",
       statusUpdtFlag: 0,
-      statusUpdtDtTm: new Date(),
-      qualifier: '',
-      annotatedDisplay: '',
-      severityClass: '',
-      severity: '',
-      severityFtDesc: '',
-      lifeCycleDt: '',
+      statusUpdtDtTm: /* @__PURE__ */ new Date(),
+      qualifier: "",
+      annotatedDisplay: "",
+      severityClass: "",
+      severity: "",
+      severityFtDesc: "",
+      lifeCycleDt: "",
       lifeCycleDtFlag: 0,
       problemTypeFlag: 0,
-      laterality: '',
+      laterality: "",
       originatingNomenclature: 0,
-      origProbSourceString: '',
+      origProbSourceString: "",
       origProbSourceIdentifier: 0,
-      origProbSourceVocab: '',
+      origProbSourceVocab: "",
       probSourceVocabCd: 0,
       classificationCd: 0,
       persistenceCd: 0,
@@ -47226,13 +47331,13 @@ var ProblemService = class _ProblemService {
       origProbSourceVocabCd: 0,
       comments: []
     };
-       return (emptyProblem);
+    return emptyProblem;
   }
-      */
-  // Returns a specific problems demographic by personId.
-  get(nPersonId = this.MPage.personId) {
+  // Returns a specific problems demographic by personId. If the personId does not exist, it gets loaded.
+  get(nPersonId = this.MPage.personId, payload = "PROBLEM_ACTIVE") {
     nPersonId = nPersonId === 0 ? this.MPage.personId : nPersonId;
-    return this.problems.filter((p) => p.personId === nPersonId);
+    const problem = this.problems.filter((p) => p.personId === nPersonId);
+    return problem.length > 0 ? problem : [this.emptyProblem(nPersonId)];
   }
   // Clear all problems for personId. If 0, remove all problems
   clear(nPersonId = this.MPage.personId) {
@@ -47291,7 +47396,6 @@ var ReferenceService = class _ReferenceService {
       organization: true,
       person: true,
       phone: true,
-      prsnl: true,
       problem: true
     }, void 0, [{
       personId: 0,
@@ -47326,7 +47430,7 @@ function emptyColumnConfig() {
   };
 }
 var RemainingScreenSpaceDirective = class _RemainingScreenSpaceDirective {
-  onResize(event2) {
+  onResize(event) {
     this.updateContainer();
   }
   _percentage = 1;
@@ -47394,6 +47498,37 @@ var RemainingScreenSpaceDirective = class _RemainingScreenSpaceDirective {
     }]
   });
 })();
+var IndeterminateDirective = class _IndeterminateDirective {
+  elem = inject(ElementRef);
+  constructor() {
+  }
+  set coIndeterminate(value) {
+    this.elem.nativeElement.indeterminate = value;
+  }
+  static \u0275fac = function IndeterminateDirective_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _IndeterminateDirective)();
+  };
+  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
+    type: _IndeterminateDirective,
+    selectors: [["", "coIndeterminate", ""]],
+    inputs: {
+      coIndeterminate: "coIndeterminate"
+    }
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IndeterminateDirective, [{
+    type: Directive,
+    args: [{
+      standalone: true,
+      selector: "[coIndeterminate]"
+    }]
+  }], () => [], {
+    coIndeterminate: [{
+      type: Input
+    }]
+  });
+})();
 var OptionalTitleDirective = class _OptionalTitleDirective {
   el = inject(ElementRef);
   renderer = inject(Renderer2);
@@ -47428,45 +47563,9 @@ var OptionalTitleDirective = class _OptionalTitleDirective {
     }]
   });
 })();
-var PreventScrollDirective = class _PreventScrollDirective {
-  el = inject(ElementRef);
-  onWheel(event2) {
-    event2.preventDefault();
-    event2.stopPropagation();
-  }
-  static \u0275fac = function PreventScrollDirective_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PreventScrollDirective)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _PreventScrollDirective,
-    selectors: [["", "coPreventScroll", ""]],
-    hostBindings: function PreventScrollDirective_HostBindings(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275listener("wheel", function PreventScrollDirective_wheel_HostBindingHandler($event) {
-          return ctx.onWheel($event);
-        });
-      }
-    }
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PreventScrollDirective, [{
-    type: Directive,
-    args: [{
-      selector: "[coPreventScroll]"
-    }]
-  }], null, {
-    onWheel: [{
-      type: HostListener,
-      args: ["wheel", ["$event"]]
-    }]
-  });
-})();
 var MpageConfirmComponent = class _MpageConfirmComponent {
-  dialogRef;
-  title = "Default Title";
-  message = "Default message";
-  data;
+  dialogRef = inject(DialogRef);
+  data = inject(DIALOG_DATA);
   ds = inject(DomSanitizer);
   dialogData = {
     title: "",
@@ -47483,20 +47582,18 @@ var MpageConfirmComponent = class _MpageConfirmComponent {
     cancelButtonColor: "accent"
   };
   ngOnInit() {
-    if (this.data) {
-      this.dialogData.title = this.data.title ?? this.dialogData.title;
-      this.dialogData.text = this.data.text ?? this.dialogData.text;
-      this.dialogData.icon = this.data.icon ?? this.dialogData.icon;
-      this.dialogData.titleColor = this.data.titleColor ?? this.dialogData.titleColor;
-      this.dialogData.showConfirmButton = this.data.showConfirmButton ?? this.dialogData.showConfirmButton;
-      this.dialogData.confirmButtonLabel = this.data.confirmButtonLabel ?? this.dialogData.confirmButtonLabel;
-      this.dialogData.confirmButtonStyle = this.data.confirmButtonStyle ?? this.dialogData.confirmButtonStyle;
-      this.dialogData.confirmButtonColor = this.data.confirmButtonColor ?? this.dialogData.confirmButtonColor;
-      this.dialogData.showCancelButton = this.data.showCancelButton ?? this.dialogData.showCancelButton;
-      this.dialogData.cancelButtonLabel = this.data.cancelButtonLabel ?? this.dialogData.cancelButtonLabel;
-      this.dialogData.cancelButtonColor = this.data.cancelButtonColor ?? this.dialogData.cancelButtonColor;
-      this.dialogData.cancelButtonStyle = this.data.cancelButtonStyle ?? this.dialogData.cancelButtonStyle;
-    }
+    this.dialogData.title = this.data.title ?? this.dialogData.title;
+    this.dialogData.text = this.data.text ?? this.dialogData.text;
+    this.dialogData.icon = this.data.icon ?? this.dialogData.icon;
+    this.dialogData.titleColor = this.data.titleColor ?? this.dialogData.titleColor;
+    this.dialogData.showConfirmButton = this.data.showConfirmButton ?? this.dialogData.showConfirmButton;
+    this.dialogData.confirmButtonLabel = this.data.confirmButtonLabel ?? this.dialogData.confirmButtonLabel;
+    this.dialogData.confirmButtonStyle = this.data.confirmButtonStyle ?? this.dialogData.confirmButtonStyle;
+    this.dialogData.confirmButtonColor = this.data.confirmButtonColor ?? this.dialogData.confirmButtonColor;
+    this.dialogData.showCancelButton = this.data.showCancelButton ?? this.dialogData.showCancelButton;
+    this.dialogData.cancelButtonLabel = this.data.cancelButtonLabel ?? this.dialogData.cancelButtonLabel;
+    this.dialogData.cancelButtonColor = this.data.cancelButtonColor ?? this.dialogData.cancelButtonColor;
+    this.dialogData.cancelButtonStyle = this.data.cancelButtonStyle ?? this.dialogData.cancelButtonStyle;
   }
   get content() {
     return this.ds.bypassSecurityTrustHtml(this.dialogData.text);
@@ -47506,31 +47603,19 @@ var MpageConfirmComponent = class _MpageConfirmComponent {
       color: "var(--" + this.dialogData.titleColor + "-color)"
     };
   }
-  close() {
-    const dialog = event.target.closest("dialog");
-    if (dialog && typeof dialog.close === "function") {
-      dialog.close();
-    }
-  }
   static \u0275fac = function MpageConfirmComponent_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MpageConfirmComponent)();
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
     type: _MpageConfirmComponent,
-    selectors: [["mpage-confirm"]],
-    inputs: {
-      dialogRef: "dialogRef",
-      title: "title",
-      message: "message",
-      data: "data"
-    },
+    selectors: [["lib-mpage-confirm"]],
     decls: 2,
     vars: 1,
-    consts: [[1, "flex-column", 2, "height", "100%"], [1, "flex", "flex-center-items", "flex-gap"], [1, "dialog-content", "flex-fill", 3, "innerHTML"], [1, "dialog-button-bar"], [3, "coButton", "color"], [3, "click", "coButton", "color"]],
+    consts: [[1, "co-dialog"], [1, "flex", "flex-center-items", 3, "ngStyle"], [1, "dialog-content", 3, "innerHTML"], [1, "dialog-button-bar"], [3, "coButton", "color"], [3, "click", "coButton", "color"]],
     template: function MpageConfirmComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0);
-        \u0275\u0275conditionalCreate(1, MpageConfirmComponent_Conditional_1_Template, 8, 7);
+        \u0275\u0275conditionalCreate(1, MpageConfirmComponent_Conditional_1_Template, 8, 6);
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
@@ -47538,7 +47623,7 @@ var MpageConfirmComponent = class _MpageConfirmComponent {
         \u0275\u0275conditional(ctx.dialogData.title !== "" ? 1 : -1);
       }
     },
-    dependencies: [ButtonDirective, MpageIconComponent],
+    dependencies: [DialogModule, ButtonDirective, MpageIconComponent, NgStyle],
     encapsulation: 2,
     changeDetection: 0
   });
@@ -47547,13 +47632,13 @@ var MpageConfirmComponent = class _MpageConfirmComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MpageConfirmComponent, [{
     type: Component,
     args: [{
-      selector: "mpage-confirm",
-      imports: [ButtonDirective, MpageIconComponent],
+      selector: "lib-mpage-confirm",
+      imports: [DialogModule, ButtonDirective, MpageIconComponent, NgStyle],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
-      template: `<div class="flex-column" style="height: 100%">\r
+      template: `<div class="co-dialog">\r
 @if (dialogData.title !== '') {\r
-  <h2 class="flex flex-center-items flex-gap" [style]="titleStyle">\r
+  <h2 class="flex flex-center-items" [ngStyle]="titleStyle">\r
     @if (dialogData.icon !== '') {\r
       <mpage-icon>{{ dialogData.icon }}</mpage-icon>\r
     }\r
@@ -47561,79 +47646,63 @@ var MpageConfirmComponent = class _MpageConfirmComponent {
   </h2>\r
   <hr />\r
 \r
-  <p class="dialog-content flex-fill" [innerHTML]="content"></p>\r
+  <p class="dialog-content" [innerHTML]="content"></p>\r
 \r
   <div class="dialog-button-bar">\r
-\r
     @if (dialogData.showConfirmButton) {\r
       <button [coButton]="dialogData.confirmButtonStyle" [color]="dialogData.confirmButtonColor"\r
-        (click)="dialogRef.close('true')">\r
+        (click)="dialogRef.close(true)">\r
         {{ dialogData.confirmButtonLabel }}\r
       </button>\r
     }\r
     @if (dialogData.showCancelButton) {\r
       <button [coButton]="dialogData.cancelButtonStyle" [color]="dialogData.cancelButtonColor"\r
-              (click)="dialogRef.close('false')">\r
+              (click)="dialogRef.close(false)">\r
         {{ dialogData.cancelButtonLabel }}\r
       </button>\r
     }\r
-\r
   </div>\r
 }\r
-</div>\r
-`
+</div>`
     }]
-  }], null, {
-    dialogRef: [{
-      type: Input
-    }],
-    title: [{
-      type: Input
-    }],
-    message: [{
-      type: Input
-    }],
-    data: [{
-      type: Input
-    }]
-  });
+  }], null, null);
 })();
 var MPageDataSource = class extends DataSource {
-  data = signal([], __spreadValues({}, ngDevMode ? {
+  data = signal([], ...ngDevMode ? [{
     debugName: "data"
-  } : {}));
-  filteredData = signal([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  filteredData = signal([], ...ngDevMode ? [{
     debugName: "filteredData"
-  } : {}));
-  columns = signal([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  columns = signal([], ...ngDevMode ? [{
     debugName: "columns"
-  } : {}));
+  }] : []);
   filterColumns = computed(() => {
     const cols = [];
     this.columns().forEach((col) => {
       cols.push("_fc" + col);
     });
     return cols;
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "filterColumns"
-  } : {}));
-  pageSize = signal(10, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  pageSize = signal(10, ...ngDevMode ? [{
     debugName: "pageSize"
-  } : {}));
-  currentPage = signal(1, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  currentPage = signal(1, ...ngDevMode ? [{
     debugName: "currentPage"
-  } : {}));
-  scrollByPage = signal(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  scrollByPage = signal(false, ...ngDevMode ? [{
     debugName: "scrollByPage"
-  } : {}));
+  }] : []);
   pageData = computed(() => {
     return this.scrollByPage() ? this.filteredData().slice((this.currentPage() - 1) * this.pageSize(), (this.currentPage() - 1) * this.pageSize() + this.pageSize()) : this.pageCount() < this.pageSize() ? this.filteredData() : this.currentPage() > this.pageCount() - this.pageSize() ? this.filteredData().slice(this.pageCount() - this.pageSize(), this.pageCount()) : this.filteredData().slice(this.currentPage() - 1, this.currentPage() - 1 + this.pageSize());
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "pageData"
-  } : {}));
-  params = signal({}, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  params = signal({}, ...ngDevMode ? [{
     debugName: "params"
-  } : {}));
+  }] : []);
   connect() {
     return toObservable2(this.pageData);
   }
@@ -47654,7 +47723,7 @@ var MPageDataSource = class extends DataSource {
   }
   // Return a converted label from a camelCase field name (e.g. nameFullFormatted becomes Name Full Formatted)
   columnLabel(column, dtTmLabel = "Date/Time") {
-    return column.endsWith("Icon") ? camelWords(column.slice(0, -4)) : column.endsWith("DtTm") ? camelWords(column.slice(0, -4)) + " " + dtTmLabel : camelWords(column);
+    return column.endsWith("DtTm") ? camelWords(column.slice(0, -4)) + " " + dtTmLabel : camelWords(column);
   }
   firstPage() {
     this.currentPage.set(1);
@@ -47722,30 +47791,28 @@ var MPageDataSource = class extends DataSource {
 };
 var MpageScrollBarComponent = class _MpageScrollBarComponent {
   scrollBoundary;
-  minValue = input(0, __spreadValues({}, ngDevMode ? {
+  minValue = input(0, ...ngDevMode ? [{
     debugName: "minValue"
-  } : {}));
-  maxValue = input(100, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  maxValue = input(0, ...ngDevMode ? [{
     debugName: "maxValue"
-  } : {}));
-  value = model(0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  value = model(0, ...ngDevMode ? [{
     debugName: "value"
-  } : {}));
-  valueEffect = effect(() => this.updatePositionByValue(this.value()), __spreadValues({}, ngDevMode ? {
+  }] : []);
+  valueEffect = effect(() => this.updatePositionByValue(this.value()), ...ngDevMode ? [{
     debugName: "valueEffect"
-  } : {}));
-  vertical = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  vertical = input(false, ...ngDevMode ? [{
     debugName: "vertical"
-  } : {}));
-  allowWheelScroll = input(true, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  allowWheelScroll = input(true, ...ngDevMode ? [{
     debugName: "allowWheelScroll"
-  } : {}));
-  dragPosition = signal({
+  }] : []);
+  dragPosition = {
     x: 0,
     y: 0
-  }, __spreadValues({}, ngDevMode ? {
-    debugName: "dragPosition"
-  } : {}));
+  };
   dragStartPosition;
   newPosition = 0;
   percent = 0;
@@ -47759,31 +47826,31 @@ var MpageScrollBarComponent = class _MpageScrollBarComponent {
   }
   updatePositionByValue(value = this.value()) {
     if (!this.dragging && this.vertical()) {
-      this.dragPosition.set({
+      this.dragPosition = {
         x: 0,
         y: Math.min(this.height - this.scrollbarSize, this.height * ((value - this.minValue()) / this.maxValue()))
-      });
+      };
     } else if (!this.dragging) {
-      this.dragPosition.set({
+      this.dragPosition = {
         x: Math.min(this.width - this.scrollbarSize, this.width * ((value - this.minValue()) / this.maxValue())),
         y: 0
-      });
+      };
     }
   }
   startMouseDrag() {
     this.dragging = true;
-    this.dragStartPosition = this.dragPosition();
+    this.dragStartPosition = this.dragPosition;
   }
-  updatePosition(event2) {
+  updatePosition(event) {
     this.dragging = true;
     this.clicking = false;
-    const el = event2.source.getRootElement();
+    const el = event.source.getRootElement();
     if (el) {
       if (this.vertical()) {
-        this.newPosition = this.dragStartPosition.y + event2.distance.y;
+        this.newPosition = this.dragStartPosition.y + event.distance.y;
         this.percent = this.percentage(this.newPosition, this.height);
       } else {
-        this.newPosition = this.dragStartPosition.x + event2.distance.x;
+        this.newPosition = this.dragStartPosition.x + event.distance.x;
         this.percent = this.percentage(this.newPosition, this.width);
       }
       this.value.set(Math.max(Math.round(this.maxValue() * this.percent / 100), this.minValue()));
@@ -47795,36 +47862,36 @@ var MpageScrollBarComponent = class _MpageScrollBarComponent {
   }
   endMouseDrag() {
     this.dragging = false;
-    this.dragPosition.set(this.vertical() ? {
+    this.dragPosition = this.vertical() ? {
       x: 0,
       y: this.newPosition
     } : {
       x: this.newPosition,
       y: 0
-    });
+    };
   }
-  clickPosition(event2) {
-    if (this.vertical() && (event2.offsetY < this.dragPosition().y || event2.offsetY > this.dragPosition().y + this.scrollbarSize) && !this.dragging && this.clicking) {
-      this.dragPosition.set({
+  clickPosition(event) {
+    if (this.vertical() && (event.offsetY < this.dragPosition.y || event.offsetY > this.dragPosition.y + this.scrollbarSize) && !this.dragging && this.clicking) {
+      this.dragPosition = {
         x: 0,
-        y: Math.max(0, Math.min(event2.offsetY, this.height - this.scrollbarSize))
-      });
-      this.percent = this.percentage(event2.offsetY, this.height);
+        y: Math.max(0, Math.min(event.offsetY, this.height - this.scrollbarSize))
+      };
+      this.percent = this.percentage(event.offsetY, this.height);
       this.value.set(Math.round(this.maxValue() * this.percent) / 100);
-    } else if (!this.vertical() && (event2.offsetX < this.dragPosition().x || event2.offsetX > this.dragPosition().x + this.scrollbarSize) && !this.dragging && this.clicking) {
-      this.dragPosition.set({
-        x: Math.max(0, Math.min(event2.offsetX, this.width - this.scrollbarSize)),
+    } else if (!this.vertical && (event.offsetX < this.dragPosition.x || event.offsetX > this.dragPosition.x + this.scrollbarSize) && !this.dragging && this.clicking) {
+      this.dragPosition = {
+        x: Math.max(0, Math.min(event.offsetX, this.width - this.scrollbarSize)),
         y: 0
-      });
-      this.percent = this.percentage(event2.offsetX, this.width);
+      };
+      this.percent = this.percentage(event.offsetX, this.width);
       this.value.set(Math.round(this.maxValue() * this.percent) / 100);
     }
     this.clicking = true;
   }
   // Change the current value based on wheel movement
-  wheelPosition(event2) {
+  wheelPosition(event) {
     if (!this.dragging && this.allowWheelScroll()) {
-      if (event2.deltaY < 0) {
+      if (event.deltaY < 0) {
         this.value.set(Math.max(this.minValue(), this.value() - 1));
       } else {
         this.value.set(Math.min(this.maxValue(), this.value() + 1));
@@ -47915,7 +47982,7 @@ var MpageScrollBarComponent = class _MpageScrollBarComponent {
       }
       if (rf & 2) {
         \u0275\u0275advance(2);
-        \u0275\u0275property("cdkDragFreeDragPosition", ctx.dragPosition())("ngStyle", ctx.barDimensions);
+        \u0275\u0275property("cdkDragFreeDragPosition", ctx.dragPosition)("ngStyle", ctx.barDimensions);
       }
     },
     dependencies: [CdkDrag, NgStyle],
@@ -47931,80 +47998,40 @@ var MpageScrollBarComponent = class _MpageScrollBarComponent {
       imports: [CdkDrag, NgStyle],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
-      template: '<div class="co-scroll-bar" #scrollBoundary\r\n     (click)="clickPosition($event)" (wheel)="wheelPosition($event)">\r\n  <div class="co-scroll-bar-thumb" cdkDrag cdkDragBoundary=".co-scroll-bar"\r\n       [cdkDragFreeDragPosition]="dragPosition()"\r\n       (cdkDragStarted)="startMouseDrag()"\r\n       (cdkDragMoved)="updatePosition($event)"\r\n       (cdkDragEnded)="endMouseDrag()"\r\n       [ngStyle]="barDimensions"\r\n  ></div>\r\n</div>\r\n',
+      template: '<div class="co-scroll-bar" #scrollBoundary\r\n     (click)="clickPosition($event)" (wheel)="wheelPosition($event)">\r\n  <div class="co-scroll-bar-thumb" cdkDrag cdkDragBoundary=".co-scroll-bar"\r\n       [cdkDragFreeDragPosition]="dragPosition"\r\n       (cdkDragStarted)="startMouseDrag()"\r\n       (cdkDragMoved)="updatePosition($event)"\r\n       (cdkDragEnded)="endMouseDrag()"\r\n       [ngStyle]="barDimensions"\r\n  ></div>\r\n</div>\r\n',
       styles: [":host{display:inherit;height:inherit;width:inherit;margin:0;padding:0}\n"]
     }]
   }], null, {
     scrollBoundary: [{
       type: ViewChild,
       args: ["scrollBoundary"]
-    }],
-    minValue: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "minValue",
-        required: false
-      }]
-    }],
-    maxValue: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "maxValue",
-        required: false
-      }]
-    }],
-    value: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "value",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["valueChange"]
-    }],
-    vertical: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "vertical",
-        required: false
-      }]
-    }],
-    allowWheelScroll: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "allowWheelScroll",
-        required: false
-      }]
     }]
   });
 })();
 var RangePaginatorComponent = class _RangePaginatorComponent {
   _dataSource;
-  dataSource = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "dataSource"
-  } : {}), {
+  dataSource = input(null, ...ngDevMode ? [{
+    debugName: "dataSource",
     transform: (value) => {
       this._dataSource = value;
     }
-  }));
-  style = input({}, __spreadValues({}, ngDevMode ? {
+  }] : [{
+    transform: (value) => {
+      this._dataSource = value;
+    }
+  }]);
+  style = input({}, ...ngDevMode ? [{
     debugName: "style"
-  } : {}));
-  class = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  class = input("", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
-  vertical = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  vertical = input(false, ...ngDevMode ? [{
     debugName: "vertical"
-  } : {}));
-  allowWheelScroll = input(true, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  allowWheelScroll = input(true, ...ngDevMode ? [{
     debugName: "allowWheelScroll"
-  } : {}));
+  }] : []);
   Math = Math;
   title() {
     return !this._dataSource ? "" : "Rows: " + Math.trunc(this._dataSource.currentPage()) + " - " + (Math.trunc(this._dataSource.currentPage()) + this._dataSource.pageSize() - 1);
@@ -48026,8 +48053,8 @@ var RangePaginatorComponent = class _RangePaginatorComponent {
       allowWheelScroll: [1, "allowWheelScroll"]
     },
     decls: 2,
-    vars: 6,
-    consts: [[3, "title"], ["coButton", "icon", 3, "click"], [3, "valueChange", "vertical", "value", "minValue", "maxValue", "allowWheelScroll"]],
+    vars: 4,
+    consts: [[3, "ngStyle", "ngClass", "title"], ["coButton", "icon", 3, "click"], [3, "valueChange", "vertical", "value", "minValue", "maxValue", "allowWheelScroll"]],
     template: function RangePaginatorComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "div", 0);
@@ -48035,14 +48062,12 @@ var RangePaginatorComponent = class _RangePaginatorComponent {
         \u0275\u0275elementEnd();
       }
       if (rf & 2) {
-        \u0275\u0275styleMap(ctx.style());
-        \u0275\u0275classMap(ctx.class() + "co-range-paginator flex-column prevent-select");
-        \u0275\u0275property("title", ctx.title());
+        \u0275\u0275property("ngStyle", ctx.style())("ngClass", ctx.class() + "co-range-paginator flex-column prevent-select")("title", ctx.title());
         \u0275\u0275advance();
         \u0275\u0275conditional(ctx._dataSource ? 1 : -1);
       }
     },
-    dependencies: [MpageIconComponent, ButtonDirective, FormsModule, MpageScrollBarComponent],
+    dependencies: [MpageIconComponent, ButtonDirective, FormsModule, MpageScrollBarComponent, NgStyle, NgClass],
     encapsulation: 2,
     changeDetection: 0
   });
@@ -48052,10 +48077,10 @@ var RangePaginatorComponent = class _RangePaginatorComponent {
     type: Component,
     args: [{
       selector: "range-paginator",
-      imports: [MpageIconComponent, ButtonDirective, FormsModule, MpageScrollBarComponent],
+      imports: [MpageIconComponent, ButtonDirective, FormsModule, MpageScrollBarComponent, NgStyle, NgClass],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
-      template: `<div [style]="style()" [class]="class() + 'co-range-paginator flex-column prevent-select'"\r
+      template: `<div [ngStyle]="style()" [ngClass]="class() + 'co-range-paginator flex-column prevent-select'"\r
      [title]="title()">\r
   @if (_dataSource) {\r
     <button coButton="icon" (click)="_dataSource.firstPage()">\r
@@ -48075,77 +48100,36 @@ var RangePaginatorComponent = class _RangePaginatorComponent {
 </div>\r
 `
     }]
-  }], null, {
-    dataSource: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "dataSource",
-        required: false
-      }]
-    }],
-    style: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "style",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    vertical: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "vertical",
-        required: false
-      }]
-    }],
-    allowWheelScroll: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "allowWheelScroll",
-        required: false
-      }]
-    }]
-  });
+  }], null, null);
 })();
 var MpageRadioComponent = class _MpageRadioComponent {
   model;
   // Functional Variables
-  disabled = input(false, __spreadValues({}, ngDevMode ? {
+  disabled = input(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
-  values = input([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  values = input([], ...ngDevMode ? [{
     debugName: "values"
-  } : {}));
-  name = input("radio" + (/* @__PURE__ */ new Date()).getTime() + "_" + Math.ceil(Math.random() * 100), __spreadValues({}, ngDevMode ? {
+  }] : []);
+  name = input("radio" + (/* @__PURE__ */ new Date()).getTime() + "_" + Math.ceil(Math.random() * 100), ...ngDevMode ? [{
     debugName: "name"
-  } : {}));
+  }] : []);
   // Presentation Variables
-  style = input({}, __spreadValues({}, ngDevMode ? {
+  style = input({}, ...ngDevMode ? [{
     debugName: "style"
-  } : {}));
-  class = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  class = input("", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
-  title = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  title = input("", ...ngDevMode ? [{
     debugName: "title"
-  } : {}));
-  label = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  label = input("", ...ngDevMode ? [{
     debugName: "label"
-  } : {}));
-  required = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  required = input(false, ...ngDevMode ? [{
     debugName: "required"
-  } : {}));
+  }] : []);
   // Turns on/off required CSS class
   get requiredClass() {
     return this.required() && (!this.model || false || this.model.trim() === "") ? "co-default-field-required" : "";
@@ -48165,7 +48149,7 @@ var MpageRadioComponent = class _MpageRadioComponent {
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
-  emitChange(event2) {
+  emitChange(event) {
     this.writeValue(this.model);
   }
   static \u0275fac = function MpageRadioComponent_Factory(__ngFactoryType__) {
@@ -48191,28 +48175,27 @@ var MpageRadioComponent = class _MpageRadioComponent {
     }])],
     ngContentSelectors: _c03,
     decls: 6,
-    vars: 6,
-    consts: [[1, "co-field-label"], [1, "co-field-content", "flex-gap"], ["type", "radio", 3, "ngModelChange", "value", "ngModel", "name", "id", "disabled"], [3, "for"]],
+    vars: 4,
+    consts: [[3, "ngStyle", "ngClass"], [1, "co-field-label"], [1, "co-field-content", "flex-gap"], ["type", "radio", 3, "ngModelChange", "value", "ngModel", "name", "id", "disabled"], [3, "for"]],
     template: function MpageRadioComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275projectionDef();
-        \u0275\u0275elementStart(0, "div")(1, "div", 0);
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1);
         \u0275\u0275conditionalCreate(2, MpageRadioComponent_Conditional_2_Template, 1, 1);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "div", 1);
+        \u0275\u0275elementStart(3, "div", 2);
         \u0275\u0275conditionalCreate(4, MpageRadioComponent_Conditional_4_Template, 2, 0)(5, MpageRadioComponent_Conditional_5_Template, 1, 0);
         \u0275\u0275elementEnd()();
       }
       if (rf & 2) {
-        \u0275\u0275styleMap(ctx.style());
-        \u0275\u0275classMap(ctx.requiredClass + " " + ctx.class() + " co-default-field");
+        \u0275\u0275property("ngStyle", ctx.style())("ngClass", ctx.requiredClass + " " + ctx.class() + " co-default-field");
         \u0275\u0275advance(2);
         \u0275\u0275conditional(ctx.label() !== "" ? 2 : -1);
         \u0275\u0275advance(2);
         \u0275\u0275conditional(ctx.values().length > 0 ? 4 : 5);
       }
     },
-    dependencies: [ReactiveFormsModule, DefaultValueAccessor, RadioControlValueAccessor, NgControlStatus, FormsModule, NgModel],
+    dependencies: [NgStyle, NgClass, ReactiveFormsModule, DefaultValueAccessor, RadioControlValueAccessor, NgControlStatus, FormsModule, NgModel],
     styles: [_c2],
     changeDetection: 0
   });
@@ -48222,7 +48205,7 @@ var MpageRadioComponent = class _MpageRadioComponent {
     type: Component,
     args: [{
       selector: "mpage-radio-group",
-      imports: [ReactiveFormsModule, FormsModule],
+      imports: [NgStyle, NgClass, ReactiveFormsModule, FormsModule],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
       providers: [{
@@ -48230,7 +48213,7 @@ var MpageRadioComponent = class _MpageRadioComponent {
         useExisting: forwardRef(() => MpageRadioComponent),
         multi: true
       }],
-      template: `<div [style]="style()" [class]="requiredClass + ' ' + class() + ' co-default-field'">\r
+      template: `<div [ngStyle]="style()" [ngClass]="requiredClass + ' ' + class() + ' co-default-field'">\r
   <div class="co-field-label">\r
     @if (label() !== '') {\r
       {{ label() }}\r
@@ -48244,104 +48227,39 @@ var MpageRadioComponent = class _MpageRadioComponent {
         <label [for]="'r' + $index">{{ radioValue }}</label>\r
       }\r
     } @else {\r
-      <ng-content />\r
+      <ng-content/>\r
     }\r
   </div>\r
 </div>\r
 `,
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
-  }], null, {
-    disabled: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "disabled",
-        required: false
-      }]
-    }],
-    values: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "values",
-        required: false
-      }]
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "name",
-        required: false
-      }]
-    }],
-    style: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "style",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    title: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "title",
-        required: false
-      }]
-    }],
-    label: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "label",
-        required: false
-      }]
-    }],
-    required: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "required",
-        required: false
-      }]
-    }]
-  });
+  }], null, null);
 })();
 var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
   model;
   overlayOpen = false;
   MPage = inject(MPageService);
-  label = input("", __spreadValues({}, ngDevMode ? {
+  label = input("", ...ngDevMode ? [{
     debugName: "label"
-  } : {}));
-  disabled = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  disabled = input(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
-  class = input("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  class = input("mpage-input-default-width", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
-  includeTime = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  includeTime = input(false, ...ngDevMode ? [{
     debugName: "includeTime"
-  } : {}));
-  content = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  content = signal("", ...ngDevMode ? [{
     debugName: "content"
-  } : {}));
-  required = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  required = input(false, ...ngDevMode ? [{
     debugName: "required"
-  } : {}));
+  }] : []);
   el = inject(ElementRef);
-  _rangeTypes = [{
+  rangeTypes = [{
     key: "none",
     value: "No Filtering"
   }, {
@@ -48364,27 +48282,12 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
     value: "Not Between"
   }];
   range = "none";
-  fromDate = signal("", __spreadValues({}, ngDevMode ? {
+  fromDate = signal("", ...ngDevMode ? [{
     debugName: "fromDate"
-  } : {}));
-  toDate = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  toDate = signal("", ...ngDevMode ? [{
     debugName: "toDate"
-  } : {}));
-  rangeTypes = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "rangeTypes"
-  } : {}), {
-    transform: (value) => {
-      if (value !== null) {
-        if (value.length === 1) {
-          this.range = value[0].key;
-          setTimeout(() => {
-            this.updateRange(value[0].key);
-          });
-        }
-        this._rangeTypes = value;
-      }
-    }
-  }));
+  }] : []);
   toggleOverlay(key = void 0) {
     if (key === void 0 || !this.overlayOpen && inList(key.code, ["Space", "Enter"]) || this.overlayOpen && key.code === "Escape") {
       this.overlayOpen = !this.overlayOpen;
@@ -48397,10 +48300,6 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
   // Date Type
   dateType() {
     return this.includeTime() ? "datetime-local" : "date";
-  }
-  // Turns on/off required CSS class
-  get requiredClass() {
-    return this.required() && this.content().trim() === "" ? "co-default-field-required" : "";
   }
   updateRange(range) {
     switch (range) {
@@ -48471,14 +48370,13 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
     type: _MpageDateRangePickerComponent,
-    selectors: [["mpage-date-range-picker"]],
+    selectors: [["lib-mpage-date-range-picker"]],
     inputs: {
       label: [1, "label"],
       disabled: [1, "disabled"],
       class: [1, "class"],
       includeTime: [1, "includeTime"],
-      required: [1, "required"],
-      rangeTypes: [1, "rangeTypes"]
+      required: [1, "required"]
     },
     features: [\u0275\u0275ProvidersFeature([{
       provide: NG_VALUE_ACCESSOR,
@@ -48487,35 +48385,52 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
     }])],
     decls: 11,
     vars: 7,
-    consts: [["dropdown", ""], ["tabindex", "0", "id", "dateRangeContainer", 3, "coDropdown"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], [1, "co-select-template", "flex-column", "flex-gap", 2, "max-height", "fit-content !important"], ["label", "Range Type", 3, "values", "ngModel", "searchable"], [3, "label", "type", "ngModel", "required"], ["label", "To", 3, "type", "ngModel", "required"], ["coButton", "raised", "color", "primary", 3, "click", "disabled"], ["label", "Range Type", 3, "ngModelChange", "values", "ngModel", "searchable"], [3, "ngModelChange", "label", "type", "ngModel", "required"], ["label", "To", 3, "ngModelChange", "type", "ngModel", "required"]],
+    consts: [["trigger", "cdkOverlayOrigin"], ["cdkOverlayOrigin", "", "tabindex", "0", "id", "dateRangeContainer", 3, "click", "keydown", "ngClass"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], ["cdkConnectedOverlay", "", "cdkConnectedOverlayPush", "true", 3, "detach", "overlayOutsideClick", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen"], [1, "co-select-template", "flex-column", "flex-gap", 3, "ngStyle"], ["label", "Range Type", 3, "ngModelChange", "values", "ngModel"], [3, "label", "type", "ngModel", "required"], ["label", "To", 3, "type", "ngModel", "required"], ["coButton", "raised", "color", "primary", 3, "click", "disabled"], [3, "ngModelChange", "label", "type", "ngModel", "required"], ["label", "To", 3, "ngModelChange", "type", "ngModel", "required"]],
     template: function MpageDateRangePickerComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 1)(1, "div", 2);
-        \u0275\u0275conditionalCreate(2, MpageDateRangePickerComponent_Conditional_2_Template, 1, 1);
+        const _r1 = \u0275\u0275getCurrentView();
+        \u0275\u0275elementStart(0, "div", 1, 0);
+        \u0275\u0275listener("click", function MpageDateRangePickerComponent_Template_div_click_0_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.toggleOverlay());
+        })("keydown", function MpageDateRangePickerComponent_Template_div_keydown_0_listener($event) {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.toggleOverlay($event));
+        });
+        \u0275\u0275elementStart(2, "div", 2);
+        \u0275\u0275conditionalCreate(3, MpageDateRangePickerComponent_Conditional_3_Template, 1, 1);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(3, "div", 3)(4, "div", 4);
-        \u0275\u0275text(5);
+        \u0275\u0275elementStart(4, "div", 3)(5, "div", 4);
+        \u0275\u0275text(6);
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(6, "button", 5)(7, "mpage-icon");
-        \u0275\u0275text(8, "arrow_drop_down");
+        \u0275\u0275elementStart(7, "button", 5)(8, "mpage-icon");
+        \u0275\u0275text(9, "arrow_drop_down");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275template(9, MpageDateRangePickerComponent_ng_template_9_Template, 7, 8, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
+        \u0275\u0275template(10, MpageDateRangePickerComponent_ng_template_10_Template, 7, 8, "ng-template", 6);
+        \u0275\u0275listener("detach", function MpageDateRangePickerComponent_Template_ng_template_detach_10_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.overlayOpen = false);
+        })("overlayOutsideClick", function MpageDateRangePickerComponent_Template_ng_template_overlayOutsideClick_10_listener() {
+          \u0275\u0275restoreView(_r1);
+          return \u0275\u0275resetView(ctx.overlayOpen = false);
+        });
       }
       if (rf & 2) {
-        const dropdown_r7 = \u0275\u0275reference(10);
-        \u0275\u0275classMap(ctx.requiredClass + " " + ctx.class() + " co-default-field");
-        \u0275\u0275property("coDropdown", dropdown_r7);
-        \u0275\u0275advance(2);
-        \u0275\u0275conditional(ctx.label() !== "" ? 2 : -1);
+        const trigger_r6 = \u0275\u0275reference(1);
+        \u0275\u0275property("ngClass", ctx.class() + " co-default-field");
+        \u0275\u0275advance(3);
+        \u0275\u0275conditional(ctx.label() !== "" ? 3 : -1);
         \u0275\u0275advance(2);
         \u0275\u0275property("title", ctx.content());
         \u0275\u0275advance();
         \u0275\u0275textInterpolate(ctx.content());
         \u0275\u0275advance();
         \u0275\u0275property("disabled", ctx.disabled());
+        \u0275\u0275advance(3);
+        \u0275\u0275property("cdkConnectedOverlayOrigin", trigger_r6)("cdkConnectedOverlayOpen", ctx.overlayOpen);
       }
     },
-    dependencies: [ButtonDirective, MpageIconComponent, MpageSelectComponent, MpageInputComponent, FormsModule, NgControlStatus, RequiredValidator, NgModel, DropdownDirective],
+    dependencies: [NgStyle, NgClass, CdkOverlayOrigin, ButtonDirective, MpageIconComponent, CdkConnectedOverlay, MpageSelectComponent, MpageInputComponent, FormsModule, NgControlStatus, RequiredValidator, NgModel],
     styles: [_c2],
     changeDetection: 0
   });
@@ -48524,8 +48439,8 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MpageDateRangePickerComponent, [{
     type: Component,
     args: [{
-      selector: "mpage-date-range-picker",
-      imports: [ButtonDirective, MpageIconComponent, MpageSelectComponent, MpageInputComponent, FormsModule, DropdownDirective],
+      selector: "lib-mpage-date-range-picker",
+      imports: [NgStyle, NgClass, CdkOverlayOrigin, ButtonDirective, MpageIconComponent, CdkConnectedOverlay, MpageSelectComponent, MpageInputComponent, FormsModule],
       providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => MpageDateRangePickerComponent),
@@ -48533,9 +48448,11 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
       }],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
-      template: `<div [class]="requiredClass + ' ' + class() + ' co-default-field'"\r
-     [coDropdown]="dropdown"\r
-     tabindex="0" id="dateRangeContainer">\r
+      template: `<div [ngClass]="class() + ' co-default-field'"\r
+     cdkOverlayOrigin #trigger="cdkOverlayOrigin" tabindex="0"\r
+     id="dateRangeContainer"\r
+     (click)="toggleOverlay()" (keydown)="toggleOverlay($event)"\r
+>\r
   <div class="co-field-label">\r
     @if (label() !== '') {\r
       {{ label() }}\r
@@ -48551,98 +48468,49 @@ var MpageDateRangePickerComponent = class _MpageDateRangePickerComponent {
 \r
 </div>\r
 \r
-<ng-template #dropdown let-close="close">\r
-  <div style="max-height: fit-content !important;" class="co-select-template flex-column flex-gap" [style]="style()">\r
-    @if (_rangeTypes.length > 1) {\r
-      <mpage-select label="Range Type" [values]="_rangeTypes" [(ngModel)]="range" [searchable]="false"\r
-                    (ngModelChange)="updateRange($event)"/>\r
-    }\r
+<ng-template cdkConnectedOverlay\r
+             [cdkConnectedOverlayOrigin]="trigger"\r
+             [cdkConnectedOverlayOpen]="overlayOpen"\r
+             cdkConnectedOverlayPush="true"\r
+             (detach)="overlayOpen = false"\r
+             (overlayOutsideClick)="overlayOpen = false">\r
+  <div class="co-select-template flex-column flex-gap" [ngStyle]="style()">\r
+    <mpage-select label="Range Type" [values]="rangeTypes" [(ngModel)]="range"\r
+                  (ngModelChange)="updateRange($event)"/>\r
     @if (range !== 'none') {\r
-      <mpage-input [label]="fromLabel()" [type]="dateType()" [(ngModel)]="fromDate" [required]="required()"/>\r
+      <mpage-input [label]="fromLabel()" [type]="dateType()" [(ngModel)]="fromDate" [required]="required()" />\r
     }\r
 \r
-    @if (inList(range, ['between', 'notbetween'])) {\r
-      <mpage-input label="To" [type]="dateType()" [(ngModel)]="toDate" [required]="required()"/>\r
+    @if (inList(range, ['between','notbetween'])) {\r
+      <mpage-input label="To" [type]="dateType()" [(ngModel)]="toDate" [required]="required()" />\r
     }\r
 \r
     @if (!passedCheck()) {\r
       <div>* Invalid Date Value(s) *</div>\r
     }\r
 \r
-    <button coButton="raised" color="primary" (click)="emitChange(); close();" [disabled]="!passedCheck()">Apply Changes</button>\r
+    <button coButton="raised" color="primary" (click)="emitChange()" [disabled]="!passedCheck()">Apply Changes</button>\r
   </div>\r
 \r
 </ng-template>\r
 `,
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
-  }], null, {
-    label: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "label",
-        required: false
-      }]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "disabled",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    includeTime: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "includeTime",
-        required: false
-      }]
-    }],
-    required: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "required",
-        required: false
-      }]
-    }],
-    rangeTypes: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "rangeTypes",
-        required: false
-      }]
-    }]
-  });
+  }], null, null);
 })();
 var MpageTableComponent = class _MpageTableComponent {
-  onResize(event2) {
+  onResize(event) {
     this.updatePaginator();
   }
   cdr = inject(ChangeDetectorRef);
   MPage = inject(MPageService);
   filteredData = output();
-  columnConfig = model(emptyColumnConfig(), __spreadValues({}, ngDevMode ? {
-    debugName: "columnConfig"
-  } : {}));
   el = inject(ElementRef);
   height = signal({
     maxHeight: "inherit"
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "height"
-  } : {}));
+  }] : []);
   forceHeightCalc = false;
   regionHeight = 0;
   availableHeight = 0;
@@ -48653,46 +48521,51 @@ var MpageTableComponent = class _MpageTableComponent {
   scrollBarHeight = 0;
   remainingHeight = signal({
     height: "0px"
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "remainingHeight"
-  } : {}));
+  }] : []);
   paginatorUpdated = false;
   pageCount = 0;
   toolbarOpen = false;
-  activeToolbar = signal("", __spreadValues({}, ngDevMode ? {
+  activeToolbar = signal("", ...ngDevMode ? [{
     debugName: "activeToolbar"
-  } : {}));
+  }] : []);
   resizeColumnValue = void 0;
   resizeColumnXPos = 0;
   resizeColumnWidth = 0;
   backupConfig = "";
   sortDirection = ["asc", "desc"];
   tryAgain = false;
-  wildCardSearchMode = model(true, __spreadValues({}, ngDevMode ? {
+  wildCardSearchMode = model(true, ...ngDevMode ? [{
     debugName: "wildCardSearchMode"
-  } : {}));
+  }] : []);
   filterTimeOut;
   filterSearchValues = /* @__PURE__ */ new Map();
   calculatedTableWidth = 0;
-  visibleColumns = 0;
-  autoSizeCompleted = false;
-  data = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "data"
-  } : {}), {
+  data = input(null, ...ngDevMode ? [{
+    debugName: "data",
     transform: (value) => {
-      if (value !== null && Array.isArray(value)) {
+      if (value !== null) {
         this.dataSource.data.set(value);
         this.dataSource.filter([]);
-        this.filteredData.emit(this.dataSource.filteredData());
         if (!this.defaultParams().autoResize) {
           this.dataSource.pageSize.set(value.length);
         }
       }
     }
-  }));
-  params = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "params"
-  } : {}), {
+  }] : [{
+    transform: (value) => {
+      if (value !== null) {
+        this.dataSource.data.set(value);
+        this.dataSource.filter([]);
+        if (!this.defaultParams().autoResize) {
+          this.dataSource.pageSize.set(value.length);
+        }
+      }
+    }
+  }]);
+  params = input(null, ...ngDevMode ? [{
+    debugName: "params",
     transform: (params) => {
       const defaults = this.defaultParams();
       defaults.hideIdValues = params.hideIdValues ?? defaults.hideIdValues;
@@ -48711,14 +48584,38 @@ var MpageTableComponent = class _MpageTableComponent {
       defaults.autoResize = params.autoResize ?? defaults.autoResize;
       defaults.maxInitialColumnWidth = params.maxInitialColumnWidth ?? defaults.maxInitialColumnWidth;
       defaults.hoverValue = params.hoverValue ?? defaults.hoverValue;
-      defaults.treatAllAsText = params.treatAllAsText ?? defaults.treatAllAsText;
       this.defaultParams.set(defaults);
       this.updatePaginator();
     }
-  }));
+  }] : [{
+    transform: (params) => {
+      const defaults = this.defaultParams();
+      defaults.hideIdValues = params.hideIdValues ?? defaults.hideIdValues;
+      defaults.hideCdValues = params.hideCdValues ?? defaults.hideCdValues;
+      defaults.dtTmLabel = params.dtTmLabel ?? defaults.dtTmLabel;
+      defaults.allowWheelScroll = params.allowWheelScroll ?? defaults.allowWheelScroll;
+      defaults.showToolbar = params.showToolbar ?? defaults.showToolbar;
+      defaults.extraToolbarButtons = params.extraToolbarButtons ?? defaults.extraToolbarButtons;
+      defaults.allowColumnSort = params.allowColumnSort ?? defaults.allowColumnSort;
+      defaults.columnFilter = params.columnFilter ?? defaults.columnFilter;
+      defaults.filterThreshold = params.filterThreshold ?? defaults.filterThreshold;
+      defaults.listFilterSize = params.listFilterSize ?? defaults.listFilterSize;
+      defaults.emptyDateLabel = params.emptyDateLabel ?? defaults.emptyDateLabel;
+      defaults.contextMenu = params.contextMenu ?? defaults.contextMenu;
+      defaults.textJustification = params.textJustification ?? defaults.textJustification;
+      defaults.autoResize = params.autoResize ?? defaults.autoResize;
+      defaults.maxInitialColumnWidth = params.maxInitialColumnWidth ?? defaults.maxInitialColumnWidth;
+      defaults.hoverValue = params.hoverValue ?? defaults.hoverValue;
+      this.defaultParams.set(defaults);
+      this.updatePaginator();
+    }
+  }]);
   clickRow = output();
   clickColumn = output();
   clickContextMenu = output();
+  columnConfig = model(emptyColumnConfig(), ...ngDevMode ? [{
+    debugName: "columnConfig"
+  }] : []);
   columns = computed(() => {
     const selectValues = [];
     if (this.activeToolbar() !== "") {
@@ -48732,9 +48629,9 @@ var MpageTableComponent = class _MpageTableComponent {
       });
     }
     return selectValues;
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "columns"
-  } : {}));
+  }] : []);
   // Default parameter values
   defaultParams = signal({
     hideIdValues: true,
@@ -48752,11 +48649,10 @@ var MpageTableComponent = class _MpageTableComponent {
     contextMenu: [],
     autoResize: true,
     maxInitialColumnWidth: 300,
-    hoverValue: true,
-    treatAllAsText: false
-  }, __spreadValues({}, ngDevMode ? {
+    hoverValue: true
+  }, ...ngDevMode ? [{
     debugName: "defaultParams"
-  } : {}));
+  }] : []);
   dataSource = new MPageDataSource();
   currentRow;
   filters = computed(() => {
@@ -48784,15 +48680,14 @@ var MpageTableComponent = class _MpageTableComponent {
       ret.push(filter2);
     });
     return ret;
-  }, __spreadValues({}, ngDevMode ? {
+  }, ...ngDevMode ? [{
     debugName: "filters"
-  } : {}));
+  }] : []);
   constructor() {
     afterNextRender(() => {
       if (this.dataSource.data().length > 0) {
         this.updateColumns();
         this.updatePaginator();
-        this.fillEmptySpace();
       }
     });
     afterEveryRender(() => {
@@ -48817,13 +48712,13 @@ var MpageTableComponent = class _MpageTableComponent {
           }
         }
         this.paginatorUpdated = false;
-        this.fillEmptySpace();
       }
     });
   }
   ngOnChanges(changes) {
     if (this.dataSource.data().length > 0) {
       if (changes["params"] || changes["data"] && !this.initWithData || changes["columnConfig"] && JSON.stringify(changes["columnConfig"].previousValue) !== JSON.stringify(changes["columnConfig"].currentValue)) {
+        this.columnConfig.set(emptyColumnConfig());
         this.dataSource.generateColumns(this.defaultParams());
         this.updateColumns();
         if (changes["data"]) {
@@ -48842,13 +48737,7 @@ var MpageTableComponent = class _MpageTableComponent {
   }
   // Clear all filter values
   clearFilters() {
-    this.filters().forEach((filter2) => {
-      if (filter2.type === "date" || filter2.type === "dttm") {
-        this.filterSearchValues.delete("_fc" + filter2.column);
-      } else {
-        this.filterSearchValues.set("_fc" + filter2.column, filter2.type === "list" ? [] : "");
-      }
-    });
+    this.filterSearchValues.clear();
     this.filterData();
   }
   // Update the container window size
@@ -48879,7 +48768,7 @@ var MpageTableComponent = class _MpageTableComponent {
   }
   // Determine type of column
   columnType(column) {
-    return column.endsWith("Icon") ? "Icon" : column.endsWith("DtTm") ? "DtTm" : column.endsWith("Date") ? "Date" : "Text";
+    return column.endsWith("DtTm") ? "DtTm" : column.endsWith("Date") ? "Date" : "Text";
   }
   // Return formatted date string
   formattedDate(dateValue, returnType) {
@@ -48904,9 +48793,9 @@ var MpageTableComponent = class _MpageTableComponent {
     };
   }
   // Change the current value based on wheel movement
-  wheelPosition(event2) {
+  wheelPosition(event) {
     if (this.defaultParams().allowWheelScroll) {
-      if (event2.deltaY < 0) {
+      if (event.deltaY < 0) {
         this.dataSource.previousPage();
       } else {
         this.dataSource.nextPage();
@@ -48953,7 +48842,6 @@ var MpageTableComponent = class _MpageTableComponent {
     }
     const columnConfig = [];
     this.calculatedTableWidth = 0;
-    this.visibleColumns = 0;
     this.dataSource.columns().forEach((col) => {
       const visible = newConfig || sortPattern.indexOf(col) >= 0;
       const column = {
@@ -48965,8 +48853,7 @@ var MpageTableComponent = class _MpageTableComponent {
         width: this.defaultParams().maxInitialColumnWidth ? Math.min(this.calculateColumnWidth(col, this.dataSource.columnLabel(col, this.defaultParams().dtTmLabel)), this.defaultParams().maxInitialColumnWidth) : this.calculateColumnWidth(col, this.dataSource.columnLabel(col, this.defaultParams().dtTmLabel)),
         justification: this.defaultParams().textJustification ?? "left"
       };
-      this.calculatedTableWidth += visible ? column.width : 0;
-      this.visibleColumns += visible ? 1 : 0;
+      this.calculatedTableWidth += column.width;
       const conf = this.columnConfig().columns.find((column2) => column2.column === col);
       if (conf) {
         column.label = conf.label;
@@ -48984,72 +48871,40 @@ var MpageTableComponent = class _MpageTableComponent {
       return colConfig;
     });
   }
-  fillEmptySpace() {
-    if (!this.autoSizeCompleted) {
-      const element = this.el.nativeElement;
-      if (element) {
-        this.autoSizeCompleted = true;
-        const computedStyle = getComputedStyle(element.querySelector("#tableContainer"));
-        const tableWidth = Number(computedStyle.getPropertyValue("width").slice(0, -2));
-        let remainingWidth = tableWidth - this.calculatedTableWidth;
-        const segmentSize = remainingWidth / this.visibleColumns;
-        let currentCol = 0;
-        if (remainingWidth > 0 && tableWidth > 0) {
-          let columnConfig = this.columnConfig().columns;
-          columnConfig.filter((col) => col.visible).forEach((col, index, array) => {
-            currentCol += 1;
-            col.width += currentCol < this.visibleColumns ? segmentSize : segmentSize - 2;
-          });
-          this.columnConfig.update((colConfig) => {
-            colConfig.columns = columnConfig;
-            return colConfig;
-          });
-        }
-      }
-    }
-  }
   // Calculate the default column width
   calculateColumnWidth(col, label) {
-    const element = this.el.nativeElement;
-    if (element) {
-      const computedStyle = getComputedStyle(element);
-      const family = computedStyle.getPropertyValue("--font-family");
-      const gName = computedStyle.getPropertyValue("--font-generic-name");
-      const mtFs = computedStyle.getPropertyValue("--mpage-table-font-size");
-      const fs = computedStyle.getPropertyValue("--font-size");
-      const titleWidth = stringWidth(label, mtFs !== "" ? mtFs + " " + family + ", " + gName : fs + " " + family + ", " + gName);
-      let width = 0;
-      this.dataSource.data().slice(0, 100).forEach((row) => {
-        width = Math.max(width, stringWidth(this.columnType(col) === "Icon" ? "XX" : this.columnType(col) === "DtTm" ? this.formattedDate(row[col], "DtTm") : this.columnType(col) === "Date" ? this.formattedDate(row[col], "Date") : row[col], mtFs !== "" ? mtFs + " " + family + ", " + gName : fs + " " + family + ", " + gName));
-      });
-      return Math.max(width, titleWidth) + (this.defaultParams().columnFilter ? 68 : 20);
-    }
-    return 0;
+    const family = getCSSVariableValue("--font-family");
+    const gName = getCSSVariableValue("--font-generic-name");
+    const mtFs = getCSSVariableValue("--mpage-table-font-size");
+    const fs = getCSSVariableValue("--font-size");
+    const titleWidth = stringWidth(label, mtFs !== "" ? mtFs + " " + family + ", " + gName : fs + " " + family + ", " + gName);
+    let width = 0;
+    this.dataSource.data().slice(0, 100).forEach((row) => {
+      width = Math.max(width, stringWidth(this.columnType(col) === "DtTm" ? this.formattedDate(row[col], "DtTm") : this.columnType(col) === "Date" ? this.formattedDate(row[col], "Date") : row[col], mtFs !== "" ? mtFs + " " + family + ", " + gName : fs + " " + family + ", " + gName));
+    });
+    return Math.max(width, titleWidth) + (this.defaultParams().columnFilter ? 68 : 20);
   }
   // Drag/Drop column position
-  dropColumn(event2) {
-    const prevIndex = this.dataSource.columns().findIndex((col) => col === this.columnConfig().columns[event2.previousIndex].column);
-    const curIndex = this.dataSource.columns().findIndex((col) => col === this.columnConfig().columns[event2.currentIndex].column);
+  dropColumn(event) {
+    const prevIndex = this.dataSource.columns().findIndex((col) => col === this.columnConfig().columns[event.previousIndex].column);
+    const curIndex = this.dataSource.columns().findIndex((col) => col === this.columnConfig().columns[event.currentIndex].column);
     moveItemInArray(this.dataSource.columns(), prevIndex, curIndex);
-    moveItemInArray(this.columnConfig().columns, event2.previousIndex, event2.currentIndex);
-    moveItemInArray(this.dataSource.filterColumns(), event2.previousIndex, event2.currentIndex);
-    moveItemInArray(this.filters(), event2.previousIndex, event2.currentIndex);
+    moveItemInArray(this.columnConfig().columns, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.dataSource.filterColumns(), event.previousIndex, event.currentIndex);
+    moveItemInArray(this.filters(), event.previousIndex, event.currentIndex);
   }
   columnLabel(column) {
     return this.columnConfig().columns.find((col) => col.column === column)?.label ?? this.dataSource.columnLabel(column, this.defaultParams().dtTmLabel);
   }
-  icon(value) {
-    return value === "" ? "" : JSON.parse(value)?.icon;
-  }
   // Resize column
-  resizeColumn(column, event2) {
+  resizeColumn(column, event) {
     this.resizeColumnValue = this.columnConfig().columns.find((col) => col.column === column);
-    this.resizeColumnXPos = event2.clientX;
+    this.resizeColumnXPos = event.clientX;
     this.resizeColumnWidth = this.resizeColumnValue?.width ?? 0;
   }
-  resizeColumnUpdate(event2, stop) {
+  resizeColumnUpdate(event, stop) {
     if (this.resizeColumnValue && this.resizeColumnXPos > 0) {
-      this.resizeColumnValue.width = this.resizeColumnWidth + (event2.clientX - this.resizeColumnXPos);
+      this.resizeColumnValue.width = this.resizeColumnWidth + (event.clientX - this.resizeColumnXPos);
     }
     if (stop) {
       this.resizeColumnValue = void 0;
@@ -49097,8 +48952,8 @@ var MpageTableComponent = class _MpageTableComponent {
     });
   }
   // Drag/Drop column sort position
-  dropColumnSort(event2) {
-    moveItemInArray(this.columnConfig().columnSort, event2.previousIndex, event2.currentIndex);
+  dropColumnSort(event) {
+    moveItemInArray(this.columnConfig().columnSort, event.previousIndex, event.currentIndex);
   }
   // Show the sort arrow
   sortArrow(column) {
@@ -49121,23 +48976,23 @@ var MpageTableComponent = class _MpageTableComponent {
     }
   }
   textFilterValue(column, type) {
-    return this.filterSearchValues.has(column) && this.filterSearchValues.get(column) ? type === "value" ? this.filterSearchValues.get(column).value : this.filterSearchValues.get(column).flag : type === "value" ? "" : false;
+    return this.filterSearchValues.has(column) ? type === "value" ? this.filterSearchValues.get(column).value : this.filterSearchValues.get(column).flag : type === "value" ? "" : false;
   }
   assignTextFilter(column, value, type) {
-    const flag = this.filterSearchValues.has(column) && this.filterSearchValues.get(column) ? this.filterSearchValues.get(column).flag : false;
-    const currentValue = this.filterSearchValues.has(column) && this.filterSearchValues.get(column) ? this.filterSearchValues.get(column).value : "";
+    const flag = this.filterSearchValues.has(column) ? this.filterSearchValues.get(column).flag : false;
+    const currentValue = this.filterSearchValues.has(column) ? this.filterSearchValues.get(column).value : "";
     this.filterSearchValues.set(column, {
       value: type === "flag" ? currentValue : value,
       flag: type === "flag" ? !flag : flag
     });
   }
-  textFilter(event2, filterIndex) {
+  textFilter(event, filterIndex) {
     if (this.dataSource.data().length <= this.defaultParams().filterThreshold) {
       if (this.filterTimeOut) clearTimeout(this.filterTimeOut);
       this.filterTimeOut = setTimeout(() => {
         this.filterData();
       }, 300);
-    } else if (event2.key === "Enter") {
+    } else if (event.key === "Enter") {
       this.filterData();
     }
   }
@@ -49175,23 +49030,23 @@ var MpageTableComponent = class _MpageTableComponent {
       }
     },
     inputs: {
-      columnConfig: [1, "columnConfig"],
       wildCardSearchMode: [1, "wildCardSearchMode"],
       data: [1, "data"],
-      params: [1, "params"]
+      params: [1, "params"],
+      columnConfig: [1, "columnConfig"]
     },
     outputs: {
       filteredData: "filteredData",
-      columnConfig: "columnConfigChange",
       wildCardSearchMode: "wildCardSearchModeChange",
       clickRow: "clickRow",
       clickColumn: "clickColumn",
-      clickContextMenu: "clickContextMenu"
+      clickContextMenu: "clickContextMenu",
+      columnConfig: "columnConfigChange"
     },
     features: [\u0275\u0275NgOnChangesFeature],
     decls: 3,
     vars: 1,
-    consts: [["contextMenuTemplate", ""], [1, "flex"], [1, "co-table-toolbar", "flex", "flex-gap", "prevent-select", 2, "overflow-y", "auto", 3, "style"], ["id", "tableContainer", 1, "co-table-container", "flex-grow", "co-table-empty-space"], ["cdk-table", "", "id", "table", "fixedLayout", "", "coPreventScroll", "", 1, "co-table", 3, "wheel", "dataSource"], [3, "cdkColumnDef", "sticky"], ["cdk-header-row", "", "id", "tableHeader", 3, "mousemove", "mouseup", "mouseleave", 4, "cdkHeaderRowDef"], ["cdk-header-row", "", "id", "filterHeader", 3, "hidden", 4, "cdkHeaderRowDef"], ["cdk-row", "", "id", "tableRow", 3, "coDropdown", "rightClick", "click", "mouseenter", 4, "cdkRowDef", "cdkRowDefColumns"], ["id", "paginator", 3, "dataSource", "vertical", "allowWheelScroll"], [1, "co-table-toolbar", "flex", "flex-gap", "prevent-select", 2, "overflow-y", "auto"], [1, "flex-column", "flex-gap"], ["coButton", "icon", "title", "Clear all filters", 3, "click"], ["coButton", "icon", "title", "Advanced sorting", 3, "click"], ["coButton", "icon", "title", "Change layout", 3, "click"], ["coButton", "icon", 3, "coOptionalTitle"], ["coButton", "icon", 3, "click", "coOptionalTitle"], [1, "flex", "flex-gap"], [1, "flex-fill", "dialog-button-bar"], ["coButton", "icon", "color", "primary", "title", "Restore default sort", 3, "click"], [1, "co-table-sidebar-content"], ["cdkDropList", "", 1, "flex-column", "table-drag-boundary", 3, "cdkDropListDropped"], ["cdkDrag", "", "cdkDragBoundary", ".table-drag-boundary", 1, "co-table-toolbar-column", "flex", "flex-gap", "flex-center-items", "prevent-select"], [1, "flex", "flex-gap", "dialog-button-bar"], ["coButton", "raised", 3, "disabled"], ["coButton", "raised", "color", "primary", 3, "disabled"], ["label", "Column Name", 1, "co-table-toolbar-column-label", 3, "ngModelChange", "ngModel", "values"], ["label", "Sort Direction", 3, "ngModelChange", "ngModel", "values"], ["coButton", "icon", "title", "Remove sort", 3, "click"], ["coButton", "raised", 3, "click", "disabled"], ["coButton", "raised", "color", "primary", 3, "click", "disabled"], ["coButton", "icon", "color", "primary", "title", "Restore field layout", 3, "click"], ["label", "Label", 1, "co-table-toolbar-column-label", "prevent-select", 3, "ngModelChange", "ngModel"], ["type", "checkbox", "label", "Visible", 1, "prevent-select", 3, "ngModelChange", "ngModel"], ["type", "checkbox", "label", "Sticky", 1, "prevent-select", 3, "ngModelChange", "ngModel"], ["coButton", "raised", "color", "primary", 3, "click", "title"], ["cdk-header-cell", "", 3, "style", "hidden", "class", 4, "cdkHeaderCellDef"], ["cdk-cell", "", 3, "style", "hidden", "title", "click", 4, "cdkCellDef"], ["cdk-header-cell", "", 3, "hidden"], [1, "flex", "prevent-select", 2, "justify-content", "space-between"], [1, "co-table-content", 3, "click"], [1, "co-table-sort-arrow"], [1, "resize-column", 3, "mousedown"], [1, "co-table-sort-arrow", 3, "click"], ["cdk-cell", "", 3, "click", "hidden", "title"], [1, "co-table-content"], [1, "material-icons"], [1, "resize-space"], ["class", "co-table-filter-content", "cdk-header-cell", "", 3, "style", "hidden", 4, "cdkHeaderCellDef"], ["cdk-header-cell", "", 1, "co-table-filter-content", 3, "hidden"], [1, "flex", "prevent-select"], [3, "ngModel", "style", "prefix"], [3, "ngModel", "values", "multiple", "style"], [3, "ngModel", "style", "includeTime"], [3, "ngModelChange", "prefixClick", "keydown", "clearClicked", "ngModel", "prefix"], [3, "ngModelChange", "ngModel", "values", "multiple"], [3, "ngModelChange", "ngModel", "includeTime"], ["cdk-header-row", "", "id", "tableHeader", 3, "mousemove", "mouseup", "mouseleave"], ["cdk-header-row", "", "id", "filterHeader", 3, "hidden"], ["cdk-row", "", "id", "tableRow", 3, "click", "mouseenter", "coDropdown", "rightClick"], ["cdkMenu", "", 1, "co-context-menu"], ["cdkListbox", ""], ["cdkMenuItem", "", 3, "coOptionalTitle"], ["cdkMenuItem", "", 3, "click", "coOptionalTitle"]],
+    consts: [["contextMenuTemplate", ""], [1, "flex"], [1, "co-table-toolbar", "flex", "flex-gap", "prevent-select", 2, "overflow-y", "auto", 3, "ngStyle"], ["id", "tableContainer", 1, "co-table-container", "flex-grow", "co-table-empty-space"], ["cdk-table", "", "id", "table", "fixedLayout", "", 1, "co-table", 3, "wheel", "dataSource"], [3, "cdkColumnDef", "sticky"], ["cdk-header-row", "", "id", "tableHeader", 3, "mousemove", "mouseup", "mouseleave", 4, "cdkHeaderRowDef"], ["cdk-header-row", "", "id", "filterHeader", 3, "hidden", 4, "cdkHeaderRowDef"], ["cdk-row", "", "id", "tableRow", 3, "cdkContextMenuTriggerFor", "click", "mouseenter", 4, "cdkRowDef", "cdkRowDefColumns"], ["id", "paginator", 3, "dataSource", "vertical", "allowWheelScroll"], [1, "flex-column", "flex-gap"], ["coButton", "icon", "title", "Clear all filters", 3, "click"], ["coButton", "icon", "title", "Advanced sorting", 3, "click"], ["coButton", "icon", "title", "Change layout", 3, "click"], ["coButton", "icon", 3, "coOptionalTitle"], ["coButton", "icon", 3, "click", "coOptionalTitle"], [1, "flex", "flex-gap"], [1, "flex-fill", "dialog-button-bar"], ["coButton", "icon", "color", "primary", "title", "Restore default sort", 3, "click"], [1, "co-table-sidebar-content"], ["cdkDropList", "", 1, "flex-column", "table-drag-boundary", 3, "cdkDropListDropped"], ["cdkDrag", "", "cdkDragBoundary", ".table-drag-boundary", 1, "co-table-toolbar-column", "flex", "flex-gap", "flex-center-items", "prevent-select"], [1, "flex", "flex-gap", "dialog-button-bar"], ["coButton", "raised", 3, "disabled"], ["coButton", "raised", "color", "primary", 3, "disabled"], ["label", "Column Name", 1, "co-table-toolbar-column-label", 3, "ngModelChange", "ngModel", "values"], ["label", "Sort Direction", 3, "ngModelChange", "ngModel", "values"], ["coButton", "icon", "title", "Remove sort", 3, "click"], ["coButton", "raised", 3, "click", "disabled"], ["coButton", "raised", "color", "primary", 3, "click", "disabled"], ["coButton", "icon", "color", "primary", "title", "Restore field layout", 3, "click"], ["label", "Label", 1, "co-table-toolbar-column-label", "prevent-select", 3, "ngModelChange", "ngModel"], ["type", "checkbox", "label", "Visible", 1, "prevent-select", 3, "ngModelChange", "ngModel"], ["type", "checkbox", "label", "Sticky", 1, "prevent-select", 3, "ngModelChange", "ngModel"], ["coButton", "raised", "color", "primary", 3, "click", "title"], ["cdk-header-cell", "", 3, "ngStyle", "hidden", "ngClass", 4, "cdkHeaderCellDef"], ["cdk-cell", "", 3, "ngStyle", "hidden", "title", "click", 4, "cdkCellDef"], ["cdk-header-cell", "", 3, "ngStyle", "hidden", "ngClass"], [1, "flex", "prevent-select", 2, "justify-content", "space-between"], [1, "co-table-content", 3, "click"], [1, "co-table-sort-arrow"], [1, "resize-column", 3, "mousedown"], [1, "co-table-sort-arrow", 3, "click"], ["cdk-cell", "", 3, "click", "ngStyle", "hidden", "title"], [1, "co-table-content"], [1, "resize-space"], ["class", "co-table-filter-content", "cdk-header-cell", "", 3, "ngStyle", "hidden", 4, "cdkHeaderCellDef"], ["cdk-header-cell", "", 1, "co-table-filter-content", 3, "ngStyle", "hidden"], [1, "flex", "prevent-select"], [3, "ngModel", "ngStyle", "prefix"], [3, "ngModel", "values", "multiple", "ngStyle"], [3, "ngModel", "ngStyle", "includeTime"], [3, "ngModelChange", "prefixClick", "keydown", "clearClicked", "ngModel", "ngStyle", "prefix"], [3, "ngModelChange", "ngModel", "values", "multiple", "ngStyle"], [3, "ngModelChange", "ngModel", "ngStyle", "includeTime"], ["cdk-header-row", "", "id", "tableHeader", 3, "mousemove", "mouseup", "mouseleave"], ["cdk-header-row", "", "id", "filterHeader", 3, "hidden"], ["cdk-row", "", "id", "tableRow", 3, "click", "mouseenter", "cdkContextMenuTriggerFor"], ["cdkMenu", "", 1, "co-context-menu"], ["cdkListbox", ""], ["cdkMenuItem", "", 3, "coOptionalTitle"], ["cdkMenuItem", "", 3, "click", "coOptionalTitle"]],
     template: function MpageTableComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275conditionalCreate(0, MpageTableComponent_Conditional_0_Template, 12, 6, "div", 1);
@@ -49201,7 +49056,7 @@ var MpageTableComponent = class _MpageTableComponent {
         \u0275\u0275conditional(ctx.dataSource.data().length > 0 ? 0 : -1);
       }
     },
-    dependencies: [DropdownDirective, PreventScrollDirective, ScrollingModule, CdkTable, CdkColumnDef, CdkHeaderCell, CdkCell, CdkHeaderRow, CdkCellDef, CdkHeaderCellDef, CdkHeaderRowDef, CdkRow, CdkRowDef, RangePaginatorComponent, CdkMenu, CdkListbox, CdkMenuItem, MpageIconComponent, ButtonDirective, CdkDropList, MpageInputComponent, FormsModule, NgControlStatus, NgModel, CdkDrag, MpageSelectComponent, MpageRadioComponent, MpageDateRangePickerComponent, OptionalTitleDirective],
+    dependencies: [ScrollingModule, NgStyle, CdkTable, CdkColumnDef, CdkHeaderCell, CdkCell, CdkHeaderRow, CdkCellDef, CdkHeaderCellDef, CdkHeaderRowDef, CdkRow, CdkRowDef, RangePaginatorComponent, CdkContextMenuTrigger, CdkMenu, CdkListbox, CdkMenuItem, MpageIconComponent, ButtonDirective, CdkDropList, MpageInputComponent, FormsModule, NgControlStatus, NgModel, CdkDrag, MpageSelectComponent, MpageRadioComponent, NgClass, MpageDateRangePickerComponent, OptionalTitleDirective],
     styles: ["[_nghost-%COMP%]{display:inherit;width:100%;max-width:100%}"],
     changeDetection: 0
   });
@@ -49211,13 +49066,13 @@ var MpageTableComponent = class _MpageTableComponent {
     type: Component,
     args: [{
       selector: "mpage-table",
-      imports: [DropdownDirective, PreventScrollDirective, ScrollingModule, CdkTable, CdkColumnDef, CdkHeaderCell, CdkCell, CdkHeaderRow, CdkCellDef, CdkHeaderCellDef, CdkHeaderRowDef, CdkRow, CdkRowDef, RangePaginatorComponent, CdkMenu, CdkListbox, CdkMenuItem, MpageIconComponent, ButtonDirective, CdkDropList, MpageInputComponent, FormsModule, CdkDrag, MpageSelectComponent, MpageRadioComponent, MpageDateRangePickerComponent, OptionalTitleDirective],
+      imports: [ScrollingModule, NgStyle, CdkTable, CdkColumnDef, CdkHeaderCell, CdkCell, CdkHeaderRow, CdkCellDef, CdkHeaderCellDef, CdkHeaderRowDef, CdkRow, CdkRowDef, RangePaginatorComponent, CdkContextMenuTrigger, CdkMenu, CdkListbox, CdkMenuItem, MpageIconComponent, ButtonDirective, CdkDropList, MpageInputComponent, FormsModule, CdkDrag, MpageSelectComponent, MpageRadioComponent, NgClass, MpageDateRangePickerComponent, OptionalTitleDirective],
       standalone: true,
       changeDetection: ChangeDetectionStrategy.OnPush,
       template: `@if (dataSource.data().length > 0) {\r
   <div class="flex" >\r
     @if (defaultParams().showToolbar) {\r
-      <div class="co-table-toolbar flex flex-gap prevent-select" [style]="height()" style="overflow-y: auto">\r
+      <div class="co-table-toolbar flex flex-gap prevent-select" [ngStyle]="height()" style="overflow-y: auto">\r
         <div class="flex-column flex-gap">\r
           <button coButton="icon" title="Clear all filters" (click)="clearFilters()">\r
             <mpage-icon>filter_none</mpage-icon>\r
@@ -49351,14 +49206,14 @@ var MpageTableComponent = class _MpageTableComponent {
     }\r
     <div class="co-table-container flex-grow co-table-empty-space" id="tableContainer">\r
       <table class="co-table" cdk-table [dataSource]="dataSource" id="table" (wheel)="wheelPosition($event)"\r
-             fixedLayout coPreventScroll>\r
+             fixedLayout>\r
 \r
         <!-- Columns -->\r
         @for (column of dataSource.columns(); track column; ) {\r
           <ng-container cdkColumnDef="{{ column }}" [sticky]="isSticky(column)">\r
             <!-- Header -->\r
-            <th [style]="columnStyle(column)" cdk-header-cell *cdkHeaderCellDef [hidden]="!isVisible(column)"\r
-                [class]="defaultParams().allowColumnSort ? 'co-table-sort-header' : ''"\r
+            <th [ngStyle]="columnStyle(column)" cdk-header-cell *cdkHeaderCellDef [hidden]="!isVisible(column)"\r
+                [ngClass]="defaultParams().allowColumnSort ? 'co-table-sort-header' : ''"\r
             >\r
               <div class="flex prevent-select" style="justify-content: space-between">\r
                 <div class="co-table-content" (click)="sortColumn(column)">\r
@@ -49373,14 +49228,11 @@ var MpageTableComponent = class _MpageTableComponent {
             </th>\r
 \r
             <!-- Content -->\r
-            <td cdk-cell *cdkCellDef="let element" [style]="columnStyle(column)" [hidden]="!isVisible(column)"\r
+            <td cdk-cell *cdkCellDef="let element" [ngStyle]="columnStyle(column)" [hidden]="!isVisible(column)"\r
                 (click)="colClick(column, element[column], element)" title="{{ defaultParams().hoverValue && columnType(column) === 'Text' ? element[column] : '' }}">\r
               <div class="flex prevent-select" style="justify-content: space-between">\r
                 <div class="co-table-content">\r
                   @switch (columnType(column)) {\r
-                    @case ('Icon') {\r
-                      <span class="material-icons">{{ icon(element[column]) }}</span>\r
-                    }\r
                     @case ('DtTm') {\r
                       {{ formattedDate(element[column], "DtTm") }}\r
                     }\r
@@ -49408,13 +49260,13 @@ var MpageTableComponent = class _MpageTableComponent {
         <!-- Filter Columns -->\r
         @for (column of dataSource.filterColumns(); track column; let index = $index) {\r
           <ng-container cdkColumnDef="{{ column }}" [sticky]="isSticky(column)">\r
-            <th class="co-table-filter-content" [style]="columnStyle(column)" cdk-header-cell *cdkHeaderCellDef\r
+            <th class="co-table-filter-content" [ngStyle]="columnStyle(column)" cdk-header-cell *cdkHeaderCellDef\r
                 [hidden]="!isVisible(column)">\r
               <div class="flex prevent-select">\r
                 @if (filters()[index].type === 'text') {\r
                   <mpage-input [ngModel]="textFilterValue(column, 'value')"\r
                                (ngModelChange)="assignTextFilter(column, $event, 'value')"\r
-                               [style]="columnStyle(column, true)"\r
+                               [ngStyle]="columnStyle(column, true)"\r
                                [prefix]="{'icon': textFilterValue(column, 'flag') ? 'all_inclusive' : 'start', 'button':true,'title': textFilterValue(column, 'flag') ? 'contains' : 'starts with','className':''}"\r
                                (prefixClick)="assignTextFilter(column, '', 'flag'); filterData()"\r
                                (keydown)="textFilter($event, index)" (clearClicked)="filterData()"/>\r
@@ -49423,11 +49275,11 @@ var MpageTableComponent = class _MpageTableComponent {
                                 (ngModelChange)="filterSearchValues.set(column, $event); filterData()"\r
                                 [values]="filters()[index].values"\r
                                 [multiple]="true"\r
-                                [style]="columnStyle(column, true)"/>\r
+                                [ngStyle]="columnStyle(column, true)"/>\r
                 } @else if (filters()[index].type === 'date' || filters()[index].type === 'dttm') {\r
-                  <mpage-date-range-picker [ngModel]="filterSearchValues.get(column)"\r
+                  <lib-mpage-date-range-picker [ngModel]="filterSearchValues.get(column)"\r
                                                (ngModelChange)="filterSearchValues.set(column, $event); filterData();"\r
-                                               [style]="columnStyle(column, true)"\r
+                                               [ngStyle]="columnStyle(column, true)"\r
                                                [includeTime]="filters()[index].type === 'dttm'"\r
                                                />\r
                 } @else {\r
@@ -49451,14 +49303,16 @@ var MpageTableComponent = class _MpageTableComponent {
             id="tableRow"\r
             (click)="rowClick(row)"\r
             (mouseenter)="hoverRow(row)"\r
-            [coDropdown]="contextMenuTemplate" [rightClick]="true">\r
+            [cdkContextMenuTriggerFor]="contextMenuTemplate"\r
+        >\r
         </tr>\r
 \r
+<!--        <tr cdk-footer-row *cdkFooterRowDef="['emptySpace']" [ngStyle]="remainingHeight()"></tr> -->\r
       </table>\r
     </div>\r
 \r
     @if (dataSource.pageCount() > dataSource.pageSize()) {\r
-      <range-paginator  [dataSource]="dataSource" [vertical]="true"\r
+      <range-paginator [dataSource]="dataSource" [vertical]="true"\r
                        [allowWheelScroll]="defaultParams().allowWheelScroll!"\r
                        id="paginator"\r
       />\r
@@ -49466,13 +49320,13 @@ var MpageTableComponent = class _MpageTableComponent {
   </div>\r
 }\r
 \r
-<ng-template #contextMenuTemplate let-close="close">\r
+<ng-template #contextMenuTemplate>\r
   @if (defaultParams().contextMenu!.length > 0) {\r
     <div class="co-context-menu" cdkMenu>\r
       @for (menu of defaultParams().contextMenu; track menu) {\r
         <ul cdkListbox>\r
           @if (menu.label !== '') {\r
-            <li cdkMenuItem (click)="rowClick(currentRow, menu.idName ?? menu.label); close()" [coOptionalTitle]="menu.hoverText">\r
+            <li cdkMenuItem (click)="rowClick(currentRow, menu.idName ?? menu.label)" [coOptionalTitle]="menu.hoverText">\r
             <span class="flex flex-gap">\r
               <mpage-icon>{{ menu.icon }}</mpage-icon>\r
               {{ menu.label }}\r
@@ -49493,60 +49347,6 @@ var MpageTableComponent = class _MpageTableComponent {
     onResize: [{
       type: HostListener,
       args: ["window:resize", ["$event"]]
-    }],
-    filteredData: [{
-      type: Output,
-      args: ["filteredData"]
-    }],
-    columnConfig: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "columnConfig",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["columnConfigChange"]
-    }],
-    wildCardSearchMode: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "wildCardSearchMode",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["wildCardSearchModeChange"]
-    }],
-    data: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "data",
-        required: false
-      }]
-    }],
-    params: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "params",
-        required: false
-      }]
-    }],
-    clickRow: [{
-      type: Output,
-      args: ["clickRow"]
-    }],
-    clickColumn: [{
-      type: Output,
-      args: ["clickColumn"]
-    }],
-    clickContextMenu: [{
-      type: Output,
-      args: ["clickContextMenu"]
     }]
   });
 })();
@@ -49554,51 +49354,38 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
   MPage = inject(MPageService);
   customService = inject(CustomService);
   codeValueService = inject(CodeValueService);
-  dialogRef;
-  data = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "data"
-  } : {}), {
-    transform: (value) => {
-      if (value !== null) {
-        if (value.returnType) this.returnType.set(value.returnType);
-        if (value.cclScript) this.cclScript.set(value.cclScript);
-        if (value.fullName) this.fullName.set(value.fullName);
-        if (value.birthDate) this.birthDate.set(value.birthDate);
-        if (value.sex) this.sex.set(value.sex);
-        if (value.personAlias) this.personAlias.set(value.personAlias);
-        if (value.encntrAlias) this.encntrAlias.set(value.encntrAlias);
-      }
-    }
-  }));
+  dialogRef = inject(DialogRef, {
+    optional: true
+  });
   searchResult = output();
-  returnType = model("encounter", __spreadValues({}, ngDevMode ? {
+  returnType = model("encounter", ...ngDevMode ? [{
     debugName: "returnType"
-  } : {}));
-  cclScript = model("1co5_enc_search_data:group1", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  cclScript = model("1co5_enc_search_data:group1", ...ngDevMode ? [{
     debugName: "cclScript"
-  } : {}));
-  fullName = model(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  fullName = model(false, ...ngDevMode ? [{
     debugName: "fullName"
-  } : {}));
-  birthDate = model(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  birthDate = model(false, ...ngDevMode ? [{
     debugName: "birthDate"
-  } : {}));
-  sex = model(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  sex = model(false, ...ngDevMode ? [{
     debugName: "sex"
-  } : {}));
-  personAlias = model([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  personAlias = model([], ...ngDevMode ? [{
     debugName: "personAlias"
-  } : {}));
-  encntrAlias = model([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  encntrAlias = model([], ...ngDevMode ? [{
     debugName: "encntrAlias"
-  } : {}));
-  searchData = signal(this.emptyData, __spreadValues({}, ngDevMode ? {
-    debugName: "searchData"
-  } : {}));
+  }] : []);
+  data = signal(this.emptyData, ...ngDevMode ? [{
+    debugName: "data"
+  }] : []);
   codeValue = [];
-  disabled = signal(false, __spreadValues({}, ngDevMode ? {
+  disabled = signal(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
+  }] : []);
   personDataId = "1co5_enc_search_person";
   _encounterDataId = "1co5_enc_search_encntr";
   // Use a get to collect this value
@@ -49612,56 +49399,51 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     allowColumnSort: true,
     columnFilter: false
   };
-  loading = signal(false, __spreadValues({}, ngDevMode ? {
+  loading = signal(false, ...ngDevMode ? [{
     debugName: "loading"
-  } : {}));
-  codeValuesLoaded = signal(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  codeValuesLoaded = signal(false, ...ngDevMode ? [{
     debugName: "codeValuesLoaded"
-  } : {}));
+  }] : []);
   // Alternatively, to listen on the component's host element:
-  onHostEnterKey(event2) {
+  onHostEnterKey(event) {
     if (this.requirementsMet) {
       this.search();
     }
   }
   constructor() {
+    this.addCodeSet(4);
+    this.addCodeSet(57);
+    this.addCodeSet(319);
+    if (this.codeValue.length > 0) {
+      this.MPage.executeCCL({
+        payload: {
+          codeValue: this.codeValue
+        }
+      }, 0, () => {
+        this.codeValuesLoaded.set(true);
+      });
+    } else {
+      this.codeValuesLoaded.set(true);
+    }
     afterNextRender(() => {
-      this.init();
-      if (this.personAlias().length > 0 && this.searchData().personAlias.length === 0) {
+      if (this.personAlias().length > 0 && this.data().personAlias.length === 0) {
         this.personAlias().forEach((cdfMeaning) => {
-          this.searchData().personAlias.push({
+          this.data().personAlias.push({
             cdfMeaning,
             alias: ""
           });
         });
       }
-      if (this.encntrAlias().length > 0 && this.searchData().encntrAlias.length === 0) {
+      if (this.encntrAlias().length > 0 && this.data().encntrAlias.length === 0) {
         this.encntrAlias().forEach((cdfMeaning) => {
-          this.searchData().encntrAlias.push({
+          this.data().encntrAlias.push({
             cdfMeaning,
             alias: ""
           });
         });
       }
     });
-  }
-  init() {
-    if (!this.codeValuesLoaded()) {
-      this.addCodeSet(4);
-      this.addCodeSet(57);
-      this.addCodeSet(319);
-      if (this.codeValue.length > 0) {
-        this.MPage.executeCCL({
-          payload: {
-            codeValue: this.codeValue
-          }
-        }, 0, () => {
-          this.codeValuesLoaded.set(true);
-        });
-      } else {
-        this.codeValuesLoaded.set(true);
-      }
-    }
   }
   // Simple addition of code set if not loaded in initial load
   addCodeSet(codeSet) {
@@ -49680,13 +49462,14 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     return this.dialogRef !== null;
   }
   // Determine if style should be applied for dialog
+  applyCSSClass() {
+    return this.inDialog ? "co-dialog" : "";
+  }
+  // Determine if style should be applied for dialog
   applyStyle() {
-    return this.inDialog ? {
+    return {
       height: "50vh",
       width: "70vw"
-    } : {
-      height: "100%",
-      width: "100%"
     };
   }
   // Determines if all requirements to submit have been met
@@ -49694,21 +49477,20 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     if (this.disabled()) {
       return false;
     }
-    const personAliasMatch = this.searchData().personAlias.find((alias) => {
+    const personAliasMatch = this.data().personAlias.find((alias) => {
       return alias.alias !== "";
     });
-    const encntrAliasMatch = this.searchData().encntrAlias.find((alias) => {
+    const encntrAliasMatch = this.data().encntrAlias.find((alias) => {
       return alias.alias !== "";
     });
     let demogMatch = false;
-    if (this.searchData().fullName && this.searchData().fullName.trim().length > 3 || this.searchData().lastName && this.searchData().lastName.trim().length > 0 && this.searchData().firstName && this.searchData().firstName.trim().length > 0) {
+    if (this.data().fullName && this.data().fullName.trim().length > 3 || this.data().lastName && this.data().lastName.trim().length > 0 && this.data().firstName && this.data().firstName.trim().length > 0) {
       demogMatch = true;
     }
     return personAliasMatch !== void 0 || encntrAliasMatch !== void 0 || demogMatch;
   }
   // Perform search
   search(personId = 0) {
-    this.customService.putLog("search initiated");
     this.disabled.set(true);
     const id = personId === 0 ? this.personDataId + this.random : this.encounterDataId + this.random;
     if (personId === 0) {
@@ -49716,7 +49498,6 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     }
     this.customService.clear(this.encounterDataId + this.random);
     this.customService.load({
-      clearPatientSource: true,
       customScript: {
         script: [{
           name: "1co5_enc_search:group1",
@@ -49727,7 +49508,8 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
           name: this.cclScript(),
           run: "post",
           id
-        }]
+        }],
+        clearPatientSource: true
       }
     }, void 0, () => {
       this.updateSearchResults(id);
@@ -49737,15 +49519,15 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
   parameters(personId) {
     const params = {
       personId,
-      fullName: (this.searchData().fullName ?? void 0) + "*",
-      lastName: (this.searchData().lastName ?? void 0) + "*",
-      firstName: (this.searchData().firstName ?? void 0) + "*",
-      birthDate: this.searchData().birthDate ?? void 0,
-      sexCd: this.searchData().sexCd ? this.searchData().sexCd : 0,
-      personAlias: this.searchData().personAlias && this.searchData().personAlias.length > 0 ? this.searchData().personAlias.filter((alias) => {
+      fullName: (this.data().fullName ?? void 0) + "*",
+      lastName: (this.data().lastName ?? void 0) + "*",
+      firstName: (this.data().firstName ?? void 0) + "*",
+      birthDate: this.data().birthDate ?? void 0,
+      sexCd: this.data().sexCd ? this.data().sexCd : 0,
+      personAlias: this.data().personAlias && this.data().personAlias.length > 0 ? this.data().personAlias.filter((alias) => {
         return alias.alias.trim() !== "";
       }) : [],
-      encntrAlias: this.searchData().encntrAlias && this.searchData().encntrAlias.length > 0 ? this.searchData().encntrAlias.filter((alias) => {
+      encntrAlias: this.data().encntrAlias && this.data().encntrAlias.length > 0 ? this.data().encntrAlias.filter((alias) => {
         return alias.alias.trim() !== "";
       }) : []
     };
@@ -49772,7 +49554,7 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     });
     if (this.returnType() === "person") {
       if (this.dialogRef) {
-        this.dialogRef.close(JSON.stringify(row));
+        this.dialogRef.close(row);
       } else {
         this.searchResult.emit(row);
       }
@@ -49786,14 +49568,14 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
       return data.personId === row.personId;
     });
     if (this.dialogRef) {
-      this.dialogRef.close(JSON.stringify(__spreadValues(__spreadValues({}, person), row)));
+      this.dialogRef.close(__spreadValues(__spreadValues({}, person), row));
     } else {
       this.searchResult.emit(__spreadValues(__spreadValues({}, person), row));
     }
   }
   // Reset the form entry fields
   resetForm() {
-    const data = this.searchData();
+    const data = this.data();
     data.personId = 0;
     data.firstName = "";
     data.lastName = "";
@@ -49806,7 +49588,7 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     data.encntrAlias.forEach((alias) => {
       alias.alias = "";
     });
-    this.searchData.update((value) => {
+    this.data.update((value) => {
       value = data;
       return value;
     });
@@ -49838,8 +49620,6 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
       }
     },
     inputs: {
-      dialogRef: "dialogRef",
-      data: [1, "data"],
       returnType: [1, "returnType"],
       cclScript: [1, "cclScript"],
       fullName: [1, "fullName"],
@@ -49860,42 +49640,42 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     },
     decls: 22,
     vars: 12,
-    consts: [[1, "flex", "flex-gap", "flex-center-items"], [1, "flex", "flex-gap", 2, "height", "calc(100% - 24px)"], [1, "flex-column", "flex-gap", "co-w20"], ["label", "Name (Last, First)", 3, "ngModel"], ["label", "Birth Date", "type", "date", 1, "co-wdate", 3, "ngModel", "clearButton"], [1, "flex", "flex-gap"], ["coButton", "raised", "color", "primary", "type", "submit", 3, "click", "disabled"], ["coButton", "raised", 3, "click"], [1, "flex-column", "flex-gap", 2, "width", "100%"], [1, "flex-fill", "patient-search-table", 2, "height", "50% !important", "border", "1px solid", "width", "100%"], [1, "patient-search-fix-table", 3, "data", "params"], [1, "flex-fill", "patient-search-table", 2, "height", "50%"], [1, "flex-fill"], ["coButton", "icon", 3, "click"], ["label", "Name (Last, First)", 3, "ngModelChange", "ngModel"], ["label", "Last Name", 3, "ngModelChange", "ngModel"], ["label", "First Name", 3, "ngModelChange", "ngModel"], ["label", "Birth Date", "type", "date", 1, "co-wdate", 3, "ngModelChange", "ngModel", "clearButton"], ["label", "Sex", "noOptionLabel", "* Not Assigned", 3, "codeSet", "ngModel", "noOption"], [3, "label", "ngModel", "name"], ["label", "Sex", "noOptionLabel", "* Not Assigned", 3, "ngModelChange", "codeSet", "ngModel", "noOption"], [3, "ngModelChange", "label", "ngModel", "name"], [1, "patient-search-fix-table", 3, "clickRow", "data", "params"], [3, "data", "params"], [3, "clickRow", "data", "params"]],
+    consts: [[3, "ngClass", "ngStyle"], [1, "flex", "flex-gap", "flex-center-items"], [1, "flex", "flex-gap", 2, "height", "calc(100% - 24px)"], [1, "flex-column", "flex-gap", "co-w20"], ["label", "Name (Last, First)", 3, "ngModel"], ["label", "Birth Date", "type", "date", 1, "co-wdate", 3, "ngModel", "clearButton"], [1, "flex", "flex-gap"], ["coButton", "raised", "color", "primary", "type", "submit", 3, "click", "disabled"], ["coButton", "raised", 3, "click"], [1, "flex-column", "flex-gap", 2, "width", "100%"], [1, "flex-fill", "patient-search-table", 2, "height", "50% !important", "border", "1px solid", "width", "100%"], [1, "patient-search-fix-table", 3, "data", "params"], [1, "flex-fill", "patient-search-table", 2, "height", "50%"], [1, "flex-fill"], ["coButton", "icon", 3, "click"], ["label", "Name (Last, First)", 3, "ngModelChange", "ngModel"], ["label", "Last Name", 3, "ngModelChange", "ngModel"], ["label", "First Name", 3, "ngModelChange", "ngModel"], ["label", "Birth Date", "type", "date", 1, "co-wdate", 3, "ngModelChange", "ngModel", "clearButton"], ["label", "Sex", "noOptionLabel", "* Not Assigned", 3, "codeSet", "ngModel", "noOption"], [3, "label", "ngModel", "name"], ["label", "Sex", "noOptionLabel", "* Not Assigned", 3, "ngModelChange", "codeSet", "ngModel", "noOption"], [3, "ngModelChange", "label", "ngModel", "name"], [1, "patient-search-fix-table", 3, "clickRow", "data", "params"], [3, "data", "params"], [3, "clickRow", "data", "params"]],
     template: function MpagePatientSearchComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "div")(1, "div", 0)(2, "h2");
+        \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "h2");
         \u0275\u0275text(3);
         \u0275\u0275pipe(4, "titlecase");
         \u0275\u0275elementEnd();
         \u0275\u0275conditionalCreate(5, MpagePatientSearchComponent_Conditional_5_Template, 4, 0);
         \u0275\u0275elementEnd();
         \u0275\u0275element(6, "hr");
-        \u0275\u0275elementStart(7, "div", 1)(8, "div", 2);
-        \u0275\u0275conditionalCreate(9, MpagePatientSearchComponent_Conditional_9_Template, 1, 1, "mpage-input", 3)(10, MpagePatientSearchComponent_Conditional_10_Template, 2, 2);
-        \u0275\u0275conditionalCreate(11, MpagePatientSearchComponent_Conditional_11_Template, 1, 2, "mpage-input", 4);
+        \u0275\u0275elementStart(7, "div", 2)(8, "div", 3);
+        \u0275\u0275conditionalCreate(9, MpagePatientSearchComponent_Conditional_9_Template, 1, 1, "mpage-input", 4)(10, MpagePatientSearchComponent_Conditional_10_Template, 2, 2);
+        \u0275\u0275conditionalCreate(11, MpagePatientSearchComponent_Conditional_11_Template, 1, 2, "mpage-input", 5);
         \u0275\u0275conditionalCreate(12, MpagePatientSearchComponent_Conditional_12_Template, 5, 1);
-        \u0275\u0275elementStart(13, "div", 5)(14, "button", 6);
+        \u0275\u0275elementStart(13, "div", 6)(14, "button", 7);
         \u0275\u0275listener("click", function MpagePatientSearchComponent_Template_button_click_14_listener() {
           return ctx.search();
         });
         \u0275\u0275text(15, "Search");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(16, "button", 7);
+        \u0275\u0275elementStart(16, "button", 8);
         \u0275\u0275listener("click", function MpagePatientSearchComponent_Template_button_click_16_listener() {
           return ctx.resetForm();
         });
         \u0275\u0275text(17, "Reset");
         \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(18, "div", 8)(19, "div", 9);
-        \u0275\u0275conditionalCreate(20, MpagePatientSearchComponent_Conditional_20_Template, 1, 2, "mpage-table", 10);
+        \u0275\u0275elementStart(18, "div", 9)(19, "div", 10);
+        \u0275\u0275conditionalCreate(20, MpagePatientSearchComponent_Conditional_20_Template, 1, 2, "mpage-table", 11);
         \u0275\u0275elementEnd();
-        \u0275\u0275conditionalCreate(21, MpagePatientSearchComponent_Conditional_21_Template, 2, 1, "div", 11);
+        \u0275\u0275conditionalCreate(21, MpagePatientSearchComponent_Conditional_21_Template, 2, 1, "div", 12);
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275styleMap(ctx.applyStyle());
+        \u0275\u0275property("ngClass", ctx.applyCSSClass())("ngStyle", ctx.applyStyle());
         \u0275\u0275advance(3);
-        \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(4, 10, ctx.returnType()), " Search");
+        \u0275\u0275textInterpolate1("", \u0275\u0275pipeBind1(4, 10, ctx.returnType()), " Seach");
         \u0275\u0275advance(2);
         \u0275\u0275conditional(ctx.inDialog ? 5 : -1);
         \u0275\u0275advance(4);
@@ -49912,7 +49692,7 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
         \u0275\u0275conditional(ctx.returnType() === "encounter" ? 21 : -1);
       }
     },
-    dependencies: [MpageIconComponent, ButtonDirective, MpageInputComponent, FormsModule, NgControlStatus, NgModel, MpageSelectComponent, MpageTableComponent, TitleCasePipe],
+    dependencies: [NgClass, NgStyle, MpageIconComponent, ButtonDirective, MpageInputComponent, FormsModule, NgControlStatus, NgModel, MpageSelectComponent, MpageTableComponent, TitleCasePipe],
     styles: [_c2],
     changeDetection: 0
   });
@@ -49922,16 +49702,16 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
     type: Component,
     args: [{
       selector: "mpage-patient-search",
-      imports: [TitleCasePipe, MpageIconComponent, ButtonDirective, MpageInputComponent, FormsModule, MpageSelectComponent, MpageTableComponent],
+      imports: [NgClass, NgStyle, TitleCasePipe, MpageIconComponent, ButtonDirective, MpageInputComponent, FormsModule, MpageSelectComponent, MpageTableComponent],
       changeDetection: ChangeDetectionStrategy.OnPush,
       standalone: true,
-      template: `<div [style]="applyStyle()">\r
+      template: `<div [ngClass]="applyCSSClass()" [ngStyle]="applyStyle()">\r
 \r
     <div class="flex flex-gap flex-center-items">\r
-        <h2>{{ returnType() | titlecase }} Search</h2>\r
+        <h2>{{ returnType() | titlecase }} Seach</h2>\r
         @if (inDialog) {\r
         <div class="flex-fill"></div>\r
-        <button coButton="icon" (click)="dialogRef.close('false')"><mpage-icon>close</mpage-icon></button>\r
+        <button coButton="icon" (click)="dialogRef?.close(false)"><mpage-icon>close</mpage-icon></button>\r
         }\r
     </div>\r
     <hr />\r
@@ -49941,33 +49721,33 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
         <div class="flex-column flex-gap co-w20">\r
             <!-- Name -->\r
             @if (fullName()) {\r
-            <mpage-input label="Name (Last, First)" [(ngModel)]="searchData().fullName" />\r
+            <mpage-input label="Name (Last, First)" [(ngModel)]="data().fullName" />\r
             } @else {\r
-            <mpage-input label="Last Name" [(ngModel)]="searchData().lastName" />\r
-            <mpage-input label="First Name" [(ngModel)]="searchData().firstName" />\r
+            <mpage-input label="Last Name" [(ngModel)]="data().lastName" />\r
+            <mpage-input label="First Name" [(ngModel)]="data().firstName" />\r
             }\r
 \r
             <!-- DOB -->\r
             @if (birthDate()) {\r
-            <mpage-input label="Birth Date" type="date" [(ngModel)]="searchData().birthDate" class="co-wdate"\r
-                         [clearButton]="false" />\r
+            <mpage-input label="Birth Date" type="date" [(ngModel)]="data().birthDate" class="co-wdate"\r
+                [clearButton]="false" />\r
             }\r
 \r
             @if (codeValuesLoaded()) {\r
             <!-- Sex -->\r
             @if (sex()) {\r
-            <mpage-select label="Sex" [codeSet]="57" [(ngModel)]="searchData().sexCd" [noOption]="true"\r
-                          noOptionLabel="* Not Assigned" />\r
+            <mpage-select label="Sex" [codeSet]="57" [(ngModel)]="data().sexCd" [noOption]="true"\r
+                noOptionLabel="* Not Assigned" />\r
             }\r
 \r
             <!-- Person Alias Filters -->\r
-            @for (alias of searchData().personAlias; track alias) {\r
+            @for (alias of data().personAlias; track alias) {\r
             <mpage-input [label]="codeValueService.getCodeBy(4, alias.cdfMeaning, 'MEANING')[0].display"\r
                 [(ngModel)]="alias.alias" [name]="alias.cdfMeaning"></mpage-input>\r
             }\r
 \r
             <!-- Encounter Alias Filters -->\r
-            @for (alias of searchData().encntrAlias; track alias) {\r
+            @for (alias of data().encntrAlias; track alias) {\r
             <mpage-input [label]="codeValueService.getCodeBy(319, alias.cdfMeaning, 'MEANING')[0].display"\r
                 [(ngModel)]="alias.alias" [name]="alias.cdfMeaning"></mpage-input>\r
             }\r
@@ -49986,7 +49766,7 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
             <div class="flex-fill patient-search-table" style="height: 50% !important; border: 1px solid; width: 100%">\r
                 @if (customService.has(personDataId + this.random)) {\r
                 <mpage-table [data]="customService.get(personDataId + this.random).person"\r
-                    class="patient-search-fix-table"\r
+                    class="patient-search-fix-table"                    \r
                     (clickRow)="clickPatient($event)" [params]="tableParams"></mpage-table>\r
                 }\r
             </div>\r
@@ -50000,103 +49780,10 @@ var MpagePatientSearchComponent = class _MpagePatientSearchComponent {
             }\r
         </div>\r
     </div>\r
-</div>\r
-`,
+</div>`,
       styles: [".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
     }]
   }], () => [], {
-    dialogRef: [{
-      type: Input
-    }],
-    data: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "data",
-        required: false
-      }]
-    }],
-    searchResult: [{
-      type: Output,
-      args: ["searchResult"]
-    }],
-    returnType: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "returnType",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["returnTypeChange"]
-    }],
-    cclScript: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "cclScript",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["cclScriptChange"]
-    }],
-    fullName: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "fullName",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["fullNameChange"]
-    }],
-    birthDate: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "birthDate",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["birthDateChange"]
-    }],
-    sex: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "sex",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["sexChange"]
-    }],
-    personAlias: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "personAlias",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["personAliasChange"]
-    }],
-    encntrAlias: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "encntrAlias",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["encntrAliasChange"]
-    }],
     onHostEnterKey: [{
       type: HostListener,
       args: ["keydown.enter", ["$event"]]
@@ -50110,9 +49797,6 @@ var MpageLogComponent = class _MpageLogComponent {
     if (options.size && options.size < 25) {
       this.MPage.putLog("Minimum log size value is 25. Defaulting from " + options.size + " to 25.", "debug");
       this.options.size = 25;
-    } else if (options.size && options.size > 100) {
-      this.MPage.putLog("Maximum log size value is 100. Defaulting from " + options.size + " to 100.", "debug");
-      this.options.size = 100;
     } else {
       this.options.size = options.size ?? this.options.size;
       this.inputSize = options.size ?? this.inputSize;
@@ -50172,23 +49856,22 @@ var MpageLogComponent = class _MpageLogComponent {
   problemService = inject(ProblemService);
   encounterService = inject(EncounterService);
   personService = inject(PersonService);
-  prsnlService = inject(PrsnlService);
   referenceService = inject(ReferenceService);
   expandedServiceList = /* @__PURE__ */ new Map();
   // Internal variables
-  visible = signal(false, __spreadValues({}, ngDevMode ? {
+  visible = signal(false, ...ngDevMode ? [{
     debugName: "visible"
-  } : {}));
+  }] : []);
   _view = "activity";
-  logContent = signal("Click the name of a service listed on the left side of the screen", __spreadValues({}, ngDevMode ? {
+  logContent = signal("Click the name of a service listed on the left side of the screen", ...ngDevMode ? [{
     debugName: "logContent"
-  } : {}));
-  timerTick = signal(0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  timerTick = signal(0, ...ngDevMode ? [{
     debugName: "timerTick"
-  } : {}));
+  }] : []);
   interval;
-  toggleVisibility(event2) {
-    if (event2.ctrlKey && event2.key === "/") {
+  toggleVisibility(event) {
+    if (event.ctrlKey && event.key === "/") {
       this.visible.set(!this.visible());
     }
   }
@@ -50201,7 +49884,6 @@ var MpageLogComponent = class _MpageLogComponent {
     this.logService.addService(this.encounterService);
     this.logService.addService(this.organizationService);
     this.logService.addService(this.personService);
-    this.logService.addService(this.prsnlService);
     this.logService.addService(this.phoneService);
     this.logService.addService(this.problemService);
     this.logService.addService(this.referenceService);
@@ -50282,8 +49964,6 @@ var MpageLogComponent = class _MpageLogComponent {
   assignLogContent(content, parse2 = false, serviceName = "") {
     if (serviceName === "CodeValueService" && content.codeSet) {
       this.logContent.set(this.codeValueService.getCodeSet(content.codeSet));
-    } else if (typeof content === "string" && content === "") {
-      this.logContent.set("Nothing to show");
     } else {
       this.logContent.set(parse2 ? JSON.parse(content) : content);
     }
@@ -50309,24 +49989,29 @@ var MpageLogComponent = class _MpageLogComponent {
   assignPatient() {
     this.visible.set(false);
     const dialogRef = this.dialog.open(MpagePatientSearchComponent, {
-      data: {
-        fullName: true,
-        birthDate: true,
-        sex: true,
-        personAlias: ["MRN"],
-        encntrAlias: ["FIN NBR"]
-      }
+      width: "90vw"
     });
-    dialogRef.addEventListener("close", () => {
+    if (dialogRef.componentInstance) {
+      dialogRef.componentInstance.fullName.set(true);
+      dialogRef.componentInstance.birthDate.set(true);
+      dialogRef.componentInstance.sex.set(true);
+      dialogRef.componentInstance.personAlias.set(["MRN"]);
+      dialogRef.componentInstance.encntrAlias.set(["FIN NBR"]);
+    }
+    dialogRef.closed.subscribe((response) => {
       this.visible.set(true);
-      const response = JSON.parse(dialogRef.returnValue);
       if (response) {
-        const testVisit = this.customService.emptyDmInfo;
-        testVisit.infoDomain = "CLINICAL OFFICE";
-        testVisit.infoName = "DEVELOPER TEST VISIT";
-        testVisit.infoDomainId = this.customService.MPage.prsnlId;
-        testVisit.infoNumber = response.encntrId;
-        this.customService.executeDmInfoAction("AssignTestVisit", "w", [testVisit]);
+        this.customService.load({
+          customScript: {
+            script: [{
+              name: "1co5_mpage_test_visit:group1",
+              run: "pre"
+            }]
+          }
+        }, [{
+          personId: response.personId,
+          encntrId: response.encntrId
+        }]);
         this.MPage.putLog("");
         this.MPage.putLog("---- PAGE REFRESHING IN 5 SECONDS ----");
         this.MPage.putLog("");
@@ -50355,16 +50040,16 @@ var MpageLogComponent = class _MpageLogComponent {
     },
     decls: 1,
     vars: 1,
-    consts: [[1, "co-content", "mpage-log", 3, "style"], [1, "co-content", "mpage-log"], [1, "mpage-log-flex-row", "mpage-log-toolbar"], [1, "mpage-log-space-between"], [1, "mpage-log-toolbar2", "flex", "flex-gap"], [3, "click"], [1, "flex-fill"], ["title", "Click to assign test visit", 1, "phs-assign-patient"], [1, "mpage-log-content", "mpage-log-flex-row"], [1, "mpage-log-scroll"], [1, "mpage-log-select", 3, "ngModelChange", "ngModel", "values"], ["title", "Click to assign test visit", 1, "phs-assign-patient", 3, "click"], [1, "mpage-log-sticky"], [1, "mpage-log-flex-row", "mpage-log-type", 3, "class"], [1, "mpage-log-hover"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], [1, "mpage-log-flex-row", "mpage-log-type"], [1, "mpage-log-data-content"], ["title", "Click to send JSON payload string to back-end file for debugging", 1, "mpage-log-debug"], ["title", "Click to send JSON payload string to back-end file for debugging", 1, "mpage-log-debug", 3, "click"], [1, "mpage-log-short-left-column", "mpage-log-scroll"], [1, "mpage-log-item", "mpage-log-hover"], [1, "mpage-log-right-column", "mpage-log-scroll"], [1, "mpage-log-item", "mpage-log-hover", 3, "click"], [1, "mpage-log-pill", 3, "class"], ["title", "Last CCL call returned in error", 1, "mpage-log-error", "mpage-log-vertical-middle"], [1, "mpage-log-pill"], [1, "mpage-log-expand-group"], [1, "mpage-log-item", "mpage-log-hover", "mpage-log-indent"], [1, "mpage-log-item", "mpage-log-hover", "mpage-log-indent", 3, "click"], [1, "mpage-log-left-column", "mpage-log-scroll"], [1, "mpage-log-expand-group", "mpage-log-hover", 3, "click"], [1, "mpage-log-item", "mpage-log-hover", 3, "title"], [1, "mpage-log-item", "mpage-log-hover", 3, "click", "title"], [1, "mpage-log-hover", 3, "click"], [1, "mpage-log-system"]],
+    consts: [[1, "co-content", "mpage-log", 3, "ngStyle"], [1, "mpage-log-flex-row", "mpage-log-toolbar"], [1, "mpage-log-space-between"], [1, "mpage-log-toolbar2", "flex", "flex-gap"], [3, "click"], [1, "flex-fill"], ["title", "Click to assign test visit", 1, "phs-assign-patient"], [1, "mpage-log-content", "mpage-log-flex-row"], [1, "mpage-log-scroll"], [1, "mpage-log-select", 3, "ngModelChange", "ngModel", "values"], ["title", "Click to assign test visit", 1, "phs-assign-patient", 3, "click"], [1, "mpage-log-sticky"], [1, "mpage-log-flex-row", "mpage-log-type", 3, "ngClass"], [1, "mpage-log-hover"], ["type", "checkbox", 3, "ngModelChange", "ngModel"], [1, "mpage-log-data-content"], ["title", "Click to send JSON payload string to back-end file for debugging", 1, "mpage-log-debug"], ["title", "Click to send JSON payload string to back-end file for debugging", 1, "mpage-log-debug", 3, "click"], [1, "mpage-log-short-left-column", "mpage-log-scroll"], [1, "mpage-log-item", "mpage-log-hover"], [1, "mpage-log-right-column", "mpage-log-scroll"], [1, "mpage-log-item", "mpage-log-hover", 3, "click"], [1, "mpage-log-pill", 3, "ngClass"], ["title", "Last CCL call returned in error", 1, "mpage-log-error", "mpage-log-vertical-middle"], [1, "mpage-log-expand-group"], [1, "mpage-log-item", "mpage-log-hover", "mpage-log-indent"], [1, "mpage-log-item", "mpage-log-hover", "mpage-log-indent", 3, "click"], [1, "mpage-log-left-column", "mpage-log-scroll"], [1, "mpage-log-expand-group", "mpage-log-hover", 3, "click"], [1, "mpage-log-item", "mpage-log-hover", 3, "title"], [1, "mpage-log-item", "mpage-log-hover", 3, "click", "title"], [1, "mpage-log-hover", 3, "click"], [1, "mpage-log-system"]],
     template: function MpageLogComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Template, 23, 9, "div", 0);
+        \u0275\u0275conditionalCreate(0, MpageLogComponent_Conditional_0_Template, 24, 7, "div", 0);
       }
       if (rf & 2) {
         \u0275\u0275conditional(ctx.MPage.activityLogEnabled && ctx.visible() ? 0 : -1);
       }
     },
-    dependencies: [FormsModule, CheckboxControlValueAccessor, NgControlStatus, NgModel, MpageIconComponent, MpageSelectComponent, JsonPipe, TitleCasePipe, DatePipe],
+    dependencies: [NgStyle, NgClass, FormsModule, CheckboxControlValueAccessor, NgControlStatus, NgModel, MpageIconComponent, MpageSelectComponent, JsonPipe, TitleCasePipe, DatePipe],
     styles: [_c2],
     changeDetection: 0
   });
@@ -50375,27 +50060,25 @@ var MpageLogComponent = class _MpageLogComponent {
     args: [{
       selector: "mpage-log-component",
       standalone: true,
-      imports: [JsonPipe, TitleCasePipe, DatePipe, FormsModule, MpageIconComponent, MpageSelectComponent],
+      imports: [JsonPipe, NgStyle, TitleCasePipe, NgClass, DatePipe, FormsModule, MpageIconComponent, MpageSelectComponent],
       changeDetection: ChangeDetectionStrategy.OnPush,
       template: `@if (MPage.activityLogEnabled && visible()) {\r
-  <div class="co-content mpage-log" [style]="logCSS">\r
+  <div class="co-content mpage-log" [ngStyle]="logCSS">\r
     <div class="mpage-log-flex-row mpage-log-toolbar">\r
       <span>Clinical Office: MPage Developer [{{ MPage.version }}]</span>\r
       <span>[CCL Executes: {{ MPage.completedCCLExecutes() }},  Errors: {{ MPage.runTimeErrors() }}]</span>\r
       <span class="mpage-log-space-between"></span>\r
       @if (options.position !== 'inline') {\r
-        <mpage-select [(ngModel)]="options.position" [values]="screenPositions" class="mpage-log-select"/>\r
+        <mpage-select [(ngModel)]="options.position" [values]="screenPositions" class="mpage-log-select" />\r
 \r
         @if (options.position !== 'full') {\r
-          <mpage-select [(ngModel)]="options.size" [values]="inputSizes" class="mpage-log-select"/>%\r
+          <mpage-select [(ngModel)]="options.size" [values]="inputSizes" class="mpage-log-select" />%\r
         }\r
       }\r
     </div>\r
 \r
     <div class="mpage-log-toolbar2 flex flex-gap">\r
-      @if (MPage.logCount() > 0) {\r
-        <a (click)="view = 'activity'">Activity Log</a>\r
-      }\r
+      <a (click)="view = 'activity'">Activity Log</a>\r
       <a (click)="view = 'queue'">Data Queues</a>\r
       <a (click)="view = 'services'">Data Services</a>\r
       <a (click)="view = 'system'">System</a>\r
@@ -50422,7 +50105,7 @@ var MpageLogComponent = class _MpageLogComponent {
           </div>\r
 \r
           @for (logRow of filteredLogData; track logRow) {\r
-            <div class="mpage-log-flex-row mpage-log-type" [class]="logTypeClass(logRow)">\r
+            <div class="mpage-log-flex-row mpage-log-type" [ngClass]="logTypeClass(logRow)">\r
             <span class="mpage-log-data-content">\r
             {{ logRow.timestamp | date: 'HH:mm:ss' }}\r
               @if (logRow.processId >= 0) {\r
@@ -50447,7 +50130,7 @@ var MpageLogComponent = class _MpageLogComponent {
               <span>Instance {{ i }}</span>\r
               <span class="mpage-log-space-between"></span>\r
               @if (instance.running) {\r
-                <span class="mpage-log-pill" [class]="running(instance.startTime)">\r
+                <span class="mpage-log-pill" [ngClass]="running(instance.startTime)">\r
                   <mpage-icon>directions_run</mpage-icon>\r
                   {{ secondsSince(instance.startTime, timerTick()) }} sec.\r
                 </span>\r
@@ -50484,16 +50167,14 @@ var MpageLogComponent = class _MpageLogComponent {
 \r
               @if (service.entries > 0 && service.serviceName !== 'CustomService' && expandedService(service.serviceName)) {\r
                 @for (entry of logService.service(service.serviceName).values(); track entry; let i = $index) {\r
-                  <div class="mpage-log-item mpage-log-hover"\r
-                       (click)="assignLogContent(entry, false, service.serviceName)"\r
+                  <div class="mpage-log-item mpage-log-hover" (click)="assignLogContent(entry, false, service.serviceName)"\r
                        [title]="label(i, entry, logService.service(service.serviceName))">\r
                     <span>{{ label(i, entry, logService.service(service.serviceName)) }}</span>\r
                   </div>\r
                 }\r
               } @else if (service.entries > 0 && service.serviceName === 'CustomService' && expandedService(service.serviceName)) {\r
                 @for (key of logService.service(service.serviceName).keys(); track key; let i = $index) {\r
-                  <div class="mpage-log-item mpage-log-hover"\r
-                       (click)="assignLogContent(customService.get(key), false, service.serviceName)">\r
+                  <div class="mpage-log-item mpage-log-hover" (click)="assignLogContent(customService.get(key), false, service.serviceName)">\r
                     <span>[{{ i }}] {{ key }}</span>\r
                   </div>\r
                 }\r
@@ -50516,45 +50197,17 @@ var MpageLogComponent = class _MpageLogComponent {
       } @else if (view === 'system') {\r
         <div class="mpage-log-scroll">\r
           <table class="mpage-log-system">\r
-            <tr>\r
-              <td>Node:</td>\r
-              <td>{{ MPage.node }}</td>\r
-            </tr>\r
-            <tr>\r
-              <td>Domain:</td>\r
-              <td>{{ MPage.domain }}</td>\r
-            </tr>\r
-            <tr>\r
-              <td>Context:</td>\r
-              <td>{{ MPage.mode }}</td>\r
-            </tr>\r
+            <tr><td>Node:</td><td>{{ MPage.node }}</td></tr>\r
+            <tr><td>Domain:</td><td>{{ MPage.domain }}</td></tr>\r
+            <tr><td>Context:</td><td>{{ MPage.mode }}</td></tr>\r
             @if (MPage.mode === 'CHART') {\r
-              <tr>\r
-                <td>Person/Encounter:</td>\r
-                <td>{{ MPage.nameFullFormatted }} (PERSON_ID: {{ MPage.personId }}, ENCNTR_ID: {{ MPage.encntrId }})\r
-                </td>\r
-              </tr>\r
+            <tr><td>Person/Encounter:</td><td>{{ MPage.nameFullFormatted }} (PERSON_ID: {{ MPage.personId }}, ENCNTR_ID: {{ MPage.encntrId }})</td></tr>\r
             }\r
-            <tr>\r
-              <td>User</td>\r
-              <td>{{ MPage.prsnlName }} (PERSON_ID: {{ MPage.prsnlId }}, USERNAME: {{ MPage.username }})</td>\r
-            </tr>\r
-            <tr>\r
-              <td>Position</td>\r
-              <td>{{ MPage.position }} (POSITION_CD: {{ MPage.positionCd }})</td>\r
-            </tr>\r
-            <tr>\r
-              <td>Physician</td>\r
-              <td>{{ MPage.physicianInd ? 'Yes' : 'No' }}</td>\r
-            </tr>\r
-            <tr>\r
-              <td>Browser User Agent:</td>\r
-              <td>{{ userAgent }}</td>\r
-            </tr>\r
-            <tr>\r
-              <td>CCL Delivery:</td>\r
-              <td>{{ MPage.inPowerChart ? 'Running from Cerner MPages.' : 'Running from Discern Web Services (' + MPage.webUrl + ')' }}</td>\r
-            </tr>\r
+            <tr><td>User</td><td>{{ MPage.prsnlName }} (PERSON_ID: {{ MPage.prsnlId }}, USERNAME: {{ MPage.username }}) </td></tr>\r
+            <tr><td>Position</td><td>{{ MPage.position }} (POSITION_CD: {{ MPage.positionCd }}) </td></tr>\r
+            <tr><td>Physician</td><td>{{ MPage.physicianInd ? 'Yes' : 'No' }} </td></tr>\r
+            <tr><td>Browser User Agent:</td><td>{{ userAgent }}</td></tr>\r
+            <tr><td>CCL Delivery:</td><td>{{ MPage.inPowerChart ? 'Running from Cerner MPages.' : 'Running from Discern Web Services (' + MPage.webUrl + ')' }}</td></tr>\r
           </table>\r
 \r
         </div>\r
@@ -50577,195 +50230,57 @@ var MpageLogComponent = class _MpageLogComponent {
     }]
   });
 })();
-var MpageRadioButtonComponent = class _MpageRadioButtonComponent {
-  model;
-  // Functional Variables
-  value = input("", __spreadValues({}, ngDevMode ? {
-    debugName: "value"
-  } : {}));
-  name = input("", __spreadValues({}, ngDevMode ? {
-    debugName: "name"
-  } : {}));
-  /* Start of functions used to implement ngModel */
-  onChange = (value) => {
-  };
-  onTouched = () => {
-  };
-  writeValue(value) {
-    this.model = value;
-    this.onChange(value);
-  }
-  registerOnChange(fn) {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn) {
-    this.onTouched = fn;
-  }
-  emitChange(event2) {
-    this.writeValue(this.model);
-  }
-  static \u0275fac = function MpageRadioButtonComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MpageRadioButtonComponent)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _MpageRadioButtonComponent,
-    selectors: [["mpage-radio-button"]],
-    inputs: {
-      value: [1, "value"],
-      name: [1, "name"]
-    },
-    features: [\u0275\u0275ProvidersFeature([{
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => _MpageRadioButtonComponent),
-      multi: true
-    }])],
-    decls: 3,
-    vars: 4,
-    consts: [["type", "radio", 3, "ngModelChange", "value", "name", "ngModel"]],
-    template: function MpageRadioButtonComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "input", 0);
-        \u0275\u0275twoWayListener("ngModelChange", function MpageRadioButtonComponent_Template_input_ngModelChange_0_listener($event) {
-          \u0275\u0275twoWayBindingSet(ctx.model, $event) || (ctx.model = $event);
-          return $event;
-        });
-        \u0275\u0275listener("ngModelChange", function MpageRadioButtonComponent_Template_input_ngModelChange_0_listener($event) {
-          return ctx.emitChange($event);
-        });
-        \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(1, "label");
-        \u0275\u0275text(2);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275property("value", ctx.value())("name", ctx.name());
-        \u0275\u0275twoWayProperty("ngModel", ctx.model);
-        \u0275\u0275advance(2);
-        \u0275\u0275textInterpolate(ctx.value());
-      }
-    },
-    dependencies: [FormsModule, DefaultValueAccessor, RadioControlValueAccessor, NgControlStatus, NgModel],
-    styles: ["[_nghost-%COMP%]{display:inherit;gap:inherit}", _c2],
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MpageRadioButtonComponent, [{
-    type: Component,
-    args: [{
-      selector: "mpage-radio-button",
-      imports: [FormsModule],
-      standalone: true,
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      providers: [{
-        provide: NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(() => MpageRadioButtonComponent),
-        multi: true
-      }],
-      template: '<input type="radio" [value]="value()" [name]="name()" [(ngModel)]="model" (ngModelChange)="emitChange($event)" />\r\n<label>{{ value() }}</label>\r\n',
-      styles: [":host{display:inherit;gap:inherit}\n", ".mpage-log{display:grid;grid-template-rows:40px 2rem auto;z-index:1000;width:100%;margin:0;padding:0}.mpage-log-toolbar{background-color:#543d7f;color:#fff;padding:8px;min-height:40px;align-items:anchor-center}.mpage-log-select{color:#000;padding:0;margin:0;min-height:0}.mpage-log-select *+.co-default-field{min-height:inherit!important}.mpage-log-select>.co-field-label{height:0}.mpage-log-toolbar2{background-color:#b3a0d5;padding:4px}.mpage-log-toolbar2>a{padding:.2rem 1rem;border-radius:8px}.mpage-log-toolbar2>a:hover{background-color:#a085cf;cursor:pointer}.mpage-log-toolbar2>a:active{background-color:#543d7f;cursor:pointer}.mpage-log-title{display:flex;margin:1rem}.mpage-log-hover:hover{cursor:pointer}.mpage-log-space-between{flex:1 1 auto}.mpage-log-content{width:100%;height:100%;background-color:#eae7f0;overflow:hidden}.mpage-log-scroll{width:100%;overflow-y:scroll;overflow-x:hidden}.mpage-log-flex-row{display:flex;flex-direction:row;gap:4px}.mpage-log-flex-grow{flex-grow:1}.mpage-log-type{padding:.25rem}.mpage-log-type-debug{color:gray}.mpage-log-type-payload{color:#1e90ff}.mpage-log-type-payload-completed,.mpage-log-running{color:green}.mpage-log-running-slow{color:#ff0;background-color:#000}.mpage-log-running-very-slow{color:red;background-color:#ff0}.mpage-log-type-error{color:#8b0000;font-weight:700}.mpage-log-data-content{width:100%;margin:.1rem 0;font-family:Lucida Console,Monaco,monospace;font-size:16px;border:none;word-break:break-all}.mpage-log-item{display:flex;min-height:2rem}.mpage-log-item>*{align-self:center;vertical-align:middle}.mpage-log-item:active{color:#543d7f;font-weight:700}.mpage-log-item:hover{background-color:#f8f8ff}.mpage-log-vertical-middle{vertical-align:middle}.mpage-log-indent{padding-left:1rem}.mpage-log-short-left-column,.mpage-log-left-column{display:flex;flex-direction:column;height:100%}.mpage-log-short-left-column{width:300px}.mpage-log-left-column{width:25vw}.mpage-log-right-column{width:100%;height:100%;display:block;unicode-bidi:embed;font-family:monospace;white-space:pre}.mpage-log-expand-group{padding:4px;width:100%;background-color:#a085cf}.mpage-log-sticky{top:0;position:sticky;background-color:#f5f5f5}.mpage-log-pill{height:24px;display:inline-flex;margin:0;border-radius:4px;border:1px solid;padding:2px;vertical-align:middle}.mpage-log-debug{background-color:#000;color:#fff;padding:0 8px;border-radius:4px}.mpage-log-debug:hover{cursor:pointer;color:#ff0}table.mpage-log-system{padding:.5rem}table.mpage-log-system *>td{padding-right:.5rem}.patient-search-table{border:1px solid;background:var(--mpage-table-empty-space-background)}\n"]
-    }]
-  }], null, {
-    value: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "value",
-        required: false
-      }]
-    }],
-    name: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "name",
-        required: false
-      }]
-    }]
-  });
-})();
-var IndeterminateDirective = class _IndeterminateDirective {
-  elem = inject(ElementRef);
-  constructor() {
-  }
-  set coIndeterminate(value) {
-    this.elem.nativeElement.indeterminate = value;
-  }
-  static \u0275fac = function IndeterminateDirective_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _IndeterminateDirective)();
-  };
-  static \u0275dir = /* @__PURE__ */ \u0275\u0275defineDirective({
-    type: _IndeterminateDirective,
-    selectors: [["", "coIndeterminate", ""]],
-    inputs: {
-      coIndeterminate: "coIndeterminate"
-    }
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(IndeterminateDirective, [{
-    type: Directive,
-    args: [{
-      standalone: true,
-      selector: "[coIndeterminate]"
-    }]
-  }], () => [], {
-    coIndeterminate: [{
-      type: Input
-    }]
-  });
-})();
 var MpageTreeComponent = class _MpageTreeComponent {
   customService = inject(CustomService);
   model = [];
-  label = input("", __spreadValues({}, ngDevMode ? {
+  label = input("", ...ngDevMode ? [{
     debugName: "label"
-  } : {}));
-  disabled = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  disabled = input(false, ...ngDevMode ? [{
     debugName: "disabled"
-  } : {}));
-  script = input("1co5_location_tree:group1", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  script = input("1co5_location_tree:group1", ...ngDevMode ? [{
     debugName: "script"
-  } : {}));
-  scriptParams = input(void 0, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  scriptParams = input(void 0, ...ngDevMode ? [{
     debugName: "scriptParams"
-  } : {}));
-  searchText = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchText = signal("", ...ngDevMode ? [{
     debugName: "searchText"
-  } : {}));
+  }] : []);
   lastSearch = "";
-  class = input("", __spreadValues({}, ngDevMode ? {
+  class = input("mpage-input-default-width", ...ngDevMode ? [{
     debugName: "class"
-  } : {}));
-  searchFoundClass = input("co-tree-search-found", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchFoundClass = input("co-tree-search-found", ...ngDevMode ? [{
     debugName: "searchFoundClass"
-  } : {}));
-  style = input({}, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  style = input({}, ...ngDevMode ? [{
     debugName: "style"
-  } : {}));
-  required = input(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  required = input(false, ...ngDevMode ? [{
     debugName: "required"
-  } : {}));
-  searchable = model(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchable = model(false, ...ngDevMode ? [{
     debugName: "searchable"
-  } : {}));
-  wildCardSearchMode = model(true, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  wildCardSearchMode = model(true, ...ngDevMode ? [{
     debugName: "wildCardSearchMode"
-  } : {}));
-  searchValue = signal("", __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searchValue = signal("", ...ngDevMode ? [{
     debugName: "searchValue"
-  } : {}));
-  searching = signal(false, __spreadValues({}, ngDevMode ? {
+  }] : []);
+  searching = signal(false, ...ngDevMode ? [{
     debugName: "searching"
-  } : {}));
-  treeData = signal([], __spreadValues({}, ngDevMode ? {
+  }] : []);
+  treeData = signal([], ...ngDevMode ? [{
     debugName: "treeData"
-  } : {}));
+  }] : []);
   firstRun = true;
   scriptId = "mpage_tree_" + (/* @__PURE__ */ new Date()).getTime() + "_" + Math.ceil(Math.random() * 100);
-  loading = signal(false, __spreadValues({}, ngDevMode ? {
+  loading = signal(false, ...ngDevMode ? [{
     debugName: "loading"
-  } : {}));
+  }] : []);
   loadingId = 0;
   overlayOpen = false;
   constructor() {
@@ -50979,8 +50494,8 @@ var MpageTreeComponent = class _MpageTreeComponent {
       multi: true
     }])],
     decls: 14,
-    vars: 11,
-    consts: [["trigger", "cdkOverlayOrigin"], ["treeItem", ""], ["cdkOverlayOrigin", "", "tabindex", "0", 3, "click", "keydown"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], ["cdkConnectedOverlay", "", "cdkConnectedOverlayPush", "true", 3, "detach", "overlayOutsideClick", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen"], ["cdkMenu", "", "cdkTrapFocus", "", 1, "co-select-template", 3, "cdkTrapFocusAutoCapture"], ["label", "Search", 3, "ngModel", "style", "prefix"], ["coButton", "icon", "title", "Clear All", 3, "click"], ["label", "Search", 3, "ngModelChange", "prefixClick", "keydown", "ngModel", "prefix"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "flex", "flex-gap", "flex-center-items", "prevent-select"], ["coButton", "icon"], [1, "co-tree-no-expand"], ["type", "checkbox", 3, "ngModelChange", "change", "ngModel", "coIndeterminate"], [1, "co-tree-indent"], ["coButton", "icon", 3, "click"]],
+    vars: 9,
+    consts: [["trigger", "cdkOverlayOrigin"], ["treeItem", ""], ["cdkOverlayOrigin", "", "tabindex", "0", 3, "click", "keydown", "ngStyle", "ngClass"], [1, "co-field-label"], [1, "flex", "co-field-input"], [1, "co-select-field-input", 3, "title"], ["coButton", "icon", "tabindex", "-1", 3, "disabled"], ["cdkConnectedOverlay", "", "cdkConnectedOverlayPush", "true", 3, "detach", "overlayOutsideClick", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen"], ["cdkMenu", "", "cdkTrapFocus", "", 1, "co-select-template", 3, "ngStyle", "ngClass", "cdkTrapFocusAutoCapture"], ["label", "Search", 3, "ngModel", "style", "prefix"], ["coButton", "icon", "title", "Clear All", 3, "click"], ["label", "Search", 3, "ngModelChange", "prefixClick", "keydown", "ngModel", "prefix"], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "flex", "flex-gap", "flex-center-items", "prevent-select"], ["coButton", "icon"], [1, "co-tree-no-expand"], ["type", "checkbox", 3, "ngModelChange", "change", "ngModel", "coIndeterminate"], [3, "ngClass"], [1, "co-tree-indent"], ["coButton", "icon", 3, "click"]],
     template: function MpageTreeComponent_Template(rf, ctx) {
       if (rf & 1) {
         const _r1 = \u0275\u0275getCurrentView();
@@ -51002,7 +50517,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
         \u0275\u0275elementStart(8, "button", 6)(9, "mpage-icon");
         \u0275\u0275text(10, "arrow_drop_down");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275template(11, MpageTreeComponent_ng_template_11_Template, 9, 6, "ng-template", 7);
+        \u0275\u0275template(11, MpageTreeComponent_ng_template_11_Template, 9, 4, "ng-template", 7);
         \u0275\u0275listener("detach", function MpageTreeComponent_Template_ng_template_detach_11_listener() {
           \u0275\u0275restoreView(_r1);
           return \u0275\u0275resetView(ctx.overlayOpen = false);
@@ -51010,12 +50525,11 @@ var MpageTreeComponent = class _MpageTreeComponent {
           \u0275\u0275restoreView(_r1);
           return \u0275\u0275resetView(ctx.overlayOpen = false);
         });
-        \u0275\u0275template(12, MpageTreeComponent_ng_template_12_Template, 9, 8, "ng-template", null, 1, \u0275\u0275templateRefExtractor);
+        \u0275\u0275template(12, MpageTreeComponent_ng_template_12_Template, 9, 7, "ng-template", null, 1, \u0275\u0275templateRefExtractor);
       }
       if (rf & 2) {
         const trigger_r11 = \u0275\u0275reference(1);
-        \u0275\u0275styleMap(ctx.style());
-        \u0275\u0275classMap(ctx.requiredClass + " " + ctx.class() + " co-default-field");
+        \u0275\u0275property("ngStyle", ctx.style())("ngClass", ctx.requiredClass + " " + ctx.class() + " co-default-field");
         \u0275\u0275advance(3);
         \u0275\u0275conditional(ctx.label() !== "" ? 3 : -1);
         \u0275\u0275advance(2);
@@ -51030,7 +50544,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
         \u0275\u0275property("cdkConnectedOverlayOrigin", trigger_r11)("cdkConnectedOverlayOpen", ctx.overlayOpen);
       }
     },
-    dependencies: [FormsModule, CheckboxControlValueAccessor, NgControlStatus, NgModel, MpageIconComponent, MpageInputComponent, CdkOverlayOrigin, CdkConnectedOverlay, CdkTrapFocus, ButtonDirective, IndeterminateDirective, NgTemplateOutlet],
+    dependencies: [FormsModule, CheckboxControlValueAccessor, NgControlStatus, NgModel, NgClass, NgStyle, MpageIconComponent, MpageInputComponent, CdkOverlayOrigin, CdkConnectedOverlay, CdkTrapFocus, ButtonDirective, IndeterminateDirective, NgTemplateOutlet],
     encapsulation: 2,
     changeDetection: 0
   });
@@ -51040,7 +50554,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
     type: Component,
     args: [{
       selector: "mpage-tree",
-      imports: [FormsModule, MpageIconComponent, MpageInputComponent, CdkOverlayOrigin, CdkConnectedOverlay, CdkTrapFocus, ButtonDirective, IndeterminateDirective, NgTemplateOutlet],
+      imports: [FormsModule, NgClass, NgStyle, MpageIconComponent, MpageInputComponent, CdkOverlayOrigin, CdkConnectedOverlay, CdkTrapFocus, ButtonDirective, IndeterminateDirective, NgTemplateOutlet],
       changeDetection: ChangeDetectionStrategy.OnPush,
       standalone: true,
       providers: [{
@@ -51048,7 +50562,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
         useExisting: forwardRef(() => MpageTreeComponent),
         multi: true
       }],
-      template: `<div [style]="style()" [class]="requiredClass + ' ' + class() + ' co-default-field'" cdkOverlayOrigin\r
+      template: `<div [ngStyle]="style()" [ngClass]="requiredClass + ' ' + class() + ' co-default-field'" cdkOverlayOrigin\r
   #trigger="cdkOverlayOrigin" tabindex="0" (click)="toggleOverlay()" (keydown)="toggleOverlay($event)">\r
   <div class="co-field-label">\r
     @if (label() !== '') {\r
@@ -51073,7 +50587,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
 <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="overlayOpen"\r
   cdkConnectedOverlayPush="true" (detach)="overlayOpen = false" (overlayOutsideClick)="overlayOpen = false">\r
 \r
-  <div class="co-select-template" cdkMenu [style]="style()" [class]="class() + ' co-default-field'" cdkTrapFocus\r
+  <div class="co-select-template" cdkMenu [ngStyle]="style()" [ngClass]="class() + ' co-default-field'" cdkTrapFocus\r
     [cdkTrapFocusAutoCapture]="true">\r
     <div>\r
       @if (searchable()) {\r
@@ -51113,7 +50627,7 @@ var MpageTreeComponent = class _MpageTreeComponent {
 \r
       <!-- Checkbox and Label -->\r
       <input [(ngModel)]="item['selected']" type="checkbox" (change)="itemChange(item)" [coIndeterminate]="item['indeterminate']" />\r
-      <span [class]="styleItem(item)">{{ item['display'] }}</span>\r
+      <span [ngClass]="styleItem(item)">{{ item['display'] }}</span>\r
       @if (loading() && this.loadingId === item['id']) {\r
       (loading...)\r
       }\r
@@ -51131,299 +50645,10 @@ var MpageTreeComponent = class _MpageTreeComponent {
   }\r
 </ng-template>`
     }]
-  }], () => [], {
-    label: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "label",
-        required: false
-      }]
-    }],
-    disabled: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "disabled",
-        required: false
-      }]
-    }],
-    script: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "script",
-        required: false
-      }]
-    }],
-    scriptParams: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "scriptParams",
-        required: false
-      }]
-    }],
-    class: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "class",
-        required: false
-      }]
-    }],
-    searchFoundClass: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "searchFoundClass",
-        required: false
-      }]
-    }],
-    style: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "style",
-        required: false
-      }]
-    }],
-    required: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "required",
-        required: false
-      }]
-    }],
-    searchable: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "searchable",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["searchableChange"]
-    }],
-    wildCardSearchMode: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "wildCardSearchMode",
-        required: false
-      }]
-    }, {
-      type: Output,
-      args: ["wildCardSearchModeChange"]
-    }]
-  });
-})();
-var TabbedMenuComponent = class _TabbedMenuComponent {
-  _tabs = signal([], __spreadValues({}, ngDevMode ? {
-    debugName: "_tabs"
-  } : {}));
-  _activeTab = signal(0, __spreadValues({}, ngDevMode ? {
-    debugName: "_activeTab"
-  } : {}));
-  buttonType = input("default", __spreadValues({}, ngDevMode ? {
-    debugName: "buttonType"
-  } : {}));
-  buttonColor = input("default", __spreadValues({}, ngDevMode ? {
-    debugName: "buttonColor"
-  } : {}));
-  selectedButtonColor = input("primary", __spreadValues({}, ngDevMode ? {
-    debugName: "selectedButtonColor"
-  } : {}));
-  tabs = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "tabs"
-  } : {}), {
-    transform: (tabItems) => {
-      this._tabs.set([...tabItems]);
-    }
-  }));
-  defaultTab = input(null, __spreadProps(__spreadValues({}, ngDevMode ? {
-    debugName: "defaultTab"
-  } : {}), {
-    transform: (defaultTab) => {
-      this._activeTab.set((typeof defaultTab === "number" ? defaultTab : this._tabs().findIndex((tab) => tab.idName === defaultTab || tab.label === defaultTab)) ?? 0);
-    }
-  }));
-  clickTab = output();
-  // Returns the appropriate button color
-  currentButtonColor(i) {
-    return i === this._activeTab() ? this.selectedButtonColor() : this.buttonColor();
-  }
-  tabClicked(i) {
-    this._activeTab.set(i);
-    this.clickTab.emit(this._tabs()[i]);
-  }
-  static \u0275fac = function TabbedMenuComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _TabbedMenuComponent)();
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
-    type: _TabbedMenuComponent,
-    selectors: [["tabbed-menu"]],
-    inputs: {
-      buttonType: [1, "buttonType"],
-      buttonColor: [1, "buttonColor"],
-      selectedButtonColor: [1, "selectedButtonColor"],
-      tabs: [1, "tabs"],
-      defaultTab: [1, "defaultTab"]
-    },
-    outputs: {
-      clickTab: "clickTab"
-    },
-    decls: 3,
-    vars: 0,
-    consts: [[1, "flex", "flex-center-items", "co-tabbed-menu"], [3, "coButton", "color", "title"], [3, "click", "coButton", "color", "title"]],
-    template: function TabbedMenuComponent_Template(rf, ctx) {
-      if (rf & 1) {
-        \u0275\u0275elementStart(0, "div", 0);
-        \u0275\u0275repeaterCreate(1, TabbedMenuComponent_For_2_Template, 3, 5, "button", 1, \u0275\u0275repeaterTrackByIdentity);
-        \u0275\u0275elementEnd();
-      }
-      if (rf & 2) {
-        \u0275\u0275advance();
-        \u0275\u0275repeater(ctx._tabs());
-      }
-    },
-    dependencies: [ButtonDirective, MpageIconComponent],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TabbedMenuComponent, [{
-    type: Component,
-    args: [{
-      selector: "tabbed-menu",
-      imports: [ButtonDirective, MpageIconComponent],
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      standalone: true,
-      template: `<div class="flex flex-center-items co-tabbed-menu">\r
-  @for (tab of _tabs(); let i = $index; track tab) {\r
-    <button [coButton]="buttonType()" [color]="currentButtonColor(i)" (click)="tabClicked(i)" [title]="tab.hoverText ?? ''">\r
-      @if (tab.icon) {\r
-        <mpage-icon>{{ tab.icon }}</mpage-icon>\r
-      }\r
-      {{ tab.label }}\r
-    </button>\r
-  }\r
-</div>\r
-`
-    }]
-  }], null, {
-    buttonType: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "buttonType",
-        required: false
-      }]
-    }],
-    buttonColor: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "buttonColor",
-        required: false
-      }]
-    }],
-    selectedButtonColor: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "selectedButtonColor",
-        required: false
-      }]
-    }],
-    tabs: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "tabs",
-        required: false
-      }]
-    }],
-    defaultTab: [{
-      type: Input,
-      args: [{
-        isSignal: true,
-        alias: "defaultTab",
-        required: false
-      }]
-    }],
-    clickTab: [{
-      type: Output,
-      args: ["clickTab"]
-    }]
-  });
+  }], () => [], null);
 })();
 
 // src/app/app.config.ts
-var FixedDialog = class _FixedDialog {
-  appRef = inject(ApplicationRef);
-  injector = inject(EnvironmentInjector);
-  compInjector = inject(Injector);
-  open(componentType, config, modal = true, closeTimer = 0) {
-    const dialogElement = document.createElement("dialog");
-    dialogElement.setAttribute("class", config?.containerClass ?? (modal ? "co-modal-dialog-container" : "co-dialog-container"));
-    document.body.appendChild(dialogElement);
-    const componentRef = createComponent(componentType, {
-      environmentInjector: this.injector,
-      elementInjector: this.compInjector
-    });
-    componentRef.location.nativeElement.classList.add(config?.class ?? "co-dialog");
-    componentRef.location.nativeElement.style.minWidth = config?.minWidth ?? "unset";
-    componentRef.location.nativeElement.style.maxWidth = config?.maxWidth ?? "unset";
-    componentRef.location.nativeElement.style.width = config?.width ?? "unset";
-    componentRef.location.nativeElement.style.minHeight = config?.minHeight ?? "unset";
-    componentRef.location.nativeElement.style.maxHeight = config?.maxHeight ?? "unset";
-    componentRef.location.nativeElement.style.height = config?.height ?? "unset";
-    if (!modal && config) {
-      componentRef.location.nativeElement.style.position = "fixed";
-      if (config.position === "top")
-        componentRef.location.nativeElement.style.top = "0";
-      if (config.position === "bottom")
-        componentRef.location.nativeElement.style.bottom = "0";
-    }
-    dialogElement.addEventListener("close", () => {
-      this.appRef.detachView(componentRef.hostView);
-      componentRef.destroy();
-      document.body.removeChild(dialogElement);
-    });
-    if (config) {
-      componentRef.setInput("dialogRef", dialogElement);
-      componentRef.setInput("data", config.data);
-    }
-    this.appRef.attachView(componentRef.hostView);
-    componentRef.changeDetectorRef.detectChanges();
-    dialogElement.appendChild(componentRef.location.nativeElement);
-    if (typeof dialogElement.showModal === "function") {
-      if (modal) {
-        dialogElement.showModal();
-      } else {
-        if (closeTimer > 0) {
-          setTimeout(() => dialogElement.close(), closeTimer);
-        }
-        dialogElement.show();
-      }
-    }
-    return dialogElement;
-  }
-  static \u0275fac = function FixedDialog_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _FixedDialog)();
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _FixedDialog, factory: _FixedDialog.\u0275fac, providedIn: "root" });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(FixedDialog, [{
-    type: Injectable,
-    args: [{ providedIn: "root" }]
-  }], null, null);
-})();
 var CUSTOM_DATE_FORMATS = {
   parse: {
     dateInput: ["dd-MMM-yyyy"]
@@ -51445,8 +50670,6 @@ var appConfig = {
     provideAnimationsAsync(),
     provideRouter(routes, withHashLocation()),
     provideHttpClient(withFetch()),
-    // Override the broken Dialog service with our fixed version
-    { provide: Dialog, useClass: FixedDialog },
     // Load config.json before app initializes - required for Clinical Office CCL proxy
     provideAppInitializer(() => {
       const configService = inject(ConfigService);
@@ -51456,8 +50679,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.38-main";
-var packageVersion = "0.0.38";
+var buildVersion = "v0.0.36-main";
+var packageVersion = "0.0.36";
 var gitBranch = "main";
 
 // src/app/app-version/app-version.ts
@@ -52528,9 +51751,9 @@ var FileBrowserComponent = class _FileBrowserComponent {
   /**
    * Handle local file selection (offline mode)
    */
-  async onLocalFilesSelected(event2) {
+  async onLocalFilesSelected(event) {
     console.log("[FileBrowser] onLocalFilesSelected triggered");
-    const input2 = event2.target;
+    const input2 = event.target;
     if (input2.files && input2.files.length > 0) {
       console.log("[FileBrowser] Processing", input2.files.length, "files");
       await this.fileBrowserService.addLocalFiles(input2.files);
@@ -52546,8 +51769,8 @@ var FileBrowserComponent = class _FileBrowserComponent {
   /**
    * Remove a file from the list (offline mode only)
    */
-  removeFile(filename, event2) {
-    event2.stopPropagation();
+  removeFile(filename, event) {
+    event.stopPropagation();
     this.fileBrowserService.removeFile(filename);
     this._selectableFiles.update((files) => files.filter((f) => f.filename !== filename));
   }
@@ -53326,7 +52549,7 @@ var ValidationService = class _ValidationService {
         "expectedFields": 72,
         "filePattern": "^ptnt_(?!cmt|instr).*\\.txt$",
         "fields": [
-          { "position": 1, "name": "INTNL_PTNT_NUM", "displayName": "Internal Patient Number (IPN)", "maxLength": 8, "dataType": "numeric", "required": true, "uniqueWith": [29], "description": "Unique patient identifier linking all system records (unique per facility)" },
+          { "position": 1, "name": "INTNL_PTNT_NUM", "displayName": "Internal Patient Number (IPN)", "maxLength": 8, "dataType": "numeric", "required": true, "unique": true, "description": "Unique patient identifier linking all system records" },
           { "position": 2, "name": "UVS_PTNT_NUM", "displayName": "Universal Patient Number", "maxLength": 20, "dataType": "alphanumeric", "required": false, "description": "Leave NULL - not currently used in Transfusion" },
           { "position": 3, "name": "MED_REC_NUM", "displayName": "Medical Record Number (MRN)", "maxLength": 20, "dataType": "alphanumeric", "required": true, "description": "Patient's permanent ID number" },
           { "position": 4, "name": "PTNT_LST_NAM", "displayName": "Patient Last Name", "maxLength": 48, "dataType": "alphanumeric", "required": true, "description": "Patient's last name" },
@@ -53619,6 +52842,23 @@ var ValidationService = class _ValidationService {
         "targetField": 1,
         "condition": { "field": 23, "value": "T" },
         "severity": "error"
+      },
+      {
+        "id": "unit_facility_matches_patient",
+        "name": "Unit facility matches patient facility",
+        "description": "UNIT.3 (RCV_FCLTY_CD) should match PTNT.29 (FCLTY_CD) for the linked patient (UNIT.33 = PTNT.28 MRN)",
+        "sourceFile": "UNIT",
+        "sourceField": 3,
+        "targetFile": "PTNT",
+        "targetField": 29,
+        "condition": { "field": 23, "value": "T" },
+        "severity": "warning",
+        "matchField": {
+          "sourceKeyField": 33,
+          "targetKeyField": 28,
+          "sourceMatchField": 3,
+          "targetMatchField": 29
+        }
       }
     ]
   };
@@ -53756,7 +52996,7 @@ var ValidationService = class _ValidationService {
         const value = r.fields[field.position - 1];
         if (!value || value.trim() === "")
           return false;
-        return !validSet.has(value.trim());
+        return !validSet.has(value);
       });
       if (invalidRecords.length > 0) {
         issues.push({
@@ -53772,7 +53012,6 @@ var ValidationService = class _ValidationService {
       }
     });
     const uniqueField = spec.fields.find((f) => f.unique);
-    const compositeUniqueField = spec.fields.find((f) => f.uniqueWith && f.uniqueWith.length > 0);
     if (uniqueField) {
       const values = records.map((r) => r.fields[uniqueField.position - 1]);
       const seen = /* @__PURE__ */ new Map();
@@ -53793,42 +53032,6 @@ var ValidationService = class _ValidationService {
           samples: duplicates.slice(0, 5).map((d) => ({
             line: d.lines[0],
             value: d.value,
-            lines: d.lines
-          }))
-        });
-      }
-    } else if (compositeUniqueField) {
-      const seen = /* @__PURE__ */ new Map();
-      const duplicates = [];
-      const combinedFieldNames = [compositeUniqueField.name, ...compositeUniqueField.uniqueWith.map((pos) => {
-        const f = spec.fields.find((field) => field.position === pos);
-        return f ? f.name : `Field ${pos}`;
-      })].join(" + ");
-      records.forEach((record, i) => {
-        const primaryValue = record.fields[compositeUniqueField.position - 1];
-        const compositeValues = compositeUniqueField.uniqueWith.map((pos) => record.fields[pos - 1] || "");
-        const compositeKey = [primaryValue, ...compositeValues].join("|");
-        if (seen.has(compositeKey)) {
-          const existing = seen.get(compositeKey);
-          duplicates.push({
-            value: primaryValue,
-            compositeKey,
-            lines: [existing.lineNumber, record.lineNumber]
-          });
-        } else {
-          seen.set(compositeKey, { lineNumber: record.lineNumber, record });
-        }
-      });
-      if (duplicates.length > 0) {
-        issues.push({
-          severity: "critical",
-          message: `Duplicate ${combinedFieldNames} combinations found`,
-          field: compositeUniqueField.position,
-          count: duplicates.length,
-          samples: duplicates.slice(0, 5).map((d) => ({
-            line: d.lines[0],
-            value: d.value,
-            compositeKey: d.compositeKey,
             lines: d.lines
           }))
         });
@@ -53958,33 +53161,70 @@ var ValidationService = class _ValidationService {
       const targetData = parsedFiles.get(rule.targetFile);
       if (!sourceData || !targetData)
         continue;
-      const targetValues = new Set(targetData.records.map((r) => r.fields[rule.targetField - 1]));
       let sourceRecords = sourceData.records;
       if (rule.condition) {
         sourceRecords = sourceRecords.filter((r) => r.fields[rule.condition.field - 1] === rule.condition.value);
       }
-      const orphans = sourceRecords.filter((r) => {
-        const value = r.fields[rule.sourceField - 1];
-        return value && !targetValues.has(value);
-      });
-      const total = sourceRecords.length;
-      const valid = total - orphans.length;
-      const percentage = total > 0 ? Math.round(valid / total * 100) : 100;
-      results.push({
-        rule: rule.name,
-        description: rule.description,
-        sourceFile: rule.sourceFile,
-        targetFile: rule.targetFile,
-        total,
-        valid,
-        orphans: orphans.length,
-        percentage,
-        severity: orphans.length > 0 ? rule.severity : "ok",
-        samples: orphans.slice(0, 5).map((r) => ({
-          line: r.lineNumber,
-          value: r.fields[rule.sourceField - 1]
-        }))
-      });
+      if (rule.matchField) {
+        const mf = rule.matchField;
+        const targetMap = /* @__PURE__ */ new Map();
+        for (const r of targetData.records) {
+          const key = r.fields[mf.targetKeyField - 1];
+          if (key) {
+            targetMap.set(key, r.fields[mf.targetMatchField - 1] || "");
+          }
+        }
+        const mismatches = sourceRecords.filter((r) => {
+          const sourceKey = r.fields[mf.sourceKeyField - 1];
+          const sourceVal = r.fields[mf.sourceMatchField - 1];
+          if (!sourceKey || !sourceVal)
+            return false;
+          const targetVal = targetMap.get(sourceKey);
+          return targetVal !== void 0 && targetVal !== sourceVal;
+        });
+        const total = sourceRecords.filter((r) => r.fields[mf.sourceKeyField - 1] && r.fields[mf.sourceMatchField - 1]).length;
+        const valid = total - mismatches.length;
+        const percentage = total > 0 ? Math.round(valid / total * 100) : 100;
+        results.push({
+          rule: rule.name,
+          description: rule.description,
+          sourceFile: rule.sourceFile,
+          targetFile: rule.targetFile,
+          total,
+          valid,
+          orphans: mismatches.length,
+          percentage,
+          severity: mismatches.length > 0 ? rule.severity : "ok",
+          samples: mismatches.slice(0, 5).map((r) => ({
+            line: r.lineNumber,
+            value: `MRN=${r.fields[mf.sourceKeyField - 1]} unit_fclty=${r.fields[mf.sourceMatchField - 1]}`
+          }))
+        });
+      } else {
+        const targetValues = new Set(targetData.records.map((r) => r.fields[rule.targetField - 1]));
+        const orphans = sourceRecords.filter((r) => {
+          const value = r.fields[rule.sourceField - 1];
+          return value && !targetValues.has(value);
+        });
+        const total = sourceRecords.length;
+        const valid = total - orphans.length;
+        const percentage = total > 0 ? Math.round(valid / total * 100) : 100;
+        results.push({
+          rule: rule.name,
+          description: rule.description,
+          sourceFile: rule.sourceFile,
+          targetFile: rule.targetFile,
+          total,
+          valid,
+          orphans: orphans.length,
+          percentage,
+          severity: orphans.length > 0 ? rule.severity : "ok",
+          samples: orphans.slice(0, 5).map((r) => ({
+            line: r.lineNumber,
+            value: r.fields[rule.sourceField - 1]
+          }))
+        });
+      }
     }
     return results;
   }
@@ -54475,8 +53715,7 @@ var App = class _App {
 })();
 
 // src/main.ts
-console.log("[main.ts] Starting bootstrap...");
-bootstrapApplication(App, appConfig).then(() => console.log("[main.ts] Bootstrap complete!")).catch((err) => console.error("[main.ts] Bootstrap error:", err));
+bootstrapApplication(App, appConfig).catch((err) => console.error(err));
 /*! Bundled license information:
 
 @angular/common/fesm2022/_platform_location-chunk.mjs:
