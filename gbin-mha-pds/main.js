@@ -1,10 +1,17 @@
 import {
+  AccessControlService
+} from "./chunk-SEISGSYB.js";
+import {
+  MhaPdsConfigurationService
+} from "./chunk-DQI735T4.js";
+import {
+  Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-PULPMUCJ.js";
+} from "./chunk-HHEKJCLL.js";
 import {
   AppStatusService,
   ConfigService,
@@ -14,7 +21,7 @@ import {
   bootstrapApplication,
   provideHttpClient,
   withFetch
-} from "./chunk-AY4AZLFK.js";
+} from "./chunk-GGXYDJ4E.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,7 +45,8 @@ import {
   ɵɵelementEnd,
   ɵɵelementStart,
   ɵɵproperty,
-  ɵɵpureFunction0,
+  ɵɵrepeater,
+  ɵɵrepeaterCreate,
   ɵɵtext,
   ɵɵtextInterpolate
 } from "./chunk-OFQI67IQ.js";
@@ -69,43 +77,76 @@ var OperationsCanDeactivateGuard = class _OperationsCanDeactivateGuard {
   }], null, null);
 })();
 
+// src/app/guards/tab-access.guard.ts
+var tabAccessGuard = (route) => {
+  const accessControl = inject(AccessControlService);
+  const router = inject(Router);
+  const tabKey = route.routeConfig?.path ?? "";
+  if (!accessControl.isConfigLoaded()) return true;
+  if (accessControl.canAccessTab(tabKey)) return true;
+  return router.createUrlTree(["/no-access"]);
+};
+
 // src/app/app.routes.ts
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-ZKQ5DT3C.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-4MIH7IZO.js").then((m) => m.DefaultRedirectComponent),
+    title: "MHA PDS"
+  },
+  {
+    path: "ccl-test",
+    loadComponent: () => import("./chunk-RPSBFODY.js").then((m) => m.CclTest),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-JXH7QAEH.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-WKPPKMGU.js").then((m) => m.ConfigEditorComponent),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-LCCGGR6T.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-LEE3LEO7.js").then((m) => m.LogsComponent),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-PU5B2DSB.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-WMVPWMB2.js").then((m) => m.PatientsComponent),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS Patients"
   },
   {
     path: "audit",
-    loadComponent: () => import("./chunk-KQSCKGRJ.js").then((m) => m.AuditComponent),
+    loadComponent: () => import("./chunk-YBRA32VR.js").then((m) => m.AuditComponent),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS - Audit"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-YWVOBITH.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-VDZV43LU.js").then((m) => m.OperationsComponent),
+    canActivate: [tabAccessGuard],
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
   },
   {
     path: "reference",
-    loadComponent: () => import("./chunk-QY5EZVHV.js").then((m) => m.ReferenceComponent),
+    loadComponent: () => import("./chunk-FGT6NXOC.js").then((m) => m.ReferenceComponent),
+    canActivate: [tabAccessGuard],
     title: "MHA PDS Reference"
+  },
+  {
+    path: "security",
+    loadComponent: () => import("./chunk-JB2HVZVS.js").then((m) => m.SecurityComponent),
+    canActivate: [tabAccessGuard],
+    title: "MHA PDS Security"
+  },
+  {
+    path: "no-access",
+    loadComponent: () => import("./chunk-IYN3FJ7M.js").then((m) => m.NoAccessComponent),
+    title: "MHA PDS - No Access"
   }
 ];
 
@@ -139,8 +180,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.257-develop";
-var packageVersion = "0.0.257";
+var buildVersion = "v0.0.258-develop";
+var packageVersion = "0.0.258";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
@@ -207,10 +248,25 @@ var AppVersion = class _AppVersion {
 })();
 
 // src/app/app.ts
-var _c0 = () => ({ exact: true });
+var _forTrack0 = ($index, $item) => $item.key;
+function App_For_6_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "a", 4);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const tab_r1 = ctx.$implicit;
+    \u0275\u0275property("routerLink", "/" + tab_r1.key);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(tab_r1.label);
+  }
+}
 var App = class _App {
   MPage = inject(MPageService);
   appStatus = inject(AppStatusService);
+  accessControl = inject(AccessControlService);
+  configService = inject(MhaPdsConfigurationService);
   ngOnInit() {
     console.log("[App] ngOnInit - Starting application initialization");
     setTimeout(() => {
@@ -254,60 +310,124 @@ var App = class _App {
       console.log(`[App] ERROR: serviceReady still false after ${elapsed}ms - CCL ping failed/timeout`);
     }
     this.appStatus.setOfflineMode(!isOnline);
+    this.configService.getConfigurationCached().subscribe({
+      error: (err) => this.MPage.putLog("Failed to load configuration: " + err.message)
+    });
     const finalStatus = this.appStatus.offlineMode() ? "OFFLINE" : "ONLINE";
     console.log(`[App] Final app status: ${finalStatus} MODE`);
   }
   static \u0275fac = function App_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _App)();
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 24, vars: 2, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 1, "nav-link", 3, "routerLinkActiveOptions"], ["routerLink", "/config", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/logs", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/patients", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/audit", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/operations", "routerLinkActive", "active", 1, "nav-link"], ["routerLink", "/reference", "routerLinkActive", "active", 1, "nav-link"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _App, selectors: [["app-root"]], decls: 12, vars: 0, consts: [[1, "app-container"], [1, "app-nav"], [1, "nav-brand"], [1, "nav-links"], ["routerLinkActive", "active", 1, "nav-link", 3, "routerLink"], [1, "app-main"], [2, "position", "fixed", "bottom", "10px", "right", "10px"]], template: function App_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 0)(1, "nav", 1)(2, "div", 2);
       \u0275\u0275text(3, "MHA PDS");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(4, "div", 3)(5, "a", 4);
-      \u0275\u0275text(6, "CCL Test");
+      \u0275\u0275elementStart(4, "div", 3);
+      \u0275\u0275repeaterCreate(5, App_For_6_Template, 2, 2, "a", 4, _forTrack0);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(7, "main", 5);
+      \u0275\u0275element(8, "router-outlet");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(7, "a", 5);
-      \u0275\u0275text(8, "Configuration");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(9, "a", 6);
-      \u0275\u0275text(10, "Logs");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(11, "a", 7);
-      \u0275\u0275text(12, "Patients");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(13, "a", 8);
-      \u0275\u0275text(14, "Audit");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(15, "a", 9);
-      \u0275\u0275text(16, "Operations");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(17, "a", 10);
-      \u0275\u0275text(18, "Reference");
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(19, "main", 11);
-      \u0275\u0275element(20, "router-outlet");
-      \u0275\u0275elementEnd();
-      \u0275\u0275element(21, "mpage-log-component");
-      \u0275\u0275elementStart(22, "footer", 12);
-      \u0275\u0275element(23, "app-app-version");
+      \u0275\u0275element(9, "mpage-log-component");
+      \u0275\u0275elementStart(10, "footer", 6);
+      \u0275\u0275element(11, "app-app-version");
       \u0275\u0275elementEnd()();
     }
     if (rf & 2) {
       \u0275\u0275advance(5);
-      \u0275\u0275property("routerLinkActiveOptions", \u0275\u0275pureFunction0(1, _c0));
+      \u0275\u0275repeater(ctx.accessControl.allowedTabs());
     }
   }, dependencies: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], styles: ["\n\n.app-container[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n}\n.app-nav[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 20px;\n  padding: 12px 20px;\n  background-color: #1a365d;\n  color: white;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  position: sticky;\n  top: 0;\n  z-index: 100;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  padding-right: 20px;\n  border-right: 1px solid rgba(255, 255, 255, 0.2);\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n}\n.nav-link[_ngcontent-%COMP%] {\n  padding: 8px 16px;\n  color: rgba(255, 255, 255, 0.85);\n  text-decoration: none;\n  border-radius: 4px;\n  font-size: 14px;\n  transition: all 0.2s;\n}\n.nav-link[_ngcontent-%COMP%]:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n  color: white;\n}\n.nav-link.active[_ngcontent-%COMP%] {\n  background-color: rgba(255, 255, 255, 0.15);\n  color: white;\n}\n.app-main[_ngcontent-%COMP%] {\n  flex: 1;\n  background-color: #f5f5f5;\n}"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(App, [{
     type: Component,
-    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: '<div class="app-container">\n  <!-- Navigation -->\n  <nav class="app-nav">\n    <div class="nav-brand">MHA PDS</div>\n    <div class="nav-links">\n      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">CCL Test</a>\n      <a routerLink="/config" routerLinkActive="active" class="nav-link">Configuration</a>\n      <a routerLink="/logs" routerLinkActive="active" class="nav-link">Logs</a>\n      <a routerLink="/patients" routerLinkActive="active" class="nav-link">Patients</a>\n      <a routerLink="/audit" routerLinkActive="active" class="nav-link">Audit</a>\n      <a routerLink="/operations" routerLinkActive="active" class="nav-link">Operations</a>\n      <a routerLink="/reference" routerLinkActive="active" class="nav-link">Reference</a>\n    </div>\n  </nav>\n\n  <!-- Main Content -->\n  <main class="app-main">\n    <router-outlet />\n  </main>\n\n  <mpage-log-component />\n\n  <footer style="position: fixed; bottom: 10px; right: 10px;">\n    <app-app-version />\n  </footer>\n</div>\n\n<style>\n  .app-container {\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n  }\n\n  .app-nav {\n    display: flex;\n    align-items: center;\n    gap: 20px;\n    padding: 12px 20px;\n    background-color: #1a365d;\n    color: white;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n    position: sticky;\n    top: 0;\n    z-index: 100;\n  }\n\n  .nav-brand {\n    font-size: 18px;\n    font-weight: 600;\n    padding-right: 20px;\n    border-right: 1px solid rgba(255, 255, 255, 0.2);\n  }\n\n  .nav-links {\n    display: flex;\n    gap: 8px;\n  }\n\n  .nav-link {\n    padding: 8px 16px;\n    color: rgba(255, 255, 255, 0.85);\n    text-decoration: none;\n    border-radius: 4px;\n    font-size: 14px;\n    transition: all 0.2s;\n  }\n\n  .nav-link:hover {\n    background-color: rgba(255, 255, 255, 0.1);\n    color: white;\n  }\n\n  .nav-link.active {\n    background-color: rgba(255, 255, 255, 0.15);\n    color: white;\n  }\n\n  .app-main {\n    flex: 1;\n    background-color: #f5f5f5;\n  }\n</style>\n' }]
+    args: [{ selector: "app-root", imports: [MpageLogComponent, AppVersion, RouterOutlet, RouterLink, RouterLinkActive], standalone: true, template: `<div class="app-container">
+  <!-- Navigation -->
+  <nav class="app-nav">
+    <div class="nav-brand">MHA PDS</div>
+    <div class="nav-links">
+      @for (tab of accessControl.allowedTabs(); track tab.key) {
+        <a [routerLink]="'/' + tab.key" routerLinkActive="active" class="nav-link">{{ tab.label }}</a>
+      }
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <mpage-log-component />
+
+  <footer style="position: fixed; bottom: 10px; right: 10px;">
+    <app-app-version />
+  </footer>
+</div>
+
+<style>
+  .app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 20px;
+    background-color: #1a365d;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-brand {
+    font-size: 18px;
+    font-weight: 600;
+    padding-right: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+  }
+
+  .app-main {
+    flex: 1;
+    background-color: #f5f5f5;
+  }
+</style>
+` }]
   }], null, null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 17 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(App, { className: "App", filePath: "src/app/app.ts", lineNumber: 19 });
 })();
 
 // src/main.ts
