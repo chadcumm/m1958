@@ -139,7 +139,7 @@ var routes = [
   },
   {
     path: "security",
-    loadComponent: () => import("./chunk-AH3SRB2Y.js").then((m) => m.SecurityComponent),
+    loadComponent: () => import("./chunk-4RR4IAJJ.js").then((m) => m.SecurityComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Security"
   },
@@ -180,8 +180,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.263-develop";
-var packageVersion = "0.0.263";
+var buildVersion = "v0.0.264-develop";
+var packageVersion = "0.0.264";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
