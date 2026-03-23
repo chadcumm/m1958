@@ -1,9 +1,9 @@
 import {
   AccessControlService
-} from "./chunk-LRF3IYJ3.js";
+} from "./chunk-IJ6JXY3G.js";
 import {
   MhaPdsConfigurationService
-} from "./chunk-Y34IXHXQ.js";
+} from "./chunk-V4GVBYQT.js";
 import {
   Router,
   RouterLink,
@@ -11,7 +11,7 @@ import {
   RouterOutlet,
   provideRouter,
   withHashLocation
-} from "./chunk-GO2D6PVK.js";
+} from "./chunk-SJHD527E.js";
 import {
   AppStatusService,
   ConfigService,
@@ -21,7 +21,7 @@ import {
   bootstrapApplication,
   provideHttpClient,
   withFetch
-} from "./chunk-WVKUAJYU.js";
+} from "./chunk-57JVA67P.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -91,42 +91,42 @@ var tabAccessGuard = (route) => {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-BGXX26OG.js").then((m) => m.DefaultRedirectComponent),
+    loadComponent: () => import("./chunk-CSSMGVO3.js").then((m) => m.DefaultRedirectComponent),
     title: "MHA PDS"
   },
   {
     path: "ccl-test",
-    loadComponent: () => import("./chunk-Q2XYRXJ2.js").then((m) => m.CclTest),
+    loadComponent: () => import("./chunk-7V6RGZYI.js").then((m) => m.CclTest),
     canActivate: [tabAccessGuard],
     title: "MHA PDS - CCL Test"
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-PUIZZDUB.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-RNQHGNK4.js").then((m) => m.ConfigEditorComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Configuration"
   },
   {
     path: "logs",
-    loadComponent: () => import("./chunk-LGPVM5D7.js").then((m) => m.LogsComponent),
+    loadComponent: () => import("./chunk-42Q6XRBP.js").then((m) => m.LogsComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Logs"
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-XPBPUBVH.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-55BRXEEZ.js").then((m) => m.PatientsComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Patients"
   },
   {
     path: "audit",
-    loadComponent: () => import("./chunk-E72NSM4P.js").then((m) => m.AuditComponent),
+    loadComponent: () => import("./chunk-MBSRDMZK.js").then((m) => m.AuditComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS - Audit"
   },
   {
     path: "operations",
-    loadComponent: () => import("./chunk-VUGJAMQK.js").then((m) => m.OperationsComponent),
+    loadComponent: () => import("./chunk-S4CWACQK.js").then((m) => m.OperationsComponent),
     canActivate: [tabAccessGuard],
     canDeactivate: [OperationsCanDeactivateGuard],
     title: "MHA PDS Operations"
@@ -139,13 +139,19 @@ var routes = [
   },
   {
     path: "security",
-    loadComponent: () => import("./chunk-4RR4IAJJ.js").then((m) => m.SecurityComponent),
+    loadComponent: () => import("./chunk-WWJC2DF6.js").then((m) => m.SecurityComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Security"
   },
   {
+    path: "reports",
+    loadComponent: () => import("./chunk-M4E6VOLA.js").then((m) => m.ReportsComponent),
+    canActivate: [tabAccessGuard],
+    title: "MHA PDS Reports"
+  },
+  {
     path: "no-access",
-    loadComponent: () => import("./chunk-JHSZ5CEL.js").then((m) => m.NoAccessComponent),
+    loadComponent: () => import("./chunk-KVXXONRZ.js").then((m) => m.NoAccessComponent),
     title: "MHA PDS - No Access"
   }
 ];
@@ -180,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.264-develop";
-var packageVersion = "0.0.264";
+var buildVersion = "v0.0.265-develop";
+var packageVersion = "0.0.265";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts

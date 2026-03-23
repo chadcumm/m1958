@@ -10477,6 +10477,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377909.0,
           "PRIORITY": 1
         }
       ],
@@ -12155,6 +12156,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377925.0,
           "PRIORITY": 1
         }
       ],
@@ -12223,6 +12225,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377941.0,
           "PRIORITY": 1
         }
       ],
@@ -12371,6 +12374,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377957.0,
           "PRIORITY": 1
         }
       ],
@@ -12559,6 +12563,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377989.0,
           "PRIORITY": 1
         }
       ],
@@ -12606,6 +12611,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377973.0,
           "PRIORITY": 1
         }
       ],
@@ -12694,6 +12700,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618378053.0,
           "PRIORITY": 1
         }
       ],
@@ -12836,7 +12843,14 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618378069.0,
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618491111.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 1,
@@ -13897,6 +13911,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
           "FIELD_NAME": "REFERRAL_RECEIVED_DT_TM",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 537650395.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -13981,6 +14001,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
           "FIELD_NAME": "REFERRAL_SOURCE_TYPE_MAPPED",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377849.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -14129,6 +14155,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
           "FIELD_NAME": "REFERRAL_TYPE_MAPPED",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618377817.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 1,
@@ -14287,6 +14319,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
           "FIELD_NAME": "ELIGIBILITY_SCREENING_DT_TM",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 537654177.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -16121,6 +16159,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_CLIENT",
           "FIELD_NAME": "EDUCATION_LEVEL",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618378021.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -16204,6 +16248,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_CLIENT",
           "FIELD_NAME": "EMPLOYMENT_STATUS",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618378037.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -16392,6 +16442,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_CLIENT",
           "FIELD_NAME": "HOUSING_STATUS",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 618378005.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -16549,6 +16605,12 @@
           "TABLE": "CUST_GBIN_MHA_PDS_EPISODE",
           "FIELD_NAME": "SERVICE_TERMINATION_REASON",
           "PRIORITY": 1
+        },
+        {
+          "TABLE": "CLINICAL_EVENT",
+          "FIELD_NAME": "EVENT_CD",
+          "EVENT_CD_VALUE": 537631773.0,
+          "PRIORITY": 2
         }
       ],
       "ALPHA_RESONSE_IND": 0,
@@ -17372,6 +17434,14 @@
       "ACTIVE_IND": 1
     }
   ],
+  "SERVICE_EXTRACTION_CODES": {
+    "MH_TIME_INTERVALS_CD": 98217242.0,
+    "MHA_VISIT_TYPE_CD": 537628905.0,
+    "MHA_APPOINTMENT_TYPE_CD": 537624885.0,
+    "MHA_GROUP_MODALITY_CD": 537632671.0,
+    "MHA_PROGRAM_SERVICE_CD": 537624975.0,
+    "DCP_GENERIC_CODE_CD": 258355.0
+  },
   "TIME_INTERVAL_MAPPINGS_CNT": 9,
   "TIME_INTERVAL_MAPPINGS": [
     {
