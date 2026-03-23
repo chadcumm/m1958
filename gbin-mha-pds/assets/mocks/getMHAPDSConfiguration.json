@@ -1,5 +1,98 @@
 {
   "UPDT_DT_TM": "2026-02-10T04:31:22.000+00:00",
+  "ACCESS_CONTROL": {
+    "SUPERUSERS": [
+      "DBA",
+      "CN_GBHS_OMF_Admin"
+    ],
+    "TABS": {
+      "CONFIG": {
+        "LABEL": "Configuration",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "LOGS": {
+        "LABEL": "Logs",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "PATIENTS": {
+        "LABEL": "Patients",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "AUDIT": {
+        "LABEL": "Audit",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "OPERATIONS": {
+        "LABEL": "Operations",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "REFERENCE": {
+        "LABEL": "Reference",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team",
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "CCL-TEST": {
+        "LABEL": "CCL Test",
+        "POSITIONS": [
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "SECURITY": {
+        "LABEL": "Security",
+        "POSITIONS": [
+          "CN_GBHS_OMF_Admin"
+        ],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      },
+      "REPORTS": {
+        "LABEL": "Reports",
+        "POSITIONS": [],
+        "USERNAMES": [
+          "jwilletts"
+        ]
+      }
+    }
+  },
   "MIRTH_CONNECT": {
     "URL": "https://mirth.example.com:8443/api",
     "TRIGGER_URL": "http://10.100.101.179:8081/mha-pds-trigger/",
@@ -25,7 +118,8 @@
   "PROCESSING": {
     "ENABLE_DUMMY_MODE": 0,
     "ENABLE_DETAILED_LOGGING": 1,
-    "ENABLE_ERROR_NOTIFICATIONS": 1
+    "ENABLE_ERROR_NOTIFICATIONS": 1,
+    "SEND_GROUP_MINUTES": 0
   },
   "CODE_TABLES_CNT": 32,
   "CODE_TABLES": [
@@ -10477,7 +10571,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377909.0,
+          "EVENT_CD_VALUE": 618377909,
           "PRIORITY": 1
         }
       ],
@@ -12156,7 +12250,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377925.0,
+          "EVENT_CD_VALUE": 618377925,
           "PRIORITY": 1
         }
       ],
@@ -12225,7 +12319,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377941.0,
+          "EVENT_CD_VALUE": 618377941,
           "PRIORITY": 1
         }
       ],
@@ -12374,7 +12468,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377957.0,
+          "EVENT_CD_VALUE": 618377957,
           "PRIORITY": 1
         }
       ],
@@ -12563,7 +12657,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377989.0,
+          "EVENT_CD_VALUE": 618377989,
           "PRIORITY": 1
         }
       ],
@@ -12611,7 +12705,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377973.0,
+          "EVENT_CD_VALUE": 618377973,
           "PRIORITY": 1
         }
       ],
@@ -12700,7 +12794,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618378053.0,
+          "EVENT_CD_VALUE": 618378053,
           "PRIORITY": 1
         }
       ],
@@ -12843,13 +12937,13 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618378069.0,
+          "EVENT_CD_VALUE": 618378069,
           "PRIORITY": 1
         },
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618491111.0,
+          "EVENT_CD_VALUE": 618491111,
           "PRIORITY": 2
         }
       ],
@@ -13616,6 +13710,16 @@
           "DISPLAY": "Short-Term Crisis Support Beds",
           "ACTIVE_IND": 1,
           "PRIORITY": 12
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Supportive Treatment Services",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "4",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Supportive Treatment Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 13
         }
       ],
       "OBSERVATION_CODE": {
@@ -13915,7 +14019,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 537650395.0,
+          "EVENT_CD_VALUE": 537650395,
           "PRIORITY": 2
         }
       ],
@@ -14005,7 +14109,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377849.0,
+          "EVENT_CD_VALUE": 618377849,
           "PRIORITY": 2
         }
       ],
@@ -14159,7 +14263,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618377817.0,
+          "EVENT_CD_VALUE": 618377817,
           "PRIORITY": 2
         }
       ],
@@ -14323,7 +14427,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 537654177.0,
+          "EVENT_CD_VALUE": 537654177,
           "PRIORITY": 2
         }
       ],
@@ -15221,6 +15325,16 @@
           "DISPLAY": "COM Clinics/Programs - MH Abuse Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 17
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Supportive Treatment Services",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "715407830",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM - Residential Addiction - Supportive Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 18
         }
       ],
       "OBSERVATION_CODE": {
@@ -16163,7 +16277,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618378021.0,
+          "EVENT_CD_VALUE": 618378021,
           "PRIORITY": 2
         }
       ],
@@ -16252,7 +16366,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618378037.0,
+          "EVENT_CD_VALUE": 618378037,
           "PRIORITY": 2
         }
       ],
@@ -16446,7 +16560,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 618378005.0,
+          "EVENT_CD_VALUE": 618378005,
           "PRIORITY": 2
         }
       ],
@@ -16609,7 +16723,7 @@
         {
           "TABLE": "CLINICAL_EVENT",
           "FIELD_NAME": "EVENT_CD",
-          "EVENT_CD_VALUE": 537631773.0,
+          "EVENT_CD_VALUE": 537631773,
           "PRIORITY": 2
         }
       ],
@@ -16645,6 +16759,26 @@
           "DISPLAY": "Completion - Referral Unknown",
           "ACTIVE_IND": 1,
           "PRIORITY": 3
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Other: Transfered to another program",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 4
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Other: Patient transfer, in hospital",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
         }
       ],
       "OBSERVATION_CODE": {
@@ -16660,7 +16794,7 @@
         "CODE_SYSTEM": "",
         "VALUE_SET_URL": "",
         "CODE_VALUE_SOURCE": "",
-        "EXTENSION_URL": "http://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-ServiceTerminationReason"
+        "EXTENSION_URL": "https://ontariohealth.ca/fhir/StructureDefinition/ca-on-ext-ServiceTerminationReason"
       }
     }
   ],
@@ -17375,7 +17509,7 @@
       "ACTIVE_IND": 1
     }
   ],
-  "SERVICE_EVENT_TYPES_CNT": 8,
+  "SERVICE_EVENT_TYPES_CNT": 9,
   "SERVICE_EVENT_TYPES": [
     {
       "EVENT_TITLE_TEXT": "Initial Assessment - Outpatient MHA",
@@ -17432,15 +17566,22 @@
       "DESCRIPTION": "Crisis Support Admission History and Assessment",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
+    },
+    {
+      "EVENT_TITLE_TEXT": "Discharge Summary - Outpatient MHA",
+      "EVENT_TYPE_NAME": "DISCHARGE_SUMMARY",
+      "DESCRIPTION": "Discharge Summary - Outpatient MHA",
+      "DCP_EVENT_CD": 258355,
+      "ACTIVE_IND": 1
     }
   ],
   "SERVICE_EXTRACTION_CODES": {
-    "MH_TIME_INTERVALS_CD": 98217242.0,
-    "MHA_VISIT_TYPE_CD": 537628905.0,
-    "MHA_APPOINTMENT_TYPE_CD": 537624885.0,
-    "MHA_GROUP_MODALITY_CD": 537632671.0,
-    "MHA_PROGRAM_SERVICE_CD": 537624975.0,
-    "DCP_GENERIC_CODE_CD": 258355.0
+    "MH_TIME_INTERVALS_CD": 98217242,
+    "MHA_VISIT_TYPE_CD": 537628905,
+    "MHA_APPOINTMENT_TYPE_CD": 537624885,
+    "MHA_GROUP_MODALITY_CD": 537632671,
+    "MHA_PROGRAM_SERVICE_CD": 537624975,
+    "DCP_GENERIC_CODE_CD": 258355
   },
   "TIME_INTERVAL_MAPPINGS_CNT": 9,
   "TIME_INTERVAL_MAPPINGS": [
