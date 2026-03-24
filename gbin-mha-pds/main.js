@@ -1,9 +1,9 @@
 import {
   AccessControlService
-} from "./chunk-JPMZGVE7.js";
+} from "./chunk-DE3X576A.js";
 import {
   MhaPdsConfigurationService
-} from "./chunk-C2AZXA4K.js";
+} from "./chunk-M64B6WT4.js";
 import {
   Router,
   RouterLink,
@@ -91,7 +91,7 @@ var tabAccessGuard = (route) => {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-ANEHYZWD.js").then((m) => m.DefaultRedirectComponent),
+    loadComponent: () => import("./chunk-FEQIHTVB.js").then((m) => m.DefaultRedirectComponent),
     title: "MHA PDS"
   },
   {
@@ -102,7 +102,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-3P3NAZA5.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-4GU4VUP6.js").then((m) => m.ConfigEditorComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Configuration"
   },
@@ -114,7 +114,7 @@ var routes = [
   },
   {
     path: "patients",
-    loadComponent: () => import("./chunk-O7DCBA5N.js").then((m) => m.PatientsComponent),
+    loadComponent: () => import("./chunk-2RYXDHUJ.js").then((m) => m.PatientsComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Patients"
   },
@@ -139,7 +139,7 @@ var routes = [
   },
   {
     path: "security",
-    loadComponent: () => import("./chunk-6RMQ56GK.js").then((m) => m.SecurityComponent),
+    loadComponent: () => import("./chunk-K24E77SG.js").then((m) => m.SecurityComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Security"
   },
@@ -151,7 +151,7 @@ var routes = [
   },
   {
     path: "no-access",
-    loadComponent: () => import("./chunk-SH3M2QV2.js").then((m) => m.NoAccessComponent),
+    loadComponent: () => import("./chunk-PLWXXM6S.js").then((m) => m.NoAccessComponent),
     title: "MHA PDS - No Access"
   }
 ];
@@ -186,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.268-develop";
-var packageVersion = "0.0.268";
+var buildVersion = "v0.0.269-develop";
+var packageVersion = "0.0.269";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
