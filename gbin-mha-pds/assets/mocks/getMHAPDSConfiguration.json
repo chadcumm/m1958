@@ -17632,28 +17632,28 @@
     {
       "EVENT_TITLE_TEXT": "BSO Intake",
       "EVENT_TYPE_NAME": "BSO_INTAKE",
-      "DESCRIPTION": "",
+      "DESCRIPTION": "BSO Intake",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     },
     {
       "EVENT_TITLE_TEXT": "BSO Team Assessment",
       "EVENT_TYPE_NAME": "BSO_TEAM_ASSESSMENT",
-      "DESCRIPTION": "",
+      "DESCRIPTION": "BSO Team Assessment",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     },
     {
       "EVENT_TITLE_TEXT": "Crisis Support Discharge Summary",
       "EVENT_TYPE_NAME": "CRISIS_SUPPORT_DISCHARGE_SUMMARY",
-      "DESCRIPTION": "",
+      "DESCRIPTION": "Crisis Support Discharge Summary",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     },
     {
       "EVENT_TITLE_TEXT": "Crisis Support Plan and Intervention",
       "EVENT_TYPE_NAME": "CRISIS_SUPPORT_PLAN_AND_INTERVENTION",
-      "DESCRIPTION": "",
+      "DESCRIPTION": "Crisis Support Plan and Intervention",
       "DCP_EVENT_CD": 258355,
       "ACTIVE_IND": 1
     }
@@ -17719,9 +17719,9 @@
         "DATE_RANGE_DAYS": 90
       },
       "TABLE_PARAMS": {
-        "SHOW_TOOLBAR": true,
-        "COLUMN_FILTER": true,
-        "HIDE_ID_VALUES": false,
+        "SHOW_TOOLBAR": 1,
+        "COLUMN_FILTER": 1,
+        "HIDE_ID_VALUES": 0,
         "MAX_INITIAL_COLUMN_WIDTH": 300
       }
     }
