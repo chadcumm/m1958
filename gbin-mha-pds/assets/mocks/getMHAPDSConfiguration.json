@@ -17704,5 +17704,26 @@
       "INTERVAL_TEXT": "More than 5 minutes to 30 minutes",
       "MAX_MINUTES": 30
     }
+  ],
+  "REPORTS_CNT": 1,
+  "REPORTS": [
+    {
+      "REPORT_ID": "activity_log",
+      "TITLE": "Activity Log",
+      "DESCRIPTION": "Full query of the MHA PDS log table with filtering and export",
+      "RENDER_TYPE": "mpage_table",
+      "ACTIVE_IND": 1,
+      "SORT_SEQ": 1,
+      "CCL_SCRIPT": "gbin_mha_pds_rpt_activity_log",
+      "PARAMS": {
+        "DATE_RANGE_DAYS": 90
+      },
+      "TABLE_PARAMS": {
+        "SHOW_TOOLBAR": true,
+        "COLUMN_FILTER": true,
+        "HIDE_ID_VALUES": false,
+        "MAX_INITIAL_COLUMN_WIDTH": 300
+      }
+    }
   ]
 }
