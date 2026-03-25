@@ -1,6 +1,6 @@
 import {
   AccessControlService
-} from "./chunk-EJHEW7ZA.js";
+} from "./chunk-K4KBBNCN.js";
 import {
   MhaPdsConfigurationService
 } from "./chunk-YITHQB7Z.js";
@@ -91,7 +91,7 @@ var tabAccessGuard = (route) => {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-4M2M7AWQ.js").then((m) => m.DefaultRedirectComponent),
+    loadComponent: () => import("./chunk-2QRLTYL2.js").then((m) => m.DefaultRedirectComponent),
     title: "MHA PDS"
   },
   {
@@ -102,7 +102,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-XCM4GKED.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-IDWIQL7I.js").then((m) => m.ConfigEditorComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Configuration"
   },
@@ -139,19 +139,19 @@ var routes = [
   },
   {
     path: "security",
-    loadComponent: () => import("./chunk-DJSQCQSX.js").then((m) => m.SecurityComponent),
+    loadComponent: () => import("./chunk-NRZBBXXX.js").then((m) => m.SecurityComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Security"
   },
   {
     path: "reports",
-    loadComponent: () => import("./chunk-EBKRKU2N.js").then((m) => m.ReportsComponent),
+    loadComponent: () => import("./chunk-NTFOIVTY.js").then((m) => m.ReportsComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Reports"
   },
   {
     path: "no-access",
-    loadComponent: () => import("./chunk-RAT62ZW5.js").then((m) => m.NoAccessComponent),
+    loadComponent: () => import("./chunk-BCJF5FTA.js").then((m) => m.NoAccessComponent),
     title: "MHA PDS - No Access"
   }
 ];
@@ -186,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.282-develop";
-var packageVersion = "0.0.282";
+var buildVersion = "v0.0.283-develop";
+var packageVersion = "0.0.283";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts

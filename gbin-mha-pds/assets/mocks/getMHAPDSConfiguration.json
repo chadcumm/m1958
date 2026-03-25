@@ -91,6 +91,13 @@
           "jwilletts"
         ]
       }
+    },
+    "REPORT_CATEGORIES": {
+      "ADMIN": {
+        "LABEL": "Admin Reports",
+        "POSITIONS": ["CN_GBHS_Proj_Team", "CN_GBHS_OMF_Admin"],
+        "USERNAMES": ["jwilletts"]
+      }
     }
   },
   "MIRTH_CONNECT": {
@@ -17715,6 +17722,7 @@
       "ACTIVE_IND": 1,
       "SORT_SEQ": 1,
       "CCL_SCRIPT": "gbin_mha_pds_rpt_activity_log",
+      "CATEGORY": "ADMIN",
       "PARAMS": {
         "DATE_RANGE_DAYS": 90
       },
