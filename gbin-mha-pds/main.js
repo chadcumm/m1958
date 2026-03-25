@@ -145,7 +145,7 @@ var routes = [
   },
   {
     path: "reports",
-    loadComponent: () => import("./chunk-BXBD3KFY.js").then((m) => m.ReportsComponent),
+    loadComponent: () => import("./chunk-2GMMLKD7.js").then((m) => m.ReportsComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Reports"
   },
@@ -186,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.287-develop";
-var packageVersion = "0.0.287";
+var buildVersion = "v0.0.288-develop";
+var packageVersion = "0.0.288";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
