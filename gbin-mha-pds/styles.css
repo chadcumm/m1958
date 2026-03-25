@@ -34,7 +34,7 @@
 :root {
   --text-color: black;
   --text-color-alternate: grey;
-  --font-family: "Roboto Condensed";
+  --font-family: "IBM Plex Sans";
   --font-generic-name: sans-serif;
   --font-size: medium;
   --context-background-color: white;
@@ -85,33 +85,27 @@
   --mpage-scrollbar-color: grey;
   --mpage-scrollbar-border: 1px solid grey;
   --mpage-scrollbar-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  --mpage-table-container-border: 1px solid lightgrey;
-  --mpage-table-font-size: inherit;
-  --mpage-table-header-height: 40px;
-  --mpage-table-header-background-color: rgb(124, 179, 198);
-  --mpage-table-row-height: 36px;
-  --mpage-table-background-color: white;
-  --mpage-table-cell-border: 1px solid lightgrey;
-  --mpage-table-sort-arrow-color: grey;
-  --mpage-table-filter-background-color: whitesmoke;
+  --mpage-table-container-border: 1px solid var(--mha-border);
+  --mpage-table-font-size: 13px;
+  --mpage-table-header-height: 38px;
+  --mpage-table-header-background-color: var(--mha-teal);
+  --mpage-table-row-height: 34px;
+  --mpage-table-background-color: var(--mha-surface);
+  --mpage-table-cell-border: 1px solid var(--mha-border-light);
+  --mpage-table-sort-arrow-color: rgba(255, 255, 255, 0.7);
+  --mpage-table-filter-background-color: var(--mha-surface-dim);
   --mpage-table-toolbar-box-height: fit-content;
-  --mpage-table-toolbar-background-color: lightblue;
-  --mpage-table-toolbar-border-radius: 0;
-  --mpage-table-toolbar-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  --mpage-table-toolbar-icon-color: black;
-  --mpage-table-toolbar-padding: 8px;
-  --mpage-table-toolbar-drag-background: lightgrey;
+  --mpage-table-toolbar-background-color: var(--mha-teal-bg);
+  --mpage-table-toolbar-border-radius: var(--mha-r);
+  --mpage-table-toolbar-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --mpage-table-toolbar-icon-color: var(--mha-teal-dark);
+  --mpage-table-toolbar-padding: 8px 12px;
+  --mpage-table-toolbar-drag-background: var(--mha-surface-dim);
   --mpage-table-toolbar-drag-padding: 8px;
-  --mpage-table-toolbar-drag-border: unset;
-  --mpage-table-toolbar-drag-border-alternate: 2px solid;
-  --mpage-table-toolbar-drag-border-radius: 0;
-  --mpage-table-empty-space-background:
-    repeating-linear-gradient(
-      -30deg,
-      rgba(0, 0, 0, 0.04),
-      rgba(0, 0, 0, 0.04) 4px,
-      rgba(0, 0, 0, 0.08) 6px,
-      rgba(0, 0, 0, 0.08) 10px);
+  --mpage-table-toolbar-drag-border: 1px solid var(--mha-border-light);
+  --mpage-table-toolbar-drag-border-alternate: 2px solid var(--mha-teal);
+  --mpage-table-toolbar-drag-border-radius: var(--mha-r);
+  --mpage-table-empty-space-background: var(--mha-surface-dim);
   --dialog-padding: 1em;
   --dialog-content-padding: 1em 0;
   --dialog-content-background: inherit;
