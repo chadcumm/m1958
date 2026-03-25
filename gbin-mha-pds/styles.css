@@ -88,7 +88,7 @@
   --mpage-table-container-border: 1px solid var(--mha-border);
   --mpage-table-font-size: 13px;
   --mpage-table-header-height: 38px;
-  --mpage-table-header-background-color: var(--mha-teal);
+  --mpage-table-header-background-color: #1a365d;
   --mpage-table-row-height: 34px;
   --mpage-table-background-color: var(--mha-surface);
   --mpage-table-cell-border: 1px solid var(--mha-border-light);
