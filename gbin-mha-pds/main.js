@@ -102,7 +102,7 @@ var routes = [
   },
   {
     path: "config",
-    loadComponent: () => import("./chunk-57WWXFP7.js").then((m) => m.ConfigEditorComponent),
+    loadComponent: () => import("./chunk-2DDLWYDT.js").then((m) => m.ConfigEditorComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Configuration"
   },
@@ -186,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.289-develop";
-var packageVersion = "0.0.289";
+var buildVersion = "v0.0.290-develop";
+var packageVersion = "0.0.290";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts

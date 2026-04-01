@@ -30,7 +30,8 @@
         "LABEL": "Patients",
         "POSITIONS": [
           "CN_GBHS_Proj_Team",
-          "CN_GBHS_OMF_Admin"
+          "CN_GBHS_OMF_Admin",
+          "CN_MHA_PDS"
         ],
         "USERNAMES": [
           "jwilletts"
@@ -86,7 +87,9 @@
       },
       "REPORTS": {
         "LABEL": "Reports",
-        "POSITIONS": [],
+        "POSITIONS": [
+          "CN_MHA_PDS"
+        ],
         "USERNAMES": [
           "jwilletts"
         ]
@@ -94,9 +97,19 @@
     },
     "REPORT_CATEGORIES": {
       "ADMIN": {
-        "LABEL": "Admin Reports",
-        "POSITIONS": ["CN_GBHS_Proj_Team", "CN_GBHS_OMF_Admin"],
-        "USERNAMES": ["jwilletts"]
+        "LABEL": "Administrative Reports",
+        "POSITIONS": [
+          "CN_GBHS_Proj_Team"
+        ],
+        "USERNAMES": []
+      },
+      "CLINICAL_OPS": {
+        "LABEL": "Clinical Operations",
+        "POSITIONS": [
+          "CN_MHA_PDS",
+          "CN_GBHS_Proj_Team"
+        ],
+        "USERNAMES": []
       }
     }
   },
@@ -126,7 +139,8 @@
     "ENABLE_DUMMY_MODE": 0,
     "ENABLE_DETAILED_LOGGING": 1,
     "ENABLE_ERROR_NOTIFICATIONS": 1,
-    "SEND_GROUP_MINUTES": 0
+    "SEND_GROUP_MINUTES": 0,
+    "HSE_CUTOFF_DT_TM": ""
   },
   "CODE_TABLES_CNT": 32,
   "CODE_TABLES": [
@@ -424,7 +438,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "348",
-      "LABEL": "A348 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Brief Services",
+      "LABEL": "A348 – Brief Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -434,7 +448,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "349",
-      "LABEL": "A349 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Counselling/Therapy Services",
+      "LABEL": "A349 – Counselling/Therapy Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -444,7 +458,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "350",
-      "LABEL": "A350 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Crisis Support Services",
+      "LABEL": "A350 – Crisis Support Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -454,7 +468,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "351",
-      "LABEL": "A351 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“Family Capacity Building and Support",
+      "LABEL": "A351 – Family Capacity Building and Support",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -474,7 +488,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "353",
-      "LABEL": "A353 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Intensive Treatment Services",
+      "LABEL": "A353 – Intensive Treatment Services",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -514,7 +528,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "356",
-      "LABEL": "A356 ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Targeted Prevention",
+      "LABEL": "A356 – Targeted Prevention",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CYMH BI",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1114,7 +1128,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725097810",
-      "LABEL": "Case Mgmt/ Supportive Counselling & Services ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
+      "LABEL": "Case Mgmt/ Supportive Counselling & Services – Addictions Supportive Housing (ASH)SA - Case Mgmt/Counsel - Supp Housing",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "DATIS-MDS, OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1374,7 +1388,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "72530750",
-      "LABEL": "MH- Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Child/Adolescent",
+      "LABEL": "MH- Home Care – Child/Adolescent",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1394,7 +1408,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307625",
-      "LABEL": "MH- Home Care -Psychiatric ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Acute",
+      "LABEL": "MH- Home Care -Psychiatric – Acute",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1404,7 +1418,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307655",
-      "LABEL": "MH- Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Forensic Psychiatry",
+      "LABEL": "MH- Home Care – Forensic Psychiatry",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "OHRS",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -1424,7 +1438,7 @@
     {
       "CODE_TABLE_ID": "CT-005",
       "CODE": "725307690",
-      "LABEL": "MH - Home Care ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Psychiatric Crisis",
+      "LABEL": "MH - Home Care – Psychiatric Crisis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/ontario-healthcare-reporting-system",
@@ -2524,7 +2538,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186039002",
-      "LABEL": "New Zealand MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
+      "LABEL": "New Zealand Māori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2534,7 +2548,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "186040000",
-      "LABEL": "Cook Island MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
+      "LABEL": "Cook Island Māori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -2734,7 +2748,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "243284401000087108",
-      "LABEL": "MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©tis",
+      "LABEL": "Métis",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -3974,7 +3988,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "73736004",
-      "LABEL": "MÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âori",
+      "LABEL": "Māori",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4304,7 +4318,7 @@
     {
       "CODE_TABLE_ID": "CT-010",
       "CODE": "87323008",
-      "LABEL": "Nez PercÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©",
+      "LABEL": "Nez Percé",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "https://auth.infoway-inforoute.ca/openam/XUI/?goto=https%3A%2F%2Ftgateway.inf...",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -4554,7 +4568,7 @@
     {
       "CODE_TABLE_ID": "CT-012",
       "CODE": "189542671000087101",
-      "LABEL": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
+      "LABEL": "Ministère de la Santé et des Services sociaux du Québec",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "SNOMED CT, PHC Reference Set, CIHI CRDM",
       "CODE_SYSTEM": "http://snomed.info/sct",
@@ -7944,7 +7958,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPA",
-      "LABEL": "Health Promotion/Education ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Awareness",
+      "LABEL": "Health Promotion/Education – Awareness",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -7954,7 +7968,7 @@
     {
       "CODE_TABLE_ID": "CT-020",
       "CODE": "HPW",
-      "LABEL": "Health Promotion/Education ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ Women's Health (MH)",
+      "LABEL": "Health Promotion/Education – Women's Health (MH)",
       "DESCRIPTION": "",
       "CODE_VALUE_SOURCE": "CDS-MH, OCAN 3.0",
       "CODE_SYSTEM": "https://data.ontario.ca/dataset/common-data-set-mental-health-cds-mh",
@@ -10215,7 +10229,7 @@
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
           "PDS_VALUE": "189542671000087101",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "MinistÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re de la SantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© et des Services sociaux du QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec",
+          "DISPLAY": "Ministère de la Santé et des Services sociaux du Québec",
           "ACTIVE_IND": 1,
           "PRIORITY": 1
         },
@@ -12366,7 +12380,7 @@
         },
         {
           "TYPE": "GENDER_IDENTITY_CODE",
-          "KEY_REF": "Non-binary",
+          "KEY_REF": "Nonbinary",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "non-binary",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
@@ -12376,21 +12390,11 @@
         },
         {
           "TYPE": "GENDER_IDENTITY_CODE",
-          "KEY_REF": "Trans woman",
+          "KEY_REF": "Genderfluid or genderqueer",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
-          "PDS_VALUE": "transgender-female",
+          "PDS_VALUE": "gender-non-conforming",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Trans Female",
-          "ACTIVE_IND": 1,
-          "PRIORITY": 0
-        },
-        {
-          "TYPE": "GENDER_IDENTITY_CODE",
-          "KEY_REF": "Trans man",
-          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
-          "PDS_VALUE": "transgender-male",
-          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Trans Male",
+          "DISPLAY": "Gender non-conforming",
           "ACTIVE_IND": 1,
           "PRIORITY": 0
         },
@@ -12970,7 +12974,7 @@
       "PAIRS": [
         {
           "TYPE": "INCOME_SUPPORTING_CODE",
-          "KEY_REF": "Number of persons (please specify)",
+          "KEY_REF": "Number of Persons",
           "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
           "PDS_VALUE": "Number of Persons",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
@@ -13568,6 +13572,16 @@
           "DISPLAY": "Outpatient Addiction Treatment Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 30
+        },
+        {
+          "TYPE": "CONNEX_SITE_NUMBER",
+          "KEY_REF": "BSO GBRT Geri-Outreach -OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "2",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Owen Sound Hospital",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 31
         }
       ],
       "OBSERVATION_CODE": {
@@ -13742,6 +13756,166 @@
           "DISPLAY": "Supportive Treatment Services",
           "ACTIVE_IND": 1,
           "PRIORITY": 13
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Geriatric - Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Geriatric - Case Mgt",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 14
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Hanover - Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hanover - Case Mgt",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 15
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Meaford - Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Meaford - Case Mgt",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 16
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Wiarton - Case Mgt",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Wiarton - Case Mgt",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 17
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "CTO Coordinator",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "CTO Coordinator",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 18
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "MH NP-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH NP-OS",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 19
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "MH Brief Counselling-NB Team",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH Brief Counselling-NB Team",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 20
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "CMHS Counselling and Treatment-OL",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "15",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "CMHS Counselling and Treatment-OL",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 21
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Injection Clinic",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Injection Clinic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 22
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Clozapine Clinic-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Clozapine Clinic-OS",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 23
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Walk In Clinic - MHA",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "3",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Walk In Clinic - MHA",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 24
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "OP Psych-OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "OP Psych-OS",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 25
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Esketamine Clinic",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Esketamine Clinic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 26
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "BSO GBRT Geri-Outreach -OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "BSO GBRT Geri-Outreach -OS",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 27
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "DED Outreach MH-WI",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "DED Outreach MH-WI",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 28
+        },
+        {
+          "TYPE": "CONNEX_PROGRAM_NUMBER",
+          "KEY_REF": "Mental H-WI",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "13",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Mental H-WI",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 29
         }
       ],
       "OBSERVATION_CODE": {
@@ -14244,6 +14418,126 @@
           "DISPLAY": "Hospital - General",
           "ACTIVE_IND": 1,
           "PRIORITY": 10
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Centralized Referral Organization and/or Helpline (e.g. ConnexOntario)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "31",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Connex",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Community Mental Health and/or Addictions Organization - CYMH",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "22",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Community Org - Child Mental Health Program",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 12
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Private Mental Health Services",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "17",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Medical Services - Private",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 13
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Supportive Housing/Shelters Program",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-10",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Housing - Programs/Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 14
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Domestic Violence Service",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "0AS",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Abuse Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 15
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Employment Program",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "EMP",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Vocational/Employment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 16
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Long-term care",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-03",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other Institution",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 17
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Other Community Program",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "018-14",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Community Org - Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 18
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Other Health/Medical Provider (e.g. clinic, public health unit, nursing services)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "20",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Public Health Unit/Nursing Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 19
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "School System",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "3",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Education/Training Programs/Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 20
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Child Protective Services",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "24",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Social Service Org - Child Program",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 21
+        },
+        {
+          "TYPE": "REFERRAL_SOURCE_TYPE",
+          "KEY_REF": "Other Referral Source",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other Referral Source",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 22
         }
       ],
       "OBSERVATION_CODE": {
@@ -15111,6 +15405,16 @@
           "DISPLAY": "369 Mary St. Wiarton",
           "ACTIVE_IND": 1,
           "PRIORITY": 29
+        },
+        {
+          "TYPE": "CONNEX_SITE_NAME",
+          "KEY_REF": "BSO GBRT Geri-Outreach -OS",
+          "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
+          "PDS_VALUE": "Brightshores Health System - 9th Ave Owen Sound",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Owen Sound Hospital",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 30
         }
       ],
       "OBSERVATION_CODE": {
@@ -15378,6 +15682,166 @@
           "DISPLAY": "COM - Residential Addiction - Supportive Treatment",
           "ACTIVE_IND": 1,
           "PRIORITY": 18
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Geriatric - Case Mgt",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 19
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Hanover - Case Mgt",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 20
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Meaford - Case Mgt",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 21
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Wiarton - Case Mgt",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 22
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Injection Clinic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 23
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Clozapine Clinic-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 24
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "CTO Coordinator",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 25
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "MH NP-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250976",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Case Management/Supportive Counselling & Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 26
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "MH Brief Counselling-NB Team",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107612",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Counselling and Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 27
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "CMHS Counselling and Treatment-OL",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107612",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Counselling and Treatment",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 28
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Walk In Clinic - MHA",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7151576",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Crisis Intervention - Mental Health",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 29
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "OP Psych-OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "7250710",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Com Medical Resources - Psychiatrists",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 30
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "BSO GBRT Geri-Outreach -OS",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "715107696",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "COM Clinics/Programs - MH Psycho-geriatric",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 31
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Esketamine Clinic",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107630",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Community Clinic",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 32
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "DED Outreach MH-WI",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107699",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Other Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 33
+        },
+        {
+          "TYPE": "FUNCTIONAL_CENTRE_CODE",
+          "KEY_REF": "Mental H-WI",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "725107699",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "MH - Other Services",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 34
         }
       ],
       "OBSERVATION_CODE": {
@@ -16378,6 +16842,66 @@
           "DISPLAY": "Unknown",
           "ACTIVE_IND": 1,
           "PRIORITY": 4
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Grade school (grade 1-8)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "473463000",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Received elementary school education",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "College, CEGEP or other non-university certificate or diploma (or ongoing)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "224302000",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Received higher education college education",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Undergraduate degree or some university",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "224300008",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Received university education",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Postgraduate degree or professional designation (e.g., Master's, PhD, MD)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "440344006",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Received postgraduate education",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Not applicable",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "HIGHEST_EDUCATION_LEVEL",
+          "KEY_REF": "Prefer not to answer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "asked-declined",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Asked But Declined",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
         }
       ],
       "OBSERVATION_CODE": {
@@ -16473,11 +16997,71 @@
           "TYPE": "EMPLOYMENT_STATUS",
           "KEY_REF": "Employed - full time (permanent)",
           "KEY_REF_TYPE": "CODE_VALUE_DISPLAY",
-          "PDS_VALUE": "228651001",
+          "PDS_VALUE": "406156006",
           "PDS_VALUE_TYPE": "MHA_PDS_CODE",
-          "DISPLAY": "Employment retraining",
+          "DISPLAY": "In paid employment",
           "ACTIVE_IND": 1,
           "PRIORITY": 5
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Retired",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "105493001",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Retired",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Student",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "741062008",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Not in labor force",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Stay at home caregiver",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "741062008",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Not in labor force",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Other (please specify)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Do not know",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "UNK",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Unknown",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
+        },
+        {
+          "TYPE": "EMPLOYMENT_STATUS",
+          "KEY_REF": "Prefer not to answer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "asked-declined",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Asked But Declined",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
         }
       ],
       "OBSERVATION_CODE": {
@@ -16655,6 +17239,86 @@
           "DISPLAY": "Supportive living",
           "ACTIVE_IND": 1,
           "PRIORITY": 3
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "A place you or your family owns",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "160943002",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Lives in own home",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 4
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Correctional facility",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "257656006",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Correctional Facility",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 5
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Experiencing homelessness (e.g., shelter, living in a public place or vehicle)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "32911000",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Homeless",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Long-term care facility",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "310207003",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Sheltered Housing",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Staying in someone else's place because you have no alternative",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "257628001",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Hostel",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Other (please specify)",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Do not know",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "UNK",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Do not know",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
+        },
+        {
+          "TYPE": "HOUSING_STATUS",
+          "KEY_REF": "Prefer not to answer",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "asked-declined",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Asked But Declined",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
         }
       ],
       "OBSERVATION_CODE": {
@@ -16841,6 +17505,86 @@
           "DISPLAY": "Other",
           "ACTIVE_IND": 1,
           "PRIORITY": 5
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Admitted LTC Home",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "019-05",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Client Relocation",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 6
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Age Limit Reached",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 7
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Community Service",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "TRO",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Transferred - Other than Hospitalized",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 8
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Death while in the care of organization",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "419099009",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dead",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 9
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Death while in the hospital",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "419099009",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Dead",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 10
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Hospitalized >14 days",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "37729005",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Patient transfer, in hospital",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 11
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Transfer - Other CCAC",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "TRO",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Transferred - Other than Hospitalized",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 12
+        },
+        {
+          "TYPE": "SERVICE_TERMINATION_REASON",
+          "KEY_REF": "Vacation > 30 days",
+          "KEY_REF_TYPE": "ALPHA_RESPONSE_DISPLAY",
+          "PDS_VALUE": "OTH",
+          "PDS_VALUE_TYPE": "MHA_PDS_CODE",
+          "DISPLAY": "Other",
+          "ACTIVE_IND": 1,
+          "PRIORITY": 13
         }
       ],
       "OBSERVATION_CODE": {
@@ -17394,7 +18138,7 @@
       "IS_DEFAULT": 0
     }
   ],
-  "MHA_LOCATIONS_CNT": 29,
+  "MHA_LOCATIONS_CNT": 30,
   "MHA_LOCATIONS": [
     {
       "LOCATION_NAME": "ACT Team-OS",
@@ -17569,6 +18313,12 @@
       "FACILITY_CD": 11449,
       "NURSE_UNIT_CD": 537742757,
       "ACTIVE_IND": 1
+    },
+    {
+      "LOCATION_NAME": "BSO GBRT Geri-Outreach -OS",
+      "FACILITY_CD": 11449,
+      "NURSE_UNIT_CD": 78823230,
+      "ACTIVE_IND": 1
     }
   ],
   "SERVICE_EVENT_TYPES_CNT": 13,
@@ -17712,7 +18462,7 @@
       "MAX_MINUTES": 30
     }
   ],
-  "REPORTS_CNT": 1,
+  "REPORTS_CNT": 3,
   "REPORTS": [
     {
       "REPORT_ID": "activity_log",
@@ -17722,16 +18472,54 @@
       "ACTIVE_IND": 1,
       "SORT_SEQ": 1,
       "CCL_SCRIPT": "gbin_mha_pds_rpt_activity_log",
-      "CATEGORY": "ADMIN",
       "PARAMS": {
-        "DATE_RANGE_DAYS": 90
+        "DATE_RANGE_DAYS": 1
       },
       "TABLE_PARAMS": {
         "SHOW_TOOLBAR": 1,
         "COLUMN_FILTER": 1,
         "HIDE_ID_VALUES": 0,
         "MAX_INITIAL_COLUMN_WIDTH": 300
-      }
+      },
+      "CATEGORY": "ADMIN"
+    },
+    {
+      "REPORT_ID": "spreadsheet_template",
+      "TITLE": "Spreadsheet Template",
+      "DESCRIPTION": "",
+      "RENDER_TYPE": "spreadsheet",
+      "ACTIVE_IND": 1,
+      "SORT_SEQ": 2,
+      "CCL_SCRIPT": "gbin_mha_pds_rpt_xls_tmpl",
+      "PARAMS": {
+        "DATE_RANGE_DAYS": 0
+      },
+      "TABLE_PARAMS": {
+        "SHOW_TOOLBAR": 1,
+        "COLUMN_FILTER": 1,
+        "HIDE_ID_VALUES": 0,
+        "MAX_INITIAL_COLUMN_WIDTH": 300
+      },
+      "CATEGORY": "ADMIN"
+    },
+    {
+      "REPORT_ID": "pdf_template",
+      "TITLE": "PDF Template",
+      "DESCRIPTION": "",
+      "RENDER_TYPE": "pdf",
+      "ACTIVE_IND": 1,
+      "SORT_SEQ": 3,
+      "CCL_SCRIPT": "gbin_mha_pds_rpt_pdf_tmpl",
+      "PARAMS": {
+        "DATE_RANGE_DAYS": 0
+      },
+      "TABLE_PARAMS": {
+        "SHOW_TOOLBAR": 1,
+        "COLUMN_FILTER": 1,
+        "HIDE_ID_VALUES": 0,
+        "MAX_INITIAL_COLUMN_WIDTH": 300
+      },
+      "CATEGORY": "ADMIN"
     }
   ]
 }
