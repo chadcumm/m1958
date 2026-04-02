@@ -133,7 +133,7 @@ var routes = [
   },
   {
     path: "reference",
-    loadComponent: () => import("./chunk-FGT6NXOC.js").then((m) => m.ReferenceComponent),
+    loadComponent: () => import("./chunk-AIVCHCT5.js").then((m) => m.ReferenceComponent),
     canActivate: [tabAccessGuard],
     title: "MHA PDS Reference"
   },
@@ -186,8 +186,8 @@ var appConfig = {
 };
 
 // src/app/version.ts
-var buildVersion = "v0.0.290-develop";
-var packageVersion = "0.0.290";
+var buildVersion = "v0.0.291-develop";
+var packageVersion = "0.0.291";
 var gitBranch = "develop";
 
 // src/app/app-version/app-version.ts
